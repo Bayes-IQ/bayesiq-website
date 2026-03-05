@@ -54,9 +54,9 @@ const services = [
       "Compare your logging specification for patient portal or telehealth apps against what actually fires in production. We identify missing fields, unsent events, and broken session stitching so your engagement metrics reflect real patient behavior.",
   },
   {
-    title: "Analytics Pipeline Design",
+    title: "End-to-End Pipeline & Dashboards",
     description:
-      "Review or redesign ETL pipelines for clinical data, payer data feeds, or operational reporting. We define reliable metric definitions aligned to clinical context and recommend testing strategies appropriate for healthcare data sensitivity.",
+      "We go from your warehouse to validated dashboards in 6 weeks. Auto-generated dbt models handle deduplication and clinical data normalization. Interactive Streamlit dashboards give your team trustworthy clinical, operational, and quality metrics — with drift detection built in.",
   },
 ];
 
@@ -180,11 +180,11 @@ export default function HealthcarePage() {
             How an engagement works
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
-            Most engagements run 1–2 weeks, primarily async. We start with a
-            discovery session to understand your architecture, then run
-            AI-assisted analysis to surface issues faster than manual review
-            alone. Findings are delivered as a severity-ranked report with root
-            cause analysis and specific fix recommendations.
+            A diagnostic sprint runs 1 week and surfaces critical issues fast.
+            A full engagement runs 6 weeks — from warehouse connection to validated
+            dashboards. We audit your data, align on assumptions and metric definitions
+            with your team, then auto-generate the dbt project and interactive dashboards.
+            Your team gets trustworthy clinical and operational metrics from day one.
           </p>
           <div className="mt-6">
             <Link

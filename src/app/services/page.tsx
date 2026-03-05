@@ -4,11 +4,11 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Data quality audits, telemetry validation, and analytics pipeline design.",
+    "Data quality audits, telemetry validation, and end-to-end pipeline delivery — from warehouse to dashboard.",
   openGraph: {
     title: "Services — BayesIQ",
     description:
-      "Data quality audits, telemetry validation, and analytics pipeline design.",
+      "Data quality audits, telemetry validation, and end-to-end pipeline delivery — from warehouse to dashboard.",
   },
 };
 
@@ -50,9 +50,9 @@ const serviceJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Analytics Pipeline Design",
+          name: "End-to-End Pipeline: Warehouse to Dashboard",
           description:
-            "ETL architecture review or greenfield design. Metrics layer definition and reliability improvements.",
+            "From warehouse to validated dashboards in 6 weeks. Auto-generated dbt projects, interactive Streamlit dashboards, and drift detection.",
         },
       },
     ],
@@ -66,6 +66,7 @@ const services = [
       "Full evaluation of telemetry accuracy, metric reliability, pipeline health, and dashboard correctness. We look at event schemas, transformation logic, metric definitions, and the queries that power your dashboards.",
     deliverables: [
       "Severity-ranked issue report with root cause analysis",
+      "Data assumptions document — what we believe about your data, validated with your team",
       "Fix recommendations for each issue",
       "Executive summary for leadership",
       "Technical detail for engineering teams",
@@ -89,18 +90,20 @@ const services = [
       "Product teams shipping telemetry who need to know it's correct before building metrics on top of it. Especially useful before launching A/B tests.",
   },
   {
-    title: "Analytics Pipeline Design",
+    title: "End-to-End Pipeline: Warehouse to Dashboard",
     scope:
-      "ETL architecture review or greenfield design. Metrics layer definition. Reliability improvements for existing pipelines.",
+      "We connect to your warehouse, audit the data, align on assumptions and metric definitions with your team, then auto-generate the dbt project and interactive dashboards. From raw data to validated, trustworthy dashboards in 6 weeks.",
     deliverables: [
-      "Architecture document with data flow diagrams",
-      "Implementation plan with prioritized steps",
-      "Metric definitions with clear business logic",
-      "Testing and validation strategy",
+      "Data assumptions document with client sign-off checklist",
+      "Metric specification with formulas, dimensions, and validation rules",
+      "Auto-generated dbt project — staging models, mart models, 40+ tests",
+      "Interactive Streamlit dashboards with filters, charts, and data quality views",
+      "Drift detection queries and monitoring setup",
+      "Architecture documentation with data flow diagrams",
     ],
-    format: "2–4 week engagement. Collaborative design with your data team.",
+    format: "6-week engagement. Assumptions sign-off at Week 3–4 before building.",
     audience:
-      "Teams building or rebuilding their data platform. Common scenario: outgrown a patchwork of scripts and need a reliable, maintainable architecture.",
+      "Teams that need the full fix, not just the diagnosis. Common scenario: you know the metrics are wrong and need trustworthy numbers fast — for a board deck, fundraise, or operational decisions.",
   },
   {
     title: "Continuous Monitoring",

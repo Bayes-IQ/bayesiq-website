@@ -24,24 +24,34 @@ const deliverables = [
       "Every confirmed issue ranked Critical, High, Medium, or Low, with root cause analysis and a specific fix recommendation.",
   },
   {
+    title: "Data assumptions document",
+    description:
+      "What we believe to be true about your data — schema assumptions, quality expectations, temporal patterns, and entity relationships. Your team signs off before we build anything.",
+  },
+  {
+    title: "Metric specification",
+    description:
+      "Formal definitions for every business metric: formula, source events, dimensions, and period-by-period validation against reported numbers.",
+  },
+  {
     title: "Executive summary",
     description:
       "A one-page narrative for leadership: what we found, what it means for the business, and what to do first.",
   },
   {
-    title: "Technical findings detail",
+    title: "dbt project with automated tests",
     description:
-      "Full field-level evidence for the engineering team: event names, property names, transformation steps, and SQL/code pointers where applicable.",
+      "Auto-generated staging-to-mart dbt models with deduplication, canonicalization, and 40+ data quality tests. Ready to deploy to your warehouse.",
+  },
+  {
+    title: "Interactive Streamlit dashboards",
+    description:
+      "Dashboards built on validated metrics with sidebar filters, time series charts, dimension breakdowns, and a data quality summary. Your team can use them from day one.",
   },
   {
     title: "Phased remediation plan",
     description:
       "Issues grouped into three fix phases (Immediate / Short-term / Long-term) with estimated effort and expected impact.",
-  },
-  {
-    title: "Engagement timeline summary",
-    description:
-      "A record of what we did, when, and what access was used — useful for internal postmortems and compliance.",
   },
 ];
 
@@ -178,33 +188,33 @@ const remediationPhases = [
 const timelineSteps = [
   {
     phase: "Discovery",
-    timeline: "Day 1–2",
+    timeline: "Week 1–2",
     description:
-      "Kickoff call, architecture review, access setup, logging spec collection.",
+      "Kickoff call, architecture review, access setup, logging spec collection. AI agents scan telemetry, pipelines, and metric definitions.",
   },
   {
-    phase: "Automated Scan",
-    timeline: "Day 3–5",
+    phase: "Audit & Findings",
+    timeline: "Week 2–3",
     description:
-      "AI agents scan telemetry, pipelines, and metric definitions. Read-only access. No production changes.",
+      "Data scientists review automated findings, eliminate false positives, assess severity, and identify root causes. Severity-ranked report delivered.",
   },
   {
-    phase: "Expert Review",
-    timeline: "Day 5–7",
+    phase: "Assumptions Sign-off",
+    timeline: "Week 3–4",
     description:
-      "Data scientists interpret findings, eliminate false positives, assess severity, and identify root causes.",
+      "Data assumptions document and metric specification delivered. Your team reviews and signs off before we build — this is the alignment gate.",
   },
   {
-    phase: "Report Delivery",
-    timeline: "Day 7–10",
+    phase: "Implementation & Dashboards",
+    timeline: "Week 5–6",
     description:
-      "Severity-ranked findings report, remediation plan, and executive summary delivered. Findings review call included.",
+      "Auto-generated dbt project, interactive Streamlit dashboards, and drift detection setup delivered. Your team has trustworthy metrics from day one.",
   },
   {
-    phase: "Implementation Support",
+    phase: "Continuous Monitoring",
     timeline: "Optional",
     description:
-      "Pair with your engineers to implement fixes, set up validation tests, or handle the hardest root causes.",
+      "Automated drift detection, alerting rules, and ongoing validation. $2–5K/month retainer.",
   },
 ];
 
@@ -287,7 +297,7 @@ export default function SampleReportPage() {
             What&apos;s included in every audit
           </h2>
           <p className="mt-3 text-base text-bayesiq-600">
-            Every BayesIQ Data Quality Audit delivers five components.
+            A full BayesIQ engagement delivers these components.
           </p>
           <ul className="mt-8 space-y-6">
             {deliverables.map((d) => (
@@ -507,8 +517,8 @@ export default function SampleReportPage() {
             Engagement timeline
           </h2>
           <p className="mt-3 text-base text-bayesiq-600">
-            A standard Data Quality Audit runs 7–10 business days from kickoff
-            to final report delivery.
+            A full engagement runs 6 weeks from kickoff to validated dashboards.
+            Diagnostic sprints deliver findings in 1 week.
           </p>
           <div className="mt-10 space-y-8">
             {timelineSteps.map((step, index) => (

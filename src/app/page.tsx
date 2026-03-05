@@ -71,8 +71,8 @@ export default function HomePage() {
               description="Compare what your logging spec says vs. what actually fires. Field-level validation of every event, every required property."
             />
             <ServiceCard
-              title="Pipeline Design"
-              description="ETL architecture review or greenfield design. Metrics layer definition. Reliability improvements for data systems that need to scale."
+              title="Warehouse to Dashboard"
+              description="We auto-generate dbt projects, interactive dashboards, and drift detection from your warehouse data. Trustworthy metrics in 6 weeks."
             />
           </div>
         </div>
@@ -98,8 +98,8 @@ export default function HomePage() {
               },
               {
                 step: "03",
-                title: "Fix",
-                desc: "You get a severity-ranked report with root cause analysis and specific fix recommendations. Not vague suggestions — actionable steps.",
+                title: "Build",
+                desc: "We deliver validated dbt models, interactive dashboards, and drift detection. Not just a report — a working system your team can use from day one.",
               },
             ].map((item) => (
               <div key={item.step} className="flex gap-6">

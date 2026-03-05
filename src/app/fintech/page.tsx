@@ -59,9 +59,9 @@ const services = [
       "Compare your logging specification for web, mobile, and payment processor events against what actually fires in production. We identify null fields on transaction records, duplicate events from retry logic, and identity stitching gaps — so your funnel metrics are validated before you run experiments on top of them.",
   },
   {
-    title: "Analytics Pipeline Design",
+    title: "End-to-End Pipeline & Dashboards",
     description:
-      "Review or redesign ETL pipelines for transaction data, revenue recognition logic, or risk model feature stores. We define reliable metric definitions with explicit business logic and recommend idempotency controls, settlement timing handling, and validation strategies appropriate for financial data.",
+      "We go from your warehouse to validated dashboards in 6 weeks. Auto-generated dbt models handle deduplication, currency normalization, and settlement timing. Interactive Streamlit dashboards give your team trustworthy revenue, fraud, and compliance metrics — with drift detection built in.",
   },
 ];
 
@@ -187,13 +187,12 @@ export default function FintechPage() {
             How an engagement works
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
-            Most engagements run 1–2 weeks, primarily async. We start with a
-            discovery session to understand your event schemas and pipeline
-            architecture, then run AI-assisted analysis to surface issues faster
-            than manual review alone. P0 findings — metrics that are materially
-            wrong today — are typically escalated within 48 hours. Final
-            delivery is a severity-ranked report with root cause analysis and
-            specific fix recommendations.
+            A diagnostic sprint runs 1 week and surfaces P0 issues within 48 hours.
+            A full engagement runs 6 weeks — from warehouse connection to validated
+            dashboards. We audit your data, align on assumptions and metric definitions
+            with your team, then auto-generate the dbt project and interactive dashboards.
+            Your team gets trustworthy numbers they can use for board decks, compliance
+            reporting, and operational decisions.
           </p>
           <div className="mt-6">
             <Link

@@ -42,29 +42,30 @@ const steps = [
   },
   {
     step: "04",
-    title: "Findings & Fix Plan",
-    timeline: "Day 7–10",
+    title: "Assumptions Sign-off",
+    timeline: "Week 3–4",
     description:
-      "A severity-ranked report of every confirmed issue, with root cause analysis and specific fix recommendations. Two versions — an executive summary for leadership, and technical detail for the engineering team.",
+      "We deliver a data assumptions document — what we believe to be true about your data based on the audit. Your team reviews and signs off before we build anything. This prevents rework and ensures alignment.",
     detail:
-      "A document you can hand directly to your data team with clear next steps. Not vague recommendations — specific fixes with expected impact.",
+      "Includes confidence levels for each assumption, source findings, and a metric specification with formulas and dimensions.",
   },
   {
     step: "05",
-    title: "Implementation Support",
-    timeline: "Optional",
+    title: "Implementation & Dashboards",
+    timeline: "Week 5–6",
     description:
-      "We can help implement fixes, set up validation tests, or pair with your engineers on the hardest problems. Many teams take the report and execute independently.",
-    detail: "Flexible format: hourly, weekly sprints, or fixed scope.",
+      "We auto-generate a dbt project (staging models, mart models, 40+ tests), build interactive Streamlit dashboards with your validated metrics, and set up drift detection. Your team gets trustworthy numbers they can use immediately.",
+    detail:
+      "Full engagement delivers working dbt project, dashboards, and monitoring — not just a report.",
   },
   {
     step: "06",
-    title: "Monitoring Setup",
+    title: "Continuous Monitoring",
     timeline: "Optional",
     description:
       "Automated agents that catch drift, telemetry gaps, and metric inconsistencies on an ongoing basis. Think of it as a CI pipeline for your data quality.",
     detail:
-      "Continuous checks, alerting rules, and a runbook for responding to issues.",
+      "Continuous checks, alerting rules, and a runbook for responding to issues. $2–5K/month.",
   },
 ];
 
@@ -116,11 +117,11 @@ export default function ApproachPage() {
               </p>
             </div>
             <div>
-              <p className="text-sm font-medium text-bayesiq-900">No lock-in</p>
+              <p className="text-sm font-medium text-bayesiq-900">End-to-end delivery</p>
               <p className="mt-1 text-sm text-bayesiq-600">
-                We audit, report, and help fix. We don&apos;t require you to adopt
-                our platform or commit to ongoing contracts. Take the report and
-                run.
+                We go from your warehouse to validated dashboards. You get a
+                working dbt project, interactive dashboards, and drift detection
+                — not just a report. No ongoing contracts required.
               </p>
             </div>
           </div>
@@ -165,7 +166,7 @@ export default function ApproachPage() {
 
       <CTA
         headline="Ready to find out what your data is hiding?"
-        description="Most engagements go from kickoff to actionable findings in under two weeks."
+        description="Most engagements go from kickoff to validated dashboards in 6 weeks. Start with a diagnostic sprint."
       />
     </>
   );
