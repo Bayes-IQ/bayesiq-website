@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 
@@ -55,7 +56,10 @@ export default async function BlogPostPage({ params }: Props) {
         </header>
 
         <div className="prose-bayesiq mt-12">
-          <MDXRemote source={post.content} />
+          <MDXRemote
+            source={post.content}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          />
         </div>
       </div>
     </article>
