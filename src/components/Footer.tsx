@@ -39,7 +39,7 @@ export default function Footer() {
               Approach
             </Link>
             <Link href="/case-studies" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Case Studies
+              Live Demo
             </Link>
             <Link href="/contact" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
               Contact
