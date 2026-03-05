@@ -1,0 +1,246 @@
+---
+title: "Schema drift: why your metrics degrade over time"
+date: "2026-03-10"
+description: "Schema drift silently corrupts metrics long before anyone notices. Here's how it happens, how to detect it, and a week-one playbook to stop it."
+---
+
+Your dashboards looked fine last quarter. Then someone asked why the activation rate dropped 9 points month-over-month, and nobody could agree on what had changed.
+
+The answer is usually schema drift.
+
+Schema drift is the gradual divergence between the event structure your analytics pipeline expects and the event structure your instrumentation actually sends. It doesn't produce an error. It produces numbers that are quietly, plausibly wrong.
+
+## What schema drift is
+
+A logging spec defines what events should fire, when, and with what fields. Schema drift happens when reality no longer matches the spec — and the pipeline doesn't notice.
+
+Three things make schema drift dangerous:
+
+1. **It's invisible at the ingestion layer.** Most pipelines accept events as long as they parse. A missing field, a renamed property, or a changed type doesn't trigger an alert — it just silently skews the metric that depended on it.
+2. **It compounds across time.** A 5% null rate on a required field accumulates. Dashboards that looked right last month look subtly wrong this month, and obviously wrong in a quarter.
+3. **It's often introduced by routine work.** A mobile release, a backend rename, a third-party SDK update — none of these are mistakes. They're just changes that didn't get reflected everywhere.
+
+The result: you trust the numbers, ship the feature, set the target, allocate the budget — and then discover the metric was wrong months later.
+
+---
+
+## How schema drift shows up in metrics
+
+Schema drift doesn't announce itself. It surfaces as anomalies that are easy to explain away.
+
+### Symptom 1 — A metric drops without a clear cause
+
+After the v2.9.0 mobile release, `plan_tier` became null for **~18% of events** across three event types: `subscription_started`, `plan_upgraded`, and `plan_downgraded`. The field had been renamed in the backend API response but the mobile client hadn't been updated yet.
+
+The downstream effect: revenue dashboards that segmented by `plan_tier` silently dropped 18% of rows from the calculation. The aggregated revenue number looked plausible. The per-plan breakdown was wrong.
+
+### Symptom 2 — Two metrics tell different stories
+
+A rename from `user_id` → `account_id` was deployed on web but not on the iOS client. For six weeks, the web events joined correctly on `account_id`; iOS events joined on nothing and were dropped. Attribution fell **12%** in the affected window — not because fewer conversions happened, but because the join key was missing on one platform.
+
+### Symptom 3 — A metric improves without a real change
+
+This is the most dangerous variant. If a required field that was suppressing rows (e.g., a filter on a required field that was previously null) suddenly becomes populated, your metric can jump in a way that looks like product success. It isn't. The data got better; the product didn't change.
+
+---
+
+## Common causes of schema drift
+
+| Cause | How it happens | What it breaks |
+|---|---|---|
+| Instrumentation change | A new client version changes a field name, type, or optionality | Joins, filters, groupings that reference the old field |
+| Partial rollout | A change ships to web but not iOS, or to 60% of users via a flag | Platform-level aggregations; cohort comparisons |
+| Backfill or migration | Historical events are re-ingested with a different schema version | Time-series comparisons; cohort analysis |
+| Client version skew | Old app versions and new versions fire events simultaneously | Any metric that aggregates across versions |
+| Optionality creep | A required field becomes optional (or nullable) in practice | Queries that assume the field is always present |
+| Third-party SDK update | A vendor changes what it sends or how it formats fields | Any metric that relies on vendor-provided properties |
+
+---
+
+## A concrete scenario: the `plan_tier` drift
+
+Here's a self-contained example of how drift accumulates and what it costs.
+
+**Timeline:**
+- **Week 0:** Backend API renames `plan_tier` → `subscription_tier` in the v3.1 release.
+- **Week 1:** Web client is updated; starts sending `subscription_tier`. iOS client is not updated; continues sending `plan_tier`. Android client is on a 2-week release cycle.
+- **Week 2:** iOS v2.9.0 ships with the fix. Android v4.2.1 ships one week later.
+- **Week 3:** All clients are on the new field name. But 3 weeks of data has a split.
+
+**What the pipeline sees:**
+
+```sql
+-- During the 3-week drift window
+SELECT
+  event_name,
+  plan_tier,          -- populated from iOS/Android (old field)
+  subscription_tier,  -- populated from web (new field)
+  COUNT(*) AS events
+FROM events
+WHERE event_timestamp BETWEEN '2026-01-15' AND '2026-02-05'
+  AND event_name = 'subscription_started'
+GROUP BY event_name, plan_tier, subscription_tier
+ORDER BY events DESC;
+```
+
+A query that segments by `plan_tier` misses all web events during this window. A query that segments by `subscription_tier` misses all iOS and Android events. A dashboard that just counts `subscription_started` events looks fine — total volume is normal. It's only the segmentation that's broken.
+
+**The numeric impact:** In this scenario, web accounted for ~55% of `subscription_started` events. For 3 weeks, any plan-level breakdown was missing 55% of its rows. A "conversion by plan tier" chart for Q1 would be built on roughly half the actual data, with no indication anything was wrong.
+
+---
+
+## Detection: how to find schema drift
+
+Detection has two modes: reactive (you suspect something is wrong) and proactive (you're monitoring continuously).
+
+### Reactive: null-rate audit by field and platform
+
+When a metric looks wrong, start here:
+
+```sql
+-- Null rate per required field, broken out by client platform
+SELECT
+  client_platform,
+  COUNT(*) AS total_events,
+  COUNTIF(plan_tier IS NULL) AS missing_plan_tier,
+  COUNTIF(subscription_tier IS NULL) AS missing_subscription_tier,
+  ROUND(COUNTIF(plan_tier IS NULL) / COUNT(*) * 100, 2) AS plan_tier_null_pct,
+  ROUND(COUNTIF(subscription_tier IS NULL) / COUNT(*) * 100, 2) AS sub_tier_null_pct
+FROM events
+WHERE event_name = 'subscription_started'
+  AND event_timestamp >= CURRENT_DATE - INTERVAL '30 days'
+GROUP BY client_platform
+ORDER BY total_events DESC;
+```
+
+If you see `plan_tier_null_pct` spike on `web` and `sub_tier_null_pct` spike on `ios`, you've found a rename drift. The timestamp of the spike tells you when it started.
+
+### Proactive: cardinality and null-rate monitoring
+
+Set up a daily monitoring query that flags when a required field's null rate exceeds a threshold:
+
+```sql
+-- Daily null-rate monitor for required fields on conversion events
+SELECT
+  DATE(event_timestamp) AS event_date,
+  event_name,
+  COUNT(*) AS total_events,
+  COUNTIF(plan_tier IS NULL) AS missing_plan_tier,
+  ROUND(COUNTIF(plan_tier IS NULL) / COUNT(*) * 100, 2) AS null_rate_pct
+FROM events
+WHERE event_name IN ('subscription_started', 'plan_upgraded', 'plan_downgraded')
+  AND event_timestamp >= CURRENT_DATE - INTERVAL '14 days'
+GROUP BY event_date, event_name
+HAVING null_rate_pct > 1.0
+ORDER BY event_date DESC, null_rate_pct DESC;
+```
+
+Any row returned by this query is a finding. Configure it as an alert (via dbt tests, a monitoring tool, or a scheduled query with a notification step) so it fires before a human notices a dashboard anomaly.
+
+### Schema contract validation
+
+Beyond null rates, you can validate field shapes proactively. The concept: define what a valid event looks like, and assert it:
+
+```sql
+-- Validate that subscription_started events conform to the expected schema
+SELECT
+  event_id,
+  event_timestamp,
+  -- Required field checks
+  CASE WHEN user_id IS NULL THEN 'missing user_id' END AS violation_user_id,
+  CASE WHEN subscription_tier IS NULL THEN 'missing subscription_tier' END AS violation_tier,
+  CASE WHEN amount_cents IS NULL OR amount_cents <= 0 THEN 'invalid amount_cents' END AS violation_amount,
+  -- Type shape checks
+  CASE
+    WHEN NOT REGEXP_CONTAINS(CAST(amount_cents AS STRING), r'^\d+$')
+    THEN 'non-integer amount_cents'
+  END AS violation_amount_type
+FROM events
+WHERE event_name = 'subscription_started'
+  AND event_timestamp >= CURRENT_DATE - INTERVAL '7 days'
+HAVING
+  violation_user_id IS NOT NULL
+  OR violation_tier IS NOT NULL
+  OR violation_amount IS NOT NULL
+  OR violation_amount_type IS NOT NULL;
+```
+
+Run this in CI on a sample of recent events, or as a scheduled data quality test. Any row is a schema violation that should be investigated before it reaches downstream metrics.
+
+---
+
+## Prevention: stopping drift before it starts
+
+Detection tells you what's already wrong. Prevention keeps it from happening again.
+
+The five most effective interventions, in order of leverage:
+
+1. **Treat your logging spec like a schema, not a document.** A spec in a shared Google Doc drifts. A spec in version control, reviewed as part of every instrumentation PR, doesn't drift as fast.
+2. **Deploy field changes across all client platforms simultaneously — or use a parallel-fire period.** If you can't update all clients at once, fire both the old and new field names simultaneously until all clients are on the new version. Then deprecate the old field.
+3. **Validate at ingestion, not just at analysis.** A pipeline that rejects events with missing required fields stops drift at the source. A pipeline that accepts everything and lets analysts figure it out accumulates debt.
+4. **Monitor null rates and cardinality on required fields continuously.** A 1% null rate threshold on a conversion event's required fields is a reasonable P0 alert. It will catch most instrumentation drift within 24–48 hours.
+5. **Use schema versioning for major changes.** If an event's schema changes significantly, version it (`subscription_started_v2`) rather than mutating the existing event silently. This makes the transition visible in the data.
+
+---
+
+## Week-one schema drift monitoring checklist
+
+Use this in the first week after an instrumentation change, a major product release, or any period where you suspect drift. It's also a reasonable standing monthly check.
+
+**Field-level validation**
+- [ ] Null rate on every required field is below 1% for all conversion events (per platform)
+- [ ] No new `null` values on fields that were previously fully populated
+- [ ] Enum fields (e.g., `plan_tier`, `event_source`) contain only expected values — no new variants
+
+**Event-level validation**
+- [ ] Total event volume for top-10 events is within ±10% of the prior 7-day average
+- [ ] No event types have appeared or disappeared since the last check
+- [ ] Platform breakdown (web / iOS / Android) is proportionally consistent with baseline
+
+**Schema and naming**
+- [ ] No fields have been renamed without a parallel-fire period in place
+- [ ] All new fields added in this release are present in the logging spec
+- [ ] Field types match their spec definitions (no strings where numbers are expected)
+
+**Pipeline integrity**
+- [ ] Row counts at pipeline input vs. output are within expected tolerance
+- [ ] No schema migration has run against historical event data without an impact assessment
+- [ ] Late-arrival rate (events ingested >24 hours after `event_timestamp`) is below 5%
+
+**Monitoring and alerting**
+- [ ] Null-rate alert is configured for required fields on P0 conversion events
+- [ ] A cardinality alert exists for high-value enum fields (to detect new unexpected values)
+- [ ] Schema contract validation tests ran clean after the last deployment
+
+---
+
+## Why drift is hard to catch manually
+
+The same property that makes schema drift dangerous makes it hard to catch: it doesn't produce errors. A dashboard that was built when `plan_tier` was the correct field name keeps running. It just silently drops the rows where `plan_tier` is null. If the null rate is 15%, the dashboard reports on 85% of reality and looks plausible.
+
+Human review doesn't catch this reliably. Dashboards look fine until they don't. By the time an anomaly is obvious enough to investigate, weeks of metrics are compromised, and the root cause is buried in a deployment from three sprints ago.
+
+The only reliable defense is automated, continuous monitoring of the invariants your metrics depend on — null rates, cardinality, row counts, field types — with alerts that fire before anomalies reach the dashboard layer.
+
+---
+
+## Get ahead of schema drift
+
+If you're not monitoring null rates and cardinality continuously, your metrics are probably already drifting. The question is how much.
+
+A BayesIQ data quality audit identifies active schema drift, quantifies its impact on your key metrics, and gives you a prioritized fix plan — typically within a week.
+
+**What the engagement looks like:**
+
+- We systematically validate your live event data against your logging spec
+- We run null-rate and cardinality analysis across your conversion events by platform and client version
+- We surface any active drift, quantify the metric impact, and classify findings by severity (P0–P3)
+- You get a concrete fix plan with timelines your engineering team can act on
+
+We typically find at least one P0 issue — a metric that is materially wrong right now — in the first 48 hours.
+
+[Book a data quality audit →](/contact)
+
+If you'd prefer to start with a conversation, describe what you're seeing or send us your logging spec. We'll tell you whether you have an active drift problem and what it would take to fix it.
+
+[Get in touch →](/contact)

@@ -1,6 +1,6 @@
 # BayesIQ Website — Development Roadmap
 
-Last Updated: 2026-03-04 (Phase 1 complete, Phase 2 next)
+Last Updated: 2026-03-04 (Phases 1–3 complete, Phase 4 next)
 
 ---
 
@@ -29,9 +29,9 @@ Never skip the source-of-truth step. Page copy that doesn't trace back to a prod
 - **Framework:** Next.js 15 (App Router) + TypeScript
 - **Styling:** Tailwind CSS v4
 - **Hosting:** Vercel
-- **Forms:** Resend + Next.js server action (planned)
-- **Analytics:** Vercel Analytics or Plausible (planned)
-- **Content:** Direct TSX for pages (blog will use MDX when added)
+- **Forms:** Resend + Next.js server action
+- **Analytics:** Vercel Analytics (`@vercel/analytics`)
+- **Content:** Direct TSX for pages; MDX blog via `next-mdx-remote/rsc` + `gray-matter`
 
 ---
 
@@ -128,15 +128,15 @@ Order optimized for fastest feedback loop: SEO + analytics first (visibility), t
 
 | # | Title | Phase | Layers affected | Status |
 |---|-------|-------|-----------------|--------|
-| #10 | SEO metadata + structured data | 2 | `src/app/layout.tsx`, `src/app/*/page.tsx`, `public/` | pending |
-| #11 | Sitemap + robots.txt | 2 | `public/`, `next.config.mjs`, `site.config.yaml` | pending |
-| #12 | Analytics integration + event spec | 2 | `src/app/layout.tsx`, `package.json`, `docs/ops/analytics_events.md` | pending |
-| #13 | Resend contact form server action | 2 | `src/app/contact/`, `src/components/ContactForm.tsx` | pending |
-| #14 | Privacy + Terms pages | 2 | `src/app/privacy/`, `src/app/terms/`, `site.config.yaml` | pending |
-| #15 | Blog infrastructure (MDX + index + post routes) | 2 | `src/app/blog/`, `src/components/`, `content/blog/`, `package.json`, `next.config.mjs` | pending |
-| #16 | Blog post: telemetry audit guide | 2 | `content/blog/` | pending |
-| #17 | Blog post: 5 telemetry failures | 2 | `content/blog/` | pending |
-| #18 | Blog post: schema drift | 2 | `content/blog/` | pending |
+| #10 | SEO metadata + structured data | 2 | `src/app/layout.tsx`, `src/app/*/page.tsx` | ✅ done |
+| #11 | Sitemap + robots.txt | 2 | `src/app/sitemap.ts`, `src/app/robots.ts` | ✅ done |
+| #12 | Analytics integration + event spec | 2 | `src/app/layout.tsx`, `package.json`, `docs/ops/analytics_events.md` | ✅ done |
+| #13 | Resend contact form server action | 2 | `src/app/contact/actions.ts`, `src/components/ContactForm.tsx` | ✅ done |
+| #14 | Privacy + Terms pages | 2 | `src/app/privacy/`, `src/app/terms/`, `src/components/Footer.tsx` | ✅ done |
+| #15 | Blog infrastructure (MDX + index + post routes) | 2 | `src/app/blog/`, `src/lib/blog.ts`, `content/blog/`, `package.json` | ✅ done |
+| #16 | Blog post: telemetry audit guide | 2 | `content/blog/telemetry-audit-in-a-week.mdx` | ✅ done |
+| #17 | Blog post: 5 telemetry failures | 2 | `content/blog/5-telemetry-failures.mdx` | ✅ done |
+| #18 | Blog post: schema drift | 2 | `content/blog/schema-drift-why-your-metrics-degrade-over-time.mdx` | ✅ done |
 
 ### PR Dependencies
 
@@ -184,19 +184,28 @@ Key outcomes:
 
 | # | Title | Phase | Layers affected | Status |
 |---|-------|-------|-----------------|--------|
-| #10 | Calendly embed on contact page | 3 | `src/app/contact/`, `src/components/` | pending |
-| #11 | Email capture / newsletter signup | 3 | `src/components/`, `src/app/layout.tsx` or footer | pending |
-| #12 | Sample deliverable preview page | 3 | `src/app/sample-report/`, `docs/product/`, `site.config.yaml` | pending |
-| #13 | Data quality self-assessment tool | 3 | `src/app/assessment/`, `src/components/` | pending |
-| #14 | Healthcare landing page | 3 | `src/app/healthcare/`, `docs/product/`, `site.config.yaml` | pending |
-| #15 | Fintech landing page | 3 | `src/app/fintech/`, `docs/product/`, `site.config.yaml` | pending |
+| #19 | Calendly embed on contact page | 3 | `src/app/contact/`, `src/components/CalendlyEmbed.tsx` | ✅ done |
+| #20 | Email capture / newsletter signup | 3 | `src/components/NewsletterSignup.tsx`, `src/app/actions/newsletter.ts`, `src/components/Footer.tsx` | ✅ done |
+| #21 | Sample deliverable preview page | 3 | `src/app/sample-report/`, `site.config.yaml` | ✅ done |
+| #22 | Data quality self-assessment tool | 3 | `src/app/assessment/`, `src/components/assessment/` | ✅ done |
+| #23 | Industry landing pages (Healthcare + Fintech) | 3 | `src/app/healthcare/`, `src/app/fintech/`, `site.config.yaml` | ✅ done |
+
+### PR Dependencies
+
+```
+#19 (Calendly) — depends on #12 (analytics)
+#20 (Email capture) — depends on #13 (Resend), #14 (privacy), #12 (analytics)
+#21 (Sample report) — depends on #14 (privacy/terms)
+#22 (Self-assessment) — depends on #20 (email capture), #12 (analytics), #14 (privacy)
+#23 (Landing pages) — depends on #21 (sample report), #19 (Calendly), #20 (email capture)
+```
 
 ### Exit Criteria
 
 Phase 3 is done when:
-- Visitors can book a call directly from the site
-- Email capture is live and collecting subscribers
-- Sample report page is live and linked from services/approach pages
+- Visitors can book a call directly from the site (Calendly embed)
+- Email capture is live and collecting subscribers (Resend-backed)
+- Sample report page is live and linked from at least one high-intent page
 - Self-assessment tool generates a score and captures email
 - At least 2 industry landing pages are live
 

@@ -16,6 +16,9 @@ Page views are tracked automatically. Custom events use `track()` from `@vercel/
 | `contact_submit_success` | — | Form submitted and email sent successfully |
 | `contact_submit_error` | `error_type`: string | Debug form delivery issues |
 | `blog_post_view` | `slug`: string | Content performance (added with blog infra PR#15) |
+| `newsletter_signup_started` | — | User submitted the newsletter signup form |
+| `newsletter_signup_success` | — | Email successfully added to Resend Audience |
+| `newsletter_signup_error` | `error_type`: string | Signup failed; values: `invalid_email`, `config_error`, `resend_error`, `unknown` |
 
 ## Naming Conventions
 
@@ -35,3 +38,6 @@ Page views are tracked automatically. Custom events use `track()` from `@vercel/
 | `contact_submit_success` | Pending | #13 (with Resend) |
 | `contact_submit_error` | Pending | #13 (with Resend) |
 | `blog_post_view` | Pending | #15 (with blog infra) |
+| `newsletter_signup_started` | Pending | #20 |
+| `newsletter_signup_success` | Pending | #20 |
+| `newsletter_signup_error` | Pending | #20 |

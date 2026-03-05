@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import CalendlyEmbed from "@/components/CalendlyEmbed";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -14,6 +15,7 @@ export default function ContactPage() {
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-5xl">
+        {/* ── Existing 2-col layout: messaging + form ── */}
         <div className="grid gap-16 md:grid-cols-2">
           {/* Left: messaging */}
           <div>
@@ -62,6 +64,9 @@ export default function ContactPage() {
             <ContactForm />
           </div>
         </div>
+
+        {/* ── Full-width Calendly embed below the 2-col grid ── */}
+        <CalendlyEmbed />
       </div>
     </section>
   );

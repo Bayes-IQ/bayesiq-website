@@ -39,6 +39,21 @@ pages:
     title: Terms of Service — BayesIQ
     description: "Terms of service for BayesIQ consulting engagements and website use."
 
+  - path: /assessment
+    type: page
+    title: Data Quality Self-Assessment — BayesIQ
+    description: "Answer 6 questions and find out where your data infrastructure stands — with a score, tier assessment, and actionable recommendations."
+
+  - path: /healthcare
+    type: page
+    title: Healthcare Data Auditing — BayesIQ
+    description: "BayesIQ helps healthcare organizations audit clinical analytics, validate patient telemetry, and fix metric pipelines — without touching PHI."
+
+  - path: /fintech
+    type: page
+    title: Fintech Data Auditing — BayesIQ
+    description: "BayesIQ helps fintech teams audit transaction analytics, validate payment telemetry, and fix the pipeline issues that make revenue metrics wrong."
+
 nav:
   items:
     - label: Services
