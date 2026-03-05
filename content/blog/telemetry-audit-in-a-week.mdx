@@ -1,0 +1,208 @@
+---
+title: "How to audit your product telemetry in a week"
+date: "2026-03-05"
+description: "A structured, day-by-day plan for finding what your analytics are missing — before it poisons your metrics."
+---
+
+Most product telemetry problems aren't discovered by data teams. They're discovered by engineers arguing in Slack, or by a VP noticing that two dashboards show different numbers for the same metric. By then, bad data has already influenced weeks of decisions.
+
+This guide gives you a concrete plan to audit your telemetry in a week — not a vague "data quality review," but a systematic process with clear steps, outputs, and a fix plan.
+
+## Who this is for
+
+This is written for analytics engineers, data engineers, and technical product managers who own or are responsible for product telemetry. You should be comfortable reading a logging spec, running a SQL query, and having a conversation with whoever wrote the tracking implementation.
+
+**Prerequisites:**
+
+- Access to your logging specification (or event taxonomy document)
+- Query access to your raw event data (BigQuery, Snowflake, Redshift, or equivalent)
+- 2–4 hours of focus time per day for the week
+
+---
+
+## Key definitions
+
+**Telemetry spec (logging spec):** The document that describes what events should fire, when, and with what fields. This is the source of truth. If it doesn't exist, creating a minimal one is the first output of your audit.
+
+**Event taxonomy:** The categorized hierarchy of event types your product emits — e.g., `user_action`, `system_event`, `conversion`. Gives structure to the event namespace.
+
+**Schema:** The field-level contract for a given event — required fields, types, allowed values. Think of it as a type definition for your analytics payloads.
+
+---
+
+## The 7-day audit plan
+
+### Day 1 — Inventory and baseline
+
+Gather everything:
+
+- Export the full list of event types from your logging spec
+- Pull a distinct list of event types that actually fired in the last 30 days
+- Compare: what's in the spec but missing from production? What's firing but undocumented?
+
+Run this query (adjust table/column names to your warehouse):
+
+```sql
+-- Distinct event types fired in the last 30 days
+SELECT
+  event_name,
+  COUNT(*) AS occurrences,
+  COUNT(DISTINCT session_id) AS sessions
+FROM events
+WHERE event_timestamp >= CURRENT_DATE - INTERVAL '30 days'
+GROUP BY event_name
+ORDER BY occurrences DESC;
+```
+
+**Output:** A two-column list — spec events vs. production events. Any gap is a finding.
+
+---
+
+### Day 2 — Required field null rates
+
+For each event type in your spec, identify the fields marked as required. Then check whether they're actually populated in production.
+
+```sql
+-- Null rate for required fields on a specific event
+SELECT
+  COUNT(*) AS total_events,
+  COUNTIF(user_id IS NULL) AS missing_user_id,
+  COUNTIF(currency IS NULL) AS missing_currency,
+  ROUND(COUNTIF(currency IS NULL) / COUNT(*) * 100, 2) AS currency_null_pct
+FROM events
+WHERE event_name = 'purchase_completed'
+  AND event_timestamp >= CURRENT_DATE - INTERVAL '14 days';
+```
+
+A real example of what this surfaces: in a recent audit, `purchase_completed` had **18% of events missing the `currency` field** over a 14-day window. The field was marked required in the spec. No alert had fired — the event still counted as a valid conversion in every dashboard. Revenue reporting by currency was silently wrong.
+
+**Output:** A table of required fields with their null rates per event type. Anything above 1% on a required field is a finding.
+
+---
+
+### Day 3 — Duplicate event detection
+
+Duplicate events inflate counts. They're common after SDK retries, page reloads on checkout flows, or client-side events without deduplication keys.
+
+```sql
+-- Detect duplicate events within a session
+SELECT
+  session_id,
+  event_name,
+  COUNT(*) AS event_count
+FROM events
+WHERE event_timestamp >= CURRENT_DATE - INTERVAL '7 days'
+GROUP BY session_id, event_name
+HAVING COUNT(*) > 1
+ORDER BY event_count DESC
+LIMIT 100;
+```
+
+Cross-reference your findings with events that drive key metrics (conversions, activations, signups). One duplicated `signup_completed` event doubles your activation rate.
+
+**Output:** A list of event types with measured duplicate rates, ranked by potential metric impact.
+
+---
+
+### Day 4 — Schema and type validation
+
+Beyond null rates, check that field values are actually the right shape. Common failures:
+
+- `price` sent as a string instead of a number
+- `timestamp` using a local timezone instead of UTC
+- `user_id` populated with a session or anonymous ID
+- Enum fields (e.g., `plan_type`) containing unexpected values
+
+```sql
+-- Check for non-numeric values in a price field stored as string
+SELECT DISTINCT price
+FROM events
+WHERE event_name = 'subscription_started'
+  AND NOT REGEXP_CONTAINS(price, r'^\d+(\.\d{1,2})?$')
+LIMIT 50;
+```
+
+**Output:** A list of fields with type or format violations, with example bad values.
+
+---
+
+### Day 5 — Pipeline validation
+
+Client-side events can pass validation and still be lost or transformed incorrectly in the pipeline. Check the seams:
+
+- Row counts at pipeline input vs. output (do you lose events in transit?)
+- Transformation logic on derived fields (is your `revenue` field calculated correctly from raw event fields?)
+- Late-arriving data (events with timestamps more than 24 hours in the past at ingestion time)
+
+```sql
+-- Estimate late-arriving event rate
+SELECT
+  DATE(event_timestamp) AS event_date,
+  COUNT(*) AS total,
+  COUNTIF(ingested_at > event_timestamp + INTERVAL '24 hours') AS late_arrivals,
+  ROUND(COUNTIF(ingested_at > event_timestamp + INTERVAL '24 hours') / COUNT(*) * 100, 2) AS late_pct
+FROM events
+WHERE event_timestamp >= CURRENT_DATE - INTERVAL '14 days'
+GROUP BY event_date
+ORDER BY event_date DESC;
+```
+
+**Output:** Pipeline health summary — row count deltas, transformation errors, late-arrival rates.
+
+---
+
+### Day 6 — Severity classification
+
+Consolidate your findings and apply a severity rubric so you can prioritize what to fix first.
+
+| Severity | Criteria | Examples | Recommended action |
+|----------|----------|----------|--------------------|
+| P0 — Critical | Required field missing on a conversion event; >5% null rate on a metric-driving field | `purchase_completed` missing `currency` on 18% of events | Fix within 24–48 hours; flag affected metric windows |
+| P1 — High | Duplicate events on key metrics; spec/production mismatch on a top-10 event | `signup_completed` has 8% duplicate rate | Fix within 1 sprint; add deduplication logic |
+| P2 — Medium | Null rate 1–5% on a required field; enum value violations; undocumented events firing | `plan_type` has 3 unlisted values | Document and fix within 2 sprints |
+| P3 — Low | Cosmetic spec drift; events in spec but not firing (intentional or obsolete) | 2 spec events haven't fired in 90 days | Clean up spec; confirm intentional |
+
+**Output:** A severity-ranked issue list. Any P0 issue should be escalated immediately — don't wait for the audit to finish.
+
+---
+
+### Day 7 — Fix plan and regression prevention
+
+Document a fix plan for each P0 and P1 finding, with an owner and a target date. Then address the structural causes:
+
+**Keep it from regressing:**
+
+- [ ] Add null-rate monitoring to your data warehouse (alert when required fields exceed 1% null rate)
+- [ ] Write automated schema validation into your pipeline (reject events that fail type checks at ingestion)
+- [ ] Add deduplication logic before metrics are computed (not as an afterthought)
+- [ ] Lock your logging spec in version control alongside your codebase
+- [ ] Make the spec a required review artifact for any feature that adds or modifies events
+- [ ] Run a lighter version of this audit quarterly, or set up continuous telemetry monitoring
+
+**Output:** A fix plan with owners, timelines, and a monitoring setup proposal.
+
+---
+
+## What a week of findings typically looks like
+
+In a structured audit, here's the kind of issue density we routinely find:
+
+| Finding type | How often we see it | Typical example |
+|---|---|---|
+| Null required fields | ~70% of audits | 2 fields null across 3 event types |
+| Spec/production mismatch | ~80% of audits | 5 events fire in production with no spec entry |
+| Duplicate events on key metrics | ~50% of audits | `checkout_started` has 11% duplicate rate |
+| Schema type violations | ~60% of audits | `price` stored as string; pipeline coercion silently rounds |
+| Late-arriving data spikes | ~40% of audits | 6% of events arrive >24 hours late on weekends |
+
+None of these issues produce an error. They all produce wrong numbers in dashboards — silently.
+
+---
+
+## Do it yourself, or get help
+
+This framework works if you have the time and access to run it. The hardest part isn't the SQL — it's deciding which findings matter most and structuring a fix plan that engineering will actually execute.
+
+If you'd rather have someone run this for you — or if you already suspect there's something wrong and want confirmation fast — [book a Data Quality Audit with us](/contact). We typically find P0 issues within the first 48 hours, and deliver a full severity-ranked report by the end of the engagement.
+
+[Get in touch →](/contact)

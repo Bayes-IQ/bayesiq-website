@@ -1,0 +1,55 @@
+# BayesIQ Website — project kernel for pipeline targeting.
+# Controller repo (bayesiq) runs pipeline against this repo checkout.
+# See bayesiq/docs/ai/artifacts/project_config.schema.json for schema.
+schema_version: 1
+
+repo:
+  root: ".."  # relative to this config file → resolves to biq_website/
+
+commands:
+  # Next.js project — no Python test/invariant/conformance scripts.
+  test: null
+  invariants: null
+  plan_conformance: null
+  lint: null
+  test_timeout: 60
+
+context:
+  max_total_bytes: 50000
+  max_bytes_per_file: 20000
+  max_tree_depth: 3
+  max_output_chars: 15000
+  excluded_prefixes:
+    - ".git/"
+    - ".artifacts/"
+    - ".next/"
+    - ".claude/"
+    - "node_modules/"
+  sensitive_patterns:
+    - ".env"
+    - ".env.local"
+
+docs:
+  roadmap: "docs/ai/ROADMAP.md"
+  arch_state: "docs/ai/ARCH_STATE.md"
+  plan_template: "docs/ai/pr_markdown_plans/_TEMPLATE.md"
+  pr_plans_dir: "docs/ai/pr_markdown_plans/"
+  roles_dir: "docs/ai/roles/"
+
+critic:
+  pr_categories:
+    - convention_violation
+    - missing_wiring
+    - config_inconsistency
+    - test_gap
+    - security
+    - other
+  roadmap_categories:
+    - missing_dependency
+    - scope_creep
+    - unclear_exit_criteria
+    - ordering_risk
+  escalation_rules:
+    always_blocking:
+      - missing_dependency
+      - scope_creep
