@@ -115,14 +115,10 @@ async def run_audit(file: UploadFile):
 
 def _extract_score(markdown: str) -> int | None:
     """Pull the 0-100 score from the report markdown."""
+    import re
     for line in markdown.splitlines():
-        if "Overall Score" in line or "overall score" in line.lower():
-            # Look for a number
-            import re
-            match = re.search(r"(\d{1,3})\s*/?\s*100", line)
-            if match:
-                return int(match.group(1))
-            match = re.search(r"\*\*(\d{1,3})\*\*", line)
+        if "score" in line.lower() and "/" in line:
+            match = re.search(r"(\d{1,3})\s*/\s*100", line)
             if match:
                 return int(match.group(1))
     return None
