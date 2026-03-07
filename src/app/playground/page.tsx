@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CsvPlayground from "@/components/playground/CsvPlayground";
+import CsvAudit from "@/components/audit/CsvAudit";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
   title: "CSV Playground",
   description:
-    "Drop a CSV file and instantly get a profiled Streamlit dashboard app you can download and run locally.",
+    "Drop a CSV file and get an instant data quality audit — scored findings, column profiling, and remediation recommendations.",
   openGraph: {
     title: "CSV Playground — BayesIQ",
     description:
-      "Drop a CSV file and instantly get a profiled Streamlit dashboard app you can download and run locally.",
+      "Drop a CSV file and get an instant data quality audit — scored findings, column profiling, and remediation recommendations.",
   },
 };
 
 const playgroundEnabled =
   process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
+const auditApiEnabled =
+  process.env.NEXT_PUBLIC_ENABLE_AUDIT_API === "true";
 
 export default function PlaygroundPage() {
   if (!playgroundEnabled) {
@@ -47,18 +50,19 @@ export default function PlaygroundPage() {
       <section className="px-6 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-3xl font-bold tracking-tight text-bayesiq-900 md:text-4xl">
-            CSV Playground
+            {auditApiEnabled ? "CSV Audit" : "CSV Playground"}
           </h1>
           <p className="mt-4 text-lg text-bayesiq-600">
-            Drop a CSV file below. We&apos;ll profile every column and generate a
-            ready-to-run Streamlit dashboard you can download and launch locally.
+            {auditApiEnabled
+              ? "Drop a CSV file below. We\u2019ll run 12+ quality checks, score your data 0-100, and show every issue found."
+              : "Drop a CSV file below. We\u2019ll profile every column and generate a ready-to-run Streamlit dashboard you can download and launch locally."}
           </p>
         </div>
       </section>
 
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-4xl">
-          <CsvPlayground />
+          {auditApiEnabled ? <CsvAudit /> : <CsvPlayground />}
         </div>
       </section>
 
@@ -68,23 +72,42 @@ export default function PlaygroundPage() {
             How it works
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                step: "1",
-                title: "Drop your CSV",
-                desc: "Everything stays in your browser. No data is uploaded to any server.",
-              },
-              {
-                step: "2",
-                title: "Instant profiling",
-                desc: "Column types, nulls, cardinality, and top values are detected automatically.",
-              },
-              {
-                step: "3",
-                title: "Download your app",
-                desc: "Get a Streamlit app.py + requirements.txt tailored to your data.",
-              },
-            ].map((item) => (
+            {(auditApiEnabled
+              ? [
+                  {
+                    step: "1",
+                    title: "Drop your CSV",
+                    desc: "Upload up to 5 MB. Your data is processed and deleted immediately.",
+                  },
+                  {
+                    step: "2",
+                    title: "Full audit",
+                    desc: "12+ quality checks: duplicates, schema drift, null spikes, naming chaos, and more.",
+                  },
+                  {
+                    step: "3",
+                    title: "Scored results",
+                    desc: "0-100 score with severity-ranked findings, evidence, and fix recommendations.",
+                  },
+                ]
+              : [
+                  {
+                    step: "1",
+                    title: "Drop your CSV",
+                    desc: "Everything stays in your browser. No data is uploaded to any server.",
+                  },
+                  {
+                    step: "2",
+                    title: "Instant profiling",
+                    desc: "Column types, nulls, cardinality, and top values are detected automatically.",
+                  },
+                  {
+                    step: "3",
+                    title: "Download your app",
+                    desc: "Get a Streamlit app.py + requirements.txt tailored to your data.",
+                  },
+                ]
+            ).map((item) => (
               <div
                 key={item.step}
                 className="rounded-lg border border-bayesiq-200 p-6 text-center"
@@ -106,15 +129,19 @@ export default function PlaygroundPage() {
       <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-16">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center text-xl font-semibold text-bayesiq-900">
-            Free playground vs. paid audit
+            {auditApiEnabled
+              ? "Free audit vs. paid engagement"
+              : "Free playground vs. paid audit"}
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-lg border border-bayesiq-200 bg-white p-5">
               <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400">
-                Playground (free)
+                {auditApiEnabled ? "Free audit" : "Playground (free)"}
               </p>
               <p className="mt-3 text-sm text-bayesiq-600">
-                Profile and explore. Column types, nulls, cardinality, top values. Quick look at your data shape.
+                {auditApiEnabled
+                  ? "Scored quality checks on one CSV. Findings with severity and fix recommendations. 5 MB limit."
+                  : "Profile and explore. Column types, nulls, cardinality, top values. Quick look at your data shape."}
               </p>
             </div>
             <div className="rounded-lg border border-bayesiq-200 bg-white p-5">
@@ -122,7 +149,9 @@ export default function PlaygroundPage() {
                 Diagnostic ($7.5K)
               </p>
               <p className="mt-3 text-sm text-bayesiq-600">
-                Real quality checks, metric validation, scored findings with severity rankings, and expert-reviewed remediation readout.
+                {auditApiEnabled
+                  ? "Multi-source audit, metric validation, expert-reviewed findings, dbt scaffolding, and a remediation readout."
+                  : "Real quality checks, metric validation, scored findings with severity rankings, and expert-reviewed remediation readout."}
               </p>
             </div>
             <div className="rounded-lg border border-bayesiq-200 bg-white p-5">
@@ -130,7 +159,8 @@ export default function PlaygroundPage() {
                 Implementation ($30-45K)
               </p>
               <p className="mt-3 text-sm text-bayesiq-600">
-                Governed fix path — dbt project, CI tests, dashboards, monitoring, and a pipeline your team owns.
+                Governed fix path — dbt project, CI tests, dashboards,
+                monitoring, and a pipeline your team owns.
               </p>
             </div>
           </div>
@@ -139,7 +169,11 @@ export default function PlaygroundPage() {
 
       <CTA
         headline="Want a deeper audit?"
-        description="The playground profiles your data. A paid engagement validates your metrics, scores your findings, and delivers the fix path."
+        description={
+          auditApiEnabled
+            ? "The free audit shows what\u2019s broken. A paid engagement validates your metrics across sources, generates the dbt project, and delivers the fix path."
+            : "The playground profiles your data. A paid engagement validates your metrics, scores your findings, and delivers the fix path."
+        }
       />
     </>
   );
