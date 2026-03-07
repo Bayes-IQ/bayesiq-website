@@ -5,8 +5,8 @@ interface Finding {
   severity: "critical" | "high" | "medium" | "low";
   title: string;
   description: string;
-  evidence: string;
-  recommended_fix: string;
+  evidence: string | Record<string, unknown>;
+  recommended_fix: string | Record<string, unknown>;
   confidence: number;
 }
 
@@ -106,13 +106,18 @@ function FindingCard({ finding }: { finding: Finding }) {
           <p className="mt-2 text-sm text-bayesiq-700">{finding.description}</p>
           {finding.evidence && (
             <p className="mt-2 text-xs text-bayesiq-500">
-              <span className="font-medium">Evidence:</span> {finding.evidence}
+              <span className="font-medium">Evidence:</span>{" "}
+              {typeof finding.evidence === "string"
+                ? finding.evidence
+                : JSON.stringify(finding.evidence)}
             </p>
           )}
           {finding.recommended_fix && (
             <p className="mt-1 text-xs text-bayesiq-600">
               <span className="font-medium">Fix:</span>{" "}
-              {finding.recommended_fix}
+              {typeof finding.recommended_fix === "string"
+                ? finding.recommended_fix
+                : JSON.stringify(finding.recommended_fix)}
             </p>
           )}
         </div>

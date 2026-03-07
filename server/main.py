@@ -64,10 +64,17 @@ async def run_audit(file: UploadFile):
     if len(contents) == 0:
         raise HTTPException(400, "File is empty.")
 
-    # Write to temp file (dataset_loader expects a path)
-    with tempfile.NamedTemporaryFile(suffix=".csv", delete=False) as tmp:
-        tmp.write(contents)
-        tmp_path = tmp.name
+    # Use a single work directory for the entire pipeline — temp file, report
+    # artifacts, and dashboard all live here until the response is built.
+    import shutil
+    work_dir = tempfile.mkdtemp(prefix="bayesiq_audit_")
+    tmp_path = str(Path(work_dir) / "upload.csv")
+    Path(tmp_path).write_bytes(contents)
+    out_dir = str(Path(work_dir) / "output")
+    Path(out_dir).mkdir()
+
+    print(f"[AUDIT] work_dir={work_dir}")
+    print(f"[AUDIT] tmp_path={tmp_path} exists={Path(tmp_path).exists()} size={Path(tmp_path).stat().st_size}")
 
     try:
         # Load
@@ -82,39 +89,37 @@ async def run_audit(file: UploadFile):
         # Quality checks
         quality = check_quality(df, config)
 
-        # Generate report + dashboard in temp dir
-        with tempfile.TemporaryDirectory() as out_dir:
-            report_config = {
-                "dataset": file.filename,
-                "output_dir": out_dir,
+        # Generate report
+        report_config = {
+            "dataset": file.filename,
+            "output_dir": out_dir,
+        }
+        report = generate_report(metadata, profile, quality, report_config)
+
+        # Generate assumptions + metrics spec (needed by dashboard)
+        try:
+            generate_assumptions(out_dir, config)
+        except Exception:
+            pass  # Non-critical
+
+        try:
+            generate_metrics_spec(out_dir, config)
+        except Exception:
+            pass  # Non-critical
+
+        # Generate dashboard
+        dashboard_app = None
+        try:
+            dash_config = {
+                "dashboard_output_dir": str(Path(out_dir) / "dashboard"),
+                "dataset_path": "data.csv",
             }
-            report = generate_report(metadata, profile, quality, report_config)
-
-            # Generate assumptions + metrics spec (needed by dashboard)
-            try:
-                generate_assumptions(out_dir, config)
-            except Exception:
-                pass  # Non-critical
-
-            try:
-                generate_metrics_spec(out_dir, config)
-            except Exception:
-                pass  # Non-critical
-
-            # Generate dashboard
-            dashboard_app = None
-            try:
-                dash_config = {
-                    "dashboard_output_dir": str(Path(out_dir) / "dashboard"),
-                    "dataset_path": tmp_path,
-                }
-                dash_result = generate_dashboard(out_dir, dash_config)
-                # Read the generated app.py
-                app_py_path = Path(dash_result.get("output_dir", "")) / "app.py"
-                if app_py_path.exists():
-                    dashboard_app = app_py_path.read_text()
-            except Exception:
-                pass  # Dashboard generation is best-effort
+            dash_result = generate_dashboard(out_dir, dash_config)
+            app_py_path = Path(dash_result.get("output_dir", "")) / "app.py"
+            if app_py_path.exists():
+                dashboard_app = app_py_path.read_text()
+        except Exception:
+            pass  # Dashboard generation is best-effort
 
         # Build response
         return {
@@ -143,7 +148,7 @@ async def run_audit(file: UploadFile):
         raise HTTPException(500, f"Audit failed: {str(e)}")
 
     finally:
-        Path(tmp_path).unlink(missing_ok=True)
+        shutil.rmtree(work_dir, ignore_errors=True)
 
 
 def _extract_score(markdown: str) -> int | None:
