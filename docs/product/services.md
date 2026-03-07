@@ -1,63 +1,107 @@
-# BayesIQ Services
+# BayesIQ Products & Services
 
-## 1. Data Quality Audit
+## Product 1: BayesIQ Data Audit Kit
 
-**Scope:** Full evaluation of telemetry accuracy, metric reliability, pipeline health, and dashboard correctness. We look at event schemas, transformation logic, metric definitions, and the queries that power your dashboards.
+**What it is:** An automated, domain-agnostic data quality audit pipeline.
 
-**Deliverables:**
-- Severity-ranked issue report with root cause analysis
-- Fix recommendations for each issue
-- Executive summary for leadership
-- Technical detail for engineering teams
+**Input:** Any CSV, Parquet file, or Snowflake connection.
 
-**Format:** 1–2 week engagement. Primarily async work with 2–3 sync sessions for context gathering and findings review.
+**What it does:**
 
-**Who it's for:** Teams that suspect their metrics are wrong but can't pinpoint where. Common trigger: two dashboards show different numbers for the same thing, and nobody can explain why.
+### Schema Profiling
+Column-level analysis: data types, null rates, cardinality, value distributions, min/max ranges, top values, datetime ranges. Auto-detects column roles (identifier, timestamp, category, measure, freetext).
+
+### Quality Checks (12+)
+- Exact and near-duplicate row detection
+- Key column nullness and uniqueness validation
+- Inconsistent naming conventions (mixed casing → canonical form)
+- Future timestamps and timestamp gap detection
+- Negative value detection in non-negative fields
+- Schema drift (missing columns, unexpected values, unexpected nulls)
+- Out-of-range value detection
+
+### Metric Validation
+Recomputes reported KPI values from raw event data. Supports count, ratio, and sum formulas. Flags discrepancies between what's reported and what the data actually shows.
+
+### Report Generation
+Severity-weighted scoring (0-100) with rubric-based deductions. Executive scorecard, remediation plan with effort estimates, business impact descriptions. Findings ranked Critical/High/Medium/Low.
+
+### dbt Project Generation
+Generated dbt project:
+- Staging models with type casting, canonicalization, deduplication
+- Mart models for each metric definition
+- Schema tests (uniqueness, not_null, accepted_values)
+- Source definitions from contract
+
+### Dashboard Generation
+Self-contained Streamlit app:
+- Loads raw data with canonicalization and dedup applied
+- Sidebar filters for all categorical columns + date range
+- One chart section per metric with dimensional breakdowns
+- Data quality summary tab
+- Raw data explorer
+
+### Documentation Generation
+- ASSUMPTIONS.md — schema, quality, temporal, and entity assumptions
+- METRICS.md — metric definitions, known discrepancies, dimensional cuts
+- LLM-powered interpretation of ambiguous columns (Claude API)
 
 ---
 
-## 2. Telemetry & Logging Validation
+## Product 2: BayesIQ Platform
 
-**Scope:** Compare your logging specification against what actually fires in production. Field-level validation — not just "did the event fire?" but "did every required field populate correctly?"
+**What it is:** A safe, extensible execution environment for automating real-world tasks.
 
-**Deliverables:**
-- Validation report mapping spec to reality
-- List of missing, malformed, or incorrectly-fired events
-- Coverage gap analysis
-- Recommended spec updates
+**Architecture:** Three-layer model — Tool Registry → Policy Engine → Gateway.
 
-**Format:** 3–5 day sprint. Fast turnaround for teams that need answers quickly.
+### Tool Registry
+- Dynamic discovery from JSON manifests
+- Each tool: name, execution mode, handler function, I/O JSON schemas
+- Handler purity enforced (no backdoor imports, deterministic boundaries)
 
-**Who it's for:** Product teams shipping telemetry who need to know it's correct before building metrics on top of it. Especially useful before launching A/B tests or new analytics features.
+### Policy Engine
+- YAML-based role configuration (admin/user profiles)
+- Tool-specific overrides (volume caps, allowed rooms, repo allowlists)
+- Execution modes: read_only, draft, execute_gated
+
+### Approval Gateway
+- Single entry point for all tool execution
+- Flow: Registry → Schema Validation → Policy → Approval Check → Execution → Output Validation → Logging
+- Resumable execution for gated operations
+
+### Built-in Tools
+- Google Calendar (read-only agenda)
+- GitHub (draft PRs, issue/PR listing, repo info)
+- Sonos (volume, playback — approval gated with volume caps)
+- Personal Memory (read/write knowledge base)
+- Notifications (email/webhook — gated)
+- Data Operations (SQL queries, logging validation, ETL planning, QA checks)
+- Pipeline Orchestration (code generation task pipelines)
+
+### Safety & Observability
+- Append-only event log for full audit trail
+- Credential isolation with log redaction
+- Immutable tool run records
+- Structured logging with per-tool latency metrics
 
 ---
 
-## 3. Analytics Pipeline Design
+## Engagement Tiers (Data Audit Kit)
 
-**Scope:** ETL architecture review or greenfield design. Metrics layer definition. Reliability improvements for existing pipelines.
+### Metric Reliability Diagnostic — $7.5K–$10K, 1 week
+Run the automated pipeline on your data. Expert reviews findings, eliminates false positives, delivers scored readout. Near-pure margin with pipeline automation.
 
-**Deliverables:**
-- Architecture document with data flow diagrams
-- Implementation plan with prioritized steps
-- Metric definitions with clear business logic
-- Testing and validation strategy
+**You get:** Scorecard (0-100), severity-ranked findings, executive summary, 30-minute readout call.
 
-**Format:** 2–4 week engagement. Collaborative design with your data team.
+### Audit + Plan — ~$25K, 4 weeks
+Full diagnostic plus data assumptions document, metric specification, remediation roadmap, and dbt scaffolding.
 
-**Who it's for:** Teams building or rebuilding their data platform. Common scenario: outgrown a patchwork of scripts and need a reliable, maintainable architecture.
+**You get:** Everything in Diagnostic + ASSUMPTIONS.md sign-off + METRICS.md + dbt project skeleton + phased fix plan.
 
----
+### Full Implementation — $30K–$45K, 6 weeks
+Complete build from warehouse to validated dashboards.
 
-## 4. Continuous Monitoring (Coming Soon)
+**You get:** Everything in Audit + Plan + production dbt project (40+ tests) + Streamlit dashboards + architecture documentation + team training.
 
-**Scope:** Automated agents that validate telemetry and metrics on an ongoing basis. Catch drift, gaps, and inconsistencies before they reach dashboards.
-
-**Deliverables:**
-- Monitoring agent setup and configuration
-- Alerting rules tailored to your data systems
-- Drift detection baselines
-- Runbook for responding to alerts
-
-**Format:** One-time setup + optional monthly retainer.
-
-**Who it's for:** Teams that solved the initial problems and want to prevent regression. Insurance against the silent failures coming back.
+### Self-Serve Playground — Free
+Drop a CSV on the website. Instant profiling + downloadable Streamlit app. No account required.

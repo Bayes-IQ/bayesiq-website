@@ -1,37 +1,66 @@
 # BayesIQ Engagement Model
 
-## Step 1 — Discovery (Day 1–2)
+## Self-Serve: CSV Playground (Free)
 
-Understand your data architecture, logging specs, known pain points, and what "trustworthy data" means for your organization. We review your telemetry spec, pipeline architecture, and key metrics. This is a collaborative session — we need your context to know where to look.
+Drop a CSV on bayesiq.com/playground. Get instant column profiling and a downloadable Streamlit dashboard app. No account, no data uploaded — everything runs in your browser.
 
-**What we need from you:** Access to logging specs, pipeline code or documentation, key dashboards, and 1–2 hours with someone who knows the data architecture.
+**What you get:** Column types, null rates, cardinality, top values, auto-generated Streamlit app with filters and charts.
 
-## Step 2 — Automated Scan (Day 3–5)
+---
 
-AI agents analyze your telemetry against the logging spec, validate pipeline transformations, and check metric definitions against underlying data. This surfaces issues that would take humans weeks to find manually — missing events, null fields, schema mismatches, transformation errors.
+## Tier 1: Metric Reliability Diagnostic ($7.5K–$10K, 1 week)
 
-**What happens:** We run our analysis tools against your data systems. No production changes. Read-only access.
+**Prove where the problems are.** The automated pipeline runs against your data (CSV, Parquet, or Snowflake connection). An expert reviews findings, eliminates false positives, and delivers a scored readout.
 
-## Step 3 — Expert Review (Day 5–7)
+**What we need from you:** Dataset export or warehouse read-only access. 1 hour for context.
 
-Data scientists review the automated findings, eliminate false positives, assess severity, and identify root causes. Not everything flagged by automation is a real problem — human judgment separates signal from noise and connects individual issues to systemic patterns.
+**What you get:**
+- Scorecard (0-100) with severity-weighted rubric
+- Severity-ranked findings with root causes and fix recommendations
+- Executive summary for leadership
+- 30-minute readout call
 
-**What happens:** We interpret and prioritize. A list of 50 flagged items becomes a ranked set of 12 real issues.
+**Economics:** ~4 hours manual work + automated pipeline. Near-pure margin.
 
-## Step 4 — Findings & Fix Plan (Day 7–10)
+---
 
-Deliverable: a severity-ranked report of every confirmed issue, with root cause analysis and specific fix recommendations. Two versions — an executive summary for leadership, and technical detail for the engineering team.
+## Tier 2: Audit + Plan (~$25K, 4 weeks)
 
-**What you get:** A document you can hand directly to your data team with clear next steps. Not vague recommendations — specific fixes with expected impact.
+**Define what correct should be.** Full diagnostic plus structured documentation and remediation planning.
 
-## Step 5 — Implementation Support (Optional)
+**Week 1-2:** Discovery + automated scan + expert review
+**Week 3-4:** Assumptions sign-off + metric specification + remediation roadmap
 
-We can help implement fixes, set up validation tests, or pair with your engineers on the hardest problems. This is optional — many teams take the report and execute independently.
+**What you get:**
+- Everything in Tier 1
+- ASSUMPTIONS.md — data contracts with team sign-off
+- METRICS.md — metric definitions, formulas, dimensional cuts
+- dbt project skeleton (staging models, source definitions)
+- Phased remediation plan (Immediate / Short-term / Long-term)
 
-**Format:** Flexible — hourly, weekly sprints, or a fixed scope.
+---
 
-## Step 6 — Monitoring Setup (Optional)
+## Tier 3: Full Implementation ($30K–$45K, 6 weeks)
 
-For teams that want continuous validation, we configure automated agents that catch drift, telemetry gaps, and metric inconsistencies on an ongoing basis. Think of it as a CI pipeline for your data quality.
+**Ship the governed fix path.** Complete build from warehouse to validated dashboards.
 
-**What you get:** Automated checks that run continuously, alerting rules, and a runbook for responding to issues.
+**Week 1-2:** Discovery + automated scan + expert review
+**Week 3-4:** Assumptions sign-off + metric specification
+**Week 5-6:** dbt build + dashboards + training
+
+**What you get:**
+- Everything in Tier 2
+- Production dbt project with 40+ automated tests
+- Staging models with canonicalization and deduplication
+- Mart models for each defined metric
+- Interactive Streamlit dashboards with dimensional breakdowns
+- Architecture documentation
+- Team training on maintaining the governed metric layer
+
+---
+
+## Optional: Continuous Monitoring ($2–5K/month)
+
+For teams that completed an implementation and want ongoing validation. Automated checks run continuously, alerting on drift, telemetry gaps, and metric inconsistencies.
+
+**What you get:** Monitoring agent configuration, alerting rules, drift detection baselines, incident runbook.

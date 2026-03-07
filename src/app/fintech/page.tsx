@@ -1,7 +1,7 @@
 /**
  * Fintech landing page.
  * Industry-specific messaging for fintech data teams.
- * Derived from: docs/product/landing_fintech.md
+ * Product focus: Audit Kit.
  */
 
 import type { Metadata } from "next";
@@ -11,11 +11,11 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Fintech Data Auditing — BayesIQ",
   description:
-    "BayesIQ helps fintech teams audit transaction analytics, validate payment telemetry, and fix the pipeline issues that make revenue metrics wrong.",
+    "The BayesIQ Audit Kit helps fintech teams score transaction pipelines, validate revenue metrics, and surface the data quality issues that make financial reporting wrong.",
   openGraph: {
     title: "Fintech Data Auditing — BayesIQ",
     description:
-      "BayesIQ helps fintech teams audit transaction analytics, validate payment telemetry, and fix the pipeline issues that make revenue metrics wrong.",
+      "The BayesIQ Audit Kit helps fintech teams score transaction pipelines, validate revenue metrics, and surface the data quality issues that make financial reporting wrong.",
   },
 };
 
@@ -23,63 +23,68 @@ const problems = [
   {
     title: "Revenue metrics that don't match finance",
     description:
-      "Your product analytics show one revenue number. Finance shows another. The difference is buried in currency conversion logic, refund handling, or events that count transactions the ledger doesn't recognize.",
+      "Your product analytics show one revenue number. Finance shows another. The Audit Kit's metric validation recomputes KPIs from raw transaction data — so you can see exactly where currency conversion logic, refund handling, or phantom events introduce the gap.",
   },
   {
     title: "Payment event telemetry with gaps",
     description:
-      "Transaction events fire from multiple clients and payment processors. Required fields like currency, payment_method, or transaction_id are null more often than anyone realizes — 5%, 12%, sometimes 20% of rows — and aggregations mask the gaps.",
+      "Transaction events fire from multiple clients and payment processors. Required fields like currency, payment_method, or transaction_id are null more often than anyone realizes — 5%, 12%, sometimes 20% of rows. The Audit Kit's schema profiling catches null spikes before they reach downstream aggregations.",
   },
   {
     title: "Compliance reporting on unaudited pipelines",
     description:
-      "Regulatory figures — SAR filing counts, transaction monitoring volumes, KYC completion rates — are built from the same pipelines as product dashboards. Schema drift in those pipelines means compliance numbers inherit the same errors as product metrics.",
+      "Regulatory figures — SAR filing counts, transaction monitoring volumes, KYC completion rates — are built from the same pipelines as product dashboards. The Audit Kit produces a scored audit (0–100) with severity-ranked findings, so you know exactly which pipeline issues affect compliance numbers.",
   },
   {
     title: "A/B tests on corrupted baselines",
     description:
-      "Duplicate checkout events, identity stitching gaps across web and mobile, and inconsistent funnel definitions mean experiment results are measured on baselines that don't represent reality.",
+      "Duplicate checkout events, identity stitching gaps across web and mobile, and inconsistent funnel definitions mean experiment results are measured on baselines that don't represent reality. The Audit Kit's quality checks catch near-duplicates and event inflation before they corrupt your experiments.",
   },
   {
     title: "Risk scoring pipelines with unvalidated inputs",
     description:
-      "Credit, fraud, and underwriting models consume features derived from transactional data. If the pipeline feeding those features has null-rate drift or schema changes, model performance degrades silently before the next monitoring cycle surfaces it.",
+      "Credit, fraud, and underwriting models consume features derived from transactional data. If the pipeline feeding those features has null-rate drift or schema changes, model performance degrades silently. The Audit Kit runs 12+ automated checks that flag data quality issues before they reach your models.",
   },
 ];
 
-const services = [
+const deliverables = [
   {
-    title: "Data Quality Audit",
+    title: "Scored audit of transaction data pipelines",
     description:
-      "End-to-end evaluation of payment event pipelines, revenue metric definitions, and transaction data flows. We identify schema drift in payment event schemas, surface discrepancies between product analytics and finance figures, and deliver severity-ranked findings — P0 issues typically surfaced within 48 hours.",
+      "Every pipeline gets a 0–100 quality score based on schema completeness, null rates, duplication, and freshness. Findings are severity-ranked so your team fixes P0 issues first — not the ones that happen to be loudest.",
   },
   {
-    title: "Telemetry & Logging Validation",
+    title: "dbt project with staging models",
     description:
-      "Compare your logging specification for web, mobile, and payment processor events against what actually fires in production. We identify null fields on transaction records, duplicate events from retry logic, and identity stitching gaps — so your funnel metrics are validated before you run experiments on top of them.",
+      "Auto-generated dbt models handle the fintech-specific transformations most teams hand-roll: deduplication of retry events, currency normalization across payment processors, and settlement timing alignment between authorization and capture.",
   },
   {
-    title: "End-to-End Pipeline & Dashboards",
+    title: "Streamlit dashboard for revenue metric exploration",
     description:
-      "We go from your warehouse to validated dashboards in 6 weeks. Auto-generated dbt models handle deduplication, currency normalization, and settlement timing. Interactive Streamlit dashboards give your team trustworthy revenue, fraud, and compliance metrics — with drift detection built in.",
+      "An interactive dashboard your team can use immediately — explore revenue, refund rates, and transaction volumes with filters for currency, payment method, and time period. Built on the validated staging models, not raw event data.",
+  },
+  {
+    title: "Metric validation: reported vs. actual KPIs",
+    description:
+      "Side-by-side comparison of the KPIs your dashboards currently report against values recomputed from raw data. Surfaces the exact transformation step where numbers diverge — whether it's a JOIN fanout, a timezone mismatch, or a filter that silently drops records.",
   },
 ];
 
-const workingModel = [
+const workingPrinciples = [
   {
     title: "Transaction-aware audit framework",
     description:
-      "We understand payment event schemas, multi-currency pipelines, and the specific ways financial data drifts. Our audits account for idempotency, settlement timing, and the gap between authorization and capture.",
+      "The Audit Kit understands payment event schemas, multi-currency pipelines, and the specific ways financial data drifts. Checks account for idempotency, settlement timing, and the gap between authorization and capture.",
   },
   {
     title: "Read-only, no PII or PAN required",
     description:
-      "Schema drift and null-rate analysis don't require access to cardholder data or PII. We audit the structure and completeness of events, not the content. We're happy to work behind your VPN or with anonymized and tokenized exports.",
+      "Schema profiling and null-rate analysis don't require access to cardholder data or PII. The Audit Kit evaluates the structure and completeness of events, not the content. We work behind your VPN or with anonymized and tokenized exports.",
   },
   {
-    title: "Fast turnaround for regulated environments",
+    title: "Fast turnaround — P0 issues in 48 hours",
     description:
-      "We deliver severity-ranked findings within 1–2 weeks. P0 issues — metrics that are materially wrong right now — are typically surfaced within 48 hours so you can act before the next reporting cycle or board presentation.",
+      "Severity-ranked findings are delivered within 1–2 weeks. P0 issues — metrics that are materially wrong right now — are typically surfaced within 48 hours so you can act before the next reporting cycle or board presentation.",
   },
 ];
 
@@ -98,17 +103,18 @@ export default function FintechPage() {
           <p className="mt-6 text-lg text-bayesiq-600">
             Fintech teams build products on top of financial data — payments,
             lending, insurance, trading. The tolerance for error is lower than
-            most industries, but the data pipelines are just as fragile. Schema
-            drift in payment events, null fields on transaction records, and
-            identity stitching gaps across platforms compound into metrics that
-            are quietly, confidently wrong.
+            most industries, but the data pipelines are just as fragile. The
+            BayesIQ Audit Kit scores your transaction pipelines, validates
+            revenue metrics against raw data, and surfaces the schema drift,
+            null spikes, and duplication issues that make financial reporting
+            quietly, confidently wrong.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/contact"
               className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
             >
-              Talk to us about your data
+              Get an Audit Kit quote
             </Link>
             <Link
               href="/sample-report"
@@ -120,7 +126,7 @@ export default function FintechPage() {
         </div>
       </section>
 
-      {/* Problems section */}
+      {/* Financial failure patterns */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
@@ -128,8 +134,8 @@ export default function FintechPage() {
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
             Fintech data pipelines break in ways that are hard to detect and
-            expensive to discover late. These are the failure patterns we find
-            most often.
+            expensive to discover late. These are the failure patterns the Audit
+            Kit catches.
           </p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             {problems.map((problem) => (
@@ -146,73 +152,20 @@ export default function FintechPage() {
         </div>
       </section>
 
-      {/* What we deliver */}
+      {/* What the Audit Kit delivers */}
       <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            What we deliver for fintech teams
+            What the Audit Kit delivers for fintech
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
-            Our services map directly to the data quality problems fintech teams
-            face — applied with awareness of financial data structures,
-            multi-currency pipelines, and compliance reporting requirements.
+            The Audit Kit is a structured product, not an open-ended engagement.
+            Every fintech team gets the same four deliverables — tuned for
+            payment event schemas, multi-currency pipelines, and compliance
+            reporting requirements.
           </p>
           <div className="mt-10 space-y-8">
-            {services.map((service) => (
-              <div key={service.title}>
-                <h3 className="text-sm font-semibold text-bayesiq-900">
-                  {service.title}
-                </h3>
-                <p className="mt-2 text-sm text-bayesiq-600">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <Link
-              href="/services"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              View full service descriptions
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Engagement model */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            How an engagement works
-          </h2>
-          <p className="mt-4 text-base text-bayesiq-600">
-            A diagnostic sprint runs 1 week and surfaces P0 issues within 48 hours.
-            A full engagement runs 6 weeks — from warehouse connection to validated
-            dashboards. We audit your data, align on assumptions and metric definitions
-            with your team, then auto-generate the dbt project and interactive dashboards.
-            Your team gets trustworthy numbers they can use for board decks, compliance
-            reporting, and operational decisions.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/approach"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              See how our engagements work
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* How we work with fintech teams */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            How we work with fintech teams
-          </h2>
-          <div className="mt-10 space-y-8">
-            {workingModel.map((item) => (
+            {deliverables.map((item) => (
               <div key={item.title}>
                 <h3 className="text-sm font-semibold text-bayesiq-900">
                   {item.title}
@@ -226,42 +179,31 @@ export default function FintechPage() {
         </div>
       </section>
 
-      {/* Compliance & risk */}
+      {/* Working principles */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            Compliance and risk
+            How we work with fintech teams
           </h2>
-          <p className="mt-4 text-base text-bayesiq-600">
-            Our work can improve the traceability and auditability of your
-            financial reporting pipelines — helping reduce risk around regulatory
-            reporting and supporting your compliance posture. We help you
-            understand where your data comes from, whether it is complete, and
-            where pipeline errors could be affecting figures that matter to
-            regulators or auditors.
-          </p>
-          <p className="mt-4 text-sm text-bayesiq-500">
-            We provide data quality analysis and pipeline auditing. We do not
-            provide legal, regulatory, or compliance advisory services, and our
-            work does not constitute a compliance certification or guarantee.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/assessment"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              Take the data quality self-assessment
-            </Link>
+          <div className="mt-10 space-y-8">
+            {workingPrinciples.map((item) => (
+              <div key={item.title}>
+                <h3 className="text-sm font-semibold text-bayesiq-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm text-bayesiq-600">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Closing CTA */}
       <CTA
-        headline="Let's audit your financial data pipeline."
-        description="Send us your event schema or describe the metric discrepancy. We'll tell you what's likely broken and how long it takes to fix."
-        buttonText="Get in Touch"
-        href="/contact"
+        headline="Audit your transaction pipeline"
+        description="Start with a diagnostic sprint or drop a CSV in the playground."
       />
     </>
   );

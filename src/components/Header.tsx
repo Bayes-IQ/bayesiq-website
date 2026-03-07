@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 
+const playgroundEnabled =
+  process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
+
 const navItems = [
-  { label: "Services", path: "/services" },
+  { label: "Products", path: "/services" },
   { label: "Approach", path: "/approach" },
+  ...(playgroundEnabled
+    ? [{ label: "Playground", path: "/playground" }]
+    : []),
   { label: "Live Demo", path: "/case-studies" },
   { label: "Blog", path: "/blog" },
 ];

@@ -1,6 +1,6 @@
 /**
  * Healthcare landing page.
- * Industry-specific messaging for healthcare data teams.
+ * Industry-specific messaging for the Audit Kit product applied to healthcare data teams.
  * Derived from: docs/product/landing_healthcare.md
  */
 
@@ -11,60 +11,65 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Healthcare Data Auditing — BayesIQ",
   description:
-    "BayesIQ helps healthcare organizations audit clinical analytics, validate patient telemetry, and fix metric pipelines — without touching PHI.",
+    "The BayesIQ Audit Kit helps healthcare organizations score clinical data pipelines, catch metric discrepancies, and validate reporting — without touching PHI.",
   openGraph: {
     title: "Healthcare Data Auditing — BayesIQ",
     description:
-      "BayesIQ helps healthcare organizations audit clinical analytics, validate patient telemetry, and fix metric pipelines — without touching PHI.",
+      "The BayesIQ Audit Kit helps healthcare organizations score clinical data pipelines, catch metric discrepancies, and validate reporting — without touching PHI.",
   },
 };
 
-const problems = [
+const failurePatterns = [
   {
-    title: "Clinical metrics that don't reconcile",
+    title: "Clinical metrics don't reconcile",
     description:
-      "Your EMR data says one thing, your analytics dashboard says another. Patient volume, readmission rates, and outcome metrics diverge across systems — and nobody can explain why.",
+      "Your EMR data says one thing, your analytics dashboard says another. Readmission rates, patient volume, and outcome metrics diverge across systems. The Audit Kit flags these discrepancies through metric validation — comparing source-system figures against downstream calculations so you can see exactly where numbers split.",
   },
   {
     title: "Regulatory reporting built on unvalidated data",
     description:
-      "Quality measures for CMS, Joint Commission, or payer contracts are computed from pipelines that haven't been audited. If the source data has gaps, the reports inherit them.",
+      "Quality measures for CMS, Joint Commission, or payer contracts are computed from pipelines nobody has audited. The Audit Kit produces a scored audit report (0-100) that catches data completeness issues, schema drift, and transformation errors before they reach a regulatory submission.",
   },
   {
     title: "Telemetry gaps in patient-facing digital tools",
     description:
-      "Patient portals, scheduling apps, and telehealth platforms emit events — but required fields are missing, sessions aren't stitched, and engagement metrics are unreliable.",
+      "Patient portals, scheduling apps, and telehealth platforms emit events — but required fields are missing, sessions aren't stitched, and engagement metrics are unreliable. The Audit Kit's schema profiling detects null rates, field coverage gaps, and type inconsistencies across your event stream.",
   },
   {
     title: "Pipeline failures discovered by stakeholders, not alerts",
     description:
-      "A clinical operations lead notices a dashboard is stale or a report doesn't match last month's format. The data team finds out from a Slack message, not a monitoring alert.",
+      "A clinical operations lead notices a stale dashboard or a report that doesn't match last month's format. The Audit Kit ships a dbt project with 40+ tests — uniqueness, referential integrity, accepted values, recency — that catch regressions automatically before anyone opens a Slack thread.",
   },
 ];
 
-const services = [
+const deliverables = [
   {
-    title: "Data Quality Audit",
+    title: "Scored audit of your clinical data pipeline",
     description:
-      "End-to-end evaluation of clinical metric pipelines: EMR extracts, warehouse transformations, and dashboard queries. We identify schema drift in HL7/FHIR event structures and surface discrepancies between source-system figures and downstream reporting.",
+      "A 0-100 score across completeness, freshness, schema conformance, and metric consistency. Not a vague maturity assessment — a quantified evaluation of your pipeline's current state with specific findings ranked by severity.",
   },
   {
-    title: "Telemetry & Logging Validation",
+    title: "dbt project with staging models, schema tests, and canonicalization",
     description:
-      "Compare your logging specification for patient portal or telehealth apps against what actually fires in production. We identify missing fields, unsent events, and broken session stitching so your engagement metrics reflect real patient behavior.",
+      "Auto-generated dbt models that handle deduplication, type casting, and clinical data normalization for your warehouse. 40+ schema tests covering nulls, uniqueness, referential integrity, and accepted values — configured for your actual tables, not generic templates.",
   },
   {
-    title: "End-to-End Pipeline & Dashboards",
+    title: "Streamlit dashboard for clinical metric exploration",
     description:
-      "We go from your warehouse to validated dashboards in 6 weeks. Auto-generated dbt models handle deduplication and clinical data normalization. Interactive Streamlit dashboards give your team trustworthy clinical, operational, and quality metrics — with drift detection built in.",
+      "An interactive dashboard your team can use to explore clinical, operational, and quality metrics. Filter by facility, time period, or encounter type. Drill into the specific rows behind any metric to verify what the numbers actually represent.",
+  },
+  {
+    title: "ASSUMPTIONS.md documenting data contracts for compliance",
+    description:
+      "A plain-language document capturing every assumption the pipeline makes: which fields are required, what constitutes a valid encounter, how duplicates are resolved. Useful for compliance reviews, onboarding new analysts, and auditing your own metric definitions.",
   },
 ];
 
-const workingModel = [
+const workingPrinciples = [
   {
     title: "No PHI access required",
     description:
-      "Most data quality issues are structural — schema drift, null fields, broken joins. We audit the shape and completeness of your data, not the clinical content. We don't need PHI access for the majority of our work.",
+      "Most data quality issues are structural — schema drift, null fields, broken joins. The Audit Kit evaluates the shape and completeness of your data, not the clinical content. We don't need PHI access for the majority of our work.",
   },
   {
     title: "Read-only, async engagement",
@@ -74,7 +79,7 @@ const workingModel = [
   {
     title: "Healthcare-aware audit framework",
     description:
-      "We understand HL7/FHIR event structures, EMR-to-warehouse pipelines, and the specific ways clinical data drifts. Our audit framework accounts for encounter-based data models, not just SaaS event streams.",
+      "The Audit Kit understands HL7/FHIR event structures, EMR-to-warehouse pipelines, and the specific ways clinical data drifts. It accounts for encounter-based data models, not just SaaS event streams.",
   },
 ];
 
@@ -91,18 +96,19 @@ export default function HealthcarePage() {
             Your clinical metrics are only as good as your data pipeline.
           </h1>
           <p className="mt-6 text-lg text-bayesiq-600">
-            Healthcare data teams face unique pressure: regulatory reporting
-            deadlines, compliance constraints on data access, and analytics
-            pipelines that span EMRs, data warehouses, and patient-facing
-            applications. When those pipelines drift, the metrics drift with
-            them — silently.
+            Healthcare data teams face regulatory reporting deadlines, compliance
+            constraints on data access, and analytics pipelines that span EMRs,
+            data warehouses, and patient-facing applications. When those
+            pipelines drift, the metrics drift with them — silently. The Audit
+            Kit gives you a scored, reproducible evaluation of your clinical data
+            pipeline so you can find the problems before they reach a report.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/contact"
               className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
             >
-              Talk to us about your data
+              Get the Audit Kit
             </Link>
             <Link
               href="/sample-report"
@@ -114,24 +120,25 @@ export default function HealthcarePage() {
         </div>
       </section>
 
-      {/* Problems section */}
+      {/* Failure patterns */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            Why telemetry fails in healthcare
+            Healthcare failure patterns the Audit Kit detects
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
             Healthcare data pipelines break in predictable ways. These are the
-            failure patterns we find most often.
+            failure patterns we find most often — and how the Audit Kit surfaces
+            each one.
           </p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
-            {problems.map((problem) => (
-              <div key={problem.title}>
+            {failurePatterns.map((pattern) => (
+              <div key={pattern.title}>
                 <h3 className="text-sm font-semibold text-bayesiq-900">
-                  {problem.title}
+                  {pattern.title}
                 </h3>
                 <p className="mt-2 text-sm text-bayesiq-600">
-                  {problem.description}
+                  {pattern.description}
                 </p>
               </div>
             ))}
@@ -139,72 +146,18 @@ export default function HealthcarePage() {
         </div>
       </section>
 
-      {/* What we deliver */}
+      {/* What the Audit Kit delivers */}
       <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            What we deliver for healthcare organizations
+            What the Audit Kit delivers for healthcare
           </h2>
           <p className="mt-4 text-base text-bayesiq-600">
-            Our services map directly to the data quality problems healthcare
-            teams face — applied with awareness of clinical data structures and
-            compliance constraints.
+            Four concrete artifacts, configured for your clinical data pipeline
+            and ready to use from day one.
           </p>
           <div className="mt-10 space-y-8">
-            {services.map((service) => (
-              <div key={service.title}>
-                <h3 className="text-sm font-semibold text-bayesiq-900">
-                  {service.title}
-                </h3>
-                <p className="mt-2 text-sm text-bayesiq-600">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <Link
-              href="/services"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              View full service descriptions
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Engagement model */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            How an engagement works
-          </h2>
-          <p className="mt-4 text-base text-bayesiq-600">
-            A diagnostic sprint runs 1 week and surfaces critical issues fast.
-            A full engagement runs 6 weeks — from warehouse connection to validated
-            dashboards. We audit your data, align on assumptions and metric definitions
-            with your team, then auto-generate the dbt project and interactive dashboards.
-            Your team gets trustworthy clinical and operational metrics from day one.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/approach"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              See how our engagements work
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* How we work with healthcare organizations */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            How we work with healthcare organizations
-          </h2>
-          <div className="mt-10 space-y-8">
-            {workingModel.map((item) => (
+            {deliverables.map((item) => (
               <div key={item.title}>
                 <h3 className="text-sm font-semibold text-bayesiq-900">
                   {item.title}
@@ -218,41 +171,31 @@ export default function HealthcarePage() {
         </div>
       </section>
 
-      {/* Compliance & risk */}
+      {/* Working principles */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900">
-            Compliance and risk
+            How we work with healthcare organizations
           </h2>
-          <p className="mt-4 text-base text-bayesiq-600">
-            Our work can improve the auditability and traceability of your
-            analytics pipelines — helping reduce risk around regulatory
-            reporting and supporting your compliance posture. We help you
-            understand where your data comes from, whether it is complete, and
-            where it could be misrepresenting reality.
-          </p>
-          <p className="mt-4 text-sm text-bayesiq-500">
-            We provide data quality analysis and pipeline auditing. We do not
-            provide legal, regulatory, or compliance advisory services, and our
-            work does not constitute a compliance certification or guarantee.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/assessment"
-              className="text-sm font-medium text-bayesiq-900 underline underline-offset-4 hover:text-bayesiq-600"
-            >
-              Take the data quality self-assessment
-            </Link>
+          <div className="mt-10 space-y-8">
+            {workingPrinciples.map((item) => (
+              <div key={item.title}>
+                <h3 className="text-sm font-semibold text-bayesiq-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm text-bayesiq-600">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Closing CTA */}
       <CTA
-        headline="Let's audit your healthcare data pipeline."
-        description="Send us your data architecture overview or describe what's not adding up. We'll tell you where to look first."
-        buttonText="Get in Touch"
-        href="/contact"
+        headline="Audit your clinical data pipeline"
+        description="Start with a diagnostic sprint or drop a CSV in the playground."
       />
     </>
   );

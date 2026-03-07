@@ -2,13 +2,15 @@
 
 ## What BayesIQ Does
 
-BayesIQ helps companies **trust their data and move faster with it**.
+BayesIQ builds **automated data audit tooling that finds broken metrics and broken pipelines fast, then delivers the fix path**.
 
-Modern organizations rely on complex telemetry pipelines, analytics infrastructure, and machine learning systems to make decisions. However, these systems frequently fail silently: events are logged incorrectly, metrics drift from their intended definitions, and analytics pipelines become increasingly fragile over time.
+We ship two products:
 
-BayesIQ addresses this problem by combining **data science expertise with AI-assisted analysis tools** that audit, validate, and improve data systems.
+1. **BayesIQ Data Audit Kit** — an automated data quality audit pipeline that profiles any dataset, detects issues, validates metrics, and generates production-ready dbt projects and Streamlit dashboards.
 
-The result is **higher confidence in analytics, faster iteration on data products, and fewer costly data failures.**
+2. **BayesIQ Platform** — a safe, extensible execution environment for automating real-world tasks. A tool registry with policy enforcement, approval gates, and audit trails — designed for teams that need deterministic, auditable automation.
+
+Both products are built on the same principle: **data systems should be tested and validated like code**.
 
 ---
 
@@ -16,105 +18,76 @@ The result is **higher confidence in analytics, faster iteration on data product
 
 Most companies assume their data is correct.
 
-In practice, many analytics systems suffer from hidden issues:
+In practice, analytics systems suffer from hidden issues:
 
-* Product telemetry that does not match the logging specification
 * Metrics that drift from their intended definitions
+* Telemetry events logged incorrectly or incompletely
 * ETL pipelines that break silently or degrade over time
 * Business dashboards built on inconsistent or incomplete data
-* Slow and expensive debugging when data issues appear
+* No structured way to detect or diagnose these failures
 
-These problems often remain invisible until a business decision fails or an analytics project breaks.
-
-Traditional approaches rely on manual debugging and ad-hoc investigations, which are slow, expensive, and difficult to scale.
+These problems remain invisible until a business decision fails or an analytics project breaks. Traditional approaches rely on manual debugging — slow, expensive, and impossible to scale.
 
 ---
 
-## The BayesIQ Approach
+## Products
 
-BayesIQ applies **AI-assisted analysis and structured auditing frameworks** to data systems.
+### BayesIQ Data Audit Kit
 
-Instead of relying purely on manual investigation, BayesIQ uses intelligent agents and data science techniques to:
+An automated pipeline that takes any CSV, Parquet, or Snowflake connection and produces:
 
-* analyze telemetry against logging specifications
-* detect inconsistencies in analytics pipelines
-* validate business metrics against underlying data
-* identify schema drift and missing events
-* propose improvements to ETL architecture
+* **Column-level profiling** — types, nulls, cardinality, distributions, min/max, top values
+* **12+ quality checks** — duplicates, naming inconsistencies, schema drift, timestamp gaps, null spikes, out-of-range values, near-duplicate rows
+* **Metric validation** — recompute reported KPIs from raw data and flag discrepancies
+* **Scored audit report** — 0-100 rubric with severity-ranked findings and remediation plan
+* **dbt project** — staging models, mart models, 40+ schema tests, source definitions
+* **Streamlit dashboard** — interactive charts, sidebar filters, dimensional breakdowns, data quality summary
+* **Documentation** — ASSUMPTIONS.md (data contracts) and METRICS.md (metric definitions)
+* **LLM-powered interpretation** — Claude API for resolving ambiguous columns
 
-These tools augment human expertise rather than replacing it.
+Tested on SaaS events, financial transactions, IoT sensor data, CRM exports, and healthcare records.
 
-BayesIQ engagements combine **automated analysis with expert interpretation**, allowing companies to quickly identify the highest-impact data issues and resolve them efficiently.
+### BayesIQ Platform
 
----
+A personal assistant operating system with built-in safety:
 
-## Services
+* **Tool Registry** — dynamically discovers tools from JSON manifests. Each tool defines its mode (read-only, draft, execute-gated), handler, and I/O schemas.
+* **Policy Engine** — YAML-based role configuration. Tool-specific overrides, parameter caps, allowlists.
+* **Approval Gateway** — single execution entry point. All actions flow through schema validation, policy check, and optional human approval before execution.
+* **Audit Trail** — append-only event log, immutable tool run records, credential redaction.
+* **Built-in Tools** — Google Calendar, GitHub (draft PRs), Sonos control, personal memory, notifications, data operations (SQL, ETL planning, QA checks), pipeline orchestration.
 
-BayesIQ currently provides consulting services in three primary areas:
-
-### Data Quality Audits
-
-A structured evaluation of telemetry, analytics pipelines, and business metrics to identify hidden issues in data systems.
-
-Typical outcomes include:
-
-* identification of broken metrics
-* detection of missing telemetry events
-* detection of schema drift
-* improved confidence in analytics dashboards
+Designed for teams and individuals who need automation with deterministic boundaries — every action logged, every dangerous operation gated.
 
 ---
 
-### Telemetry and Logging Validation
+## Engagement Model
 
-Verification that product telemetry matches the intended logging specification.
+BayesIQ offers the Data Audit Kit through tiered engagements:
 
-This ensures that:
+| Tier | Price | Duration | What You Get |
+|------|-------|----------|-------------|
+| Diagnostic Sprint | $7.5K–$10K | 1 week | Automated scorecard + expert readout |
+| Audit + Plan | ~$25K | 4 weeks | Full findings + assumptions doc + remediation roadmap + dbt scaffolding |
+| Full Implementation | $30K–$45K | 6 weeks | Everything above + dbt build + dashboards + training |
 
-* events are fired correctly
-* required fields are populated
-* product metrics reflect real behavior
-
----
-
-### Analytics Pipeline Design
-
-Design and improvement of ETL pipelines and analytics systems.
-
-BayesIQ helps teams:
-
-* define reliable business metrics
-* design robust data pipelines
-* reduce debugging overhead
-* improve data reliability across products
-
----
-
-## Long-Term Vision
-
-BayesIQ is building tools that make **data system auditing and validation far easier than it is today**.
-
-Over time, BayesIQ will expand beyond consulting into software that enables organizations to continuously monitor and validate their data systems automatically.
-
-The goal is to make **data reliability a solved problem**, allowing teams to focus on building products rather than debugging analytics.
+The Audit Kit also powers a **self-serve playground** where anyone can drop a CSV and get an instant profile + downloadable Streamlit app.
 
 ---
 
 ## Ideal Clients
 
-BayesIQ works best with organizations that rely heavily on data but lack strong visibility into their data infrastructure.
-
-Typical clients include:
-
-* technology companies with complex product telemetry
-* healthcare systems building analytics infrastructure
-* fintech and crypto companies with high data complexity
-* organizations building internal data platforms
+* Mid-sized companies ($15M–$75M revenue) with 1-5 data engineers
+* SaaS teams with telemetry distrust or KPI disputes
+* Companies preparing for board meetings, fundraises, or M&A
+* Healthcare organizations building clinical analytics
+* Fintech teams with transaction pipeline complexity
+* Anyone who just hired a VP/Head of Data and needs a baseline
 
 ---
 
-## Summary
+## Long-Term Vision
 
-BayesIQ helps companies ensure their data systems are reliable, interpretable, and aligned with business decisions.
+BayesIQ is building toward continuous, automated data validation — where every metric is tested, every pipeline is monitored, and data reliability is infrastructure, not a project.
 
-By combining **data science expertise, structured auditing frameworks, and AI-assisted analysis**, BayesIQ allows organizations to move faster with greater confidence in their data.
+The Data Audit Kit is the diagnostic entry point. The Platform is the execution layer. Together, they compress expert data quality work from weeks of manual effort into hours of automated pipeline + human interpretation.

@@ -6,8 +6,8 @@ pages:
 
   - path: /services
     type: page
-    title: Services — BayesIQ
-    description: "Data quality audits, telemetry validation, and analytics pipeline design."
+    title: Products — BayesIQ
+    description: "Open-source data auditing tools and expert consulting services for telemetry validation and analytics pipelines."
 
   - path: /approach
     type: page
@@ -39,6 +39,11 @@ pages:
     title: Terms of Service — BayesIQ
     description: "Terms of service for BayesIQ consulting engagements and website use."
 
+  - path: /playground
+    type: page
+    title: CSV Playground — BayesIQ
+    description: "Drop a CSV file and instantly get a profiled Streamlit dashboard app you can download and run locally."
+
   - path: /assessment
     type: page
     title: Data Quality Self-Assessment — BayesIQ
@@ -56,11 +61,13 @@ pages:
 
 nav:
   items:
-    - label: Services
+    - label: Products
       path: /services
     - label: Approach
       path: /approach
-    - label: Case Studies
+    - label: Playground
+      path: /playground
+    - label: Live Demo
       path: /case-studies
     - label: Blog
       path: /blog

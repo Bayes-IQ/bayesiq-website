@@ -1,6 +1,9 @@
 import Link from "next/link";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
+const playgroundEnabled =
+  process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
+
 export default function Footer() {
   return (
     <footer className="border-t border-bayesiq-200 bg-bayesiq-50">
@@ -28,21 +31,35 @@ export default function Footer() {
           <div>
             <p className="text-lg font-bold text-bayesiq-900">BayesIQ</p>
             <p className="mt-1 text-sm text-bayesiq-500">
-              AI-powered data auditing for teams that can&apos;t afford bad metrics.
+              Automated data audit tooling and expert services for teams that can&apos;t afford bad metrics.
             </p>
           </div>
-          <nav className="flex gap-6">
+          <nav className="flex flex-wrap gap-6">
             <Link href="/services" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Services
+              Products
             </Link>
             <Link href="/approach" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
               Approach
             </Link>
+            {playgroundEnabled && (
+              <Link href="/playground" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+                Playground
+              </Link>
+            )}
             <Link href="/case-studies" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
               Live Demo
             </Link>
+            <Link href="/blog" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Blog
+            </Link>
             <Link href="/contact" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
               Contact
+            </Link>
+            <Link href="/privacy" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Terms of Service
             </Link>
           </nav>
         </div>
