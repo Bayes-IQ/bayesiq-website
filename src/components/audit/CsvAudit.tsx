@@ -22,8 +22,8 @@ export default function CsvAudit() {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      setError("File too large. Maximum size is 5 MB.");
+    if (file.size > 50 * 1024 * 1024) {
+      setError("File too large. Maximum size is 50 MB.");
       setStage("error");
       return;
     }
@@ -123,7 +123,7 @@ export default function CsvAudit() {
               Drop a CSV file here
             </p>
             <p className="mt-1 text-sm text-bayesiq-400">
-              or click to browse — 5 MB max
+              or click to browse — 50 MB max
             </p>
             <label className="mt-4 cursor-pointer rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800">
               Choose File

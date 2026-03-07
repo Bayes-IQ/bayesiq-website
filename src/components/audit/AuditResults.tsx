@@ -22,7 +22,7 @@ interface AuditData {
       column: string;
       dtype: string;
       null_rate: number;
-      cardinality: number;
+      unique_count: number;
     }>;
     summary: {
       total_columns: number;
@@ -39,6 +39,9 @@ interface AuditData {
     };
   };
   score: number | null;
+  dashboard_app: string | null;
+  csv_text: string | null;
+  report_markdown: string;
 }
 
 const SEVERITY_CONFIG = {
@@ -134,7 +137,7 @@ function ProfileTable({
               Null Rate
             </th>
             <th className="px-3 py-2 font-medium text-bayesiq-500">
-              Cardinality
+              Unique
             </th>
           </tr>
         </thead>
@@ -160,7 +163,7 @@ function ProfileTable({
                 </span>
               </td>
               <td className="px-3 py-2 text-bayesiq-600">
-                {col.cardinality.toLocaleString()}
+                {col.unique_count?.toLocaleString() ?? "—"}
               </td>
             </tr>
           ))}
@@ -170,6 +173,64 @@ function ProfileTable({
   );
 }
 
+function generateInstaller(
+  appCode: string,
+  csvText: string,
+  filename: string
+): string {
+  const sanitized = filename.replace(/[^a-zA-Z0-9_-]/g, "_").replace(/_csv$/, "");
+  const dirName = `bayesiq-audit-${sanitized}`;
+  return `#!/usr/bin/env bash
+# BayesIQ Audit Dashboard — self-extracting installer
+# Generated at bayes-iq.com/playground
+set -euo pipefail
+
+DIR="$HOME/${dirName}"
+echo "Setting up BayesIQ audit dashboard in $DIR ..."
+mkdir -p "$DIR"
+
+# Write app.py
+cat > "$DIR/app.py" << 'BAYESIQ_APP_EOF'
+${appCode}
+BAYESIQ_APP_EOF
+
+# Write requirements.txt
+cat > "$DIR/requirements.txt" << 'BAYESIQ_REQS_EOF'
+streamlit>=1.30
+pandas>=2.0
+plotly>=5.0
+BAYESIQ_REQS_EOF
+
+# Write data.csv
+cat > "$DIR/data.csv" << 'BAYESIQ_DATA_EOF'
+${csvText}
+BAYESIQ_DATA_EOF
+
+cd "$DIR"
+
+# Create venv if needed
+if [ ! -d .venv ]; then
+  echo "Creating Python environment..."
+  python3 -m venv .venv
+  .venv/bin/pip install -q -r requirements.txt
+fi
+
+echo ""
+echo "Launching dashboard..."
+.venv/bin/streamlit run app.py
+`;
+}
+
+function downloadFile(content: string, filename: string) {
+  const blob = new Blob([content], { type: "application/x-sh" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function AuditResults({ data }: { data: AuditData }) {
   const { metadata, profile, quality, score } = data;
   const severityOrder = ["critical", "high", "medium", "low"];
@@ -177,6 +238,16 @@ export default function AuditResults({ data }: { data: AuditData }) {
     (a, b) =>
       severityOrder.indexOf(a.severity) - severityOrder.indexOf(b.severity)
   );
+
+  const handleDownload = () => {
+    if (!data.dashboard_app || !data.csv_text) return;
+    const installer = generateInstaller(
+      data.dashboard_app,
+      data.csv_text,
+      data.filename
+    );
+    downloadFile(installer, `bayesiq-audit-dashboard.sh`);
+  };
 
   return (
     <div className="space-y-8">
@@ -194,6 +265,14 @@ export default function AuditResults({ data }: { data: AuditData }) {
             <div className="mt-4">
               <SeveritySummary summary={quality.summary.by_severity} />
             </div>
+            {data.dashboard_app && (
+              <button
+                onClick={handleDownload}
+                className="mt-4 rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+              >
+                Download &amp; Run Dashboard
+              </button>
+            )}
           </div>
           {score !== null && <ScoreGauge score={score} />}
         </div>

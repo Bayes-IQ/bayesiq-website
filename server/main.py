@@ -1,10 +1,12 @@
 """BayesIQ Audit API — lightweight FastAPI wrapper around the audit kit pipeline.
 
-Accepts a CSV upload, runs profiling + quality checks + report generation,
-and returns structured JSON with findings, score, and profile data.
+Accepts a CSV upload, runs profiling + quality checks + report generation +
+dashboard generation, and returns structured JSON with findings, score,
+profile data, and a downloadable dashboard app.
 """
 
-import io
+import json
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -22,6 +24,9 @@ from audit.dataset_loader import run as load_dataset
 from audit.schema_profiler import run as profile_schema
 from audit.quality_checker import run as check_quality
 from audit.report_generator import run as generate_report
+from audit.assumptions_generator import run as generate_assumptions
+from audit.metrics_spec_generator import run as generate_metrics_spec
+from audit.dashboard_generator import run as generate_dashboard
 
 app = FastAPI(title="BayesIQ Audit API", version="0.1.0")
 
@@ -36,7 +41,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
+MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
 
 @app.get("/health")
@@ -77,13 +82,39 @@ async def run_audit(file: UploadFile):
         # Quality checks
         quality = check_quality(df, config)
 
-        # Generate report (writes to temp dir)
+        # Generate report + dashboard in temp dir
         with tempfile.TemporaryDirectory() as out_dir:
             report_config = {
                 "dataset": file.filename,
                 "output_dir": out_dir,
             }
             report = generate_report(metadata, profile, quality, report_config)
+
+            # Generate assumptions + metrics spec (needed by dashboard)
+            try:
+                generate_assumptions(out_dir, config)
+            except Exception:
+                pass  # Non-critical
+
+            try:
+                generate_metrics_spec(out_dir, config)
+            except Exception:
+                pass  # Non-critical
+
+            # Generate dashboard
+            dashboard_app = None
+            try:
+                dash_config = {
+                    "dashboard_output_dir": str(Path(out_dir) / "dashboard"),
+                    "dataset_path": tmp_path,
+                }
+                dash_result = generate_dashboard(out_dir, dash_config)
+                # Read the generated app.py
+                app_py_path = Path(dash_result.get("output_dir", "")) / "app.py"
+                if app_py_path.exists():
+                    dashboard_app = app_py_path.read_text()
+            except Exception:
+                pass  # Dashboard generation is best-effort
 
         # Build response
         return {
@@ -104,6 +135,8 @@ async def run_audit(file: UploadFile):
             },
             "score": _extract_score(report.get("report_markdown", "")),
             "report_markdown": report.get("report_markdown", ""),
+            "dashboard_app": dashboard_app,
+            "csv_text": contents.decode("utf-8", errors="replace"),
         }
 
     except Exception as e:
@@ -115,7 +148,6 @@ async def run_audit(file: UploadFile):
 
 def _extract_score(markdown: str) -> int | None:
     """Pull the 0-100 score from the report markdown."""
-    import re
     for line in markdown.splitlines():
         if "score" in line.lower() and "/" in line:
             match = re.search(r"(\d{1,3})\s*/\s*100", line)
