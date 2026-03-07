@@ -10,12 +10,12 @@ These are the canonical docs that all website copy derives from. Edit these firs
 
 | Artifact | Path | Status | Owner | Notes |
 |---|---|---|---|---|
-| Company Overview | `docs/product/company_overview.md` | Done | Human | Core positioning, services, ideal clients, vision. This is the seed doc. |
-| Tagline & Positioning | `docs/product/company_tagline.md` | Done | Human | Primary tagline + alternatives for testing. |
-| Problems We Solve | `docs/product/problems.md` | To create | Human | The pain points that drive consulting conversions. See spec below. |
-| Services Detail | `docs/product/services.md` | To create | Human | Expand each service into a full brief: scope, deliverables, timeline. |
-| Engagement Model | `docs/product/engagement_model.md` | To create | Human | How a client engagement works end-to-end. Powers the Approach page. |
-| Brand Voice | `docs/product/brand.md` | To create | Human | See spec below. |
+| Company Overview | `docs/product/company_overview.md` | Done (updated Phase 4) | Human | Two-product positioning, engagement tiers, ideal clients. |
+| Tagline & Positioning | `docs/product/company_tagline.md` | Done (updated Phase 4) | Human | Product-specific taglines + one-liner. |
+| Problems We Solve | `docs/product/problems.md` | Done (updated Phase 4) | Human | 6 problems mapped to specific product solutions. |
+| Services Detail | `docs/product/services.md` | Done (updated Phase 4) | Human | Audit Kit features (6) + Platform features (4) + engagement tiers. |
+| Engagement Model | `docs/product/engagement_model.md` | Done (updated Phase 4) | Human | Self-serve → Diagnostic → Audit+Plan → Full Implementation. |
+| Brand Voice | `docs/product/brand.md` | Done | Human | Tone, language rules, visual identity. |
 
 ### `docs/product/services.md` — What "done" looks like
 
@@ -143,12 +143,16 @@ These are the actual page content files. They should be written in MDX so they c
 
 | Artifact | Path | Status | Owner | Generates from |
 |---|---|---|---|---|
-| Homepage | `content/home.mdx` | To create | AI (human review) | company_overview.md, tagline.md, problems.md |
-| Services | `content/services.mdx` | To create | AI (human review) | services.md |
-| Approach | `content/approach.mdx` | To create | AI (human review) | engagement_model.md |
-| Case Studies | `content/case-studies.mdx` | To create | AI (human review) | See below |
-| Contact | `content/contact.mdx` | To create | Mixed | Standalone |
-| Blog posts | `content/blog/*.mdx` | Phase 2 | AI (human review) | Original content |
+| Homepage | `src/app/page.tsx` | Done (Phase 4) | AI (human review) | company_overview.md, tagline.md, problems.md |
+| Products | `src/app/services/page.tsx` | Done (Phase 4) | AI (human review) | services.md (Audit Kit + Platform) |
+| Approach | `src/app/approach/page.tsx` | Done (Phase 4) | AI (human review) | engagement_model.md |
+| CSV Playground | `src/app/playground/page.tsx` | Done (Phase 4) | AI (human review) | Client-side profiler + Streamlit generator |
+| Live Demo | `src/app/case-studies/page.tsx` | Done (Phase 4) | AI (human review) | Embedded Streamlit dashboard |
+| Sample Report | `src/app/sample-report/page.tsx` | Done (Phase 4) | AI (human review) | Audit Kit artifacts + scoring rubric |
+| Healthcare Landing | `src/app/healthcare/page.tsx` | Done (Phase 3) | AI (human review) | Industry-specific Audit Kit positioning |
+| Fintech Landing | `src/app/fintech/page.tsx` | Done (Phase 3) | AI (human review) | Industry-specific Audit Kit positioning |
+| Contact | `src/app/contact/page.tsx` | Done (Phase 1) | Mixed | Resend form + Calendly embed |
+| Blog posts | `content/blog/*.mdx` | Done (Phase 2) | AI (human review) | 3 posts live |
 
 ### Case studies — bootstrapping without real clients
 
@@ -178,7 +182,7 @@ Create 2-3 "illustrative case studies" based on common data quality patterns. Be
 
 | Artifact | Path | Status | Notes |
 |---|---|---|---|
-| Site config | `site.config.yaml` | To create | Pages, routes, content mappings, nav, and SEO metadata |
+| Site config | `site.config.yaml` | Done | Pages, routes, content mappings, nav, and SEO metadata |
 
 ### `site.config.yaml`
 
@@ -241,12 +245,10 @@ nav:
 
 | Artifact | Path | Status | Notes |
 |---|---|---|---|
-| Package config | `package.json` | To create | Next.js, Tailwind, MDX dependencies |
-| Next.js config | `next.config.js` | To create | MDX plugin, image optimization |
-| Tailwind config | `tailwind.config.js` | To create | Custom theme (fonts, colors, spacing) |
-| Vercel config | `vercel.json` | To create | Redirects, headers, region |
-| TypeScript config | `tsconfig.json` | To create | Strict mode |
-| README | `README.md` | To create | Setup instructions, architecture overview |
+| Package config | `package.json` | Done | Next.js 15, Tailwind v4, MDX dependencies |
+| Next.js config | `next.config.mjs` | Done | App Router configuration |
+| TypeScript config | `tsconfig.json` | Done | Strict mode |
+| README | `README.md` | Done | Setup instructions, architecture overview |
 
 ### Key engineering decisions
 
@@ -303,17 +305,20 @@ Marketing site for BayesIQ data auditing consultancy.
 
 ## Creation Order
 
-This is the order to build things in — each step unlocks the next:
+This is the order things were built — each step unlocked the next:
 
-1. **Product definitions** — `problems.md`, `services.md`, `engagement_model.md`, `brand.md` (complete the source of truth)
-2. **Engineering scaffold** — `package.json`, configs, basic Next.js app with Tailwind
-3. **Site structure** — `site.config.yaml`, layout component with nav
-4. **Homepage** — `content/home.mdx` + route (draws from problems.md + tagline)
-5. **Services page** — `content/services.mdx` + route
-6. **Approach page** — `content/approach.mdx` + route (draws from engagement_model.md)
-7. **Contact page** — `content/contact.mdx` + route + Resend server action
-8. **Case studies** — `content/case-studies.mdx` + route
-9. **SEO** — meta tags, structured data, sitemap.xml
-10. **Deploy** — Vercel setup, custom domain, production checks
-11. **Blog** (Phase 2) — MDX blog infrastructure + first 3 posts
-12. **Landing pages** (Phase 2) — industry-specific pages (healthcare, fintech) using `type: landing`
+1. **Product definitions** — `problems.md`, `services.md`, `engagement_model.md`, `brand.md` ✅
+2. **Engineering scaffold** — `package.json`, configs, Next.js + Tailwind ✅
+3. **Site structure** — `site.config.yaml`, layout component with nav ✅
+4. **Homepage** — product-first positioning with two product cards ✅
+5. **Services page** — Audit Kit + Platform feature grids ✅
+6. **Approach page** — pipeline architecture + engagement tiers ✅
+7. **Contact page** — Resend form + Calendly embed ✅
+8. **Case studies / Live Demo** — embedded Streamlit dashboard ✅
+9. **SEO** — meta tags, structured data, sitemap.xml, robots.txt ✅
+10. **Deploy** — Vercel, production checks ✅
+11. **Blog** — MDX infrastructure + 3 posts ✅
+12. **Landing pages** — healthcare + fintech ✅
+13. **Playground** — CSV drop + client-side profiling + Streamlit generator ✅
+14. **Sample report** — Audit Kit artifacts + scoring rubric ✅
+15. **Server-side audit pipeline** — Phase 5A (next: audit kit Phase 3.8 dependency now satisfied)

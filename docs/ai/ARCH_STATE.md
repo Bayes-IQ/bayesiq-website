@@ -1,6 +1,6 @@
 # BayesIQ Website — Architecture State
 
-Last Updated: 2026-03-07 (Phase 4 complete)
+Last Updated: 2026-03-07 (Website Phase 4 complete; Audit Kit Phase 3.8 complete — Phase 5A unblocked)
 
 ---
 
@@ -134,7 +134,7 @@ No data leaves the browser. No server-side processing (yet — that's Phase 5).
 - API route (`/api/audit`) accepting CSV upload, returning scored findings
 - Full quality checks (12+) on the website, not just profiling
 - Scored report display (0-100 with findings) rendered in Next.js
-- Depends on `bayesiq-data-audit-kit` Phase 3.8 module manifests
+- **Dependency satisfied:** `bayesiq-data-audit-kit` Phase 3.8 complete (29 PRs, 238 tests, 14 modules, standard return envelope, module manifests, vertical config packs)
 
 ## Phase 5B — Downloads, Limits, Polish
 - Artifact download bundles (dbt project, dashboard, docs)

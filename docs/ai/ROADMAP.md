@@ -19,9 +19,9 @@ This website intersects three repos. Each phase below maps to where the audit ki
 | Website Phase | Audit Kit Phase | Platform Phase | Integration Point |
 |---------------|-----------------|----------------|-------------------|
 | Phase 4 (done) | 3.7 (done) | — | Client-side CSV profiler mirrors audit kit's schema_profiler |
-| Phase 5A (next) | 3.8 (next) | — | Server-side audit pipeline, findings + score on website |
-| Phase 5B | 3.8 | — | Artifact downloads, rate limiting, free/paid entitlements |
-| Phase 6 | 4 (extract) | Active | Chat UI powered by platform orchestration layer |
+| Phase 5A (next) | 3.8 (done) | — | Server-side audit pipeline, findings + score on website |
+| Phase 5B | 3.8 (done) | — | Artifact downloads, rate limiting, free/paid entitlements |
+| Phase 6 | 4 (next) | Active | Chat UI powered by platform orchestration layer |
 | Phase 7 | 5 (hosted) | Active | Hosted dashboards, multi-tenant, self-service |
 
 Content follows a strict derivation chain:
@@ -258,7 +258,7 @@ Key outcomes:
 
 Goal: run the real audit kit pipeline on the website. Users drop a CSV and get a scored report with real quality checks — without installing anything.
 
-**Depends on:** Audit Kit Phase 3.8 (module interface manifests, return envelope standardization).
+**Depends on:** Audit Kit Phase 3.8 (module interface manifests, return envelope standardization) — **dependency satisfied** (Phase 3.8 complete: 29 PRs merged, 238 tests, 14 modules, standard return envelope, module manifests, vertical config packs all shipped).
 
 This is a product launch, not a backend task. The first server-side audit experience is the real product moment.
 
@@ -271,6 +271,8 @@ This is a product launch, not a backend task. The first server-side audit experi
   - Severity-ranked findings with root causes and fix recommendations
   - Canonicalization mapping
   - Ambiguous column detection
+  - LLM-powered column interpretation (via `llm_advisor.py`)
+  - Metric intent capture (via `--metrics` flag)
 - **Results page** — interactive display of findings, score gauge, severity breakdown (rendered in Next.js, not just Streamlit)
 
 ### Technical Approach
@@ -287,7 +289,7 @@ Recommendation: Start with Option A (Vercel serverless) for files under 5MB. Fal
 
 | # | Title | Dependencies | Status |
 |---|-------|-------------|--------|
-| — | Install audit kit as Python dependency (or git submodule) | Audit Kit 3.8 manifests | Planned |
+| — | Install audit kit as Python dependency (or git submodule) | Audit Kit 3.8 manifests (done) | Planned |
 | — | `/api/audit` serverless route (upload CSV → run pipeline → return JSON) | Above | Planned |
 | — | Playground: replace client profiler with server audit results | Above | Planned |
 | — | Findings display component (severity cards, score gauge, evidence) | Above | Planned |
