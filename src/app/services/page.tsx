@@ -16,7 +16,7 @@ const productJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "BayesIQ",
-  url: "https://bayesiq.com",
+  url: "https://bayes-iq.com",
   makesOffer: [
     {
       "@type": "Offer",

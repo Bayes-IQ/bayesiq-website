@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://bayesiq.com/sitemap.xml",
+    sitemap: "https://bayes-iq.com/sitemap.xml",
   };
 }

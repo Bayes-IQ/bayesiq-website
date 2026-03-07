@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://bayesiq.com";
+const SITE_URL = "https://bayes-iq.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

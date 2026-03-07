@@ -18,12 +18,26 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--color-bayesiq-200);
+  color: var(--color-bayesiq-900);
+}
+
 body {
   color: var(--color-bayesiq-900);
   background-color: white;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 /* Blog prose styling */

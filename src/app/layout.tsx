@@ -1,27 +1,40 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const SITE_URL = "https://bayesiq.com";
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const SITE_URL = "https://bayes-iq.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "BayesIQ — AI-Powered Data Auditing",
+    default: "BayesIQ — Automated Data Auditing",
     template: "%s — BayesIQ",
   },
   description:
-    "BayesIQ audits telemetry, analytics pipelines, and business metrics so you can trust your data.",
+    "BayesIQ finds broken metrics and broken data pipelines fast, then gives you the fix path. Scored audits, dbt projects, and dashboards from any dataset.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     siteName: "BayesIQ",
-    title: "BayesIQ — AI-Powered Data Auditing",
+    title: "BayesIQ — Automated Data Auditing",
     description:
-      "BayesIQ audits telemetry, analytics pipelines, and business metrics so you can trust your data.",
+      "BayesIQ finds broken metrics and broken data pipelines fast, then gives you the fix path.",
   },
   twitter: {
     card: "summary_large_image",
@@ -29,6 +42,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: "/favicon.svg",
   },
 };
 
@@ -38,7 +54,7 @@ const organizationJsonLd = {
   name: "BayesIQ",
   url: SITE_URL,
   description:
-    "AI-powered data auditing consultancy. We audit telemetry, analytics pipelines, and business metrics.",
+    "Automated data audit tooling. We find broken metrics and broken pipelines, then deliver the fix path.",
 };
 
 export default function RootLayout({
@@ -47,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"
