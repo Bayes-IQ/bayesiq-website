@@ -1,0 +1,6 @@
+.venv
+__pycache__
+*.pyc
+run_dev.sh
+build.sh
+.dockerignore

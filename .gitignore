@@ -27,3 +27,8 @@ next-env.d.ts
 
 CLAUDE.md
 .claude/
+
+# server
+server/.venv
+server/__pycache__
+server/bayesiq-data-audit-kit/

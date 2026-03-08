@@ -14,8 +14,10 @@ from pathlib import Path
 from fastapi import FastAPI, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-# Add the audit kit to the Python path
-AUDIT_KIT_PATH = Path(__file__).resolve().parent.parent.parent / "bayesiq-data-audit-kit"
+# Add the audit kit to the Python path — check Docker location first, then local dev
+AUDIT_KIT_PATH = Path(__file__).resolve().parent / "bayesiq-data-audit-kit"
+if not AUDIT_KIT_PATH.exists():
+    AUDIT_KIT_PATH = Path(__file__).resolve().parent.parent.parent / "bayesiq-data-audit-kit"
 if AUDIT_KIT_PATH.exists():
     sys.path.insert(0, str(AUDIT_KIT_PATH))
 
