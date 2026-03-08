@@ -5,6 +5,7 @@ dashboard generation, and returns structured JSON with findings, score,
 profile data, and a downloadable dashboard app.
 """
 
+import asyncio
 import hashlib
 import logging
 import os
@@ -14,6 +15,8 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, HTTPException, Request
@@ -84,6 +87,9 @@ app.add_middleware(
 )
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
+AUDIT_TIMEOUT = int(os.environ.get("AUDIT_TIMEOUT", "120"))  # seconds
+
+_executor = ThreadPoolExecutor(max_workers=2)
 
 
 def _get_client_ip(request: Request) -> str:
@@ -105,6 +111,65 @@ def _verify_api_key(request: Request) -> bool:
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+def _run_pipeline(tmp_path: str, out_dir: str, filename: str) -> dict:
+    """Run the full audit pipeline (synchronous, called in thread pool)."""
+    config = {"row_limit": 50_000}
+    loader_result = load_dataset(tmp_path, config)
+    df = loader_result["dataframe"]
+    metadata = loader_result["metadata"]
+
+    profile = profile_schema(df, config)
+    quality = check_quality(df, config)
+
+    report_config = {"dataset": filename, "output_dir": out_dir}
+    report = generate_report(metadata, profile, quality, report_config)
+
+    # Non-critical steps
+    try:
+        generate_assumptions(out_dir, config)
+    except Exception:
+        pass
+    try:
+        generate_metrics_spec(out_dir, config)
+    except Exception:
+        pass
+
+    # Dashboard (best-effort)
+    dashboard_app = None
+    try:
+        dash_config = {
+            "dashboard_output_dir": str(Path(out_dir) / "dashboard"),
+            "dataset_path": "data.csv",
+        }
+        dash_result = generate_dashboard(out_dir, dash_config)
+        app_py_path = Path(dash_result.get("output_dir", "")) / "app.py"
+        if app_py_path.exists():
+            dashboard_app = app_py_path.read_text()
+    except Exception:
+        pass
+
+    return {
+        "status": "ok",
+        "filename": filename,
+        "metadata": {
+            "rows": metadata["row_count"],
+            "columns": metadata["column_count"],
+            "column_names": metadata["columns"],
+        },
+        "profile": {
+            "columns": profile["columns"],
+            "summary": profile["summary"],
+        },
+        "quality": {
+            "findings": quality["findings"],
+            "summary": quality["summary"],
+        },
+        "score": _extract_score(report.get("report_markdown", "")),
+        "report_markdown": report.get("report_markdown", ""),
+        "dashboard_app": dashboard_app,
+    }
 
 
 @app.post("/audit")
@@ -147,75 +212,22 @@ async def run_audit(request: Request, file: UploadFile):
     Path(out_dir).mkdir()
 
     try:
-        # Load
-        config = {"row_limit": 50_000}
-        loader_result = load_dataset(tmp_path, config)
-        df = loader_result["dataframe"]
-        metadata = loader_result["metadata"]
+        loop = asyncio.get_event_loop()
+        result = await asyncio.wait_for(
+            loop.run_in_executor(
+                _executor,
+                partial(_run_pipeline, tmp_path, out_dir, file.filename),
+            ),
+            timeout=AUDIT_TIMEOUT,
+        )
+        result["csv_text"] = contents.decode("utf-8", errors="replace")
 
-        # Profile
-        profile = profile_schema(df, config)
+        logger.info(f"Audit complete: hash={file_hash} score={result.get('score')}")
+        return result
 
-        # Quality checks
-        quality = check_quality(df, config)
-
-        # Generate report
-        report_config = {
-            "dataset": file.filename,
-            "output_dir": out_dir,
-        }
-        report = generate_report(metadata, profile, quality, report_config)
-
-        # Generate assumptions + metrics spec (needed by dashboard)
-        try:
-            generate_assumptions(out_dir, config)
-        except Exception:
-            pass  # Non-critical
-
-        try:
-            generate_metrics_spec(out_dir, config)
-        except Exception:
-            pass  # Non-critical
-
-        # Generate dashboard
-        dashboard_app = None
-        try:
-            dash_config = {
-                "dashboard_output_dir": str(Path(out_dir) / "dashboard"),
-                "dataset_path": "data.csv",
-            }
-            dash_result = generate_dashboard(out_dir, dash_config)
-            app_py_path = Path(dash_result.get("output_dir", "")) / "app.py"
-            if app_py_path.exists():
-                dashboard_app = app_py_path.read_text()
-        except Exception:
-            pass  # Dashboard generation is best-effort
-
-        logger.info(f"Audit complete: hash={file_hash} score={_extract_score(report.get('report_markdown', ''))}")
-
-        # Build response
-        return {
-            "status": "ok",
-            "filename": file.filename,
-            "metadata": {
-                "rows": metadata["row_count"],
-                "columns": metadata["column_count"],
-                "column_names": metadata["columns"],
-            },
-            "profile": {
-                "columns": profile["columns"],
-                "summary": profile["summary"],
-            },
-            "quality": {
-                "findings": quality["findings"],
-                "summary": quality["summary"],
-            },
-            "score": _extract_score(report.get("report_markdown", "")),
-            "report_markdown": report.get("report_markdown", ""),
-            "dashboard_app": dashboard_app,
-            "csv_text": contents.decode("utf-8", errors="replace"),
-        }
-
+    except asyncio.TimeoutError:
+        logger.error(f"Audit timed out: hash={file_hash} timeout={AUDIT_TIMEOUT}s")
+        raise HTTPException(504, "Audit timed out. Try a smaller file.")
     except HTTPException:
         raise
     except Exception as e:
