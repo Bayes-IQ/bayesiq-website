@@ -18,8 +18,6 @@ from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import JSONResponse
 
 # Add the audit kit to the Python path — check Docker location first, then local dev
 AUDIT_KIT_PATH = Path(__file__).resolve().parent / "bayesiq-data-audit-kit"

@@ -1,3 +1,4 @@
+# Only exclude Python artifacts — include everything else (especially bayesiq-data-audit-kit)
 .venv
 __pycache__
 *.pyc
