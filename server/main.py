@@ -5,14 +5,21 @@ dashboard generation, and returns structured JSON with findings, score,
 profile data, and a downloadable dashboard app.
 """
 
-import json
+import hashlib
+import logging
+import os
 import re
+import shutil
 import sys
 import tempfile
+import time
+from collections import defaultdict
 from pathlib import Path
 
-from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi import FastAPI, UploadFile, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
 
 # Add the audit kit to the Python path — check Docker location first, then local dev
 AUDIT_KIT_PATH = Path(__file__).resolve().parent / "bayesiq-data-audit-kit"
@@ -30,7 +37,42 @@ from audit.assumptions_generator import run as generate_assumptions
 from audit.metrics_spec_generator import run as generate_metrics_spec
 from audit.dashboard_generator import run as generate_dashboard
 
-app = FastAPI(title="BayesIQ Audit API", version="0.1.0")
+logger = logging.getLogger("bayesiq.audit")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+# --- API key for server-to-server auth ---
+API_KEY = os.environ.get("BAYESIQ_API_KEY", "")
+
+# --- Rate limiting (in-memory, per-IP) ---
+RATE_LIMIT_MAX = int(os.environ.get("RATE_LIMIT_MAX", "10"))  # requests per window
+RATE_LIMIT_WINDOW = int(os.environ.get("RATE_LIMIT_WINDOW", "3600"))  # seconds
+_rate_limit_store: dict[str, list[float]] = defaultdict(list)
+
+
+def _check_rate_limit(client_ip: str) -> bool:
+    """Return True if the request should be allowed."""
+    now = time.time()
+    window_start = now - RATE_LIMIT_WINDOW
+    # Prune old entries
+    _rate_limit_store[client_ip] = [
+        t for t in _rate_limit_store[client_ip] if t > window_start
+    ]
+    if len(_rate_limit_store[client_ip]) >= RATE_LIMIT_MAX:
+        return False
+    _rate_limit_store[client_ip].append(now)
+    return True
+
+
+# --- App setup (disable docs in production) ---
+DISABLE_DOCS = os.environ.get("DISABLE_DOCS", "true").lower() == "true"
+
+app = FastAPI(
+    title="BayesIQ Audit API",
+    version="0.1.0",
+    docs_url=None if DISABLE_DOCS else "/docs",
+    redoc_url=None if DISABLE_DOCS else "/redoc",
+    openapi_url=None if DISABLE_DOCS else "/openapi.json",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -39,11 +81,27 @@ app.add_middleware(
         "https://bayes-iq.com",
         "https://www.bayes-iq.com",
     ],
-    allow_methods=["POST"],
-    allow_headers=["*"],
+    allow_methods=["POST", "GET"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
+
+
+def _get_client_ip(request: Request) -> str:
+    """Extract client IP, respecting proxy headers."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _verify_api_key(request: Request) -> bool:
+    """Check API key if one is configured."""
+    if not API_KEY:
+        return True  # No key configured = open (dev mode)
+    auth = request.headers.get("authorization", "")
+    return auth == f"Bearer {API_KEY}"
 
 
 @app.get("/health")
@@ -52,7 +110,17 @@ def health():
 
 
 @app.post("/audit")
-async def run_audit(file: UploadFile):
+async def run_audit(request: Request, file: UploadFile):
+    # Auth check
+    if not _verify_api_key(request):
+        raise HTTPException(401, "Unauthorized.")
+
+    # Rate limit
+    client_ip = _get_client_ip(request)
+    if not _check_rate_limit(client_ip):
+        logger.warning(f"Rate limit exceeded for {client_ip}")
+        raise HTTPException(429, "Rate limit exceeded. Try again later.")
+
     # Validate file type
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(400, "Only CSV files are supported.")
@@ -66,17 +134,19 @@ async def run_audit(file: UploadFile):
     if len(contents) == 0:
         raise HTTPException(400, "File is empty.")
 
-    # Use a single work directory for the entire pipeline — temp file, report
-    # artifacts, and dashboard all live here until the response is built.
-    import shutil
+    # Audit logging
+    file_hash = hashlib.sha256(contents).hexdigest()[:16]
+    logger.info(
+        f"Audit request: ip={client_ip} file={file.filename} "
+        f"size={len(contents)} hash={file_hash}"
+    )
+
+    # Use a single work directory for the entire pipeline
     work_dir = tempfile.mkdtemp(prefix="bayesiq_audit_")
     tmp_path = str(Path(work_dir) / "upload.csv")
     Path(tmp_path).write_bytes(contents)
     out_dir = str(Path(work_dir) / "output")
     Path(out_dir).mkdir()
-
-    print(f"[AUDIT] work_dir={work_dir}")
-    print(f"[AUDIT] tmp_path={tmp_path} exists={Path(tmp_path).exists()} size={Path(tmp_path).stat().st_size}")
 
     try:
         # Load
@@ -123,6 +193,8 @@ async def run_audit(file: UploadFile):
         except Exception:
             pass  # Dashboard generation is best-effort
 
+        logger.info(f"Audit complete: hash={file_hash} score={_extract_score(report.get('report_markdown', ''))}")
+
         # Build response
         return {
             "status": "ok",
@@ -146,8 +218,11 @@ async def run_audit(file: UploadFile):
             "csv_text": contents.decode("utf-8", errors="replace"),
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(500, f"Audit failed: {str(e)}")
+        logger.error(f"Audit failed: hash={file_hash} error={str(e)}")
+        raise HTTPException(500, "Audit processing failed. Please try again.")
 
     finally:
         shutil.rmtree(work_dir, ignore_errors=True)

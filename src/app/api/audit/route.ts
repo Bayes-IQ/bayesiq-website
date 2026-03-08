@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const AUDIT_API_URL =
   process.env.AUDIT_API_URL ?? "http://localhost:8000";
+const AUDIT_API_KEY = process.env.BAYESIQ_API_KEY ?? "";
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,9 +20,15 @@ export async function POST(request: NextRequest) {
     const proxyForm = new FormData();
     proxyForm.append("file", file);
 
+    const headers: Record<string, string> = {};
+    if (AUDIT_API_KEY) {
+      headers["Authorization"] = `Bearer ${AUDIT_API_KEY}`;
+    }
+
     const response = await fetch(`${AUDIT_API_URL}/audit`, {
       method: "POST",
       body: proxyForm,
+      headers,
     });
 
     const data = await response.json();
