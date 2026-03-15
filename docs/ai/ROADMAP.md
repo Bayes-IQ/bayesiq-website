@@ -1332,16 +1332,17 @@ Post-freeze changes require version bump + cross-repo review
 
 #### Contract C: `bayesiq` → `biq_website` (build-time static)
 
-| Payload | Format | Purpose |
-|---------|--------|---------|
-| Approval status per finding | JSON | Trust micro-badges |
-| Reviewer attribution | JSON | Name, role, timestamp |
-| Feedback thread state | JSON | Comment → review → resolution chain |
-| Published doc URLs | JSON | GDoc/GDrive links |
-| Trust badge summaries | JSON | Pre-compiled badge data |
-| Business-event governance state | JSON | Preview vs. approved status |
+| Payload | Platform PR | Schema | Status |
+|---------|-------------|--------|--------|
+| Approval metadata | #316 | `approval_status.schema.json` | Aligned |
+| Feedback threads | #317 | `feedback_threads.schema.json` | Aligned |
+| Business-event governance | #318 | `business_events.schema.json` | Aligned |
+| Trust badge summaries | #323 | `trust_badges.schema.json` | Aligned |
+| Review context blocks | #325 | `review_context.schema.json` | Aligned (new) |
+| Cascade governance overlay | #329 | `cascade_governance.schema.json` | Aligned (new) |
+| Published doc URLs | — | `published_docs.schema.json` | Website-proposed |
 
-All payloads include `schema_version` and `payload_type`. TypeScript types are generated from or validated against versioned JSON schemas shipped with payloads.
+All payloads use `schema_version` (integer const), `payload_type` (`contract_c.*` format), and `generated_at` (UTC ISO 8601). TypeScript types are generated from versioned JSON schemas. See `docs/ai/contract-summaries/contract-c-summary.md` for full field documentation.
 
 ### Parallel Execution Windows
 

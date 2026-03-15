@@ -5,28 +5,40 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+import type { Reviewer } from "./common";
+
 /**
- * Per-finding feedback conversation chains: comment → review → resolution.
+ * Feedback item state with linked approvals. Aligned with platform contract_c.feedback_threads_v1 (PR #317).
  */
 export interface FeedbackThreads {
-  schema_version: string;
-  payload_type: "feedback_threads";
-  threads: FeedbackThread[];
+  schema_version: 1;
+  payload_type: "contract_c.feedback_threads";
+  generated_at: string;
+  items: FeedbackItem[];
 }
-export interface FeedbackThread {
-  thread_id: string;
-  /**
-   * References Contract B cascade_data finding
-   */
-  finding_id: string;
-  /**
-   * @minItems 1
-   */
-  comments: [ThreadComment, ...ThreadComment[]];
+export interface FeedbackItem {
+  feedback_id: string;
+  summary: string;
+  category?: string | null;
+  priority?: string | null;
+  status: string;
+  disposition: "pending" | "in_progress" | "resolved" | "rejected";
+  resolution_note?: string | null;
+  source?: string | null;
+  timeline: Timeline;
+  linked_approvals: LinkedApproval[];
 }
-export interface ThreadComment {
-  author: string;
-  body: string;
-  timestamp: string;
-  type: "comment" | "review" | "resolution";
+export interface Timeline {
+  created_at: string;
+  updated_at: string;
+  resolved_at: string;
+}
+export interface LinkedApproval {
+  approval_id: string;
+  approval_status: "pending" | "approved" | "rejected" | "deferred";
+  record_origin: "demo_seeded" | "demo_approved" | "live";
+  reviewer: Reviewer;
+  ts_requested: string;
+  ts_resolved: string;
+  review_note?: string | null;
 }

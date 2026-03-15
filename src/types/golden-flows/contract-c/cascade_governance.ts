@@ -8,21 +8,23 @@
 import type { Reviewer } from "./common";
 
 /**
- * Business event governance state: approval status, reviewer, timestamps. Aligned with platform contract_c.business_event_governance_v1 (PR #318).
+ * Per-question governance overlay for cascade viewer. Aligned with platform contract_c.cascade_governance_v1 (PR #329).
  */
-export interface BusinessEventGovernance {
+export interface CascadeGovernance {
   schema_version: 1;
-  payload_type: "contract_c.business_event_governance";
+  payload_type: "contract_c.cascade_governance";
   generated_at: string;
-  items: BusinessEventGovernanceItem[];
+  items: CascadeGovernanceItem[];
 }
-export interface BusinessEventGovernanceItem {
-  event_id: string;
+export interface CascadeGovernanceItem {
+  question_id: string;
   approval_status: "pending" | "approved" | "rejected" | "deferred";
   record_origin: "demo_seeded" | "demo_approved" | "live";
-  source_approval_id: string;
   reviewer: Reviewer;
+  review_note?: string | null;
+  finding_ids: string[];
+  feedback_ids: string[];
+  event_ids: string[];
   ts_requested: string;
   ts_resolved: string;
-  review_note?: string | null;
 }

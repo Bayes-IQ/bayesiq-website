@@ -6,12 +6,13 @@
  */
 
 /**
- * GDoc/GDrive URLs for published governance documents.
+ * GDoc/GDrive URLs for published governance documents. No platform export yet — website-proposed schema following Contract C conventions.
  */
 export interface PublishedDocs {
-  schema_version: string;
-  payload_type: "published_docs";
-  docs: PublishedDoc[];
+  schema_version: 1;
+  payload_type: "contract_c.published_docs";
+  generated_at: string;
+  items: PublishedDoc[];
 }
 export interface PublishedDoc {
   doc_id: string;
