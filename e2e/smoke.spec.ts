@@ -8,7 +8,7 @@ const staticRoutes = [
   { path: "/services", titleContains: "Platform" },
   { path: "/audit-kit", titleContains: "Audit Kit" },
   { path: "/approach", titleContains: "Approach" },
-  { path: "/case-studies", titleContains: "Live Demo" },
+  { path: "/case-studies", titleContains: "Case Studies" },
   { path: "/sample-report", titleContains: "Sample" },
   { path: "/playground", titleContains: "Playground" },
   { path: "/assessment", titleContains: "Assessment" },

@@ -12,7 +12,7 @@ const navItems = [
   ...(playgroundEnabled
     ? [{ label: "Playground", path: "/playground" }]
     : []),
-  { label: "Live Demo", path: "/case-studies" },
+  { label: "Case Studies", path: "/case-studies" },
   { label: "Blog", path: "/blog" },
 ];
 
