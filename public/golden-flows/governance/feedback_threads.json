@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "payload_type": "contract_c.feedback_threads",
+  "generated_at": "2026-03-15T23:10:50.815077+00:00",
+  "items": [
+    {
+      "feedback_id": "031604bb-9e4f-4ffe-a53a-64b7304f4fc6",
+      "summary": "# Evaluation: GF-9 Rollout + Discover (run b42495fbaaa2)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T21:27:54.361673+00:00",
+        "updated_at": "2026-03-15T21:27:54.361678+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "259def71-b5bd-4204-ad25-3bbe10b14195",
+      "summary": "# Evaluation: Re-ingest Real DAK Data (run 899a225fff25)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T21:27:53.221931+00:00",
+        "updated_at": "2026-03-15T21:27:53.221936+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "28b9f520-1726-4425-ad95-c7a7da9918e0",
+      "summary": "# Evaluation: GF-1.5 Schema Freeze Gate (run cca6ef01958f)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T20:38:13.338743+00:00",
+        "updated_at": "2026-03-15T20:38:13.338748+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "41a436d5-0468-4dac-a6fe-0c7da6c6c632",
+      "summary": "# Evaluation: GF-5 Cascade Viewer (run 4c03217488e6)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T21:27:54.000319+00:00",
+        "updated_at": "2026-03-15T21:27:54.000324+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "4b9fbca3-20ff-45f9-9eb7-1bff8cda362e",
+      "summary": "UI issues",
+      "category": "ux_polish",
+      "priority": "high",
+      "status": "accepted",
+      "disposition": "in_progress",
+      "resolution_note": null,
+      "source": "internal_tester",
+      "timeline": {
+        "created_at": "2026-03-08T23:42:36.617910+00:00",
+        "updated_at": "2026-03-08T23:47:40.241295+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "61bca364-8bbb-4fbc-8611-7d2d16bf641f",
+      "summary": "# Evaluation: PR #27 Static Data Loader (run 5fb883696833)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T20:38:14.265848+00:00",
+        "updated_at": "2026-03-15T20:38:14.265853+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "6703f587-ddb6-49a3-b701-18e30625690c",
+      "summary": "# Evaluation: GF-2 Score Trajectory + Landing (run eb24da0e7b44)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T21:27:53.622290+00:00",
+        "updated_at": "2026-03-15T21:27:53.622295+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "8f9be460-f10b-41a8-943e-264a43505363",
+      "summary": "Extraction failed",
+      "category": null,
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "operator",
+      "timeline": {
+        "created_at": "2026-03-12T12:26:03.239778+00:00",
+        "updated_at": "2026-03-12T12:26:03.239787+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "a18b60ba-faa1-4842-b5e3-dad300cfe97d",
+      "summary": "# Evaluation: Contract C Schema Reconciliation Plan (run 04d8a645c7b6)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T19:49:24.202783+00:00",
+        "updated_at": "2026-03-15T19:49:24.202788+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "bf521928-eeff-4cf0-bc8f-b4ac5d005c9e",
+      "summary": "# Evaluation: PR #28 Contract B Ingestion (run 3a4b25d83846)",
+      "category": "feature_gap",
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "pipeline",
+      "timeline": {
+        "created_at": "2026-03-15T20:38:14.997368+00:00",
+        "updated_at": "2026-03-15T20:38:14.997375+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    },
+    {
+      "feedback_id": "de22bb96-5335-4e6a-bfe4-0e3d0c61de14",
+      "summary": "Can’t delete deliverables on MyPlate",
+      "category": null,
+      "priority": null,
+      "status": "new",
+      "disposition": "pending",
+      "resolution_note": null,
+      "source": "operator",
+      "timeline": {
+        "created_at": "2026-03-12T02:55:24.919767+00:00",
+        "updated_at": "2026-03-12T02:55:24.919779+00:00",
+        "resolved_at": ""
+      },
+      "linked_approvals": []
+    }
+  ]
+}

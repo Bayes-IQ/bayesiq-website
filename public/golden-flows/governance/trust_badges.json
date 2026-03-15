@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "payload_type": "contract_c.trust_badges",
+  "generated_at": "2026-03-15T23:10:53.113815+00:00",
+  "summary": {
+    "total_objects": 3,
+    "by_status": {
+      "approved": 3,
+      "deferred": 0,
+      "pending": 0,
+      "rejected": 0
+    },
+    "by_object_type": {
+      "approval": {
+        "total": 3,
+        "by_status": {
+          "approved": 3,
+          "deferred": 0,
+          "pending": 0,
+          "rejected": 0
+        }
+      }
+    }
+  },
+  "badges": [
+    {
+      "object_type": "approval",
+      "object_id": "ap-1",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "last_reviewed_at": "2026-03-05T16:47:40.789840+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "approval",
+      "object_id": "ap-2",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "last_reviewed_at": "2026-03-05T16:47:39.558816+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "approval",
+      "object_id": "ap-3",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "last_reviewed_at": "2026-03-05T13:11:07.937155+00:00",
+      "approval_count": 1
+    }
+  ]
+}

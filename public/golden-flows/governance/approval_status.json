@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "payload_type": "contract_c.approval_metadata",
+  "generated_at": "2026-03-15T23:10:49.982296+00:00",
+  "items": [
+    {
+      "object_type": "approval",
+      "object_id": "ap-1",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "ap-1",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "timestamp": "2026-03-05T16:47:40.789840+00:00",
+      "review_note": null
+    },
+    {
+      "object_type": "approval",
+      "object_id": "ap-2",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "ap-2",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "timestamp": "2026-03-05T16:47:39.558816+00:00",
+      "review_note": null
+    },
+    {
+      "object_type": "approval",
+      "object_id": "ap-3",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "ap-3",
+      "reviewer": {
+        "reviewer_id": "production",
+        "display_name": null,
+        "role": null
+      },
+      "timestamp": "2026-03-05T13:11:07.937155+00:00",
+      "review_note": null
+    }
+  ]
+}
