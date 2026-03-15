@@ -179,6 +179,43 @@ export default function FintechPage() {
         </div>
       </section>
 
+      {/* Case Study Callout */}
+      <section className="border-t border-bayesiq-200 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400">
+            Results from a recent fintech engagement
+          </p>
+          <div className="mt-4 rounded-xl border-2 border-accent/20 bg-accent/5 p-6">
+            <div className="flex flex-wrap gap-6">
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">$340K</p>
+                <p className="text-sm text-bayesiq-600">Revenue discrepancy found</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">1,200</p>
+                <p className="text-sm text-bayesiq-600">Dropped transaction records</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">52 → 84</p>
+                <p className="text-sm text-bayesiq-600">Reliability score improvement</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-bayesiq-600">
+              A mid-market payments processor found a $340K annual revenue discrepancy
+              and 1,200 silently dropped transaction records. The Audit Kit identified
+              the root causes, and the delivered dbt project with 56 schema tests now
+              catches regressions automatically.
+            </p>
+            <Link
+              href="/case-studies#fintech"
+              className="mt-3 inline-block text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+            >
+              Read the full case study &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Working principles */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
@@ -200,10 +237,35 @@ export default function FintechPage() {
         </div>
       </section>
 
+      {/* Self-assessment CTA */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm text-bayesiq-600">
+            Not sure if you need an audit?{" "}
+            <Link href="/assessment" className="font-medium text-bayesiq-900 hover:text-accent">
+              Take the 2-minute self-assessment &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Pricing signal */}
+      <section className="px-6 py-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-sm text-bayesiq-500">
+            Engagements start at $7.5K for a one-week diagnostic.{" "}
+            <Link href="/audit-kit" className="font-medium text-bayesiq-600 hover:text-bayesiq-900">
+              See all engagement tiers &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* Closing CTA */}
       <CTA
-        headline="Audit your transaction pipeline"
-        description="Start with a diagnostic sprint or drop a CSV in the playground."
+        headline="One fintech audit found a $340K revenue discrepancy. What would yours find?"
+        description="Book a one-week diagnostic to score your transaction pipeline and surface the issues that matter most."
+        buttonText="Book a Diagnostic"
       />
     </>
   );
