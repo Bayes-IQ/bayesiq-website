@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "vertical_narrative",
+  "vertical_id": "hospital",
+  "display_name": "Healthcare",
+  "status_quo": "Readmission rates reported at 13.3% mask a 5.7% discrepancy — CMS penalties and board-level compliance exposure go undetected until audit season.",
+  "with_bayesiq": "BayesIQ's audit identified 50 duplicate encounters and metric mismatches within hours, enabling targeted remediation that improved the reliability score from 31 to 81.",
+  "headline_finding": "50 near-duplicate encounter records inflating throughput metrics and distorting $2M+ in department budgets.",
+  "cta_label": "Book a Hospital Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

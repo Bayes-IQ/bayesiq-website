@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "vertical_narrative",
+  "vertical_id": "real_estate",
+  "display_name": "Real Estate",
+  "status_quo": "Collection rates reported at 95% overstate actual collections by 10%+, masking $200K+ in uncollected rent that directly impacts LP distributions.",
+  "with_bayesiq": "BayesIQ surfaced duplicate payment records and metric inflation in the first audit pass, giving property managers defensible numbers for investor reporting.",
+  "headline_finding": "Collection rate overstated by 10%+ due to duplicate payment records and inconsistent lease type classifications.",
+  "cta_label": "Book a Real Estate Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

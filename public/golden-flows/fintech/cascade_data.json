@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "cascade_data",
+  "vertical": "fintech",
+  "cascades": {
+    "fin_q1": {
+      "question_id": "fin_q1",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "fin_q2": {
+      "question_id": "fin_q2",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "fin_q3": {
+      "question_id": "fin_q3",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "fin_q4": {
+      "question_id": "fin_q4",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "fin_q5": {
+      "question_id": "fin_q5",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "54 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    }
+  }
+}

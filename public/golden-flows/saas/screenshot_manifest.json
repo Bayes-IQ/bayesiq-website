@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "screenshot_manifest",
+  "vertical": "saas",
+  "screenshots": [
+    {
+      "artifact_id": "saas_3_dashboard_001",
+      "vertical": "saas",
+      "month": 3,
+      "type": "dashboard",
+      "url": "https://demo.bayesiq.com/screenshots/saas/month-3-dashboard.png",
+      "alt_text": "SaaS audit dashboard — Month 3"
+    },
+    {
+      "artifact_id": "saas_3_report_001",
+      "vertical": "saas",
+      "month": 3,
+      "type": "report",
+      "url": "https://demo.bayesiq.com/screenshots/saas/month-3-report.png",
+      "alt_text": "SaaS audit report — Month 3"
+    }
+  ]
+}

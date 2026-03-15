@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "vertical_narrative",
+  "vertical_id": "fintech",
+  "display_name": "Fintech",
+  "status_quo": "Fee revenue reported at $1.2M is overstated by 20% — $240K in phantom revenue on the P&L affects regulatory reporting and investor confidence.",
+  "with_bayesiq": "BayesIQ detected 54 near-duplicate transactions and payment method classification inconsistencies, providing defensible numbers before the quarterly investor call.",
+  "headline_finding": "54 near-duplicate transactions inflate fee revenue by $240K and distort interchange cost allocation by $100K+.",
+  "cta_label": "Book a Fintech Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

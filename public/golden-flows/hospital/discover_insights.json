@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "discover_insights",
+  "vertical": "hospital",
+  "insights": [
+    {
+      "insight_id": "hospital_INS_001",
+      "question_text": "Is our reported readmission rate of 13.3% accurate?",
+      "dashboard_link": "https://demo.bayesiq.com/dashboards/hospital/overview",
+      "finding_ids": [
+        "metric_mismatch"
+      ]
+    }
+  ]
+}

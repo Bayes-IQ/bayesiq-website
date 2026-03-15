@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "artifact_links",
+  "vertical": "hospital",
+  "artifacts": [
+    {
+      "artifact_id": "hospital_3_dashboard_001",
+      "vertical": "hospital",
+      "month": 3,
+      "type": "dashboard",
+      "url": "https://demo.bayesiq.com/dashboards/hospital/month-3",
+      "title": "Healthcare Data Quality Dashboard — Month 3"
+    },
+    {
+      "artifact_id": "hospital_3_report_001",
+      "vertical": "hospital",
+      "month": 3,
+      "type": "report",
+      "url": "https://demo.bayesiq.com/reports/hospital/month-3",
+      "title": "Healthcare Audit Report — Month 3"
+    }
+  ]
+}

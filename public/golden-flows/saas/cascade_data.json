@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "cascade_data",
+  "vertical": "saas",
+  "cascades": {
+    "saas_q1": {
+      "question_id": "saas_q1",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.",
+      "consequence": "This finding affects data reliability. Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "active_users misreported for 2025-12 (off by -434.2%)",
+          "description": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "saas_q2": {
+      "question_id": "saas_q2",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "saas_q3": {
+      "question_id": "saas_q3",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "saas_q4": {
+      "question_id": "saas_q4",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "saas_q5": {
+      "question_id": "saas_q5",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.",
+      "consequence": "This finding affects data reliability. Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "active_users misreported for 2025-12 (off by -434.2%)",
+          "description": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    }
+  }
+}

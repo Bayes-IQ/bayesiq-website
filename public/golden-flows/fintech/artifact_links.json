@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "artifact_links",
+  "vertical": "fintech",
+  "artifacts": [
+    {
+      "artifact_id": "fintech_3_dashboard_001",
+      "vertical": "fintech",
+      "month": 3,
+      "type": "dashboard",
+      "url": "https://demo.bayesiq.com/dashboards/fintech/month-3",
+      "title": "Fintech Data Quality Dashboard — Month 3"
+    },
+    {
+      "artifact_id": "fintech_3_report_001",
+      "vertical": "fintech",
+      "month": 3,
+      "type": "report",
+      "url": "https://demo.bayesiq.com/reports/fintech/month-3",
+      "title": "Fintech Audit Report — Month 3"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "vertical_narrative",
+  "vertical_id": "retail",
+  "display_name": "Retail",
+  "status_quo": "Sell-through reported at 72% overstates actual performance by 18%, driving $500K+ in excess inventory risk per season from phantom demand signals.",
+  "with_bayesiq": "BayesIQ flagged POS duplicates and channel attribution errors, enabling accurate demand forecasting within one reporting cycle.",
+  "headline_finding": "18% sell-through overstatement from POS duplicates translates to $500K+ in excess inventory risk per season.",
+  "cta_label": "Book a Retail Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

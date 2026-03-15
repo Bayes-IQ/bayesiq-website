@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "hospital",
+  "discrepancy_headline": "Is our reported readmission rate of 13.3% accurate?",
+  "consequence": "If readmission rates are understated by even 2%, we risk CMS penalties exceeding $500K annually and board-level compliance exposure.",
+  "trust_cue": "Reviewed by BayesIQ Data Quality Team",
+  "score": 81,
+  "severity_level": "moderate"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "saas",
+  "questions": [
+    {
+      "question_id": "saas_q1",
+      "priority": "flagship",
+      "question_text": "Is our reported MRR of $2.4M accurate or inflated by ghost accounts?",
+      "answer_summary": "A 20%+ MRR overstatement means we're reporting $480K in phantom revenue — this affects fundraising valuations and could constitute material misstatement to investors.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "saas_q2",
+      "priority": "secondary",
+      "question_text": "Where are the ghost accounts coming from and how many are there?",
+      "answer_summary": "Ghost accounts inflate active user counts used in CAC and LTV calculations, distorting the unit economics that drive pricing and investment decisions.",
+      "severity": "high"
+    },
+    {
+      "question_id": "saas_q3",
+      "priority": "secondary",
+      "question_text": "Which plan tiers have the most data quality issues?",
+      "answer_summary": "If data quality issues concentrate in Enterprise accounts, the revenue impact per affected account is 10x higher than in self-serve — prioritization must follow the money.",
+      "severity": "high"
+    },
+    {
+      "question_id": "saas_q4",
+      "priority": "secondary",
+      "question_text": "What should engineering fix first — event deduplication or ghost account cleanup?",
+      "answer_summary": "Ghost account cleanup has a larger impact on reported metrics (MRR, active users, churn) and is prerequisite for accurate NRR calculation.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "saas_q5",
+      "priority": "secondary",
+      "question_text": "Can we defend our churn numbers to the board?",
+      "answer_summary": "Churn rate discrepancies undermine board confidence in growth narratives — accurate churn is the foundation of every SaaS valuation model.",
+      "severity": "medium"
+    }
+  ]
+}

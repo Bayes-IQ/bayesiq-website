@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "discover_insights",
+  "vertical": "saas",
+  "insights": [
+    {
+      "insight_id": "saas_INS_001",
+      "question_text": "Is our reported MRR of $2.4M accurate or inflated by ghost accounts?",
+      "dashboard_link": "https://demo.bayesiq.com/dashboards/saas/overview",
+      "finding_ids": [
+        "metric_mismatch"
+      ]
+    }
+  ]
+}
