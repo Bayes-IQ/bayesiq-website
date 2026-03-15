@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "hospital",
+  "discrepancy_headline": "7 broken metrics across 3 dashboards",
+  "consequence": "Readmission rate reported 23% lower than actual — compliance risk and misallocated care resources",
+  "trust_cue": "Reviewed by Dr. Sarah Chen, VP Clinical Analytics",
+  "score": 34,
+  "severity_level": "critical"
+}

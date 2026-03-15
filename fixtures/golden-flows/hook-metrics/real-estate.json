@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "real_estate",
+  "discrepancy_headline": "5 valuation metrics diverge from source",
+  "consequence": "Portfolio NOI overstated by $2.1M — investor reporting at risk",
+  "trust_cue": "Reviewed by Marcus Webb, Head of Data Operations",
+  "score": 41,
+  "severity_level": "critical"
+}

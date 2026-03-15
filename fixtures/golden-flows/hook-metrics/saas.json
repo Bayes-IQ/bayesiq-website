@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "saas",
+  "discrepancy_headline": "4 churn metrics silently redefined",
+  "consequence": "Board deck shows 3.2% churn but actual is 5.8% — $4M ARR gap hidden",
+  "trust_cue": "Reviewed by Lisa Park, Director of Analytics",
+  "score": 52,
+  "severity_level": "warning"
+}

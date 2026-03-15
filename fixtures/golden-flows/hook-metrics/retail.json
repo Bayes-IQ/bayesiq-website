@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "retail",
+  "discrepancy_headline": "3 conversion funnels double-counting",
+  "consequence": "Attribution model credits 40% more conversions than actually occurred — media spend misallocated",
+  "trust_cue": "Reviewed by James Torres, VP E-Commerce Analytics",
+  "score": 58,
+  "severity_level": "warning"
+}
