@@ -11,6 +11,13 @@
       "resolved_count": 3
     },
     {
+      "month": 2,
+      "as_of_date": "2025-06-01",
+      "score": 60,
+      "finding_count": 5,
+      "resolved_count": 3
+    },
+    {
       "month": 3,
       "as_of_date": "2025-09-01",
       "score": 81,

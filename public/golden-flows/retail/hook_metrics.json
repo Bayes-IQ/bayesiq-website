@@ -5,6 +5,6 @@
   "discrepancy_headline": "Is our sell-through rate really 72% or is the data overstating it?",
   "consequence": "An 18% overstatement in sell-through means we're making buying decisions based on phantom demand — translating to $500K+ in excess inventory risk per season.",
   "trust_cue": "Reviewed by BayesIQ Data Quality Team",
-  "score": 80,
-  "severity_level": "moderate"
+  "score": 85,
+  "severity_level": "healthy"
 }
