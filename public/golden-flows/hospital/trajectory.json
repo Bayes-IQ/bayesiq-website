@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "trajectory",
+  "vertical": "hospital",
+  "snapshots": [
+    {
+      "month": 1,
+      "as_of_date": "2025-03-01",
+      "score": 31,
+      "finding_count": 9,
+      "resolved_count": 3
+    },
+    {
+      "month": 3,
+      "as_of_date": "2025-09-01",
+      "score": 81,
+      "finding_count": 3,
+      "resolved_count": 3
+    }
+  ]
+}

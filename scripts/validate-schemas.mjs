@@ -37,8 +37,69 @@ for (const contract of contracts) {
 }
 
 if (errors > 0) {
-  console.error(`\n${errors} schema(s) failed validation`);
+  console.error(`\n${errors} schema(s) failed compilation`);
   process.exit(1);
 } else {
-  console.log(`\n${contracts.length} contracts, all schemas valid`);
+  console.log(`\n${contracts.length} contracts, all schemas compile`);
+}
+
+// Phase 2: Validate data files against schemas (if they exist)
+import { existsSync } from "fs";
+
+const dataDir = "public/golden-flows";
+const verticals = ["hospital", "real_estate", "saas", "retail", "fintech"];
+const contractBSchemas = [
+  "artifact_links",
+  "cascade_data",
+  "discover_insights",
+  "executive_questions",
+  "hook_metrics",
+  "screenshot_manifest",
+  "trajectory",
+  "vertical_narrative",
+];
+
+if (existsSync(dataDir)) {
+  console.log("\n--- Validating data files against schemas ---");
+  let dataErrors = 0;
+  let dataChecked = 0;
+
+  // Build validators for contract-b schemas
+  const validators = {};
+  const ajvData = new Ajv({ strict: true, allErrors: true });
+  addFormats(ajvData);
+
+  for (const schemaName of contractBSchemas) {
+    const schemaPath = join(schemaDir, "contract-b", `${schemaName}.schema.json`);
+    const schema = JSON.parse(readFileSync(schemaPath, "utf-8"));
+    validators[schemaName] = ajvData.compile(schema);
+  }
+
+  for (const vertical of verticals) {
+    for (const schemaName of contractBSchemas) {
+      const dataPath = join(dataDir, vertical, `${schemaName}.json`);
+      if (!existsSync(dataPath)) continue;
+      dataChecked++;
+      const data = JSON.parse(readFileSync(dataPath, "utf-8"));
+      const valid = validators[schemaName](data);
+      if (valid) {
+        console.log(`  ✓ ${dataPath}`);
+      } else {
+        console.error(`  ✗ ${dataPath}:`);
+        for (const err of validators[schemaName].errors) {
+          console.error(`    - ${err.instancePath}: ${err.message}`);
+        }
+        dataErrors++;
+      }
+    }
+  }
+
+  if (dataErrors > 0) {
+    console.error(`\n${dataErrors}/${dataChecked} data file(s) failed validation`);
+    process.exit(1);
+  } else if (dataChecked > 0) {
+    console.log(`\n${dataChecked} data files validated successfully`);
+  } else {
+    console.log("\nNo data files found to validate");
+  }
 }

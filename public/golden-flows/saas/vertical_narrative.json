@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "vertical_narrative",
+  "vertical_id": "saas",
+  "display_name": "SaaS",
+  "status_quo": "MRR reported at $2.4M is inflated by 20%+ from ghost accounts — $480K in phantom revenue distorts fundraising valuations and investor materials.",
+  "with_bayesiq": "BayesIQ identified ghost accounts and duplicate subscriptions, giving the finance team clean MRR numbers before the next board meeting.",
+  "headline_finding": "20%+ MRR overstatement from ghost accounts constitutes material misstatement to investors.",
+  "cta_label": "Book a SaaS Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

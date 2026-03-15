@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "cascade_data",
+  "vertical": "hospital",
+  "cascades": {
+    "hosp_q1": {
+      "question_id": "hosp_q1",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%.",
+      "consequence": "This finding affects data reliability. Investigate root cause of readmission_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "readmission_rate misreported for 2025-12 (off by +5.7%)",
+          "description": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate root cause of readmission_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "hosp_q2": {
+      "question_id": "hosp_q2",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "hosp_q3": {
+      "question_id": "hosp_q3",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "hosp_q4": {
+      "question_id": "hosp_q4",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.",
+      "consequence": "This finding affects data reliability. Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "Near-duplicate rows detected",
+          "description": "50 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    },
+    "hosp_q5": {
+      "question_id": "hosp_q5",
+      "reported_value": "See dashboard",
+      "audited_value": "See audit report",
+      "delta": "Under review",
+      "root_cause": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%.",
+      "consequence": "This finding affects data reliability. Investigate root cause of readmission_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "reviewer_badge": {
+        "reviewer_name": "Data Quality Team",
+        "status": "pending"
+      },
+      "timeline_steps": [
+        {
+          "step_type": "finding",
+          "label": "readmission_rate misreported for 2025-12 (off by +5.7%)",
+          "description": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%."
+        },
+        {
+          "step_type": "correction",
+          "label": "Investigate root cause of readmission_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+          "description": "Correction steps identified"
+        },
+        {
+          "step_type": "governance",
+          "label": "Review pending_review",
+          "description": "Awaiting governance review and sign-off"
+        }
+      ]
+    }
+  }
+}

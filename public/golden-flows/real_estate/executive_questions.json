@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "real_estate",
+  "questions": [
+    {
+      "question_id": "re_q1",
+      "priority": "flagship",
+      "question_text": "Is our reported collection rate actually 95% or is the data inflating it?",
+      "answer_summary": "A 10%+ overstatement in collection rate masks $200K+ in uncollected rent, directly impacting LP distributions and investor confidence.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "re_q2",
+      "priority": "secondary",
+      "question_text": "Why do we have duplicate payment records?",
+      "answer_summary": "Duplicate payments inflate collection metrics and can trigger incorrect late-fee waivers, costing $50K+ annually in lost fee revenue.",
+      "severity": "high"
+    },
+    {
+      "question_id": "re_q3",
+      "priority": "secondary",
+      "question_text": "Which properties have the worst data quality?",
+      "answer_summary": "Identifying the 3-5 properties with the most data issues lets us prioritize remediation where investor reporting impact is highest.",
+      "severity": "high"
+    },
+    {
+      "question_id": "re_q4",
+      "priority": "secondary",
+      "question_text": "What's the fastest path to trustworthy delinquency numbers?",
+      "answer_summary": "Accurate delinquency rates are required for quarterly LP reporting — currently understated numbers could trigger covenant concerns when corrected.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "re_q5",
+      "priority": "secondary",
+      "question_text": "If an investor audits our vacancy numbers, will they hold up?",
+      "answer_summary": "Vacancy rate discrepancies affect NOI calculations that drive property valuations — a 3% error translates to $1M+ in valuation variance per property.",
+      "severity": "medium"
+    }
+  ]
+}

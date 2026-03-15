@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "discover_insights",
+  "vertical": "retail",
+  "insights": [
+    {
+      "insight_id": "retail_INS_001",
+      "question_text": "Is our sell-through rate really 72% or is the data overstating it?",
+      "dashboard_link": "https://demo.bayesiq.com/dashboards/retail/overview",
+      "finding_ids": [
+        "metric_mismatch"
+      ]
+    }
+  ]
+}

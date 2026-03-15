@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "discover_insights",
+  "vertical": "fintech",
+  "insights": [
+    {
+      "insight_id": "fintech_INS_001",
+      "question_text": "Is our reported fee revenue of $1.2M accurate?",
+      "dashboard_link": "https://demo.bayesiq.com/dashboards/fintech/overview",
+      "finding_ids": [
+        "metric_mismatch"
+      ]
+    }
+  ]
+}

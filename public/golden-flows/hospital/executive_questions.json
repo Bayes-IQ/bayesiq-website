@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "hospital",
+  "questions": [
+    {
+      "question_id": "hosp_q1",
+      "priority": "flagship",
+      "question_text": "Is our reported readmission rate of 13.3% accurate?",
+      "answer_summary": "If readmission rates are understated by even 2%, we risk CMS penalties exceeding $500K annually and board-level compliance exposure.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "hosp_q2",
+      "priority": "secondary",
+      "question_text": "Why are there near-duplicate encounter records in our data?",
+      "answer_summary": "Duplicate encounters inflate throughput metrics and distort per-encounter cost calculations, potentially misallocating $2M+ in department budgets.",
+      "severity": "high"
+    },
+    {
+      "question_id": "hosp_q3",
+      "priority": "secondary",
+      "question_text": "Which departments have the most unreliable data?",
+      "answer_summary": "Targeting remediation to the 2-3 worst departments yields 80% of data quality improvement at 20% of the cost of a system-wide overhaul.",
+      "severity": "high"
+    },
+    {
+      "question_id": "hosp_q4",
+      "priority": "secondary",
+      "question_text": "What should we fix first to improve our data reliability score?",
+      "answer_summary": "Addressing duplicate encounters alone would improve the reliability score by 15-20 points, making board-reported metrics defensible within one reporting cycle.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "hosp_q5",
+      "priority": "secondary",
+      "question_text": "Can we defend these numbers if the board challenges our charge capture totals?",
+      "answer_summary": "Current charge capture discrepancies of 5%+ mean we cannot certify reported revenue to the board without qualification, creating audit committee risk.",
+      "severity": "medium"
+    }
+  ]
+}

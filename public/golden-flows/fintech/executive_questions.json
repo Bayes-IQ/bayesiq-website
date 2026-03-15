@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "fintech",
+  "questions": [
+    {
+      "question_id": "fin_q1",
+      "priority": "flagship",
+      "question_text": "Is our reported fee revenue of $1.2M accurate?",
+      "answer_summary": "A 20% fee revenue overstatement means $240K in phantom revenue on the P&L — this is a material misstatement that affects regulatory reporting and investor confidence.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "fin_q2",
+      "priority": "secondary",
+      "question_text": "Why are there duplicate transactions and inconsistent payment method classifications?",
+      "answer_summary": "Duplicate transactions inflate volume metrics used in merchant pricing negotiations, and inconsistent payment method tagging distorts interchange cost allocation by $100K+.",
+      "severity": "high"
+    },
+    {
+      "question_id": "fin_q3",
+      "priority": "secondary",
+      "question_text": "Which merchant categories and risk tiers have the most data issues?",
+      "answer_summary": "If data quality issues concentrate in high-risk merchant categories, our fraud models are trained on dirty data — increasing exposure by an estimated 2-3x.",
+      "severity": "high"
+    },
+    {
+      "question_id": "fin_q4",
+      "priority": "secondary",
+      "question_text": "Should we fix payment method classification or transaction dedup first?",
+      "answer_summary": "Payment method classification affects every downstream metric (fee calculations, interchange routing, fraud scoring) — fixing it first has the highest multiplier effect.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "fin_q5",
+      "priority": "secondary",
+      "question_text": "If a regulator asks about our settlement time reporting, can we defend it?",
+      "answer_summary": "Settlement time discrepancies could trigger regulatory scrutiny under payment processing SLAs — inaccurate reporting here has compliance and licensing implications.",
+      "severity": "medium"
+    }
+  ]
+}

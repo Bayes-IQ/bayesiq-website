@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "retail",
+  "questions": [
+    {
+      "question_id": "ret_q1",
+      "priority": "flagship",
+      "question_text": "Is our sell-through rate really 72% or is the data overstating it?",
+      "answer_summary": "An 18% overstatement in sell-through means we're making buying decisions based on phantom demand — translating to $500K+ in excess inventory risk per season.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "ret_q2",
+      "priority": "secondary",
+      "question_text": "Why do we have duplicate transactions in the POS data?",
+      "answer_summary": "Duplicate transactions inflate revenue metrics and distort return rate calculations, creating a false picture of store performance used in expansion decisions.",
+      "severity": "high"
+    },
+    {
+      "question_id": "ret_q3",
+      "priority": "secondary",
+      "question_text": "Which stores and departments have the worst data quality?",
+      "answer_summary": "Concentrating data remediation on the 5 worst-performing stores addresses 60% of data quality issues while touching only 15% of the store fleet.",
+      "severity": "high"
+    },
+    {
+      "question_id": "ret_q4",
+      "priority": "secondary",
+      "question_text": "What's the single highest-impact fix for our reporting accuracy?",
+      "answer_summary": "Transaction deduplication alone would correct 15% of reported revenue variance, making P&L statements defensible without any other intervention.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "ret_q5",
+      "priority": "secondary",
+      "question_text": "If the CEO asks why online and in-store numbers don't match, what do we say?",
+      "answer_summary": "Channel-level discrepancies suggest the omnichannel data pipeline has integration gaps — this undermines the unified commerce strategy the board approved last quarter.",
+      "severity": "medium"
+    }
+  ]
+}

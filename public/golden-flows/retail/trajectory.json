@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "trajectory",
+  "vertical": "retail",
+  "snapshots": [
+    {
+      "month": 3,
+      "as_of_date": "2025-09-01",
+      "score": 80,
+      "finding_count": 2,
+      "resolved_count": 2
+    }
+  ]
+}
