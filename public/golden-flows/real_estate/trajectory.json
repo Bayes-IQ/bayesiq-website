@@ -4,6 +4,20 @@
   "vertical": "real_estate",
   "snapshots": [
     {
+      "month": 1,
+      "as_of_date": "2025-03-01",
+      "score": 43,
+      "finding_count": 8,
+      "resolved_count": 4
+    },
+    {
+      "month": 2,
+      "as_of_date": "2025-06-01",
+      "score": 62,
+      "finding_count": 5,
+      "resolved_count": 4
+    },
+    {
       "month": 3,
       "as_of_date": "2025-09-01",
       "score": 65,

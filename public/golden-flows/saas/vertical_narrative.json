@@ -3,9 +3,9 @@
   "payload_type": "vertical_narrative",
   "vertical_id": "saas",
   "display_name": "SaaS",
-  "status_quo": "MRR reported at $2.4M is inflated by 20%+ from ghost accounts — $480K in phantom revenue distorts fundraising valuations and investor materials.",
-  "with_bayesiq": "BayesIQ identified ghost accounts and duplicate subscriptions, giving the finance team clean MRR numbers before the next board meeting.",
-  "headline_finding": "20%+ MRR overstatement from ghost accounts constitutes material misstatement to investors.",
+  "status_quo": "A 20%+ MRR overstatement means we're reporting $480K in phantom revenue — this affects fundraising valuations and could constitute material misstatement to investors.",
+  "with_bayesiq": "BayesIQ's audit surfaced 4 findings and enabled targeted remediation that improved the reliability score from 31 to 64.",
+  "headline_finding": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.",
   "cta_label": "Book a SaaS Data Diagnostic",
   "cta_variant": "diagnostic"
 }
