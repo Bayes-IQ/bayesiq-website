@@ -201,9 +201,21 @@ const timelineSteps = [
 // Page
 // ---------------------------------------------------------------------------
 
+const sampleReportJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "BayesIQ Sample Audit Report",
+  description: "Example scored audit report showing findings, severity rankings, and remediation plan from the BayesIQ Audit Kit.",
+  publisher: { "@type": "Organization", name: "BayesIQ", url: "https://bayes-iq.com" },
+};
+
 export default function SampleReportPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(sampleReportJsonLd) }}
+      />
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}

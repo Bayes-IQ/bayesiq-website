@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
@@ -51,46 +52,6 @@ const pipelineSteps = [
   },
 ];
 
-const tiers = [
-  {
-    name: "Diagnostic Sprint",
-    subtitle: "Prove where the problems are",
-    price: "$7.5K–$10K",
-    timeline: "1 week",
-    details: [
-      "Automated scorecard across all datasets",
-      "Severity-ranked findings with root causes",
-      "Expert readout — ~4 hours of manual review",
-      "Go/no-go recommendation for deeper engagement",
-    ],
-  },
-  {
-    name: "Audit + Plan",
-    subtitle: "Define what correct should be",
-    price: "~$25K",
-    timeline: "4 weeks",
-    details: [
-      "Full automated findings + expert analysis",
-      "Assumptions document with team sign-off",
-      "Metric specification with formulas and dimensions",
-      "dbt scaffolding (staging models, initial tests)",
-      "Prioritized remediation roadmap",
-    ],
-  },
-  {
-    name: "Full Implementation",
-    subtitle: "Ship the governed fix path",
-    price: "$30K–$45K",
-    timeline: "6 weeks",
-    details: [
-      "Production dbt project with 40+ tests",
-      "Streamlit dashboards with validated metrics",
-      "Architecture documentation and data dictionary",
-      "Team training on dbt workflow and monitoring",
-    ],
-  },
-];
-
 const differentiators = [
   {
     title: "Pipeline-first",
@@ -114,9 +75,21 @@ const differentiators = [
   },
 ];
 
+const approachJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "BayesIQ Data Audit Methodology",
+  description: "Automated data quality audit pipeline with expert interpretation. Six stages from raw data to production-ready artifacts.",
+  provider: { "@type": "Organization", name: "BayesIQ", url: "https://bayes-iq.com" },
+};
+
 export default function ApproachPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(approachJsonLd) }}
+      />
       {/* Hero */}
       <section className="px-6 py-24">
         <div className="mx-auto max-w-3xl">
@@ -169,46 +142,29 @@ export default function ApproachPage() {
         </div>
       </section>
 
-      {/* Engagement Tiers */}
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+      {/* Engagement Options */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold text-bayesiq-900">
-            Engagement Tiers
+            Ready to start?
           </h2>
-          <p className="mt-2 text-sm text-bayesiq-600">
-            Start small and expand if the findings warrant it. Every tier
-            delivers concrete artifacts.
+          <p className="mt-3 text-sm text-bayesiq-600">
+            From a one-week diagnostic to a full implementation — choose the
+            depth that fits your needs.
           </p>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {tiers.map((tier) => (
-              <div
-                key={tier.name}
-                className="rounded-lg border border-bayesiq-200 bg-white p-6"
-              >
-                <h3 className="text-lg font-semibold text-bayesiq-900">
-                  {tier.name}
-                </h3>
-                <p className="text-sm font-medium text-bayesiq-500">
-                  {tier.subtitle}
-                </p>
-                <p className="mt-1 text-sm font-medium text-bayesiq-700">
-                  {tier.price}
-                </p>
-                <p className="text-xs text-bayesiq-400">{tier.timeline}</p>
-                <ul className="mt-4 space-y-2">
-                  {tier.details.map((detail) => (
-                    <li
-                      key={detail}
-                      className="flex items-start gap-2 text-sm text-bayesiq-600"
-                    >
-                      <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-300" />
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/audit-kit#pipeline"
+              className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+            >
+              See Engagement Tiers
+            </Link>
+            <Link
+              href="/case-studies"
+              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+            >
+              Read Case Studies &rarr;
+            </Link>
           </div>
         </div>
       </section>
@@ -236,8 +192,10 @@ export default function ApproachPage() {
 
       {/* CTA */}
       <CTA
-        headline="Start with the playground"
-        description="Drop a CSV and see the profiler in action. No account needed."
+        headline="See what the audit finds"
+        description="Browse a sample report, or book a call to scope your first audit."
+        buttonText="See a Sample Report"
+        href="/sample-report"
       />
     </>
   );
