@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { trackCtaClick } from "@/lib/gf-analytics";
 
 interface GoldenFlowsCTAProps {
   ctaLabel?: string;
@@ -26,6 +29,7 @@ export default function GoldenFlowsCTA({
           </p>
           <Link
             href="/contact"
+            onClick={() => trackCtaClick("diagnostic", vertical || "unknown")}
             className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-100"
           >
             Book a diagnostic
@@ -45,6 +49,7 @@ export default function GoldenFlowsCTA({
           </p>
           <Link
             href="/services"
+            onClick={() => trackCtaClick("reliability", vertical || "unknown")}
             className="mt-8 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
           >
             Learn more
@@ -65,6 +70,7 @@ export default function GoldenFlowsCTA({
             href="https://calendly.com/bayesiq/30min"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCtaClick("book_session", vertical || "unknown")}
             className="mt-8 inline-block rounded-lg border border-bayesiq-900 bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-50"
           >
             Book a call

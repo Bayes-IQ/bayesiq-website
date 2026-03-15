@@ -20,6 +20,22 @@ Page views are tracked automatically. Custom events use `track()` from `@vercel/
 | `newsletter_signup_success` | — | Email successfully added to Resend Audience |
 | `newsletter_signup_error` | `error_type`: string | Signup failed; values: `invalid_email`, `config_error`, `resend_error`, `unknown` |
 
+## Golden Flows Events
+
+Added in GF-13. Events track conversion signals across the golden-flows experience.
+
+| Event | Properties | Trigger |
+|-------|-----------|---------|
+| `gf_vertical_click` | `vertical`: slug | Selector card click on hub or vertical page |
+| `gf_cta_click` | `variant`: diagnostic/reliability/book_session, `vertical`: display name | CTA button click on vertical page |
+
+Future events (added as components ship):
+| `gf_question_click` | `vertical`, `question_id` | Ask button click (GF-8+) |
+| `gf_cascade_expand` | `vertical`, `question_id` | Cascade expand (GF-9+) |
+| `gf_artifact_click` | `vertical`, `artifact_id` | Artifact link click (GF-10+) |
+| `gf_discover_click` | `vertical`, `insight_id` | Discover card click (GF-12+) |
+| `gf_share_link` | `vertical` | Copy-link button (GF-14+) |
+
 ## Naming Conventions
 
 - snake_case for event names
