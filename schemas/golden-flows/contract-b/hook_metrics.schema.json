@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/hook_metrics",
+  "title": "Hook Metrics",
+  "description": "Per-vertical selector card content: headline discrepancy, consequence, trust cue, and score.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "discrepancy_headline", "consequence", "trust_cue", "score", "severity_level"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "hook_metrics"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "discrepancy_headline": {
+      "type": "string",
+      "description": "One-line hook: the core data problem (e.g., '7 broken metrics across 3 dashboards')"
+    },
+    "consequence": {
+      "type": "string",
+      "description": "Business consequence in plain language"
+    },
+    "trust_cue": {
+      "type": "string",
+      "description": "Trust signal (e.g., 'Reviewed by Jane Smith, VP Analytics')"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Current audit score for this vertical"
+    },
+    "severity_level": {
+      "type": "string",
+      "enum": ["critical", "warning", "moderate", "healthy"],
+      "description": "Visual urgency level for selector card rendering"
+    }
+  }
+}

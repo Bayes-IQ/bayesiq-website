@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-c/feedback_threads",
+  "title": "Feedback Threads",
+  "description": "Per-finding feedback conversation chains: comment → review → resolution.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "threads"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "feedback_threads"
+    },
+    "threads": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FeedbackThread"
+      }
+    }
+  },
+  "definitions": {
+    "FeedbackThread": {
+      "type": "object",
+      "required": ["thread_id", "finding_id", "comments"],
+      "additionalProperties": false,
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string",
+          "description": "References Contract B cascade_data finding"
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThreadComment"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "ThreadComment": {
+      "type": "object",
+      "required": ["author", "body", "timestamp", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["comment", "review", "resolution"]
+        }
+      }
+    }
+  }
+}

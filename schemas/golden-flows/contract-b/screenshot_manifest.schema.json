@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/screenshot_manifest",
+  "title": "Screenshot Manifest",
+  "description": "Per-vertical per-month dashboard and report preview images.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "screenshots"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "screenshot_manifest"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ScreenshotEntry"
+      }
+    }
+  },
+  "definitions": {
+    "ScreenshotEntry": {
+      "type": "object",
+      "required": ["artifact_id", "vertical", "month", "type", "url", "alt_text"],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "description": "Stable ID: {vertical}_{month}_{type}_{NNN}"
+        },
+        "vertical": {
+          "type": "string",
+          "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["dashboard", "report"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "alt_text": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

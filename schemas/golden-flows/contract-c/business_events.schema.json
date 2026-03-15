@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-c/business_events",
+  "title": "Business Events",
+  "description": "Business event governance state: metric redefinitions, restatements, corrections with preview vs approved status.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "business_events"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BusinessEvent"
+      }
+    }
+  },
+  "definitions": {
+    "BusinessEvent": {
+      "type": "object",
+      "required": ["event_id", "finding_id", "event_type", "state", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": ["metric_redefinition", "restatement", "correction"]
+        },
+        "state": {
+          "type": "string",
+          "enum": ["preview", "approved"]
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
