@@ -27,6 +27,8 @@ next-env.d.ts
 
 CLAUDE.md
 .claude/
+.claude-settings.json
+.artifacts/
 
 # server
 server/.venv
