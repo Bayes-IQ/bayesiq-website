@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "payload_type": "contract_c.cascade_governance",
+  "generated_at": "2026-03-15T23:12:22.801029+00:00",
+  "items": [
+    {
+      "question_id": "fin_q1",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "fin_q2",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "fin_q3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "fin_q4",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "fin_q5",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "hosp_q1",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "hosp_q2",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "hosp_q3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "hosp_q4",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "hosp_q5",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "re_q1",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "re_q2",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "re_q3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "re_q4",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "re_q5",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "ret_q1",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "ret_q2",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "ret_q3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "ret_q4",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "ret_q5",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "saas_q1",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "saas_q2",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "saas_q3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "saas_q4",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    },
+    {
+      "question_id": "saas_q5",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "unknown",
+        "display_name": null,
+        "role": null
+      },
+      "review_note": null,
+      "finding_ids": [],
+      "feedback_ids": [],
+      "event_ids": [],
+      "ts_requested": "",
+      "ts_resolved": ""
+    }
+  ]
+}
