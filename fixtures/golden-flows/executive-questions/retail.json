@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "retail",
+  "questions": [
+    {
+      "question_id": "retail_month_3_Q_001",
+      "priority": "flagship",
+      "question_text": "Why is marketing claiming 3x ROAS when the CFO's model shows 1.4x?",
+      "answer_summary": "Marketing attributes conversions within a 28-day click window and counts view-through conversions. Finance uses a 7-day last-click model. The 28-day window double-counts customers who would have purchased organically, inflating ROAS by 2.1x.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "retail_month_3_Q_002",
+      "priority": "secondary",
+      "question_text": "Are our inventory turn numbers hiding slow-moving SKUs?",
+      "answer_summary": "The blended inventory turn rate of 8.2x masks 340 SKUs with turns below 2x. These slow movers tie up $3.4M in working capital and aren't flagged because the metric averages across all categories.",
+      "severity": "high"
+    },
+    {
+      "question_id": "retail_month_3_Q_003",
+      "priority": "secondary",
+      "question_text": "Is our customer lifetime value calculation actually predictive?",
+      "answer_summary": "LTV uses a 3-year horizon but the model was trained on pre-2022 purchase patterns. Post-inflation buying behavior has shortened repeat cycles by 18%, making the current $420 LTV estimate roughly $85 too high.",
+      "severity": "high"
+    },
+    {
+      "question_id": "retail_month_3_Q_004",
+      "priority": "secondary",
+      "question_text": "Did last quarter's promotion actually drive incremental revenue?",
+      "answer_summary": "The promo report shows $2.8M in attributed revenue, but 61% of those transactions were from loyalty members who purchased at full price in prior periods. Incremental lift was closer to $1.1M after accounting for pull-forward effects.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "retail_month_3_Q_005",
+      "priority": "secondary",
+      "question_text": "How reliable is our channel mix model for next year's budget?",
+      "answer_summary": "The model treats in-store and online as independent channels, but 38% of online orders involve store-level fulfillment costs that aren't allocated back. E-commerce margin is overstated by 4.2 points in the planning model.",
+      "severity": "medium"
+    }
+  ]
+}

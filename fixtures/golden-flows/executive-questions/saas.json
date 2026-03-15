@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "saas",
+  "questions": [
+    {
+      "question_id": "saas_month_3_Q_001",
+      "priority": "flagship",
+      "question_text": "Why does finance say churn is 4.1% but product says it's 6.8%?",
+      "answer_summary": "Finance measures logo churn on billing date; product measures it on last-login date. Customers who stop using the product but haven't cancelled yet create a 2.7-point gap that delays churn recognition by 45 days on average.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "saas_month_3_Q_002",
+      "priority": "secondary",
+      "question_text": "Is our ARR number board-ready or are we counting multi-year deals wrong?",
+      "answer_summary": "Multi-year contracts with step-up pricing are annualized at the full contract value instead of current-year rate. This inflates ARR by $1.9M and misrepresents growth trajectory to investors.",
+      "severity": "high"
+    },
+    {
+      "question_id": "saas_month_3_Q_003",
+      "priority": "secondary",
+      "question_text": "Are our cohort retention curves actually improving or is it a data artifact?",
+      "answer_summary": "The 2024 cohorts look 12% better because the analytics team changed the activation definition mid-year. Under the original definition, retention is flat quarter over quarter.",
+      "severity": "high"
+    },
+    {
+      "question_id": "saas_month_3_Q_004",
+      "priority": "secondary",
+      "question_text": "How much of our expansion revenue is real upsell vs. pricing corrections?",
+      "answer_summary": "28% of what's reported as expansion revenue is actually mid-cycle pricing adjustments and overage charges. True upsell from new seats or tier upgrades is $840K lower than the board deck shows.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "saas_month_3_Q_005",
+      "priority": "secondary",
+      "question_text": "Can we trust the pipeline coverage ratio we're using for forecasting?",
+      "answer_summary": "Pipeline includes 34 opportunities that haven't had activity in 90+ days and 12 duplicates from CRM migration. Cleaning these drops coverage from 3.8x to 2.6x, below the 3x threshold for the quarter.",
+      "severity": "medium"
+    }
+  ]
+}
