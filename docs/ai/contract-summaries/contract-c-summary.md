@@ -1,6 +1,7 @@
 # Contract C Summary — bayesiq platform → biq_website
 
-**Status:** All schemas reconciled with merged platform exports (2026-03-15)
+**Status:** Frozen (2026-03-15) — all schemas reconciled with merged platform exports
+**Freeze artifact:** [`CONTRACT_FREEZE_v1.md`](../CONTRACT_FREEZE_v1.md)
 **Schemas:** `biq_website/schemas/golden-flows/contract-c/`
 
 ## Overview

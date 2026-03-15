@@ -756,7 +756,7 @@ No upstream data-delivery dependency after schema freeze. Start immediately.
 
 ---
 
-### GF-1.5: Contract Freeze Gate
+### GF-1.5: Contract Freeze Gate — COMPLETE (frozen 2026-03-15)
 
 **A coordination checkpoint that produces a durable artifact.**
 
