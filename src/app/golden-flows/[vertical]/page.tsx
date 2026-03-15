@@ -9,6 +9,7 @@ import {
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
+import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -66,6 +67,11 @@ export default async function VerticalPage({ params }: Props) {
             : "This vertical is in development. Results will be available when ready."}
         </p>
       </div>
+
+      <GoldenFlowsCTA
+        ctaLabel={narrative?.cta_label}
+        vertical={vertical.display_name}
+      />
     </main>
   );
 }

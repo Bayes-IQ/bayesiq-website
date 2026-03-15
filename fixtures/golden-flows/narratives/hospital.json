@@ -1,9 +1,9 @@
 {
   "vertical_id": "hospital",
   "display_name": "Hospital",
-  "status_quo": "Readmission rates are reported 23% lower than actual because discharge-to-readmit linkage breaks silently across three dashboards. Leadership trusts the numbers, allocates nursing resources based on understated risk, and submits inaccurate quality reports to CMS.",
-  "with_bayesiq": "BayesIQ reconciles discharge and readmission records end-to-end, surfaces the 7 broken metrics across 3 dashboards, and delivers a governed trust score that moves from 34 to 81 — giving your quality team a single source of truth before the next reporting cycle.",
-  "headline_finding": "Readmission rates reported 23% lower than actual — 7 broken metrics across 3 dashboards went undetected.",
+  "status_quo": "Readmission rates reported 23% lower than actual. Compliance dashboards built on stale extracts miss discharged-and-returned patients, inflating quality scores and masking care gaps.",
+  "with_bayesiq": "BayesIQ reconciles EMR discharge events against payer claims in real time. Within two weeks, the governed pipeline surfaced 7 broken metrics across 3 dashboards — giving clinical ops a remediation roadmap before the next CMS audit.",
+  "headline_finding": "7 broken metrics across 3 dashboards",
   "cta_label": "Book a Hospital Data Diagnostic",
   "cta_variant": "diagnostic"
 }

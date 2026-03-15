@@ -1,9 +1,9 @@
 {
-  "vertical_id": "fintech-gf",
+  "vertical_id": "fintech",
   "display_name": "Fintech",
-  "status_quo": "Reported payment volume runs $12M higher than settlement records because 6 transaction metrics fail reconciliation across processing and ledger systems. Treasury plans against inflated figures, and regulatory filings carry numbers that don't tie out.",
-  "with_bayesiq": "BayesIQ reconciles payment volume against settlement records at the transaction level, surfaces the 6 failing metrics, and closes the $12M gap — so treasury forecasts and regulatory filings are built on numbers that survive examination.",
-  "headline_finding": "Payment volume $12M higher than settlement records — 6 transaction metrics fail reconciliation.",
+  "status_quo": "Transaction-fee revenue overstated by 9% because refund reversals post to a separate ledger 48 hours after settlement. Finance reports net revenue that never reconciles to bank deposits.",
+  "with_bayesiq": "BayesIQ joins settlement files with refund ledgers in near real time. The governed pipeline flagged 5 reconciliation breaks across 2 payment rails — giving treasury a clear remediation path before month-end close.",
+  "headline_finding": "5 reconciliation breaks across 2 payment rails",
   "cta_label": "Book a Fintech Data Diagnostic",
   "cta_variant": "diagnostic"
 }

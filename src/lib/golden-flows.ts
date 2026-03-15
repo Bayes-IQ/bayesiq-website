@@ -48,6 +48,33 @@ export function getAllVerticalSlugs(): string[] {
   return loadManifest().verticals.map((v) => v.slug);
 }
 
+// --- Narrative ---
+
+export interface VerticalNarrative {
+  vertical_id: string;
+  display_name: string;
+  status_quo: string;
+  with_bayesiq: string;
+  headline_finding: string;
+  cta_label: string;
+  cta_variant: "diagnostic" | "reliability_program" | "book_session";
+}
+
+export function getNarrative(slug: string): VerticalNarrative | null {
+  try {
+    const filePath = join(
+      process.cwd(),
+      "fixtures",
+      "golden-flows",
+      "narratives",
+      `${slug}.json`
+    );
+    return JSON.parse(readFileSync(filePath, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
 // --- Hook Metrics ---
 
 export type SeverityLevel = "critical" | "warning" | "moderate" | "healthy";
@@ -85,33 +112,6 @@ export function getAllHookMetrics(): Map<string, HookMetrics> {
     if (metrics) map.set(slug, metrics);
   }
   return map;
-}
-
-// --- Vertical Narratives ---
-
-export interface VerticalNarrative {
-  vertical_id: string;
-  display_name: string;
-  status_quo: string;
-  with_bayesiq: string;
-  headline_finding: string;
-  cta_label: string;
-  cta_variant: "diagnostic" | "reliability_program" | "book_session";
-}
-
-export function getNarrative(slug: string): VerticalNarrative | null {
-  try {
-    const filePath = join(
-      process.cwd(),
-      "fixtures",
-      "golden-flows",
-      "narratives",
-      `${slug}.json`
-    );
-    return JSON.parse(readFileSync(filePath, "utf-8"));
-  } catch {
-    return null;
-  }
 }
 
 // --- Severity Colors (reusable across GF components) ---
