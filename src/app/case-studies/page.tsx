@@ -5,11 +5,11 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Case Studies — BayesIQ",
   description:
-    "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+    "Representative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   openGraph: {
     title: "Case Studies — BayesIQ",
     description:
-      "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+      "Representative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   },
 };
 
@@ -147,7 +147,7 @@ const caseStudiesJsonLd = {
   "@type": "CollectionPage",
   name: "BayesIQ Case Studies",
   description:
-    "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+    "Representative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   publisher: {
     "@type": "Organization",
     name: "BayesIQ",
@@ -179,8 +179,9 @@ export default function CaseStudiesPage() {
             Case Studies
           </h1>
           <p className="mt-4 text-lg text-bayesiq-600">
-            These engagements show what a BayesIQ audit uncovers — the findings,
-            the business impact, and the deliverables you walk away with.
+            Representative engagements based on real patterns we see across
+            industries. Details are composites — your audit uses your actual
+            data.
           </p>
 
           <div className="mt-6 flex gap-4">
