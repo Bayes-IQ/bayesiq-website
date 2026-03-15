@@ -1,6 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import ServiceCard from "@/components/ServiceCard";
 import CTA from "@/components/CTA";
+
+export const metadata: Metadata = {
+  title: "BayesIQ — Find Broken Metrics. Get the Fix Path.",
+  description:
+    "BayesIQ finds broken metrics and broken data pipelines fast. Drop a CSV, get a 0-100 quality score, a dbt project, and a Streamlit dashboard.",
+  openGraph: {
+    title: "BayesIQ — Find Broken Metrics. Get the Fix Path.",
+    description:
+      "Drop a CSV, get a 0-100 quality score, a dbt project, and a Streamlit dashboard. 12+ automated quality checks with production-ready output.",
+  },
+};
 
 const playgroundEnabled =
   process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";

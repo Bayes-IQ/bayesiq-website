@@ -88,9 +88,21 @@ const workingPrinciples = [
   },
 ];
 
+const fintechJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "BayesIQ Fintech Data Auditing",
+  description: "Automated data quality auditing for fintech transaction pipelines, settlement reconciliation, and regulatory compliance.",
+  provider: { "@type": "Organization", name: "BayesIQ", url: "https://bayes-iq.com" },
+};
+
 export default function FintechPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(fintechJsonLd) }}
+      />
       {/* Hero */}
       <section className="px-6 py-24">
         <div className="mx-auto max-w-4xl">

@@ -11,9 +11,22 @@ export const metadata: Metadata = {
   },
 };
 
+const contactJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact BayesIQ",
+  description: "Talk to us about your data challenges.",
+  publisher: { "@type": "Organization", name: "BayesIQ", url: "https://bayes-iq.com" },
+};
+
 export default function ContactPage() {
   return (
-    <section className="px-6 py-24">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
+      />
+      <section className="px-6 py-24">
       <div className="mx-auto max-w-5xl">
         {/* ── Existing 2-col layout: messaging + form ── */}
         <div className="grid gap-16 md:grid-cols-2">
@@ -69,5 +82,6 @@ export default function ContactPage() {
         <CalendlyEmbed />
       </div>
     </section>
+    </>
   );
 }

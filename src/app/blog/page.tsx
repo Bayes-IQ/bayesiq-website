@@ -9,15 +9,28 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Blog — BayesIQ",
     description:
-      "Insights on data quality, telemetry validation, and analytics pipeline reliability.",
+      "Insights on data quality, telemetry validation, and analytics pipeline reliability from BayesIQ.",
   },
+};
+
+const blogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "BayesIQ Blog",
+  description: "Insights on data quality, telemetry validation, and analytics pipeline reliability.",
+  publisher: { "@type": "Organization", name: "BayesIQ", url: "https://bayes-iq.com" },
 };
 
 export default function BlogIndexPage() {
   const posts = getAllPosts();
 
   return (
-    <section className="px-6 py-24">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
           Blog
@@ -56,5 +69,6 @@ export default function BlogIndexPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }
