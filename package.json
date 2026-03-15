@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "playwright test",
-    "test:install": "playwright install chromium"
+    "test": "PLAYWRIGHT_BROWSERS_PATH=0 playwright test",
+    "test:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
