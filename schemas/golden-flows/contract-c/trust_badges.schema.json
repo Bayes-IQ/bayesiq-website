@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-c/trust_badges",
+  "title": "Trust Badges",
+  "description": "Pre-compiled trust badge data for rendering on selector cards, cascades, and previews.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "badges"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "trust_badges"
+    },
+    "badges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TrustBadge"
+      }
+    }
+  },
+  "definitions": {
+    "TrustBadge": {
+      "type": "object",
+      "required": ["finding_id", "badge_type", "reviewer_name", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "type": "string"
+        },
+        "badge_type": {
+          "type": "string",
+          "enum": ["audit_verified", "governance_approved", "stakeholder_reviewed"]
+        },
+        "reviewer_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"]
+        },
+        "verified_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

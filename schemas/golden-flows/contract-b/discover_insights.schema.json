@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/discover_insights",
+  "title": "Discover Insights",
+  "description": "Per-vertical discover panel insight cards, question-framed and linked to dashboard views.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "insights"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "discover_insights"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "insights": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DiscoverInsight"
+      },
+      "minItems": 1,
+      "maxItems": 10
+    }
+  },
+  "definitions": {
+    "DiscoverInsight": {
+      "type": "object",
+      "required": ["insight_id", "question_text", "dashboard_link", "finding_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "insight_id": {
+          "type": "string",
+          "description": "Stable ID: {vertical}_{INS_NNN}"
+        },
+        "question_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dashboard_link": {
+          "type": "string",
+          "format": "uri"
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

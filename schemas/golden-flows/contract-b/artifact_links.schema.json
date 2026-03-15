@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/artifact_links",
+  "title": "Artifact Links",
+  "description": "Per-vertical per-month URLs to deployed dashboards and published GDocs.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "artifact_links"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ArtifactLink"
+      }
+    }
+  },
+  "definitions": {
+    "ArtifactLink": {
+      "type": "object",
+      "required": ["artifact_id", "vertical", "month", "type", "url", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "vertical": {
+          "type": "string",
+          "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["dashboard", "report", "gdoc", "gdrive", "presentation"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-c/published_docs",
+  "title": "Published Docs",
+  "description": "GDoc/GDrive URLs for published governance documents.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "docs"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "published_docs"
+    },
+    "docs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PublishedDoc"
+      }
+    }
+  },
+  "definitions": {
+    "PublishedDoc": {
+      "type": "object",
+      "required": ["doc_id", "finding_id", "url", "title", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "doc_id": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["gdoc", "gdrive", "dashboard"]
+        }
+      }
+    }
+  }
+}

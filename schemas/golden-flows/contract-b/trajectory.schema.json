@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/trajectory",
+  "title": "Trajectory",
+  "description": "Per-vertical monthly score trajectory with finding counts.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "snapshots"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "trajectory"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TrajectorySnapshot"
+      },
+      "minItems": 1
+    }
+  },
+  "definitions": {
+    "TrajectorySnapshot": {
+      "type": "object",
+      "required": ["month", "as_of_date", "score", "finding_count", "resolved_count"],
+      "additionalProperties": false,
+      "properties": {
+        "month": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "as_of_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "finding_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resolved_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

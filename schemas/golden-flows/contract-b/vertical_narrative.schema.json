@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/vertical_narrative",
+  "title": "Vertical Narrative",
+  "description": "Per-vertical commercial copy source: status quo vs BayesIQ comparison, headline finding, and CTA configuration.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical_id", "display_name", "status_quo", "with_bayesiq", "headline_finding", "cta_label", "cta_variant"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "vertical_narrative"
+    },
+    "vertical_id": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable vertical name (e.g., 'Hospital', 'Real Estate')"
+    },
+    "status_quo": {
+      "type": "string",
+      "description": "What happens without BayesIQ — specific, not generic"
+    },
+    "with_bayesiq": {
+      "type": "string",
+      "description": "What changes with BayesIQ — specific, grounded in data"
+    },
+    "headline_finding": {
+      "type": "string",
+      "description": "Most devastating finding, one sentence"
+    },
+    "cta_label": {
+      "type": "string",
+      "description": "Primary CTA button text for this vertical (e.g., 'Book a Hospital Data Diagnostic')"
+    },
+    "cta_variant": {
+      "type": "string",
+      "enum": ["diagnostic", "reliability_program", "book_session"],
+      "description": "CTA type for rendering logic"
+    }
+  }
+}

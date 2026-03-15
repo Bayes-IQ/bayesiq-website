@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-b/cascade_data",
+  "title": "Cascade Data",
+  "description": "Per-vertical cascade viewer data, keyed by question_id. Map keys follow the stable identity model: {vertical}_{snapshot}_{Q_NNN}. Consumers look up cascades by question_id from executive_questions.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "vertical", "cascades"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "cascade_data"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": ["hospital", "real_estate", "saas", "retail", "fintech"]
+    },
+    "cascades": {
+      "type": "object",
+      "description": "Map from question_id to CascadeEntry. Keys follow stable identity model.",
+      "additionalProperties": {
+        "$ref": "#/definitions/CascadeEntry"
+      }
+    }
+  },
+  "definitions": {
+    "CascadeEntry": {
+      "type": "object",
+      "required": ["question_id", "reported_value", "audited_value", "delta", "root_cause", "consequence", "reviewer_badge", "timeline_steps"],
+      "additionalProperties": false,
+      "properties": {
+        "question_id": {
+          "type": "string"
+        },
+        "reported_value": {
+          "type": "string"
+        },
+        "audited_value": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "string",
+          "description": "Human-readable delta (e.g., '+23%', '-$1.2M')"
+        },
+        "root_cause": {
+          "type": "string"
+        },
+        "consequence": {
+          "type": "string"
+        },
+        "reviewer_badge": {
+          "$ref": "#/definitions/ReviewerBadge"
+        },
+        "timeline_steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimelineStep"
+          },
+          "minItems": 1,
+          "maxItems": 6
+        }
+      }
+    },
+    "ReviewerBadge": {
+      "type": "object",
+      "required": ["reviewer_name", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "reviewer_name": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"]
+        }
+      }
+    },
+    "TimelineStep": {
+      "type": "object",
+      "required": ["step_type", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "step_type": {
+          "type": "string",
+          "enum": ["finding", "correction", "dashboard", "report", "presentation", "governance"]
+        },
+        "label": {
+          "type": "string"
+        },
+        "artifact_id": {
+          "type": "string",
+          "description": "References screenshot_manifest or artifact_links. Null if step has no artifact."
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

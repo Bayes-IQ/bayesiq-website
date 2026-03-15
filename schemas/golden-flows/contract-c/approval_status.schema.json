@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "golden-flows/contract-c/approval_status",
+  "title": "Approval Status",
+  "description": "Per-finding approval status for trust micro-badges.",
+  "type": "object",
+  "required": ["schema_version", "payload_type", "approvals"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "payload_type": {
+      "type": "string",
+      "const": "approval_status"
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ApprovalRecord"
+      }
+    }
+  },
+  "definitions": {
+    "ApprovalRecord": {
+      "type": "object",
+      "required": ["finding_id", "status", "reviewer_id"],
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "description": "References a finding in Contract B cascade_data"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"]
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Null/absent if status is pending"
+        },
+        "reviewer_id": {
+          "type": "string",
+          "description": "References reviewer_attribution"
+        }
+      }
+    }
+  }
+}
