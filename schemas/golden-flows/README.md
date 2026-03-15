@@ -3,14 +3,18 @@
 ## Versioning
 
 Every schema root object includes:
-- `schema_version` (string, required) — semver, starts at `"1.0.0"`
-- `payload_type` (const string, required) — discriminator matching the schema name (e.g., `"executive_questions"`)
+- `schema_version` (integer const, required) — starts at `1`
+- `payload_type` (const string, required) — discriminator using `contract_c.<name>` or `<name>` format
+- `generated_at` (string, date-time, required) — UTC ISO 8601 export timestamp
 
 Post-freeze changes require version bump + cross-repo review per `CONTRACT_FREEZE_v1.md`.
 
-## JSON Schema Draft
+## JSON Schema Dialect
 
-All schemas use **draft-07** (`http://json-schema.org/draft-07/schema#`) for maximum toolchain compatibility with `json-schema-to-typescript` and `ajv`.
+- **Contract B** schemas use **draft-07** (`http://json-schema.org/draft-07/schema#`)
+- **Contract C** schemas use **2020-12** (`https://json-schema.org/draft/2020-12/schema`) with `$defs`
+
+The validation script (`npm run validate:schemas`) handles both dialects automatically.
 
 ## Stable Identity Model
 
@@ -25,7 +29,7 @@ Example: `hospital_month_1_QC_017`
 
 ```
 schemas/golden-flows/
-├── contract-b/          # data-audit-kit → website payloads
+├── contract-b/              # data-audit-kit → website payloads (8 schemas)
 │   ├── executive_questions.schema.json
 │   ├── discover_insights.schema.json
 │   ├── cascade_data.schema.json
@@ -34,14 +38,15 @@ schemas/golden-flows/
 │   ├── artifact_links.schema.json
 │   ├── hook_metrics.schema.json
 │   └── vertical_narrative.schema.json
-├── contract-c/          # platform → website payloads
+├── contract-c/              # platform → website payloads (7 schemas)
 │   ├── approval_status.schema.json
-│   ├── reviewer_attribution.schema.json
 │   ├── feedback_threads.schema.json
-│   ├── published_docs.schema.json
+│   ├── business_events.schema.json
 │   ├── trust_badges.schema.json
-│   └── business_events.schema.json
-└── README.md            # this file
+│   ├── review_context.schema.json
+│   ├── cascade_governance.schema.json
+│   └── published_docs.schema.json
+└── README.md                # this file
 ```
 
 ## Type Generation

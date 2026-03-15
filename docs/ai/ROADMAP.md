@@ -733,12 +733,13 @@ No upstream data-delivery dependency after schema freeze. Start immediately.
   - `hook_metrics.schema.json` — per vertical (selector card content)
   - `vertical_narrative.schema.json` — per vertical
 - Author JSON schema proposals for all Contract C payloads:
-  - `approval_status.schema.json` — per finding
-  - `reviewer_attribution.schema.json`
-  - `feedback_threads.schema.json` — comment → review → resolution
-  - `published_docs.schema.json` — GDoc/GDrive URLs
-  - `trust_badges.schema.json` — pre-compiled badge data
-  - `business_events.schema.json` — preview vs. approved
+  - `approval_status.schema.json` — per finding (aligned with platform PR #316)
+  - `feedback_threads.schema.json` — feedback items + linked approvals (aligned with platform PR #317)
+  - `business_events.schema.json` — governance state (aligned with platform PR #318)
+  - `trust_badges.schema.json` — pre-compiled badge data + summary (aligned with platform PR #323)
+  - `review_context.schema.json` — typed review context blocks (aligned with platform PR #325)
+  - `cascade_governance.schema.json` — per-question governance overlay (aligned with platform PR #329)
+  - `published_docs.schema.json` — GDoc/GDrive URLs (website-proposed)
 - All schemas include `schema_version` and `payload_type` in root
 - All IDs follow the stable identity model: include vertical + snapshot context (e.g., `hospital_month_1_QC_017`)
 - Generate TypeScript types from schemas (e.g., `json-schema-to-typescript`)
