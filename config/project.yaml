@@ -34,7 +34,7 @@ docs:
   arch_state: "docs/ai/ARCH_STATE.md"
   plan_template: "docs/ai/pr_markdown_plans/_TEMPLATE.md"
   pr_plans_dir: "docs/ai/pr_markdown_plans/"
-  roles_dir: "docs/ai/roles/"
+  # roles_dir omitted — falls back to bayesiq's shared role contracts
 
 critic:
   pr_categories:
