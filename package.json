@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "playwright test",
+    "test:install": "playwright install chromium"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -19,6 +21,7 @@
     "resend": "^6.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
