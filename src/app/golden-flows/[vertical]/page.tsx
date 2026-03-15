@@ -5,8 +5,10 @@ import {
   getVerticals,
   getAllVerticalSlugs,
   getAllHookMetrics,
+  getNarrative,
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
+import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -41,6 +43,7 @@ export default async function VerticalPage({ params }: Props) {
 
   const verticals = getVerticals();
   const hookMetrics = getAllHookMetrics();
+  const narrative = getNarrative(slug);
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
@@ -49,6 +52,8 @@ export default async function VerticalPage({ params }: Props) {
         hookMetrics={hookMetrics}
         currentSlug={slug}
       />
+
+      {narrative && <StatusQuoComparison narrative={narrative} />}
 
       <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
         {vertical.display_name}
