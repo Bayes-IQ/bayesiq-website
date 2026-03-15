@@ -1,22 +1,7 @@
 import { test, expect } from "@playwright/test";
+import { getAllSeedPaths } from "./fixtures/routes";
 
-// Same seed routes as smoke tests
-const seedRoutes = [
-  "/",
-  "/services",
-  "/audit-kit",
-  "/approach",
-  "/case-studies",
-  "/sample-report",
-  "/playground",
-  "/assessment",
-  "/contact",
-  "/privacy",
-  "/terms",
-  "/blog",
-  "/fintech",
-  "/healthcare",
-];
+const seedRoutes = getAllSeedPaths();
 
 test("All internal links resolve (no 404/500)", async ({ page, request }) => {
   test.setTimeout(60_000);
@@ -24,7 +9,7 @@ test("All internal links resolve (no 404/500)", async ({ page, request }) => {
   const checked = new Set<string>();
 
   for (const route of seedRoutes) {
-    await page.goto(route, { waitUntil: "networkidle" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
 
     // Collect all internal hrefs
     const hrefs = await page.$$eval("a[href]", (anchors) =>
@@ -59,4 +44,9 @@ test("All internal links resolve (no 404/500)", async ({ page, request }) => {
       0
     );
   }
+});
+
+test("Non-existent path returns 404", async ({ request }) => {
+  const res = await request.get("/nonexistent-test-path");
+  expect(res.status()).toBe(404);
 });
