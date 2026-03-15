@@ -8,11 +8,13 @@ import {
   getNarrative,
   getExecutiveQuestions,
   getTrajectory,
+  getCascadeData,
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
 import VerticalLanding from "@/components/golden-flows/VerticalLanding";
 import AskButtons from "@/components/golden-flows/AskButtons";
+import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 
 interface Props {
@@ -51,6 +53,9 @@ export default async function VerticalPage({ params }: Props) {
   const narrative = getNarrative(slug);
   const executiveQuestions = getExecutiveQuestions(slug);
   const trajectory = getTrajectory(slug);
+  const cascadeData = getCascadeData(slug);
+
+  const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
@@ -74,9 +79,16 @@ export default async function VerticalPage({ params }: Props) {
         {vertical.display_name}
       </h1>
 
-      {executiveQuestions && (
+      {/* If cascade data exists, render combined ask+cascade section;
+          otherwise fall back to ask buttons only */}
+      {executiveQuestions && hasCascades ? (
+        <AskAndCascadeSection
+          questions={executiveQuestions.questions}
+          cascades={cascadeData.cascades}
+        />
+      ) : executiveQuestions ? (
         <AskButtons questions={executiveQuestions.questions} />
-      )}
+      ) : null}
 
       <GoldenFlowsCTA
         ctaLabel={narrative?.cta_label}

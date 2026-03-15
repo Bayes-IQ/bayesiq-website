@@ -1,16 +1,35 @@
-import type { ExecutiveQuestion } from "@/lib/golden-flows";
+"use client";
+
+import type { ExecutiveQuestion } from "@/lib/golden-flows-ui";
 import {
   questionSeverityBorderColor,
   questionSeverityBadgeColors,
-} from "@/lib/golden-flows";
+} from "@/lib/golden-flows-ui";
 
 interface AskButtonsProps {
   questions: ExecutiveQuestion[];
+  activeQuestionId?: string | null;
+  onQuestionClick?: (questionId: string) => void;
 }
 
-export default function AskButtons({ questions }: AskButtonsProps) {
+export default function AskButtons({
+  questions,
+  activeQuestionId,
+  onQuestionClick,
+}: AskButtonsProps) {
   const flagship = questions.find((q) => q.priority === "flagship");
   const secondary = questions.filter((q) => q.priority === "secondary");
+
+  function handleClick(questionId: string) {
+    if (!onQuestionClick) return;
+    onQuestionClick(questionId);
+
+    // Scroll to the cascade viewer section
+    const el = document.getElementById("cascade-viewer");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
   return (
     <section className="mt-10">
@@ -20,8 +39,14 @@ export default function AskButtons({ questions }: AskButtonsProps) {
 
       {/* Flagship question — full-width, prominent */}
       {flagship && (
-        <div
-          className={`mt-4 rounded-xl border bg-white p-6 border-l-[3px] ${questionSeverityBorderColor(flagship.severity)}`}
+        <button
+          type="button"
+          onClick={() => handleClick(flagship.question_id)}
+          className={`mt-4 w-full text-left rounded-xl border bg-white p-6 border-l-[3px] transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-bayesiq-500 ${questionSeverityBorderColor(flagship.severity)} ${
+            activeQuestionId === flagship.question_id
+              ? "ring-2 ring-bayesiq-500 shadow-md"
+              : ""
+          }`}
         >
           <div className="flex items-start justify-between gap-3">
             <p className="text-lg font-bold text-bayesiq-900">
@@ -32,16 +57,22 @@ export default function AskButtons({ questions }: AskButtonsProps) {
           <p className="mt-2 text-sm text-bayesiq-500 line-clamp-2">
             {flagship.answer_summary}
           </p>
-        </div>
+        </button>
       )}
 
       {/* Secondary questions — 2-column grid */}
       {secondary.length > 0 && (
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {secondary.map((q) => (
-            <div
+            <button
               key={q.question_id}
-              className="rounded-lg border border-bayesiq-200 bg-white p-4"
+              type="button"
+              onClick={() => handleClick(q.question_id)}
+              className={`rounded-lg border border-bayesiq-200 bg-white p-4 text-left transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-bayesiq-500 ${
+                activeQuestionId === q.question_id
+                  ? "ring-2 ring-bayesiq-500 shadow-md"
+                  : ""
+              }`}
             >
               <div className="flex items-start justify-between gap-2">
                 <p className="text-sm font-medium text-bayesiq-900">
@@ -52,7 +83,7 @@ export default function AskButtons({ questions }: AskButtonsProps) {
               <p className="mt-1.5 text-xs text-bayesiq-400 line-clamp-2">
                 {q.answer_summary}
               </p>
-            </div>
+            </button>
           ))}
         </div>
       )}
