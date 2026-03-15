@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "fintech",
+  "questions": [
+    {
+      "question_id": "fintech_month_3_Q_001",
+      "priority": "flagship",
+      "question_text": "Why can't we reconcile $12M in daily transaction volume across three systems?",
+      "answer_summary": "The payment gateway, ledger, and settlement system each use different cutoff times (UTC, EST, and PST respectively). During the 3-hour overlap window, transactions are double-counted in one system and missing from another, creating a persistent $12M daily variance.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "fintech_month_3_Q_002",
+      "priority": "secondary",
+      "question_text": "Are we settling with merchants accurately or are we leaking basis points?",
+      "answer_summary": "Interchange fee tiers are mapped using a static table from Q2 2024. Card network rate changes in October shifted 18% of transactions to higher tiers. We've absorbed $340K in unrecovered interchange over 5 months.",
+      "severity": "high"
+    },
+    {
+      "question_id": "fintech_month_3_Q_003",
+      "priority": "secondary",
+      "question_text": "Is our fraud rate really below the network threshold or is it a measurement gap?",
+      "answer_summary": "The fraud dashboard measures confirmed fraud as a share of approved transactions. It excludes chargebacks still in dispute and doesn't count friendly fraud. Including these raises the effective rate from 0.08% to 0.14%, above Visa's monitoring threshold.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "fintech_month_3_Q_004",
+      "priority": "secondary",
+      "question_text": "How confident are we in the AML reports we're filing with FinCEN?",
+      "answer_summary": "The transaction monitoring system flags based on rolling 30-day aggregates, but the aggregation resets at month boundaries instead of rolling forward daily. Structuring patterns that span month-end are systematically missed.",
+      "severity": "high"
+    },
+    {
+      "question_id": "fintech_month_3_Q_005",
+      "priority": "secondary",
+      "question_text": "Why does our payment volume growth look flat when new merchant sign-ups are up 30%?",
+      "answer_summary": "New merchant onboarding counts activated accounts, but 42% of new merchants haven't processed a single transaction after 60 days. Volume growth from active merchants is 8%, masked by the denominator including dormant accounts.",
+      "severity": "medium"
+    }
+  ]
+}

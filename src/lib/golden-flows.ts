@@ -134,6 +134,68 @@ export function severityTextColor(level: SeverityLevel): string {
   }
 }
 
+// --- Executive Questions ---
+
+export interface ExecutiveQuestion {
+  question_id: string;
+  priority: "flagship" | "secondary";
+  question_text: string;
+  answer_summary: string;
+  severity: "critical" | "high" | "medium" | "low";
+}
+
+export interface ExecutiveQuestionsPayload {
+  schema_version: string;
+  payload_type: string;
+  vertical: string;
+  questions: ExecutiveQuestion[];
+}
+
+export type QuestionSeverity = "critical" | "high" | "medium" | "low";
+
+export function questionSeverityBorderColor(level: QuestionSeverity): string {
+  switch (level) {
+    case "critical":
+      return "border-red-600";
+    case "high":
+      return "border-amber-500";
+    case "medium":
+      return "border-yellow-400";
+    case "low":
+      return "border-green-500";
+  }
+}
+
+export function questionSeverityBadgeColors(level: QuestionSeverity): string {
+  switch (level) {
+    case "critical":
+      return "bg-red-100 text-red-700";
+    case "high":
+      return "bg-amber-100 text-amber-700";
+    case "medium":
+      return "bg-yellow-100 text-yellow-700";
+    case "low":
+      return "bg-green-100 text-green-700";
+  }
+}
+
+export function getExecutiveQuestions(
+  slug: string
+): ExecutiveQuestionsPayload | null {
+  try {
+    const filePath = join(
+      process.cwd(),
+      "fixtures",
+      "golden-flows",
+      "executive-questions",
+      `${slug}.json`
+    );
+    return JSON.parse(readFileSync(filePath, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
 export function severityBgColor(level: SeverityLevel): string {
   switch (level) {
     case "critical": return "bg-red-50";

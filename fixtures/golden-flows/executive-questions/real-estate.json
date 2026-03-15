@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "real_estate",
+  "questions": [
+    {
+      "question_id": "real_estate_month_3_Q_001",
+      "priority": "flagship",
+      "question_text": "Why is our portfolio NOI $4.2M higher than what auditors are calculating?",
+      "answer_summary": "Three properties use gross lease accounting while the consolidated model assumes net leases. Operating expense pass-throughs are counted as revenue in one system and netted out in another, inflating NOI by 11%.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "real_estate_month_3_Q_002",
+      "priority": "secondary",
+      "question_text": "Is our vacancy rate actually 6% or are we masking move-out timing?",
+      "answer_summary": "The leasing dashboard marks units as occupied until lease expiration, not actual move-out. Physical vacancy is 9.3% when accounting for 47 units that are empty but still under lease.",
+      "severity": "high"
+    },
+    {
+      "question_id": "real_estate_month_3_Q_003",
+      "priority": "secondary",
+      "question_text": "How accurate are the cap rates we're showing investors in our quarterly deck?",
+      "answer_summary": "Cap rate calculations use trailing NOI but forward-looking expense assumptions. Standardizing the time horizon shifts portfolio valuation down by $18M across 12 properties.",
+      "severity": "high"
+    },
+    {
+      "question_id": "real_estate_month_3_Q_004",
+      "priority": "secondary",
+      "question_text": "Are we reserving enough for deferred maintenance across the portfolio?",
+      "answer_summary": "Maintenance reserve models haven't incorporated the 2024 capital expenditure actuals. Four properties are under-reserved by a combined $1.8M based on updated replacement schedules.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "real_estate_month_3_Q_005",
+      "priority": "secondary",
+      "question_text": "What's really driving our tenant retention number down this quarter?",
+      "answer_summary": "The retention metric counts lease renewals but excludes month-to-month conversions. Including holdover tenants who haven't formally renewed raises retention from 72% to 81%, changing the narrative entirely.",
+      "severity": "medium"
+    }
+  ]
+}

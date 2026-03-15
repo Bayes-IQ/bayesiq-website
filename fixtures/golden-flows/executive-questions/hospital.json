@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "executive_questions",
+  "vertical": "hospital",
+  "questions": [
+    {
+      "question_id": "hospital_month_3_Q_001",
+      "priority": "flagship",
+      "question_text": "Why did our readmission rate drop 23% below what we're reporting?",
+      "answer_summary": "Seven metrics across three dashboards use inconsistent denominator definitions. The ED dashboard excludes observation stays while the quality report includes them, creating a 23-point gap that overstates performance to CMS.",
+      "severity": "critical"
+    },
+    {
+      "question_id": "hospital_month_3_Q_002",
+      "priority": "secondary",
+      "question_text": "Are we actually meeting our sepsis bundle compliance target?",
+      "answer_summary": "The compliance dashboard double-counts patients who transfer between units, inflating the numerator by 14%. True compliance is 71%, not the 85% shown in board reports.",
+      "severity": "high"
+    },
+    {
+      "question_id": "hospital_month_3_Q_003",
+      "priority": "secondary",
+      "question_text": "Why does cardiology show 40% higher revenue per case than the regional benchmark?",
+      "answer_summary": "Charge capture for interventional procedures includes bundled supplies that peer hospitals bill separately. Apples-to-apples comparison shows revenue is 6% above benchmark, not 40%.",
+      "severity": "medium"
+    },
+    {
+      "question_id": "hospital_month_3_Q_004",
+      "priority": "secondary",
+      "question_text": "How reliable is our department-level cost-per-patient metric?",
+      "answer_summary": "Overhead allocation uses a 2019 cost model that hasn't been updated for post-COVID volume shifts. Three departments carry $2.1M in misallocated indirect costs, distorting unit economics.",
+      "severity": "high"
+    },
+    {
+      "question_id": "hospital_month_3_Q_005",
+      "priority": "secondary",
+      "question_text": "Can we trust the clinical quality scores we're sending to payers?",
+      "answer_summary": "Two of five quality measures pull from staging tables that lag production by 48 hours. During month-end reconciliation windows, scores can shift by up to 9 points before final submission.",
+      "severity": "critical"
+    }
+  ]
+}

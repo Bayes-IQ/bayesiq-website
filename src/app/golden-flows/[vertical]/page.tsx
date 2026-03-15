@@ -6,9 +6,11 @@ import {
   getAllVerticalSlugs,
   getAllHookMetrics,
   getNarrative,
+  getExecutiveQuestions,
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
+import AskButtons from "@/components/golden-flows/AskButtons";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 
 interface Props {
@@ -45,6 +47,7 @@ export default async function VerticalPage({ params }: Props) {
   const verticals = getVerticals();
   const hookMetrics = getAllHookMetrics();
   const narrative = getNarrative(slug);
+  const executiveQuestions = getExecutiveQuestions(slug);
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
@@ -67,6 +70,10 @@ export default async function VerticalPage({ params }: Props) {
             : "This vertical is in development. Results will be available when ready."}
         </p>
       </div>
+
+      {executiveQuestions && (
+        <AskButtons questions={executiveQuestions.questions} />
+      )}
 
       <GoldenFlowsCTA
         ctaLabel={narrative?.cta_label}
