@@ -4,7 +4,7 @@ import ServiceCard from "@/components/ServiceCard";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
-  title: "Find Broken Metrics. Get the Fix Path.",
+  title: "BayesIQ — Find Broken Metrics. Get the Fix Path.",
   description:
     "BayesIQ finds broken metrics and broken data pipelines fast. Drop a CSV, get a 0-100 quality score, a dbt project, and a Streamlit dashboard.",
   openGraph: {
