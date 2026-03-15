@@ -1,9 +1,9 @@
 {
   "vertical_id": "retail",
   "display_name": "Retail",
-  "status_quo": "Attribution models credit 40% more conversions than actually occur because click-to-purchase joins double-count cross-device sessions. Media spend is misallocated toward channels that appear to convert but don't, while genuinely effective spend gets cut.",
-  "with_bayesiq": "BayesIQ deduplicates cross-device sessions at the join layer, corrects the attribution overcounting, and shows where media spend is actually driving revenue — so every dollar moves toward channels with real, verified conversion lift.",
-  "headline_finding": "Attribution credits 40% more conversions than actual — media spend systematically misallocated to phantom performance.",
+  "status_quo": "Inventory shrinkage understated by 18% because POS adjustments lag warehouse cycle counts by 3-5 days. Markdown optimization runs on stale stock levels, eroding margin on high-velocity SKUs.",
+  "with_bayesiq": "BayesIQ reconciles POS transaction logs against warehouse management actuals. The governed pipeline surfaced 6 inventory discrepancies across 3 channels — providing a remediation roadmap before peak season planning.",
+  "headline_finding": "6 inventory discrepancies across 3 channels",
   "cta_label": "Book a Retail Data Diagnostic",
   "cta_variant": "diagnostic"
 }
