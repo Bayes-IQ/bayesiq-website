@@ -183,6 +183,43 @@ export default function HealthcarePage() {
         </div>
       </section>
 
+      {/* Case Study Callout */}
+      <section className="border-t border-bayesiq-200 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400">
+            Results from a recent healthcare engagement
+          </p>
+          <div className="mt-4 rounded-xl border-2 border-accent/20 bg-accent/5 p-6">
+            <div className="flex flex-wrap gap-6">
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">340</p>
+                <p className="text-sm text-bayesiq-600">Patients double-counted</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">14.2% → 11.8%</p>
+                <p className="text-sm text-bayesiq-600">Corrected readmission rate</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-bayesiq-900">44 → 82</p>
+                <p className="text-sm text-bayesiq-600">Reliability score improvement</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-bayesiq-600">
+              A regional health system found 340 patients double-counted in
+              readmission metrics due to inconsistent patient ID formatting across
+              clinics. The reported readmission rate dropped from 14.2% to 11.8%
+              after deduplication.
+            </p>
+            <Link
+              href="/case-studies#healthcare"
+              className="mt-3 inline-block text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+            >
+              Read the full case study &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Working principles */}
       <section className="border-t border-bayesiq-200 px-6 py-20">
         <div className="mx-auto max-w-4xl">
@@ -204,10 +241,50 @@ export default function HealthcarePage() {
         </div>
       </section>
 
+      {/* Compliance & Risk */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-xl font-bold text-bayesiq-900">
+            Compliance and risk support
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-bayesiq-600">
+            Our work can improve the auditability and traceability of your analytics
+            pipelines, helping reduce risk around regulatory reporting. We support
+            your compliance posture — we do not provide legal, regulatory, or
+            compliance guarantees.
+          </p>
+        </div>
+      </section>
+
+      {/* Self-assessment CTA */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm text-bayesiq-600">
+            Not sure if you need an audit?{" "}
+            <Link href="/assessment" className="font-medium text-bayesiq-900 hover:text-accent">
+              Take the 2-minute self-assessment &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Pricing signal */}
+      <section className="px-6 py-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-sm text-bayesiq-500">
+            Engagements start at $7.5K for a one-week diagnostic.{" "}
+            <Link href="/audit-kit" className="font-medium text-bayesiq-600 hover:text-bayesiq-900">
+              See all engagement tiers &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* Closing CTA */}
       <CTA
-        headline="Audit your clinical data pipeline"
-        description="Start with a diagnostic sprint or drop a CSV in the playground."
+        headline="One healthcare audit found 340 patients double-counted. What would yours find?"
+        description="Book a one-week diagnostic to score your clinical data pipeline and surface the issues that matter most."
+        buttonText="Book a Diagnostic"
       />
     </>
   );
