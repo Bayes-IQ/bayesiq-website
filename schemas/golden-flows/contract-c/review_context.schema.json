@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "golden-flows/contract-c/review_context",
+  "title": "Review Context",
+  "description": "Typed review context blocks per governance object. Aligned with platform contract_c.review_context_v1 (PR #325).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "payload_type", "generated_at", "items"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "payload_type": { "const": "contract_c.review_context" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ReviewContextItem" }
+    }
+  },
+  "$defs": {
+    "ReviewContextItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type", "object_id", "source_approval_id",
+        "timestamp", "review_context"
+      ],
+      "properties": {
+        "object_type": { "type": "string" },
+        "object_id": { "type": "string" },
+        "source_approval_id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "review_context": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ReviewContextBlock" }
+        }
+      }
+    },
+    "ReviewContextBlock": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "summary_stat", "finding_list", "assumption_list",
+            "candidate_list", "warning", "artifact_link_group"
+          ]
+        }
+      }
+    }
+  }
+}

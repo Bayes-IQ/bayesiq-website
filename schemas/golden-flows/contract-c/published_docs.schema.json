@@ -1,46 +1,30 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "golden-flows/contract-c/published_docs",
   "title": "Published Docs",
-  "description": "GDoc/GDrive URLs for published governance documents.",
+  "description": "GDoc/GDrive URLs for published governance documents. No platform export yet — website-proposed schema following Contract C conventions.",
   "type": "object",
-  "required": ["schema_version", "payload_type", "docs"],
   "additionalProperties": false,
+  "required": ["schema_version", "payload_type", "generated_at", "items"],
   "properties": {
-    "schema_version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "payload_type": {
-      "type": "string",
-      "const": "published_docs"
-    },
-    "docs": {
+    "schema_version": { "const": 1 },
+    "payload_type": { "const": "contract_c.published_docs" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "items": {
       "type": "array",
-      "items": {
-        "$ref": "#/definitions/PublishedDoc"
-      }
+      "items": { "$ref": "#/$defs/PublishedDoc" }
     }
   },
-  "definitions": {
+  "$defs": {
     "PublishedDoc": {
       "type": "object",
-      "required": ["doc_id", "finding_id", "url", "title", "type"],
       "additionalProperties": false,
+      "required": ["doc_id", "finding_id", "url", "title", "type"],
       "properties": {
-        "doc_id": {
-          "type": "string"
-        },
-        "finding_id": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        },
-        "title": {
-          "type": "string"
-        },
+        "doc_id": { "type": "string" },
+        "finding_id": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "title": { "type": "string" },
         "type": {
           "type": "string",
           "enum": ["gdoc", "gdrive", "dashboard"]

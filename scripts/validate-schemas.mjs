@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 // Validate all Golden Flows JSON schemas compile correctly with ajv.
 import Ajv from "ajv";
+import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 
-const ajv = new Ajv({ strict: true, allErrors: true });
-addFormats(ajv);
+const ajvDraft07 = new Ajv({ strict: true, allErrors: true });
+addFormats(ajvDraft07);
+
+const ajv2020 = new Ajv2020({ strict: true, allErrors: true });
+addFormats(ajv2020);
 
 const schemaDir = "schemas/golden-flows";
 const contracts = ["contract-b", "contract-c"];
@@ -19,7 +23,11 @@ for (const contract of contracts) {
     const path = join(dir, file);
     try {
       const schema = JSON.parse(readFileSync(path, "utf-8"));
-      ajv.compile(schema);
+      const validator =
+        schema.$schema === "https://json-schema.org/draft/2020-12/schema"
+          ? ajv2020
+          : ajvDraft07;
+      validator.compile(schema);
       console.log(`  ✓ ${path}`);
     } catch (e) {
       console.error(`  ✗ ${path}: ${e.message}`);

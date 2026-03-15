@@ -5,26 +5,45 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+import type { Reviewer } from "./common";
+
 /**
- * Per-finding approval status for trust micro-badges.
+ * Per-finding/feedback approval status with inline reviewer attribution. Aligned with platform PR #316 contract_c.approval_metadata_v1 schema.
  */
-export interface ApprovalStatus {
-  schema_version: string;
-  payload_type: "approval_status";
-  approvals: ApprovalRecord[];
+export interface ApprovalMetadata {
+  schema_version: 1;
+  payload_type: "contract_c.approval_metadata";
+  /**
+   * UTC ISO 8601 timestamp of export generation
+   */
+  generated_at: string;
+  items: ApprovalItem[];
 }
-export interface ApprovalRecord {
+export interface ApprovalItem {
   /**
-   * References a finding in Contract B cascade_data
+   * What kind of object this approval covers
    */
-  finding_id: string;
-  status: "pending" | "approved" | "rejected";
+  object_type: "finding" | "feedback" | "approval";
   /**
-   * Null/absent if status is pending
+   * ID of the finding, feedback, or approval being approved. References Contract B cascade_data for findings.
    */
-  approved_at?: string;
+  object_id: string;
+  approval_status: "pending" | "approved" | "rejected" | "deferred";
   /**
-   * References reviewer_attribution
+   * Whether this record was seeded for demo, approved during demo, or from live production
    */
-  reviewer_id: string;
+  record_origin: "demo_seeded" | "demo_approved" | "live";
+  /**
+   * Platform-internal approval record ID for traceability
+   */
+  source_approval_id: string;
+  reviewer: Reviewer;
+  /**
+   * UTC ISO 8601 timestamp of the approval action
+   */
+  timestamp: string;
+  /**
+   * Optional reviewer note, max 500 chars
+   */
+  review_note?: string | null;
 }

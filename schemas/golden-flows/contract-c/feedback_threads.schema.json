@@ -1,68 +1,88 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "golden-flows/contract-c/feedback_threads",
   "title": "Feedback Threads",
-  "description": "Per-finding feedback conversation chains: comment → review → resolution.",
+  "description": "Feedback item state with linked approvals. Aligned with platform contract_c.feedback_threads_v1 (PR #317).",
   "type": "object",
-  "required": ["schema_version", "payload_type", "threads"],
   "additionalProperties": false,
+  "required": ["schema_version", "payload_type", "generated_at", "items"],
   "properties": {
-    "schema_version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "payload_type": {
-      "type": "string",
-      "const": "feedback_threads"
-    },
-    "threads": {
+    "schema_version": { "const": 1 },
+    "payload_type": { "const": "contract_c.feedback_threads" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "items": {
       "type": "array",
-      "items": {
-        "$ref": "#/definitions/FeedbackThread"
-      }
+      "items": { "$ref": "#/$defs/FeedbackItem" }
     }
   },
-  "definitions": {
-    "FeedbackThread": {
+  "$defs": {
+    "FeedbackItem": {
       "type": "object",
-      "required": ["thread_id", "finding_id", "comments"],
       "additionalProperties": false,
+      "required": [
+        "feedback_id", "summary", "status", "disposition", "timeline",
+        "linked_approvals"
+      ],
       "properties": {
-        "thread_id": {
-          "type": "string"
-        },
-        "finding_id": {
+        "feedback_id": { "type": "string" },
+        "summary": { "type": "string" },
+        "category": { "type": ["string", "null"] },
+        "priority": { "type": ["string", "null"] },
+        "status": { "type": "string" },
+        "disposition": {
           "type": "string",
-          "description": "References Contract B cascade_data finding"
+          "enum": ["pending", "in_progress", "resolved", "rejected"]
         },
-        "comments": {
+        "resolution_note": { "type": ["string", "null"] },
+        "source": { "type": ["string", "null"] },
+        "timeline": { "$ref": "#/$defs/Timeline" },
+        "linked_approvals": {
           "type": "array",
-          "items": {
-            "$ref": "#/definitions/ThreadComment"
-          },
-          "minItems": 1
+          "items": { "$ref": "#/$defs/LinkedApproval" }
         }
       }
     },
-    "ThreadComment": {
+    "Timeline": {
       "type": "object",
-      "required": ["author", "body", "timestamp", "type"],
       "additionalProperties": false,
+      "required": ["created_at", "updated_at", "resolved_at"],
       "properties": {
-        "author": {
-          "type": "string"
-        },
-        "body": {
-          "type": "string"
-        },
-        "timestamp": {
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" },
+        "resolved_at": { "type": "string" }
+      }
+    },
+    "LinkedApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_id", "approval_status", "record_origin",
+        "reviewer", "ts_requested", "ts_resolved"
+      ],
+      "properties": {
+        "approval_id": { "type": "string" },
+        "approval_status": {
           "type": "string",
-          "format": "date-time"
+          "enum": ["pending", "approved", "rejected", "deferred"]
         },
-        "type": {
+        "record_origin": {
           "type": "string",
-          "enum": ["comment", "review", "resolution"]
-        }
+          "enum": ["demo_seeded", "demo_approved", "live"]
+        },
+        "reviewer": { "$ref": "#/$defs/Reviewer" },
+        "ts_requested": { "type": "string" },
+        "ts_resolved": { "type": "string" },
+        "review_note": { "type": ["string", "null"] }
+      }
+    },
+    "Reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer_id"],
+      "properties": {
+        "reviewer_id": { "type": "string" },
+        "display_name": { "type": ["string", "null"] },
+        "role": { "type": ["string", "null"] }
       }
     }
   }

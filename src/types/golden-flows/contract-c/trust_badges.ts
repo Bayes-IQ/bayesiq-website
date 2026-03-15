@@ -5,18 +5,40 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+import type { Reviewer } from "./common";
+
 /**
- * Pre-compiled trust badge data for rendering on selector cards, cascades, and previews.
+ * Pre-compiled trust badge data with summary statistics. Aligned with platform contract_c.trust_badges_v1 (PR #323).
  */
 export interface TrustBadges {
-  schema_version: string;
-  payload_type: "trust_badges";
+  schema_version: 1;
+  payload_type: "contract_c.trust_badges";
+  generated_at: string;
+  summary: BadgeSummary;
   badges: TrustBadge[];
 }
+export interface BadgeSummary {
+  total_objects: number;
+  by_status: StatusCounts;
+  by_object_type: {
+    [k: string]: {
+      total: number;
+      by_status: StatusCounts;
+    };
+  };
+}
+export interface StatusCounts {
+  approved?: number;
+  deferred?: number;
+  pending?: number;
+  rejected?: number;
+}
 export interface TrustBadge {
-  finding_id: string;
-  badge_type: "audit_verified" | "governance_approved" | "stakeholder_reviewed";
-  reviewer_name: string;
-  status: "pending" | "approved" | "rejected";
-  verified_at?: string;
+  object_type: string;
+  object_id: string;
+  approval_status: "pending" | "approved" | "rejected" | "deferred";
+  record_origin: "demo_seeded" | "demo_approved" | "live";
+  reviewer: Reviewer;
+  last_reviewed_at: string;
+  approval_count: number;
 }

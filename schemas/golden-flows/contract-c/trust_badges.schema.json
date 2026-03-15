@@ -1,51 +1,84 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "golden-flows/contract-c/trust_badges",
   "title": "Trust Badges",
-  "description": "Pre-compiled trust badge data for rendering on selector cards, cascades, and previews.",
+  "description": "Pre-compiled trust badge data with summary statistics. Aligned with platform contract_c.trust_badges_v1 (PR #323).",
   "type": "object",
-  "required": ["schema_version", "payload_type", "badges"],
   "additionalProperties": false,
+  "required": ["schema_version", "payload_type", "generated_at", "summary", "badges"],
   "properties": {
-    "schema_version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "payload_type": {
-      "type": "string",
-      "const": "trust_badges"
-    },
+    "schema_version": { "const": 1 },
+    "payload_type": { "const": "contract_c.trust_badges" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "summary": { "$ref": "#/$defs/BadgeSummary" },
     "badges": {
       "type": "array",
-      "items": {
-        "$ref": "#/definitions/TrustBadge"
-      }
+      "items": { "$ref": "#/$defs/TrustBadge" }
     }
   },
-  "definitions": {
-    "TrustBadge": {
+  "$defs": {
+    "BadgeSummary": {
       "type": "object",
-      "required": ["finding_id", "badge_type", "reviewer_name", "status"],
+      "additionalProperties": false,
+      "required": ["total_objects", "by_status", "by_object_type"],
+      "properties": {
+        "total_objects": { "type": "integer", "minimum": 0 },
+        "by_status": { "$ref": "#/$defs/StatusCounts" },
+        "by_object_type": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["total", "by_status"],
+            "properties": {
+              "total": { "type": "integer", "minimum": 0 },
+              "by_status": { "$ref": "#/$defs/StatusCounts" }
+            }
+          }
+        }
+      }
+    },
+    "StatusCounts": {
+      "type": "object",
       "additionalProperties": false,
       "properties": {
-        "finding_id": {
-          "type": "string"
-        },
-        "badge_type": {
+        "approved": { "type": "integer", "minimum": 0 },
+        "deferred": { "type": "integer", "minimum": 0 },
+        "pending": { "type": "integer", "minimum": 0 },
+        "rejected": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "TrustBadge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type", "object_id", "approval_status", "record_origin",
+        "reviewer", "last_reviewed_at", "approval_count"
+      ],
+      "properties": {
+        "object_type": { "type": "string" },
+        "object_id": { "type": "string" },
+        "approval_status": {
           "type": "string",
-          "enum": ["audit_verified", "governance_approved", "stakeholder_reviewed"]
+          "enum": ["pending", "approved", "rejected", "deferred"]
         },
-        "reviewer_name": {
-          "type": "string"
-        },
-        "status": {
+        "record_origin": {
           "type": "string",
-          "enum": ["pending", "approved", "rejected"]
+          "enum": ["demo_seeded", "demo_approved", "live"]
         },
-        "verified_at": {
-          "type": "string",
-          "format": "date-time"
-        }
+        "reviewer": { "$ref": "#/$defs/Reviewer" },
+        "last_reviewed_at": { "type": "string" },
+        "approval_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "Reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer_id"],
+      "properties": {
+        "reviewer_id": { "type": "string" },
+        "display_name": { "type": ["string", "null"] },
+        "role": { "type": ["string", "null"] }
       }
     }
   }

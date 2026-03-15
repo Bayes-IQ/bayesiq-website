@@ -1,30 +1,31 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "golden-flows/contract-c/business_events",
-  "title": "Business Event Governance",
-  "description": "Business event governance state: approval status, reviewer, timestamps. Aligned with platform contract_c.business_event_governance_v1 (PR #318).",
+  "$id": "golden-flows/contract-c/cascade_governance",
+  "title": "Cascade Governance Overlay",
+  "description": "Per-question governance overlay for cascade viewer: approval status, reviewer, linked object IDs. Aligned with platform contract_c.cascade_governance_v1 (PR #329).",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "payload_type", "generated_at", "items"],
   "properties": {
     "schema_version": { "const": 1 },
-    "payload_type": { "const": "contract_c.business_event_governance" },
+    "payload_type": { "const": "contract_c.cascade_governance" },
     "generated_at": { "type": "string", "format": "date-time" },
     "items": {
       "type": "array",
-      "items": { "$ref": "#/$defs/BusinessEventGovernance" }
+      "items": { "$ref": "#/$defs/CascadeGovernanceItem" }
     }
   },
   "$defs": {
-    "BusinessEventGovernance": {
+    "CascadeGovernanceItem": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "event_id", "approval_status", "record_origin",
-        "source_approval_id", "reviewer", "ts_requested", "ts_resolved"
+        "question_id", "approval_status", "record_origin",
+        "reviewer", "finding_ids", "feedback_ids", "event_ids",
+        "ts_requested", "ts_resolved"
       ],
       "properties": {
-        "event_id": { "type": "string" },
+        "question_id": { "type": "string" },
         "approval_status": {
           "type": "string",
           "enum": ["pending", "approved", "rejected", "deferred"]
@@ -33,11 +34,13 @@
           "type": "string",
           "enum": ["demo_seeded", "demo_approved", "live"]
         },
-        "source_approval_id": { "type": "string" },
         "reviewer": { "$ref": "#/$defs/Reviewer" },
+        "review_note": { "type": ["string", "null"] },
+        "finding_ids": { "type": "array", "items": { "type": "string" } },
+        "feedback_ids": { "type": "array", "items": { "type": "string" } },
+        "event_ids": { "type": "array", "items": { "type": "string" } },
         "ts_requested": { "type": "string" },
-        "ts_resolved": { "type": "string" },
-        "review_note": { "type": ["string", "null"] }
+        "ts_resolved": { "type": "string" }
       }
     },
     "Reviewer": {
