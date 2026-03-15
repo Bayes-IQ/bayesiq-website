@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getVerticals, getGoldenFlowsState } from "@/lib/golden-flows";
+import { getVerticals, getGoldenFlowsState, getAllHookMetrics } from "@/lib/golden-flows";
+import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 
 export const metadata: Metadata = {
   title: "Golden Flows — BayesIQ",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function GoldenFlowsHub() {
   const verticals = getVerticals();
   const state = getGoldenFlowsState();
+  const hookMetrics = getAllHookMetrics();
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
@@ -27,23 +28,11 @@ export default function GoldenFlowsHub() {
         </p>
       )}
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {verticals.map((vertical) => (
-          <Link
-            key={vertical.id}
-            href={`/golden-flows/${vertical.slug}`}
-            className="rounded-xl border border-bayesiq-200 p-6 transition-colors hover:border-bayesiq-400 hover:bg-bayesiq-50"
-          >
-            <h2 className="text-lg font-semibold text-bayesiq-900">
-              {vertical.display_name}
-            </h2>
-            <p className="mt-1 text-sm text-bayesiq-500">
-              {vertical.status === "ready"
-                ? "Audit results available"
-                : "Coming soon"}
-            </p>
-          </Link>
-        ))}
+      <div className="mt-12">
+        <VerticalSelector
+          verticals={verticals}
+          hookMetrics={hookMetrics}
+        />
       </div>
     </main>
   );

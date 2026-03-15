@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "hook_metrics",
+  "vertical": "fintech",
+  "discrepancy_headline": "6 transaction metrics fail reconciliation",
+  "consequence": "Payment volume reported $12M higher than settlement records — audit trail broken",
+  "trust_cue": "Reviewed by Anika Patel, Chief Data Officer",
+  "score": 39,
+  "severity_level": "critical"
+}
