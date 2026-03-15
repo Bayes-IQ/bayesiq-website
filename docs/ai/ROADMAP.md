@@ -1,16 +1,27 @@
 # BayesIQ Website — Development Roadmap
 
-Last Updated: 2026-03-07 (Phases 1–4 complete, Phase 5 next)
+Last Updated: 2026-03-15 (Website Revamp active, PR#22 open, PR#23 next)
 
 ---
 
 # Guiding Principle
 
-**BayesIQ Website is the product surface for the BayesIQ ecosystem.** It serves two roles: lead-conversion for consulting engagements, and self-serve product experience for the Data Audit Kit.
+**BayesIQ Website exists to generate qualified client demand for BayesIQ consulting and BayesIQ Data Audit Kit engagements.** The site should establish trust, demonstrate capability, and convert technical buyers into booked conversations.
+
+The Audit Kit is not a separate competing identity — it is the most concrete, demonstrable expression of BayesIQ. The site sells services first, demonstrates the Audit Kit second, and only later evolves into deeper self-serve software.
 
 ```
-MVP Launch → Content → Interactivity → Product Landing → Audit Kit Integration (5A: pipeline, 5B: packaging) → Conversational Product
+Positioning → Trust → Proof → Conversion → Audit Preview → Client Qualification
 ```
+
+### Positioning Model
+
+| Brand | Role on Site | What It Communicates |
+|-------|-------------|---------------------|
+| **BayesIQ** | Service/engagement brand | Governed data delivery, audit/remediation engagements, telemetry advisory, custom implementation |
+| **BayesIQ Data Audit Kit** | Flagship proof asset | Upload a CSV → see what BayesIQ finds → understand what an engagement delivers → proof that methods are real |
+
+The homepage hierarchy should answer, fast: (1) What do you do? (2) Who is it for? (3) Why should I trust you? (4) What do I get? (5) What is the next step?
 
 ### Cross-Repo Alignment
 
@@ -19,12 +30,14 @@ This website intersects three repos. Each phase below maps to where the audit ki
 | Website Phase | Audit Kit Phase | Platform Phase | Integration Point |
 |---------------|-----------------|----------------|-------------------|
 | Phase 4 (done) | 3.7 (done) | — | Client-side CSV profiler mirrors audit kit's schema_profiler |
-| Phase 5A (next) | 3.8 (done) | — | Server-side audit pipeline, findings + score on website |
-| Phase 5B | 3.8 (done) | — | Artifact downloads, rate limiting, free/paid entitlements |
-| Phase 6 | 4 (next) | Active | Chat UI powered by platform orchestration layer |
-| Phase 7 | 5 (hosted) | Active | Hosted dashboards, multi-tenant, self-service |
+| Phase 5A (deferred) | 3.8 (done) | — | Server-side audit pipeline, findings + score on website |
+| Phase 5B (deferred) | 3.8 (done) | — | Artifact downloads, rate limiting, free/paid entitlements |
+| Phase 6 (deferred) | 4 (next) | Active | Chat UI powered by platform orchestration layer |
+| Phase 7 (deferred) | 5 (hosted) | Active | Hosted dashboards, multi-tenant, self-service |
 
-Content follows a strict derivation chain:
+Phases 5–7 are deferred until the site has proven client acquisition value. They remain in the roadmap as future direction but are not near-term priorities.
+
+### Content Derivation
 
 ```
 docs/product/* (truth) → src/app/* (derived copy + layout) ← site.config.yaml (routing/nav/SEO config)
@@ -44,6 +57,7 @@ Never skip the source-of-truth step. Page copy that doesn't trace back to a prod
 - **Forms:** Resend + Next.js server action
 - **Analytics:** Vercel Analytics (`@vercel/analytics`)
 - **Content:** Direct TSX for pages; MDX blog via `next-mdx-remote/rsc` + `gray-matter`
+- **Testing:** Playwright (E2E smoke tests, link integrity, JSON-LD validation) — PR#23
 
 ---
 
@@ -53,8 +67,9 @@ Every PR must pass before merge:
 
 - `npm run build` succeeds (no build errors)
 - `npm run lint` passes
+- `npm test` passes (Playwright smoke tests + link integrity — PR#23)
 - Lighthouse scores: Performance ≥ 90, Accessibility ≥ 90, SEO ≥ 90
-- No broken internal links
+- No broken internal links (enforced by automated test suite)
 - OG images render (once added)
 - Typecheck passes (`npx tsc --noEmit`)
 
@@ -223,28 +238,28 @@ Phase 3 is done when:
 
 ---
 
-# Phase 4 — Product Landing & Playground ✅
+# Phase 4 — Audit Preview & Playground ✅
 
-Goal: reposition site as a product landing page for both BayesIQ products, with self-serve playground.
+Goal: expand the site with buyer evidence — playground, engagement tiers, and Audit Kit positioning.
 
 Key outcomes:
 
 - **CSV Playground** (`/playground`) — drag-and-drop CSV, client-side profiling, downloadable Streamlit app
-- **Product-first homepage** — two product cards (Audit Kit + Platform), engagement tiers, pipeline flow
-- **Products page** (`/services`) — full feature grids for both products
+- **Homepage rewrite** — BayesIQ + Audit Kit positioning, engagement tiers, pipeline flow
+- **Services page** (`/services`) — BayesIQ service capabilities and Audit Kit bridge
 - **Updated approach page** — automated pipeline architecture, engagement tiers, differentiators
 - **Updated sample report** — shows actual Audit Kit artifacts, scoring rubric, severity definitions
 - **Updated industry pages** — healthcare and fintech reframed around Audit Kit capabilities
 - **Updated product docs** — company_overview, services, problems, engagement_model, tagline all rewritten
-- **Updated nav** — Products, Approach, Playground, Live Demo, Blog
+- **Updated nav** — Platform, Audit Kit, Approach, Case Studies, Blog
 
 ### Completed Work
 
 | # | Title | Status |
 |---|-------|--------|
 | — | CSV Playground (`/playground`) with client-side profiling + Streamlit generation | ✅ done |
-| — | Homepage rewrite (product-first positioning) | ✅ done |
-| — | Products page rewrite (Audit Kit + Platform features) | ✅ done |
+| — | Homepage rewrite (BayesIQ + Audit Kit positioning) | ✅ done |
+| — | Services page rewrite (BayesIQ capabilities + Audit Kit bridge) | ✅ done |
 | — | Approach page rewrite (pipeline architecture + engagement tiers) | ✅ done |
 | — | Sample report rewrite (Audit Kit artifacts + scoring rubric) | ✅ done |
 | — | Healthcare landing page rewrite | ✅ done |
@@ -254,13 +269,121 @@ Key outcomes:
 
 ---
 
-# Phase 5A — Server-Side Audit Pipeline (Next)
+# Website Revamp — Client Acquisition Repositioning (Active)
+
+Goal: reposition the site to **generate qualified client demand**. Every page change should make the site better at answering: What do you do? Who is it for? Why trust you? What do I get? What's the next step?
+
+### Priority Tiers (per roadmap feedback)
+
+**Tier 1 — Must-have for client acquisition:**
+- Homepage positioning (PR#19 ✅)
+- Dedicated Audit Kit page (PR#22 — PR open)
+- E2E smoke tests (PR#23 — next)
+- Case studies revamp (PR#24)
+- Contact/booking flow (already functional)
+- Sample deliverable page (already exists)
+
+**Tier 2 — Strong leverage:**
+- Industry landing pages for likely buyers (PR#26)
+- Metadata/SEO for core pages (PR#25)
+- Targeted blog posts tied to buyer search intent (existing blog)
+- Lightweight playground connected to lead capture (existing playground)
+
+**Tier 3 — Defer until client acquisition is proven:**
+- Server-side audit pipeline (Phase 5A)
+- Entitlement packaging (Phase 5B)
+- Conversational UX (Phase 6)
+- Hosted dashboards/accounts/subscriptions (Phase 7)
+- Newsletter expansion (unless traffic justifies it)
+
+> **Interpretation note:** Phases 1–4 below reflect how the site evolved historically. The active roadmap from this point forward is governed by the client-acquisition objective above. Where older phase language conflicts in emphasis, the client-acquisition positioning is the source of truth.
+
+### Success Metrics
+
+**Primary conversion metrics:**
+- Contact form submit rate
+- Calendly booking rate
+- Qualified lead rate — a lead counts as qualified when: (1) real company with a data quality, telemetry, or analytics problem, (2) relevant use case for BayesIQ or the Audit Kit, (3) has budget authority or decision-making influence, (4) wants a conversation within 30 days
+
+**Proof engagement metrics:**
+- Sample report page views
+- Audit Kit page CTA click-through
+- Case study expansion / dwell time
+
+**Channel metrics:**
+- Organic search impressions to core service pages
+- Blog-to-contact conversion rate
+- Industry page conversion rate
+
+### Page Hierarchy
+
+**Core conversion pages** (highest priority for quality, speed, and CTA clarity):
+- `/` — homepage
+- `/audit-kit` — flagship proof asset
+- `/sample-report` — deliverable preview
+- `/case-studies` — trust/evidence
+- `/contact` — conversion endpoint
+
+**Support pages** (important but secondary):
+- `/services` — BayesIQ engagement capabilities (what we do, how we deliver, governance depth)
+- `/approach` — process credibility
+- `/healthcare`, `/fintech` — industry targeting
+- `/blog/*` — SEO / buyer intent content
+
+### PR Queue
+
+| # | Title | Dependencies | Status |
+|---|-------|-------------|--------|
+| #19 | Homepage reframe (governance-first positioning) | — | ✅ done |
+| #20 | Navigation update (Header + Footer) with Audit Kit primary link | #19 | ✅ done |
+| #21 | Services page rewrite (/services) | #20 | ✅ done |
+| #22 | Add dedicated Audit Kit page (/audit-kit) | #20, #21 | PR open |
+| **#23** | **E2E smoke tests + link integrity (Playwright)** | **#22** | **Next** |
+| #24 | Case studies revamp | #20 | Planned |
+| #25 | Supporting metadata + approach page alignment | #19, #21, #22, #24 | Planned |
+| #26 | Industry pages update (Fintech + Healthcare) | #24, #25 | Planned |
+
+### PR#23 — E2E Smoke Tests + Link Integrity
+
+**Why now:** Every PR in the revamp adds or rewires pages and links. Manual verification doesn't scale and has already produced test plans full of checkbox items that nobody runs. Automated tests catch broken routes, dead links, and invalid JSON-LD before merge — not after.
+
+**Scope:**
+- Install Playwright as dev dependency
+- Smoke test every route (15 static + blog dynamic): assert 200 status, page title, no console errors
+- Link integrity: crawl all internal `<a>`/`<Link>` hrefs, assert each resolves to a real route
+- JSON-LD validation: every page with `application/ld+json` has valid JSON with `@context` and `@type`
+- `npm test` script wired to Playwright
+- No new production code, no changes to pages
+
+**Exit criteria:**
+- `npm test` passes locally and catches a deliberately broken link
+- Every existing route is covered by a smoke test
+- JSON-LD validation runs on pages that have structured data
+- Test suite runs in < 30 seconds
+
+### PR#24 — Case Studies Quality Bar
+
+Case studies are one of the most commercially important pages. Each case study must include:
+
+- **Client type / context** — industry, team size, data maturity level
+- **Broken state** — what was wrong before BayesIQ (specific, not generic)
+- **What BayesIQ found** — concrete findings with numbers (e.g., "7 broken metrics, 3 schema drift violations")
+- **Business risk / impact** — what the broken state was costing or risking
+- **Remediation path** — what was fixed and how
+- **Deliverables produced** — scored report, dbt project, dashboard, etc.
+- **CTA** — "What would your audit find?"
+
+Generic "illustrative case studies" help a little. Concrete, credible ones become major conversion assets.
+
+---
+
+# Phase 5A — Server-Side Audit Pipeline (Deferred)
+
+> **De-prioritized per roadmap feedback.** This is valuable but not the fastest path to signed work. Focus on client acquisition pages first. Revisit when the revamp is complete and the site is generating qualified leads.
 
 Goal: run the real audit kit pipeline on the website. Users drop a CSV and get a scored report with real quality checks — without installing anything.
 
 **Depends on:** Audit Kit Phase 3.8 (module interface manifests, return envelope standardization) — **dependency satisfied** (Phase 3.8 complete: 29 PRs merged, 238 tests, 14 modules, standard return envelope, module manifests, vertical config packs all shipped).
-
-This is a product launch, not a backend task. The first server-side audit experience is the real product moment.
 
 ### Key Outcomes
 
@@ -302,7 +425,9 @@ Recommendation: Start with Option A (Vercel serverless) for files under 5MB. Fal
 
 ---
 
-# Phase 5B — Downloads, Limits, and Polish
+# Phase 5B — Downloads, Limits, and Polish (Deferred)
+
+> **De-prioritized per roadmap feedback.** Depends on 5A and is not on the client acquisition critical path.
 
 Goal: complete the server-side audit experience with downloadable artifact bundles, rate limiting, and packaging.
 
@@ -335,7 +460,9 @@ Goal: complete the server-side audit experience with downloadable artifact bundl
 
 ---
 
-# Phase 6 — Conversational Audit (Future)
+# Phase 6 — Conversational Audit (Deferred)
+
+> **De-prioritized per roadmap feedback.** Conversational UX is not the fastest path to signed work. Revisit after client acquisition is proven.
 
 Goal: add chat-based interaction to the audit experience. Users ask questions about their data, approve column interpretations, refine metric definitions, and get recommendations — all in a conversational interface.
 
@@ -393,7 +520,9 @@ The audit kit's interactive mode (Phase 3.7) proved the interaction patterns in 
 
 ---
 
-# Phase 7 — Hosted Dashboards & Self-Service (Horizon)
+# Phase 7 — Hosted Dashboards & Self-Service (Deferred)
+
+> **De-prioritized per roadmap feedback.** Self-serve SaaS should not be a near-term website priority until services revenue justifies it.
 
 Goal: users get a hosted, shareable dashboard URL — not just a downloadable script. Full self-service product experience.
 
@@ -424,10 +553,10 @@ biq_website/
 │   └── project.yaml              # pipeline kernel
 ├── docs/
 │   ├── product/                   # source of truth (human-owned)
-│   │   ├── company_overview.md   # two-product positioning
+│   │   ├── company_overview.md   # BayesIQ service brand + Audit Kit flagship capability
 │   │   ├── company_tagline.md
 │   │   ├── brand.md
-│   │   ├── services.md           # Audit Kit + Platform features
+│   │   ├── services.md           # BayesIQ engagements + Audit Kit delivery
 │   │   ├── problems.md           # problems mapped to product solutions
 │   │   └── engagement_model.md   # tiered engagement model
 │   └── ai/                        # pipeline docs
@@ -437,15 +566,16 @@ biq_website/
 ├── src/
 │   ├── app/                       # Next.js routes
 │   │   ├── layout.tsx
-│   │   ├── page.tsx               # homepage (product-first)
-│   │   ├── services/page.tsx      # Products page
+│   │   ├── page.tsx               # homepage (client acquisition)
+│   │   ├── audit-kit/page.tsx     # flagship proof asset (PR#22)
+│   │   ├── services/page.tsx      # BayesIQ engagement capabilities
 │   │   ├── approach/page.tsx      # pipeline + engagement tiers
-│   │   ├── case-studies/page.tsx   # live demo embed
+│   │   ├── case-studies/page.tsx   # trust / evidence narratives
 │   │   ├── playground/page.tsx    # CSV drop + profiler
-│   │   ├── sample-report/page.tsx # Audit Kit artifacts
+│   │   ├── sample-report/page.tsx # Audit Kit deliverable preview
 │   │   ├── healthcare/page.tsx    # industry landing
 │   │   ├── fintech/page.tsx       # industry landing
-│   │   └── contact/page.tsx
+│   │   └── contact/page.tsx       # conversion endpoint
 │   └── components/                # shared UI
 │       ├── Header.tsx
 │       ├── Footer.tsx
@@ -454,6 +584,11 @@ biq_website/
 │       ├── ContactForm.tsx
 │       └── playground/
 │           └── CsvPlayground.tsx  # CSV profiler + Streamlit generator
+├── e2e/                            # Playwright tests (PR#23)
+│   ├── smoke.spec.ts              # route smoke tests
+│   ├── links.spec.ts             # internal link integrity
+│   └── json-ld.spec.ts           # structured data validation
+├── playwright.config.ts           # Playwright configuration
 ├── site.config.yaml               # pages, nav, SEO metadata
 ├── next.config.mjs
 ├── package.json
