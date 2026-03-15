@@ -7,9 +7,11 @@ import {
   getAllHookMetrics,
   getNarrative,
   getExecutiveQuestions,
+  getTrajectory,
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
+import VerticalLanding from "@/components/golden-flows/VerticalLanding";
 import AskButtons from "@/components/golden-flows/AskButtons";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 
@@ -48,6 +50,7 @@ export default async function VerticalPage({ params }: Props) {
   const hookMetrics = getAllHookMetrics();
   const narrative = getNarrative(slug);
   const executiveQuestions = getExecutiveQuestions(slug);
+  const trajectory = getTrajectory(slug);
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
@@ -57,19 +60,19 @@ export default async function VerticalPage({ params }: Props) {
         currentSlug={slug}
       />
 
+      {trajectory && executiveQuestions && (
+        <VerticalLanding
+          trajectory={trajectory}
+          questions={executiveQuestions.questions}
+          verticalName={vertical.display_name}
+        />
+      )}
+
       {narrative && <StatusQuoComparison narrative={narrative} />}
 
       <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
         {vertical.display_name}
       </h1>
-
-      <div className="mt-8 rounded-xl border border-bayesiq-200 bg-bayesiq-50 p-8">
-        <p className="text-bayesiq-600">
-          {vertical.status === "ready"
-            ? "Landing state (GF-5), cascade viewer (GF-9), and status-quo comparison (GF-6) will render here."
-            : "This vertical is in development. Results will be available when ready."}
-        </p>
-      </div>
 
       {executiveQuestions && (
         <AskButtons questions={executiveQuestions.questions} />
