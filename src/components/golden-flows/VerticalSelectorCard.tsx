@@ -4,6 +4,7 @@ import {
   severityBorderColor,
   severityTextColor,
 } from "@/lib/golden-flows";
+import { VerticalClickTracker } from "./VerticalClickTracker";
 
 interface Props {
   slug: string;
@@ -72,6 +73,7 @@ export default function VerticalSelectorCard({
   const borderColor = severityBorderColor(metrics.severity_level);
 
   return (
+    <VerticalClickTracker slug={slug}>
     <Link
       href={`/golden-flows/${slug}`}
       className={`
@@ -107,5 +109,6 @@ export default function VerticalSelectorCard({
         </p>
       </div>
     </Link>
+    </VerticalClickTracker>
   );
 }
