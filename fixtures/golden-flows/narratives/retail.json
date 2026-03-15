@@ -1,0 +1,9 @@
+{
+  "vertical_id": "retail",
+  "display_name": "Retail",
+  "status_quo": "Attribution models credit 40% more conversions than actually occur because click-to-purchase joins double-count cross-device sessions. Media spend is misallocated toward channels that appear to convert but don't, while genuinely effective spend gets cut.",
+  "with_bayesiq": "BayesIQ deduplicates cross-device sessions at the join layer, corrects the attribution overcounting, and shows where media spend is actually driving revenue — so every dollar moves toward channels with real, verified conversion lift.",
+  "headline_finding": "Attribution credits 40% more conversions than actual — media spend systematically misallocated to phantom performance.",
+  "cta_label": "Book a Retail Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

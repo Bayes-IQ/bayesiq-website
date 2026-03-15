@@ -1,0 +1,9 @@
+{
+  "vertical_id": "real-estate",
+  "display_name": "Real Estate",
+  "status_quo": "Portfolio NOI is overstated by $2.1M because 5 valuation metrics diverge between the property management system and the investor reporting layer. Acquisition models inherit the inflated figures, and LP reports carry numbers that won't survive due-diligence scrutiny.",
+  "with_bayesiq": "BayesIQ traces every NOI line item from source ledgers through rollup reports, flags the 5 diverging valuation metrics, and lifts the trust score from 41 to 87 — so your next investor deck reflects numbers that hold up under audit.",
+  "headline_finding": "Portfolio NOI overstated by $2.1M — 5 valuation metrics diverge silently between source systems.",
+  "cta_label": "Book a Real Estate Data Diagnostic",
+  "cta_variant": "diagnostic"
+}

@@ -1,0 +1,9 @@
+{
+  "vertical_id": "saas",
+  "display_name": "SaaS",
+  "status_quo": "Churn is reported at 3.2% but actual churn is 5.8% — a $4M ARR gap hidden by 4 metrics that were silently redefined over successive dashboard iterations. The board sees a healthier business than reality, and renewal forecasts are built on the wrong baseline.",
+  "with_bayesiq": "BayesIQ locks metric definitions to their canonical source, detects the 4 silently redefined calculations, and closes the $4M ARR gap in your reporting — so your board deck and renewal forecasts reflect the real churn number.",
+  "headline_finding": "Churn reported 3.2% but actual 5.8% — $4M ARR gap hidden by 4 silently redefined metrics.",
+  "cta_label": "Book a SaaS Data Diagnostic",
+  "cta_variant": "diagnostic"
+}
