@@ -9,6 +9,7 @@ import {
   getExecutiveQuestions,
   getTrajectory,
   getCascadeData,
+  getDiscoverInsights,
 } from "@/lib/golden-flows";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
@@ -16,6 +17,7 @@ import VerticalLanding from "@/components/golden-flows/VerticalLanding";
 import AskButtons from "@/components/golden-flows/AskButtons";
 import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
+import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -54,6 +56,7 @@ export default async function VerticalPage({ params }: Props) {
   const executiveQuestions = getExecutiveQuestions(slug);
   const trajectory = getTrajectory(slug);
   const cascadeData = getCascadeData(slug);
+  const discoverInsights = getDiscoverInsights(slug);
 
   const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
 
@@ -89,6 +92,8 @@ export default async function VerticalPage({ params }: Props) {
       ) : executiveQuestions ? (
         <AskButtons questions={executiveQuestions.questions} />
       ) : null}
+
+      {discoverInsights && <DiscoverInsights data={discoverInsights} />}
 
       <GoldenFlowsCTA
         ctaLabel={narrative?.cta_label}

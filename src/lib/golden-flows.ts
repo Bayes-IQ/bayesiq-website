@@ -202,8 +202,8 @@ function loadManifest(): VerticalManifest {
 
 export function getGoldenFlowsState(): RolloutState {
   const state = process.env.NEXT_PUBLIC_GOLDEN_FLOWS_STATE;
-  if (state === "hidden" || state === "live") return state;
-  return "off";
+  if (state === "off" || state === "hidden") return state;
+  return "live";
 }
 
 export function getVerticals(): Vertical[] {
