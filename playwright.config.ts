@@ -11,10 +11,10 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:3000",
   },
   webServer: {
-    command: "npm run dev",
+    command: "npm run build && npm run start",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: true,
-    timeout: 10_000,
+    timeout: 120_000,
   },
   projects: [
     {

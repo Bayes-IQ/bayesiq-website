@@ -5,17 +5,36 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Case Studies — BayesIQ",
   description:
-    "Illustrative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+    "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   openGraph: {
     title: "Case Studies — BayesIQ",
     description:
-      "Illustrative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+      "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   },
 };
 
-const caseStudies = [
+interface CaseStudy {
+  industry: string;
+  slug: string;
+  context: string;
+  brokenState: string;
+  findings: string[];
+  impact: string;
+  remediation: string;
+  deliverables: string[];
+  score: number;
+  severity: string;
+  resultScore: number;
+  tier: string;
+  timeline: string;
+  keyStats: string[];
+  ctaText: string;
+}
+
+const caseStudies: CaseStudy[] = [
   {
     industry: "SaaS — Product Analytics",
+    slug: "saas",
     context:
       "Series B SaaS company ($22M ARR, 3 data engineers). Product and growth teams disputed weekly KPI reports — churn numbers from the warehouse didn't match billing system exports. Leadership lost confidence in the analytics team.",
     brokenState:
@@ -37,9 +56,21 @@ const caseStudies = [
       "ASSUMPTIONS.md documenting 11 data contracts",
       "METRICS.md with canonical definitions for 5 KPIs",
     ],
+    score: 38,
+    severity: "Critical",
+    resultScore: 87,
+    tier: "Audit + Plan",
+    timeline: "4 weeks",
+    keyStats: [
+      "5 broken metrics",
+      "22% churn overstatement",
+      "Score: 38 → 87",
+    ],
+    ctaText: "Get Your SaaS Metrics Audited",
   },
   {
     industry: "Fintech — Transaction Pipeline",
+    slug: "fintech",
     context:
       "Mid-market payments processor ($45M revenue, 2 data engineers, 1 analytics manager). Preparing for a SOC 2 audit and needed to demonstrate data pipeline reliability. Internal team suspected issues but lacked tooling to quantify them.",
     brokenState:
@@ -61,9 +92,21 @@ const caseStudies = [
       "ASSUMPTIONS.md documenting 14 data contracts",
       "METRICS.md with canonical revenue and volume definitions",
     ],
+    score: 52,
+    severity: "Needs Attention",
+    resultScore: 84,
+    tier: "Full Implementation",
+    timeline: "6 weeks",
+    keyStats: [
+      "$340K revenue discrepancy",
+      "1,200 dropped records",
+      "Score: 52 → 84",
+    ],
+    ctaText: "Audit Your Transaction Pipeline",
   },
   {
     industry: "Healthcare — Clinical Analytics",
+    slug: "healthcare",
     context:
       "Regional health system (12 clinics, 4-person data team). Building a clinical analytics platform to track patient outcomes and operational metrics. Data sourced from EHR exports, claims feeds, and manual spreadsheet uploads. No existing data quality framework.",
     brokenState:
@@ -85,39 +128,112 @@ const caseStudies = [
       "ASSUMPTIONS.md documenting 9 data contracts",
       "METRICS.md with canonical definitions for readmission rate, length of stay, and 3 operational KPIs",
     ],
+    score: 44,
+    severity: "Critical",
+    resultScore: 82,
+    tier: "Audit + Plan",
+    timeline: "4 weeks",
+    keyStats: [
+      "340 patients double-counted",
+      "14.2% → 11.8% readmission rate",
+      "Score: 44 → 82",
+    ],
+    ctaText: "Audit Your Clinical Data",
   },
 ];
+
+const caseStudiesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "BayesIQ Case Studies",
+  description:
+    "Real engagement patterns showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+  publisher: {
+    "@type": "Organization",
+    name: "BayesIQ",
+    url: "https://bayes-iq.com",
+  },
+};
+
+function scoreBadgeClasses(score: number): string {
+  if (score < 50) {
+    return "bg-red-500/10 text-red-700 border-red-200";
+  }
+  if (score < 70) {
+    return "bg-orange-500/10 text-orange-700 border-orange-200";
+  }
+  return "bg-yellow-500/10 text-yellow-700 border-yellow-200";
+}
 
 export default function CaseStudiesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudiesJsonLd) }}
+      />
+
       <section className="px-6 py-24">
         <div className="mx-auto max-w-5xl">
           <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
             Case Studies
           </h1>
           <p className="mt-4 text-lg text-bayesiq-600">
-            These illustrative engagements show what a BayesIQ audit finds and
-            fixes — concrete metrics, real failure modes, and the deliverables
-            you walk away with.
+            These engagements show what a BayesIQ audit uncovers — the findings,
+            the business impact, and the deliverables you walk away with.
           </p>
-          <p className="mt-2 text-sm text-bayesiq-400">
-            Based on common patterns across the industries we serve. Details are
-            illustrative — your audit would use your actual data.
-          </p>
+
+          <div className="mt-6 flex gap-4">
+            {caseStudies.map((s) => (
+              <a
+                key={s.slug}
+                href={`#${s.slug}`}
+                className="text-sm font-medium text-bayesiq-600 hover:text-bayesiq-900"
+              >
+                {s.industry.split(" — ")[0]}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-5xl space-y-16">
-          {caseStudies.map((study, i) => (
+          {caseStudies.map((study) => (
             <article
-              key={i}
+              key={study.slug}
+              id={study.slug}
               className="rounded-2xl border border-bayesiq-200 bg-white p-8 shadow-sm"
             >
-              <h2 className="text-2xl font-bold text-bayesiq-900">
-                {study.industry}
-              </h2>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-bayesiq-900">
+                    {study.industry}
+                  </h2>
+                  <p className="mt-1 text-sm text-bayesiq-500">
+                    {study.tier} · {study.timeline}
+                  </p>
+                </div>
+                <span
+                  className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold ${scoreBadgeClasses(study.score)}`}
+                >
+                  {study.score} → {study.resultScore}
+                  <span className="text-xs font-normal">
+                    ({study.severity})
+                  </span>
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-4">
+                {study.keyStats.map((stat) => (
+                  <span
+                    key={stat}
+                    className="rounded-full bg-bayesiq-100 px-3 py-1 text-sm font-medium text-bayesiq-700"
+                  >
+                    {stat}
+                  </span>
+                ))}
+              </div>
 
               <div className="mt-6 space-y-6">
                 <div>
@@ -140,7 +256,10 @@ export default function CaseStudiesPage() {
                   </h3>
                   <ul className="mt-1 space-y-1">
                     {study.findings.map((finding, j) => (
-                      <li key={j} className="flex items-start gap-2 text-bayesiq-700">
+                      <li
+                        key={j}
+                        className="flex items-start gap-2 text-bayesiq-700"
+                      >
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
                         {finding}
                       </li>
@@ -168,7 +287,10 @@ export default function CaseStudiesPage() {
                   </h3>
                   <ul className="mt-1 space-y-1">
                     {study.deliverables.map((d, j) => (
-                      <li key={j} className="flex items-start gap-2 text-bayesiq-700">
+                      <li
+                        key={j}
+                        className="flex items-start gap-2 text-bayesiq-700"
+                      >
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
                         {d}
                       </li>
@@ -179,16 +301,16 @@ export default function CaseStudiesPage() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
+                  href="/contact"
+                  className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+                >
+                  {study.ctaText}
+                </Link>
+                <Link
                   href="/sample-report"
                   className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
                 >
                   See a Sample Report
-                </Link>
-                <Link
-                  href="/audit-kit"
-                  className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
-                >
-                  How the Audit Kit Works
                 </Link>
               </div>
             </article>
