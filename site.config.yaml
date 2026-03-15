@@ -59,6 +59,26 @@ pages:
     title: Fintech Data Auditing — BayesIQ
     description: "BayesIQ helps fintech teams audit transaction analytics, validate payment telemetry, and fix the pipeline issues that make revenue metrics wrong."
 
+  - path: /golden-flows
+    type: page
+    title: Golden Flows — BayesIQ
+    description: "See what BayesIQ finds in real data across five verticals. Governed audit results, executive-ready."
+
+golden-flows:
+  rollout_state_env: NEXT_PUBLIC_GOLDEN_FLOWS_STATE
+  manifest: fixtures/golden-flows/verticals.json
+  verticals:
+    - slug: hospital
+      display_name: Hospital
+    - slug: real-estate
+      display_name: Real Estate
+    - slug: saas
+      display_name: SaaS
+    - slug: retail
+      display_name: Retail
+    - slug: fintech-gf
+      display_name: Fintech
+
 nav:
   items:
     - label: Products
