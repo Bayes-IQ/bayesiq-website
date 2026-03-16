@@ -5,6 +5,7 @@ import {
   getVerticals,
   getAllVerticalSlugs,
   getAllHookMetrics,
+  getHookMetrics,
   getNarrative,
   getExecutiveQuestions,
   getTrajectory,
@@ -18,8 +19,9 @@ import {
 } from "@/lib/governance";
 import type { ApprovalStatusValue, GovernanceDetailData } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
-import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
-import VerticalLanding from "@/components/golden-flows/VerticalLanding";
+import VerticalHero from "@/components/golden-flows/VerticalHero";
+import RealityReveal from "@/components/golden-flows/RealityReveal";
+import VerticalTabs from "@/components/golden-flows/VerticalTabs";
 import AskButtons from "@/components/golden-flows/AskButtons";
 import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
@@ -29,6 +31,7 @@ import BusinessEventList from "@/components/golden-flows/BusinessEventList";
 import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
+import ScoreTrajectory from "@/components/golden-flows/ScoreTrajectory";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -63,6 +66,7 @@ export default async function VerticalPage({ params }: Props) {
 
   const verticals = getVerticals();
   const hookMetrics = getAllHookMetrics();
+  const verticalHookMetrics = getHookMetrics(slug);
   const narrative = getNarrative(slug);
   const executiveQuestions = getExecutiveQuestions(slug);
   const trajectory = getTrajectory(slug);
@@ -131,6 +135,100 @@ export default async function VerticalPage({ params }: Props) {
     ? serializeGovernanceForClient(governance)
     : null;
 
+  // ── Tab content ──────────────────────────────────────────────
+
+  const dashboardContent = (
+    <div>
+      {trajectory && (
+        <div className="flex justify-center">
+          <ScoreTrajectory snapshots={trajectory.snapshots} />
+        </div>
+      )}
+      {boardReport && boardReport.top_risks.length > 0 && (
+        <div className="mt-6 space-y-2">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400">
+            Key Findings
+          </h3>
+          {boardReport.top_risks.map((risk) => (
+            <div
+              key={risk.title}
+              className="rounded-lg border border-bayesiq-200 bg-white px-4 py-3"
+            >
+              <div className="flex items-start gap-2">
+                <span
+                  className={`mt-0.5 shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                    risk.severity === "high"
+                      ? "bg-red-100 text-red-700"
+                      : risk.severity === "medium"
+                        ? "bg-amber-100 text-amber-700"
+                        : "bg-green-100 text-green-700"
+                  }`}
+                >
+                  {risk.severity}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-bayesiq-900 leading-snug">
+                    {risk.title}
+                  </p>
+                  <p className="mt-1 text-xs text-bayesiq-500 leading-relaxed">
+                    {risk.business_impact}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  const reportContent = (
+    <>
+      {boardReport && <ReportPreview report={boardReport} />}
+    </>
+  );
+
+  const workflowContent = (
+    <div className="space-y-8">
+      <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
+
+      {executiveQuestions && hasCascades ? (
+        <AskAndCascadeSection
+          questions={executiveQuestions.questions}
+          cascades={cascadeData.cascades}
+          cascadeGovernanceStatuses={cascadeGovernanceStatuses}
+        />
+      ) : executiveQuestions ? (
+        <AskButtons questions={executiveQuestions.questions} />
+      ) : null}
+
+      {discoverInsights && <DiscoverInsights data={discoverInsights} />}
+
+      {feedbackItems.length > 0 && (
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
+            Feedback Threads
+          </h2>
+          <FeedbackThreadList feedbackItems={feedbackItems} />
+        </section>
+      )}
+
+      {businessEvents.length > 0 && (
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
+            Business Events
+          </h2>
+          <p className="text-sm text-bayesiq-500 mb-4">
+            Metric changes and restatements flowing through governance review.
+          </p>
+          <BusinessEventList events={businessEvents} />
+        </section>
+      )}
+    </div>
+  );
+
+  // ── Page layout ──────────────────────────────────────────────
+
   return (
     <GovernanceDetailProvider data={governanceDetailData}>
       <main className="mx-auto max-w-5xl px-6 py-16">
@@ -142,60 +240,29 @@ export default async function VerticalPage({ params }: Props) {
           trustBadgeObjectIds={trustBadgeObjectIds}
         />
 
-        <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
-
-        {trajectory && executiveQuestions && (
-          <VerticalLanding
+        {trajectory && (
+          <VerticalHero
             trajectory={trajectory}
-            questions={executiveQuestions.questions}
+            boardReport={boardReport}
+            narrative={narrative}
+            hookMetrics={verticalHookMetrics}
             verticalName={vertical.display_name}
           />
         )}
 
-        {narrative && <StatusQuoComparison narrative={narrative} />}
-
-        {boardReport && <ReportPreview report={boardReport} />}
-
-        <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
-          {vertical.display_name}
-        </h1>
-
-        {/* If cascade data exists, render combined ask+cascade section;
-            otherwise fall back to ask buttons only */}
-        {executiveQuestions && hasCascades ? (
-          <AskAndCascadeSection
-            questions={executiveQuestions.questions}
-            cascades={cascadeData.cascades}
-            cascadeGovernanceStatuses={cascadeGovernanceStatuses}
+        {boardReport && (
+          <RealityReveal
+            metrics={boardReport.key_metrics}
+            topRisk={boardReport.top_risks[0] ?? null}
+            headlineFinding={narrative?.headline_finding ?? null}
           />
-        ) : executiveQuestions ? (
-          <AskButtons questions={executiveQuestions.questions} />
-        ) : null}
-
-        {discoverInsights && <DiscoverInsights data={discoverInsights} />}
-
-        {/* Feedback Threads — GF-17 */}
-        {feedbackItems.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
-              Feedback Threads
-            </h2>
-            <FeedbackThreadList feedbackItems={feedbackItems} />
-          </section>
         )}
 
-        {/* Business Events — GF-20 */}
-        {businessEvents.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
-              Business Events
-            </h2>
-            <p className="text-sm text-bayesiq-500 mb-4">
-              Metric changes and restatements flowing through governance review.
-            </p>
-            <BusinessEventList events={businessEvents} />
-          </section>
-        )}
+        <VerticalTabs
+          dashboard={dashboardContent}
+          report={reportContent}
+          workflow={workflowContent}
+        />
 
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}
