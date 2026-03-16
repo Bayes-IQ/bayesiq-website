@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
+    "test:unit": "vitest run",
     "test:install": "playwright install chromium",
     "generate:types": "bash scripts/generate-types.sh",
     "validate:schemas": "node scripts/validate-schemas.mjs"
@@ -32,6 +33,7 @@
     "ajv-formats": "^3.0.1",
     "json-schema-to-typescript": "^15.0.4",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.0"
   }
 }
