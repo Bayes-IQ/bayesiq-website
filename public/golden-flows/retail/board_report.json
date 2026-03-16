@@ -1,0 +1,49 @@
+{
+  "findings_by_severity": {
+    "high": 1,
+    "medium": 1
+  },
+  "interpretation": "Good \u2014 some issues need attention",
+  "key_metrics": [
+    {
+      "audited": 0.6494,
+      "delta_pct": 8.6,
+      "metric": "sell_through",
+      "period": "2025-12",
+      "reported": 0.7108
+    }
+  ],
+  "payload_type": "board_report",
+  "recommended_actions": [
+    {
+      "action": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of sell_through discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "S",
+      "owner": "Data Engineering",
+      "severity": "medium"
+    }
+  ],
+  "schema_version": 1,
+  "score": 85,
+  "top_risks": [
+    {
+      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "rows_affected": 128,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "Reported sell_through for 2025-12 is 71.1%, but recomputed value from raw events is 64.9%. Discrepancy of +8.6%.",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "sell_through misreported for 2025-12 (off by +8.6%)"
+    }
+  ],
+  "total_findings": 2,
+  "trend": null
+}

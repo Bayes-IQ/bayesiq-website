@@ -1,0 +1,80 @@
+{
+  "findings_by_severity": {
+    "high": 3,
+    "medium": 1
+  },
+  "interpretation": "Fair \u2014 significant data quality issues detected",
+  "key_metrics": [
+    {
+      "audited": 0.0,
+      "delta_pct": 100.0,
+      "metric": "vacancy_loss",
+      "period": "2025-12",
+      "reported": 0.0514
+    },
+    {
+      "audited": 0.0289,
+      "delta_pct": -8.7,
+      "metric": "delinquency",
+      "period": "2025-12",
+      "reported": 0.0266
+    }
+  ],
+  "payload_type": "board_report",
+  "recommended_actions": [
+    {
+      "action": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Fix null values in required column 'tenant_id' at the source.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of vacancy_loss discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of delinquency discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "S",
+      "owner": "Data Engineering",
+      "severity": "medium"
+    }
+  ],
+  "schema_version": 1,
+  "score": 65,
+  "top_risks": [
+    {
+      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "rows_affected": 60,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "Null values in required fields break filters and aggregations",
+      "rows_affected": 32,
+      "severity": "high",
+      "title": "Null values in required column: tenant_id"
+    },
+    {
+      "business_impact": "Reported vacancy_loss for 2025-12 is 5.1%, but recomputed value from raw events is 0.0%. Discrepancy of +100.0%.",
+      "rows_affected": 1,
+      "severity": "high",
+      "title": "vacancy_loss misreported for 2025-12 (off by +100.0%)"
+    },
+    {
+      "business_impact": "Reported delinquency for 2025-12 is 2.7%, but recomputed value from raw events is 2.9%. Discrepancy of -8.7%.",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "delinquency misreported for 2025-12 (off by -8.7%)"
+    }
+  ],
+  "total_findings": 4,
+  "trend": null
+}

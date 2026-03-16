@@ -1,0 +1,79 @@
+{
+  "findings_by_severity": {
+    "high": 4
+  },
+  "interpretation": "Fair \u2014 significant data quality issues detected",
+  "key_metrics": [
+    {
+      "audited": 9583.0,
+      "delta_pct": -434.2,
+      "metric": "active_users",
+      "period": "2025-12",
+      "reported": 1794.0
+    },
+    {
+      "audited": 0.0476,
+      "delta_pct": 84.4,
+      "metric": "churn_rate",
+      "period": "2025-12",
+      "reported": 0.3056
+    }
+  ],
+  "payload_type": "board_report",
+  "recommended_actions": [
+    {
+      "action": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Fix null values in required column 'user_id' at the source.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of churn_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    }
+  ],
+  "schema_version": 1,
+  "score": 64,
+  "top_risks": [
+    {
+      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "rows_affected": 102,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "Null values in required fields break filters and aggregations",
+      "rows_affected": 40,
+      "severity": "high",
+      "title": "Null values in required column: user_id"
+    },
+    {
+      "business_impact": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.",
+      "rows_affected": 1,
+      "severity": "high",
+      "title": "active_users misreported for 2025-12 (off by -434.2%)"
+    },
+    {
+      "business_impact": "Reported churn_rate for 2025-12 is 30.6%, but recomputed value from raw events is 4.8%. Discrepancy of +84.4%.",
+      "rows_affected": 1,
+      "severity": "high",
+      "title": "churn_rate misreported for 2025-12 (off by +84.4%)"
+    }
+  ],
+  "total_findings": 4,
+  "trend": null
+}

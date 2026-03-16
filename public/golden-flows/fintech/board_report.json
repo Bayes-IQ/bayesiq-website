@@ -1,0 +1,61 @@
+{
+  "findings_by_severity": {
+    "high": 2,
+    "medium": 1
+  },
+  "interpretation": "Good \u2014 some issues need attention",
+  "key_metrics": [
+    {
+      "audited": 274382.64,
+      "delta_pct": 8.4,
+      "metric": "fee_revenue",
+      "period": "2025-12",
+      "reported": 299461.01
+    }
+  ],
+  "payload_type": "board_report",
+  "recommended_actions": [
+    {
+      "action": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Fix null values in required column 'merchant_id' at the source.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of fee_revenue discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "S",
+      "owner": "Data Engineering",
+      "severity": "medium"
+    }
+  ],
+  "schema_version": 1,
+  "score": 81,
+  "top_risks": [
+    {
+      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "rows_affected": 54,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "Null values in required fields break filters and aggregations",
+      "rows_affected": 28,
+      "severity": "high",
+      "title": "Null values in required column: merchant_id"
+    },
+    {
+      "business_impact": "Reported fee_revenue for 2025-12 is 299,461, but recomputed value from raw events is 274,383. Discrepancy of +8.4%.",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "fee_revenue misreported for 2025-12 (off by +8.4%)"
+    }
+  ],
+  "total_findings": 3,
+  "trend": null
+}
