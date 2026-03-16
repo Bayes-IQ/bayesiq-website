@@ -108,7 +108,8 @@ export default async function VerticalPage({ params }: Props) {
     : null;
 
   // Decision Log — human-reviewed governance decisions (excludes system records)
-  const decisionLogEntries = governance ? serializeDecisionLog(governance) : [];
+  const verticalPrefix = slug.replace(/-gf$/, "");
+  const decisionLogEntries = governance ? serializeDecisionLog(governance, verticalPrefix) : [];
 
   // ── Tab content ──────────────────────────────────────────────
 
