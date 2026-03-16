@@ -58,5 +58,5 @@
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In Q4 2025, BayesIQ audited PayFlow's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. We identified 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement ($25K in phantom revenue). This constituted a material misstatement affecting regulatory filings. After remediation, the reliability score improved from 33 to 81, and fee revenue figures are now reconciled against raw settlement records."
+  "executive_summary": "BayesIQ audited this fintech company's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. We identified 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement. This constituted a material misstatement affecting regulatory filings. After remediation, the reliability score improved from 33 to 81."
 }

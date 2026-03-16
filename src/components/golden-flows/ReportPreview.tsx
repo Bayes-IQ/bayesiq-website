@@ -157,7 +157,7 @@ function MetricsTable({ metrics }: { metrics: BoardReportMetric[] }) {
                         : "bg-green-100 text-green-700"
                   }`}
                 >
-                  {m.delta_pct > 0 ? "+" : ""}{m.delta_pct}%
+                  {m.delta_pct > 0 ? "overstated" : "understated"} {Math.abs(m.delta_pct)}%
                 </span>
               </td>
             </tr>
@@ -243,7 +243,10 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
     report.executive_summary ?? narrative?.with_bayesiq ?? null;
 
   return (
-    <div className="bg-white shadow-md rounded-2xl max-w-3xl mx-auto p-8" data-testid="report-document">
+    <div className="bg-white shadow-md rounded-2xl max-w-3xl mx-auto p-8 relative" data-testid="report-document">
+      <span className="absolute top-4 right-4 text-[10px] font-medium uppercase tracking-wider text-bayesiq-300 bg-bayesiq-50 px-2 py-0.5 rounded">
+        Example Report
+      </span>
       <DocumentHeader
         verticalName={displayName}
         score={report.score}

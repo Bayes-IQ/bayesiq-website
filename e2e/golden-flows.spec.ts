@@ -173,7 +173,7 @@ test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () =
     await page.getByRole("tab").nth(1).click();
     const narrative = page.getByTestId("report-narrative");
     await expect(narrative).toBeVisible();
-    await expect(narrative).toContainText("Mercy General");
+    await expect(narrative).toContainText("healthcare organization");
   });
 
   test("remediation arc is visible with score badges", async ({ page }) => {

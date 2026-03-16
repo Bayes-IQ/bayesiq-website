@@ -19,8 +19,8 @@ export default function MetricCard({ metric }: Props) {
         ? "bg-amber-100 text-amber-700"
         : "bg-green-100 text-green-700";
 
-  const sign = metric.delta_pct >= 0 ? "+" : "";
-  const deltaText = `${sign}${metric.delta_pct.toFixed(1)}%`;
+  const direction = metric.delta_pct > 0 ? "overstated" : "understated";
+  const deltaText = `${direction} ${absDelta.toFixed(1)}%`;
 
   // Format audited value: if < 1, show as percentage; otherwise show as number
   const formattedValue =
