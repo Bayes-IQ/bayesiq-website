@@ -19,7 +19,7 @@ const playgroundEnabled =
   process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
 
 export default function HomePage() {
-  redirect("/golden-flows/saas");
+  redirect("/golden-flows/fintech-gf");
   return (
     <>
       {/* Hero */}
