@@ -176,28 +176,11 @@ test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () =
     await expect(narrative).toContainText("healthcare organization");
   });
 
-  test("remediation arc is visible with score badges", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    const arc = page.getByTestId("remediation-arc");
-    await expect(arc).toBeVisible();
-    await expect(arc).toContainText("Discovery");
-    await expect(arc).toContainText("Steady State");
-  });
-
-  test("BayesIQ difference section is visible", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    const diff = page.getByTestId("bayesiq-difference");
-    await expect(diff).toBeVisible();
-    await expect(diff).toContainText("business meaning");
-  });
-
-  test("all 5 verticals render dashboard grid + narrative sections", async ({ page }) => {
+  test("all 5 verticals render dashboard grid", async ({ page }) => {
     const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
     for (const v of verticals) {
       await page.goto(`/golden-flows/${v}`);
       await expect(page.getByTestId("dashboard-grid")).toBeVisible();
-      await expect(page.getByTestId("remediation-arc")).toBeVisible();
-      await expect(page.getByTestId("bayesiq-difference")).toBeVisible();
     }
   });
 });
@@ -236,11 +219,12 @@ test.describe("Golden Flows Workflow tab", () => {
     await expect(log.getByText(/rejected/i).first()).toBeVisible();
   });
 
-  test("workflow tab has evidence and follow-through sections", async ({ page }) => {
+  test("workflow tab shows decision log without investigation content", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
-    await expect(page.getByText("Evidence — questions traced through source data")).toBeVisible();
-    await expect(page.getByText("Follow-through")).toBeVisible();
+    await expect(page.getByTestId("decision-log")).toBeVisible();
+    // Cascade and insights should NOT be in this tab
+    await expect(page.locator("text=Evidence — questions traced through source data")).not.toBeVisible();
   });
 
   test("all 5 verticals render workflow tab", async ({ page }) => {
