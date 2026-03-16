@@ -29,7 +29,13 @@ const DISPOSITION_ORDER: FeedbackThreadItem["disposition"][] = [
 ];
 
 export default function FeedbackThreadList({ feedbackItems }: FeedbackThreadListProps) {
-  if (feedbackItems.length === 0) {
+  // Filter out internal pipeline feedback (evaluations, staff reviews)
+  const clientFeedback = feedbackItems.filter((item) => {
+    const s = item.summary?.toLowerCase() ?? "";
+    return !s.startsWith("# evaluation:") && !s.startsWith("# staff swe review:");
+  });
+
+  if (clientFeedback.length === 0) {
     return (
       <p className="text-sm text-bayesiq-400 italic">No feedback threads available.</p>
     );
@@ -37,7 +43,7 @@ export default function FeedbackThreadList({ feedbackItems }: FeedbackThreadList
 
   // Group by disposition
   const groups = new Map<FeedbackThreadItem["disposition"], FeedbackThreadItem[]>();
-  for (const item of feedbackItems) {
+  for (const item of clientFeedback) {
     const existing = groups.get(item.disposition) ?? [];
     existing.push(item);
     groups.set(item.disposition, existing);

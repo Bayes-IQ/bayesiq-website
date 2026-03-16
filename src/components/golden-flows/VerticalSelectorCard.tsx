@@ -83,7 +83,7 @@ export default function VerticalSelectorCard({
     <Link
       href={`/golden-flows/${slug}`}
       className={`
-        group flex gap-4 rounded-xl border-l-[3px] p-4 transition-all
+        group flex h-full gap-4 rounded-xl border-l-[3px] p-4 transition-all
         ${borderColor}
         ${
           isSelected
