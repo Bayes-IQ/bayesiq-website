@@ -51,28 +51,28 @@
   "score": 65,
   "top_risks": [
     {
-      "business_impact": "Duplicate records inflate aggregations and distort metrics",
-      "rows_affected": 60,
-      "severity": "high",
-      "title": "Near-duplicate rows detected"
-    },
-    {
-      "business_impact": "Null values in required fields break filters and aggregations",
-      "rows_affected": 32,
-      "severity": "high",
-      "title": "Null values in required column: tenant_id"
-    },
-    {
-      "business_impact": "Reported vacancy_loss for 2025-12 is 5.1%, but recomputed value from raw events is 0.0%. Discrepancy of +100.0%.",
+      "business_impact": "LP distributions calculated on fabricated 5.1% vacancy loss — actual vacancy is 0.0%. Investors received distributions based on false occupancy assumptions",
       "rows_affected": 1,
       "severity": "high",
       "title": "vacancy_loss misreported for 2025-12 (off by +100.0%)"
     },
     {
-      "business_impact": "Reported delinquency for 2025-12 is 2.7%, but recomputed value from raw events is 2.9%. Discrepancy of -8.7%.",
+      "business_impact": "Delinquency understated to investors at 2.7% — actual is 2.9%, masking $200K+ in uncollected rent",
       "rows_affected": 1,
       "severity": "medium",
       "title": "delinquency misreported for 2025-12 (off by -8.7%)"
+    },
+    {
+      "business_impact": "60 duplicate property records inflating portfolio size metrics reported to LPs",
+      "rows_affected": 60,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "32 leases missing tenant_id — cannot track delinquency or vacancy at the tenant level",
+      "rows_affected": 32,
+      "severity": "high",
+      "title": "Null values in required column: tenant_id"
     }
   ],
   "total_findings": 4,
