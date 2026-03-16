@@ -60,8 +60,7 @@ export default function RealityReveal({
                   {formatValue(m.audited)}
                 </p>
                 <p className="text-xs text-green-600/70 mt-1">
-                  {m.delta_pct > 0 ? "+" : ""}
-                  {m.delta_pct}% discrepancy
+                  {m.delta_pct > 0 ? "Overstated" : "Understated"} {Math.abs(m.delta_pct)}%
                 </p>
               </div>
 

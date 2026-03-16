@@ -58,5 +58,5 @@
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In Q4 2025, BayesIQ audited Mercy General's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. We identified 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — that directly affected board-reported readmission metrics. After targeted remediation by the Data Engineering team, the reliability score improved from 31 to 81. The readmission rate discrepancy narrowed from 5.7% to within acceptable tolerance, and the board report is now cleared for distribution."
+  "executive_summary": "In this hypothetical example, BayesIQ audits a healthcare organization's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. The audit identifies 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — directly affecting board-reported readmission metrics. After targeted remediation, the reliability score improves from 31 to 81 and the readmission rate discrepancy narrows from 5.7% to within acceptable tolerance."
 }
