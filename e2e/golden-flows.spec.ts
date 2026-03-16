@@ -186,12 +186,12 @@ test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () =
 });
 
 test.describe("Golden Flows Workflow tab", () => {
-  test("workflow tab shows Review & Approval Log header", async ({ page }) => {
+  test("workflow tab shows Governance header", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
     const tab = page.getByTestId("workflow-tab");
     await expect(tab).toBeVisible();
-    await expect(tab.getByText("Review & Approval Log")).toBeVisible();
+    await expect(tab.getByText("Governance", { exact: true })).toBeVisible();
   });
 
   test("governance progress bar shows coverage percentage", async ({ page }) => {
@@ -208,7 +208,7 @@ test.describe("Golden Flows Workflow tab", () => {
     const log = page.getByTestId("decision-log");
     await expect(log).toBeVisible();
     // Should show at least one reviewer name
-    await expect(log.getByText("Dr. Raj Patel").first()).toBeVisible();
+    await expect(log.getByText("James Taylor").first()).toBeVisible();
   });
 
   test("rejected decisions show review notes", async ({ page }) => {

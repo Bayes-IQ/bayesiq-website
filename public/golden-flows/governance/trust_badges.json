@@ -78,7 +78,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-10T16:00:00+00:00",
@@ -91,7 +91,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-10T20:00:00+00:00",
@@ -104,7 +104,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-10T16:00:00+00:00",
@@ -117,7 +117,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-10T14:00:00+00:00",
@@ -130,7 +130,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-12T13:00:00+00:00",
@@ -143,7 +143,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-11T15:00:00+00:00",
@@ -156,7 +156,7 @@
       "record_origin": "live",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-11T17:00:00+00:00",

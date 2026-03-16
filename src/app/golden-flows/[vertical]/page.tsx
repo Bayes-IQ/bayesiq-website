@@ -141,10 +141,10 @@ export default async function VerticalPage({ params }: Props) {
     <div data-testid="workflow-tab">
       <div className="mb-6">
         <h2 className="text-lg font-bold tracking-tight text-bayesiq-900">
-          Review &amp; Approval Log
+          Governance
         </h2>
         <p className="text-sm text-bayesiq-500 mt-1">
-          Decisions and reviewer attribution for this audit.
+          Every metric change is reviewed, attributed, and traceable.
         </p>
       </div>
 

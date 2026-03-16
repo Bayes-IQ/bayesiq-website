@@ -53,7 +53,7 @@
       "source_approval_id": "demo-appr-fintech-02",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "timestamp": "2026-03-10T16:00:00+00:00",
@@ -67,7 +67,7 @@
       "source_approval_id": "demo-appr-fintech-03",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "timestamp": "2026-03-10T20:00:00+00:00",
@@ -81,7 +81,7 @@
       "source_approval_id": "demo-appr-fintech-02",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "timestamp": "2026-03-10T16:00:00+00:00",
@@ -95,7 +95,7 @@
       "source_approval_id": "demo-appr-fintech-01",
       "reviewer": {
         "reviewer_id": "demo-reviewer-fintech",
-        "display_name": "Maya Chen",
+        "display_name": "Sarah Kim",
         "role": "admin"
       },
       "timestamp": "2026-03-10T14:00:00+00:00",
@@ -109,7 +109,7 @@
       "source_approval_id": "demo-appr-hospital-03",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "timestamp": "2026-03-12T13:00:00+00:00",
@@ -123,7 +123,7 @@
       "source_approval_id": "demo-appr-hospital-01",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "timestamp": "2026-03-11T15:00:00+00:00",
@@ -137,7 +137,7 @@
       "source_approval_id": "demo-appr-hospital-02",
       "reviewer": {
         "reviewer_id": "demo-reviewer-hospital",
-        "display_name": "Dr. Raj Patel",
+        "display_name": "James Taylor",
         "role": "admin"
       },
       "timestamp": "2026-03-11T17:00:00+00:00",
