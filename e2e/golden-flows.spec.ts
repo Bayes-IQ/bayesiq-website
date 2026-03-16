@@ -208,7 +208,7 @@ test.describe("Golden Flows Workflow tab", () => {
     const log = page.getByTestId("decision-log");
     await expect(log).toBeVisible();
     // Should show at least one reviewer name
-    await expect(log.getByText("James Taylor").first()).toBeVisible();
+    await expect(log.getByText("John Doe").first()).toBeVisible();
   });
 
   test("rejected decisions show review notes", async ({ page }) => {
