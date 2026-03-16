@@ -1,6 +1,171 @@
 {
   "schema_version": 1,
   "payload_type": "contract_c.review_context",
-  "generated_at": "2026-03-15T23:10:54.524767+00:00",
-  "items": []
+  "generated_at": "2026-03-16T04:03:07.838838+00:00",
+  "items": [
+    {
+      "object_type": "event",
+      "object_id": "fintech_churn_model_v3",
+      "source_approval_id": "demo-appr-fintech-02",
+      "timestamp": "2026-03-10T16:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "affected_accounts",
+              "value": "142"
+            },
+            {
+              "key": "revenue_delta",
+              "value": "-$23K",
+              "severity": "high"
+            }
+          ],
+          "title": "NRR Metric Impact"
+        },
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "high",
+              "description": "NRR definition change retroactively alters Q4 reporting",
+              "provenance": "data_audit_kit v2.1"
+            }
+          ],
+          "title": "Audit Findings"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_fee_schedule_override",
+      "source_approval_id": "demo-appr-fintech-03",
+      "timestamp": "2026-03-10T20:00:00+00:00",
+      "review_context": [
+        {
+          "type": "warning",
+          "message": "Fee override exceeds $50K threshold requiring VP approval"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_ltv_recalc",
+      "source_approval_id": "demo-appr-fintech-02",
+      "timestamp": "2026-03-10T16:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "affected_accounts",
+              "value": "142"
+            },
+            {
+              "key": "revenue_delta",
+              "value": "-$23K",
+              "severity": "high"
+            }
+          ],
+          "title": "NRR Metric Impact"
+        },
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "high",
+              "description": "NRR definition change retroactively alters Q4 reporting",
+              "provenance": "data_audit_kit v2.1"
+            }
+          ],
+          "title": "Audit Findings"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_nrr_redef_q1",
+      "source_approval_id": "demo-appr-fintech-01",
+      "timestamp": "2026-03-10T14:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "accounts_affected",
+              "value": "142"
+            },
+            {
+              "key": "revenue_delta",
+              "value": "-$23K",
+              "severity": "high"
+            }
+          ],
+          "title": "NRR Redefinition Impact"
+        },
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "high",
+              "description": "NRR definition change retroactively alters Q4 reporting",
+              "provenance": "data_audit_kit v2.1"
+            }
+          ],
+          "title": "Audit Findings"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "hospital_billing_code_swap",
+      "source_approval_id": "demo-appr-hospital-03",
+      "timestamp": "2026-03-12T13:00:00+00:00",
+      "review_context": [
+        {
+          "type": "candidate_list",
+          "items": [
+            {
+              "description": "Wait for payer contract renewal in Q3",
+              "confidence": "high",
+              "action": "defer"
+            },
+            {
+              "description": "Request payer exception via manual override",
+              "confidence": "low",
+              "action": "escalate"
+            }
+          ],
+          "title": "Proposed Alternatives"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "hospital_drg_reclassification",
+      "source_approval_id": "demo-appr-hospital-01",
+      "timestamp": "2026-03-11T15:00:00+00:00",
+      "review_context": [
+        {
+          "type": "warning",
+          "message": "DRG reclassification affects 38 active patient records"
+        },
+        {
+          "type": "assumption_list",
+          "items": [
+            {
+              "description": "ICD-10 mapping uses 2026 CMS crosswalk",
+              "source": "cms.gov/icd10"
+            },
+            {
+              "description": "Payer mix unchanged from Q4 2025",
+              "source": "internal finance report"
+            }
+          ],
+          "title": "Reclassification Assumptions"
+        }
+      ]
+    }
+  ]
 }
