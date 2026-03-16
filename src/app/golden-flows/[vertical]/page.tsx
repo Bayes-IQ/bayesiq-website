@@ -132,13 +132,17 @@ export default async function VerticalPage({ params }: Props) {
 
       <GovernanceProgressBar entries={decisionLogEntries} />
 
-      {decisionLogEntries.length > 0 && boardReport && (
+      {decisionLogEntries.length > 0 && boardReport ? (
         <>
           <p className="text-sm text-bayesiq-600 mb-3">
             The {boardReport.total_findings} discrepanc{boardReport.total_findings === 1 ? "y" : "ies"} identified in the Board Report {boardReport.total_findings === 1 ? "was" : "were"} routed for governance review:
           </p>
           <DecisionLog entries={decisionLogEntries} />
         </>
+      ) : (
+        <p className="text-sm text-bayesiq-500 italic">
+          Governance decisions for this vertical will appear here as findings are reviewed.
+        </p>
       )}
 
       {/* Bridge to Dashboard tab */}
