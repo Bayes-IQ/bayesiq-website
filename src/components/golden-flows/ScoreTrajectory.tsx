@@ -2,22 +2,24 @@ import type { TrajectorySnapshot } from "@/types/golden-flows/contract-b/traject
 
 interface Props {
   snapshots: TrajectorySnapshot[];
+  /** "compact" = current small chart; "full" = wider, taller for dashboard tab */
+  size?: "compact" | "full";
 }
 
 /**
  * SVG mini line chart showing score improvement over time.
  * Pure SVG — no external charting library.
  */
-export default function ScoreTrajectory({ snapshots }: Props) {
+export default function ScoreTrajectory({ snapshots, size = "compact" }: Props) {
   if (snapshots.length === 0) return null;
 
   const first = snapshots[0];
   const last = snapshots[snapshots.length - 1];
   const improving = last.score >= first.score;
 
-  // Chart dimensions
-  const width = 280;
-  const height = 120;
+  // Chart dimensions — full mode is wider and taller
+  const width = size === "full" ? 560 : 280;
+  const height = size === "full" ? 200 : 120;
   const padX = 36;
   const padTop = 20;
   const padBottom = 28;
@@ -51,7 +53,7 @@ export default function ScoreTrajectory({ snapshots }: Props) {
   const bgGradientId = "trajectory-bg";
 
   return (
-    <div className="w-full max-w-[300px]">
+    <div className={`w-full ${size === "full" ? "max-w-full" : "max-w-[300px]"}`}>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="w-full h-auto"

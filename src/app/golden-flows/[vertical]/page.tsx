@@ -12,6 +12,8 @@ import {
   getCascadeData,
   getDiscoverInsights,
   getBoardReport,
+  getScreenshotManifest,
+  getArtifactLinks,
 } from "@/lib/golden-flows";
 import {
   loadGovernance,
@@ -32,6 +34,8 @@ import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
 import ScoreTrajectory from "@/components/golden-flows/ScoreTrajectory";
+import MetricCardsGrid from "@/components/golden-flows/MetricCardsGrid";
+import DashboardScreenshot from "@/components/golden-flows/DashboardScreenshot";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -73,6 +77,8 @@ export default async function VerticalPage({ params }: Props) {
   const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
   const boardReport = getBoardReport(slug);
+  const screenshotManifest = getScreenshotManifest(slug);
+  const artifactLinks = getArtifactLinks(slug);
 
   // Load governance data (null-safe — returns empty maps if unavailable)
   const governance = (() => {
@@ -137,15 +143,35 @@ export default async function VerticalPage({ params }: Props) {
 
   // ── Tab content ──────────────────────────────────────────────
 
+  // Dashboard tab: metric cards, trajectory, findings, screenshot, explore button
+  const dashboardScreenshot = screenshotManifest?.screenshots.find(
+    (s) => s.type === "dashboard"
+  ) ?? null;
+  const streamlitLink = artifactLinks?.artifacts.find(
+    (a) => a.type === "dashboard"
+  )?.url ?? null;
+
   const dashboardContent = (
-    <div>
+    <div className="space-y-8">
+      {/* Metric cards grid */}
+      {boardReport && (
+        <MetricCardsGrid
+          metrics={boardReport.key_metrics}
+          score={boardReport.score}
+          interpretation={boardReport.interpretation}
+        />
+      )}
+
+      {/* Score trajectory — full size */}
       {trajectory && (
         <div className="flex justify-center">
-          <ScoreTrajectory snapshots={trajectory.snapshots} />
+          <ScoreTrajectory snapshots={trajectory.snapshots} size="full" />
         </div>
       )}
+
+      {/* Key findings */}
       {boardReport && boardReport.top_risks.length > 0 && (
-        <div className="mt-6 space-y-2">
+        <div className="space-y-2">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400">
             Key Findings
           </h3>
@@ -179,12 +205,34 @@ export default async function VerticalPage({ params }: Props) {
           ))}
         </div>
       )}
+
+      {/* Dashboard screenshot */}
+      <DashboardScreenshot screenshot={dashboardScreenshot} />
+
+      {/* Explore Full Dashboard button */}
+      {streamlitLink ? (
+        <a
+          href={streamlitLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center rounded-lg bg-bayesiq-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
+        >
+          Explore Full Dashboard
+          <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      ) : (
+        <span className="inline-flex items-center rounded-lg bg-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-400 cursor-not-allowed">
+          Explore Full Dashboard
+        </span>
+      )}
     </div>
   );
 
   const reportContent = (
     <>
-      {boardReport && <ReportPreview report={boardReport} />}
+      {boardReport && <ReportPreview report={boardReport} narrative={narrative} verticalName={vertical.display_name} />}
     </>
   );
 
