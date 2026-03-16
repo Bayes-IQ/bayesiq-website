@@ -1,5 +1,7 @@
-import { describe, it, expect } from "vitest";
-import { createElement } from "react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom/vitest";
+import userEvent from "@testing-library/user-event";
 import TrustBadge, { STATUS_CONFIG } from "../TrustBadge";
 
 describe("TrustBadge", () => {
@@ -19,6 +21,7 @@ describe("TrustBadge", () => {
   it("renders correct aria-label for each status", () => {
     const statuses = ["approved", "pending", "rejected", "deferred"] as const;
     for (const status of statuses) {
+      // Without onClick, returns the <span> directly
       const result = TrustBadge({ status });
       expect(result).not.toBeNull();
       expect(result!.props["aria-label"]).toBe(STATUS_CONFIG[status].label);
@@ -70,5 +73,31 @@ describe("TrustBadge", () => {
       expect(result!.props.className).toContain(config.bg);
       expect(result!.props.className).toContain(config.text);
     }
+  });
+
+  // GF-19: onClick tests
+  it("does not render as button when onClick is omitted", () => {
+    const result = TrustBadge({ status: "approved" });
+    expect(result).not.toBeNull();
+    // Direct return is a <span>, not a <button>
+    expect(result!.type).toBe("span");
+  });
+
+  it("renders as button with aria-haspopup='dialog' when onClick is provided", () => {
+    render(<TrustBadge status="approved" onClick={() => {}} />);
+    const button = screen.getByTestId("trust-badge-button");
+    expect(button.tagName).toBe("BUTTON");
+    expect(button.getAttribute("aria-haspopup")).toBe("dialog");
+    expect(screen.getByTestId("trust-badge")).toBeInTheDocument();
+  });
+
+  it("calls onClick with event when badge button is clicked", async () => {
+    const onClick = vi.fn();
+    render(<TrustBadge status="approved" onClick={onClick} />);
+
+    const button = screen.getByTestId("trust-badge-button");
+    await userEvent.click(button);
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick.mock.calls[0][0]).toBeDefined();
   });
 });

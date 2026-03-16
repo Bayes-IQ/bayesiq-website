@@ -6,7 +6,7 @@ import {
 } from "@/lib/golden-flows";
 import type { ApprovalStatusValue } from "@/lib/governance";
 import { VerticalClickTracker } from "./VerticalClickTracker";
-import TrustBadge from "./TrustBadge";
+import GovernanceTrustBadge from "./GovernanceTrustBadge";
 
 interface Props {
   slug: string;
@@ -14,6 +14,7 @@ interface Props {
   metrics: HookMetrics;
   isSelected: boolean;
   trustStatus?: ApprovalStatusValue | null;
+  trustBadgeObjectId?: string;
 }
 
 function ScoreGauge({
@@ -73,6 +74,7 @@ export default function VerticalSelectorCard({
   metrics,
   isSelected,
   trustStatus,
+  trustBadgeObjectId,
 }: Props) {
   const borderColor = severityBorderColor(metrics.severity_level);
 
@@ -111,7 +113,12 @@ export default function VerticalSelectorCard({
         <p className="mt-1 text-[10px] text-bayesiq-400">
           {metrics.trust_cue}
         </p>
-        <TrustBadge status={trustStatus ?? null} size="sm" />
+        <GovernanceTrustBadge
+          status={trustStatus ?? null}
+          size="sm"
+          objectId={trustBadgeObjectId}
+          objectType="finding"
+        />
       </div>
     </Link>
     </VerticalClickTracker>

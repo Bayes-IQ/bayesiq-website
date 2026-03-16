@@ -260,3 +260,110 @@ export function getReviewContextItem(objectId: string): ReviewContextItem | null
 export function getBusinessEventItem(eventId: string): BusinessEventItem | null {
   return loadGovernance().businessEventById.get(eventId) ?? null;
 }
+
+// ============================================================
+// Serialization helper for client components (GF-19)
+// ============================================================
+
+/** Serializable reviewer for client components (no Map, no fs) */
+export interface SerializedReviewer {
+  reviewer_id: string;
+  display_name?: string | null;
+  role?: string | null;
+}
+
+export interface SerializedApprovalRecord {
+  type: "finding";
+  object_id: string;
+  approval_status: string;
+  record_origin: string;
+  reviewer: SerializedReviewer;
+  timestamp: string;
+  review_note?: string | null;
+}
+
+export interface SerializedCascadeGovernanceRecord {
+  type: "question";
+  question_id: string;
+  approval_status: string;
+  record_origin: string;
+  reviewer: SerializedReviewer;
+  review_note?: string | null;
+  finding_ids: string[];
+  feedback_ids: string[];
+  event_ids: string[];
+  ts_requested: string;
+  ts_resolved: string;
+}
+
+export interface SerializedReviewContextRecord {
+  object_id: string;
+  timestamp: string;
+  review_context: import("@/types/golden-flows/contract-c/review_context").ReviewContextBlock[];
+}
+
+export type GovernanceRecord = SerializedApprovalRecord | SerializedCascadeGovernanceRecord;
+
+/** All governance detail data pre-computed in the server component */
+export interface GovernanceDetailData {
+  records: Record<string, GovernanceRecord>;
+  reviewContexts: Record<string, SerializedReviewContextRecord>;
+}
+
+/**
+ * Serialize GovernanceData (Maps) into plain JSON-safe objects
+ * suitable for passing to client components.
+ */
+export function serializeGovernanceForClient(governance: GovernanceData): GovernanceDetailData {
+  const records: Record<string, GovernanceRecord> = {};
+  const reviewContexts: Record<string, SerializedReviewContextRecord> = {};
+
+  // Index approval records (findings)
+  for (const [objectId, item] of governance.approvalsByObjectId) {
+    records[objectId] = {
+      type: "finding",
+      object_id: item.object_id,
+      approval_status: item.approval_status,
+      record_origin: item.record_origin,
+      reviewer: {
+        reviewer_id: item.reviewer.reviewer_id,
+        display_name: item.reviewer.display_name ?? null,
+        role: item.reviewer.role ?? null,
+      },
+      timestamp: item.timestamp,
+      review_note: item.review_note ?? null,
+    };
+  }
+
+  // Index cascade governance records (questions)
+  for (const [questionId, item] of governance.cascadeGovernanceByQuestionId) {
+    records[questionId] = {
+      type: "question",
+      question_id: item.question_id,
+      approval_status: item.approval_status,
+      record_origin: item.record_origin,
+      reviewer: {
+        reviewer_id: item.reviewer.reviewer_id,
+        display_name: item.reviewer.display_name ?? null,
+        role: item.reviewer.role ?? null,
+      },
+      review_note: item.review_note ?? null,
+      finding_ids: item.finding_ids,
+      feedback_ids: item.feedback_ids,
+      event_ids: item.event_ids,
+      ts_requested: item.ts_requested,
+      ts_resolved: item.ts_resolved,
+    };
+  }
+
+  // Index review context records
+  for (const [objectId, item] of governance.reviewContextByObjectId) {
+    reviewContexts[objectId] = {
+      object_id: item.object_id,
+      timestamp: item.timestamp,
+      review_context: item.review_context,
+    };
+  }
+
+  return { records, reviewContexts };
+}

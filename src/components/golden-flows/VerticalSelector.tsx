@@ -8,6 +8,8 @@ interface Props {
   currentSlug?: string;
   /** Pre-computed trust statuses keyed by vertical slug */
   trustStatuses?: Record<string, ApprovalStatusValue>;
+  /** Pre-computed governance object IDs keyed by vertical slug */
+  trustBadgeObjectIds?: Record<string, string>;
 }
 
 export default function VerticalSelector({
@@ -15,6 +17,7 @@ export default function VerticalSelector({
   hookMetrics,
   currentSlug,
   trustStatuses,
+  trustBadgeObjectIds,
 }: Props) {
   return (
     <div className="sticky top-16 z-10 bg-white/95 backdrop-blur-sm pb-4">
@@ -31,6 +34,7 @@ export default function VerticalSelector({
               metrics={metrics}
               isSelected={vertical.slug === currentSlug}
               trustStatus={trustStatuses?.[vertical.slug] ?? null}
+              trustBadgeObjectId={trustBadgeObjectIds?.[vertical.slug]}
             />
           );
         })}
