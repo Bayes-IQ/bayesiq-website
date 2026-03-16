@@ -1,6 +1,5 @@
 import type { BoardReport, BoardReportSeverity } from "@/lib/golden-flows";
 import type { TrajectorySnapshot } from "@/types/golden-flows/contract-b/trajectory";
-import ScoreTrajectory from "./ScoreTrajectory";
 import DashboardScreenshot from "./DashboardScreenshot";
 
 interface Props {
@@ -44,109 +43,106 @@ export default function DashboardGrid({
   const metric = boardReport.key_metrics[0] ?? null;
   const topRisk = boardReport.top_risks[0] ?? null;
 
-  const cardClass = "rounded-xl border border-bayesiq-200 bg-white p-5 shadow-sm";
-
   return (
     <div data-testid="dashboard-grid">
-      {/* 2×2 widget grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Widget 1 — Score Gauge */}
-        <div className={cardClass}>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400 mb-2">
+      {/* Stat bar — score, key metric, top finding in one horizontal row */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {/* Score */}
+        <div className="rounded-xl border border-bayesiq-200 bg-white px-4 py-3 shadow-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400">
             Reliability Score
           </p>
-          <p className={`text-4xl font-extrabold tabular-nums ${scoreColor(boardReport.score)}`}>
-            {boardReport.score}
-          </p>
-          <p className="text-sm text-bayesiq-600 mt-1">{boardReport.interpretation}</p>
-          {snapshots.length > 1 && (
-            <p className={`text-xs font-medium mt-2 ${delta >= 0 ? "text-green-600" : "text-red-600"}`}>
-              {first.score} → {latest.score} ({delta >= 0 ? "+" : ""}{delta} pts)
-            </p>
-          )}
+          <div className="flex items-baseline gap-2 mt-1">
+            <span className={`text-2xl font-extrabold tabular-nums ${scoreColor(boardReport.score)}`}>
+              {boardReport.score}
+            </span>
+            {snapshots.length > 1 && (
+              <span className={`text-xs font-medium ${delta >= 0 ? "text-green-600" : "text-red-600"}`}>
+                {first.score} → {latest.score}
+              </span>
+            )}
+          </div>
+          <p className="text-[11px] text-bayesiq-500 mt-0.5">{boardReport.interpretation}</p>
         </div>
 
-        {/* Widget 2 — Key Metric */}
-        <div className={cardClass}>
+        {/* Key Metric */}
+        <div className="rounded-xl border border-bayesiq-200 bg-white px-4 py-3 shadow-sm">
           {metric ? (
             <>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400 mb-2">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400">
                 {metric.metric.replace(/_/g, " ")}
               </p>
-              <p className="text-3xl font-bold tabular-nums text-bayesiq-900">
-                {formatMetricValue(metric.audited)}
-              </p>
-              <p className="text-xs text-bayesiq-500 mt-1">{metric.period} · audited</p>
-              <span className={`mt-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
-                Math.abs(metric.delta_pct) > 10 ? "bg-red-100 text-red-700"
-                  : Math.abs(metric.delta_pct) > 5 ? "bg-amber-100 text-amber-700"
-                  : "bg-green-100 text-green-700"
-              }`}>
-                {metric.delta_pct > 0 ? "Overstated" : "Understated"} {Math.abs(metric.delta_pct)}%
-              </span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-2xl font-bold tabular-nums text-bayesiq-900">
+                  {formatMetricValue(metric.audited)}
+                </span>
+                <span className={`text-[11px] font-semibold ${
+                  Math.abs(metric.delta_pct) > 10 ? "text-red-600"
+                    : Math.abs(metric.delta_pct) > 5 ? "text-amber-600"
+                    : "text-green-600"
+                }`}>
+                  {metric.delta_pct > 0 ? "overstated" : "understated"} {Math.abs(metric.delta_pct)}%
+                </span>
+              </div>
+              <p className="text-[11px] text-bayesiq-500 mt-0.5">{metric.period} · audited value</p>
             </>
           ) : (
             <>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400 mb-2">
-                Assessment
-              </p>
-              <p className="text-sm text-bayesiq-700">{boardReport.interpretation}</p>
-              <p className="text-xs text-bayesiq-500 mt-2">
-                {boardReport.total_findings} finding{boardReport.total_findings !== 1 ? "s" : ""} identified
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400">Assessment</p>
+              <p className="text-sm text-bayesiq-700 mt-1">{boardReport.interpretation}</p>
             </>
           )}
         </div>
 
-        {/* Widget 3 — Top Finding */}
-        <div className={cardClass}>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400 mb-2">
+        {/* Top Finding */}
+        <div className="rounded-xl border border-bayesiq-200 bg-white px-4 py-3 shadow-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400">
             Top Finding
           </p>
           {topRisk ? (
-            <>
-              <div className="flex items-start gap-2">
-                <span className={`mt-0.5 shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${severityBadge(topRisk.severity)}`}>
+            <div className="mt-1">
+              <div className="flex items-center gap-1.5">
+                <span className={`shrink-0 inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase ${severityBadge(topRisk.severity)}`}>
                   {topRisk.severity}
                 </span>
-                <p className="text-sm font-semibold text-bayesiq-900 leading-snug">
+                <p className="text-sm font-semibold text-bayesiq-900 leading-snug truncate">
                   {topRisk.title}
                 </p>
               </div>
-              <p className="mt-2 text-xs text-bayesiq-500 leading-relaxed">
+              <p className="mt-1 text-[11px] text-bayesiq-500 leading-snug line-clamp-2">
                 {topRisk.business_impact}
               </p>
-            </>
+            </div>
           ) : (
-            <p className="text-sm text-bayesiq-500">No findings</p>
-          )}
-        </div>
-
-        {/* Widget 4 — Dashboard Preview */}
-        <div className={cardClass + " flex flex-col"}>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bayesiq-400 mb-2">
-            Live Dashboard
-          </p>
-          <div className="flex-1 min-h-[120px]">
-            <DashboardScreenshot
-              screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
-            />
-          </div>
-          {dashboardLink && (
-            <a
-              href={dashboardLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 text-xs font-medium text-bayesiq-600 hover:text-bayesiq-800 transition-colors"
-            >
-              Open Live Dashboard →
-            </a>
+            <p className="text-sm text-bayesiq-500 mt-1">No findings</p>
           )}
         </div>
       </div>
 
+      {/* Dashboard preview — full width, prominent */}
+      <div className="mt-4 rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden">
+        <div className="min-h-[240px]">
+          <DashboardScreenshot
+            screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
+          />
+        </div>
+        {dashboardLink && (
+          <div className="border-t border-bayesiq-100 px-4 py-2.5 flex items-center justify-between bg-bayesiq-50/50">
+            <span className="text-xs text-bayesiq-500">Live interactive dashboard</span>
+            <a
+              href={dashboardLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium text-bayesiq-600 hover:text-bayesiq-800 transition-colors"
+            >
+              Open Live Dashboard →
+            </a>
+          </div>
+        )}
+      </div>
+
       {/* Footer bar — findings summary + explore button */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-bayesiq-50 border border-bayesiq-200 px-5 py-3">
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-bayesiq-50 border border-bayesiq-200 px-4 py-2.5">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium text-bayesiq-600">
             {boardReport.total_findings} finding{boardReport.total_findings !== 1 ? "s" : ""}
