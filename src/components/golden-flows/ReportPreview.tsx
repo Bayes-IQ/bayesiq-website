@@ -287,9 +287,9 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
         </div>
       )}
 
-      {/* Recommended Actions — faded to suggest more content below */}
+      {/* Recommended Actions */}
       {report.recommended_actions.length > 0 && (
-        <div className="relative">
+        <div>
           <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
             Recommended Actions
           </h3>
@@ -298,8 +298,6 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
               <ActionItem key={action.action} action={action} index={i} />
             ))}
           </ol>
-          {/* Fade overlay to suggest document continues */}
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none" />
         </div>
       )}
 

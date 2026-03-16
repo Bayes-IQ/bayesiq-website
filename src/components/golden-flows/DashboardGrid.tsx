@@ -94,28 +94,33 @@ export default function DashboardGrid({
         </div>
       </div>
 
-      {/* Dashboard preview */}
-      <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden">
-        <div className="min-h-[240px]">
+      {/* Live dashboard embed */}
+      <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden" data-testid="dashboard-screenshot">
+        {dashboardLink ? (
+          <>
+            <iframe
+              src={`${dashboardLink}?embed=true&embed_options=light_theme`}
+              title="BayesIQ Dashboard"
+              className="w-full border-0"
+              style={{ height: "480px" }}
+              loading="lazy"
+            />
+            <div className="border-t border-bayesiq-100 px-5 py-2.5 flex items-center justify-between bg-bayesiq-50/50">
+              <span className="text-xs text-bayesiq-500">Live interactive dashboard — certified data</span>
+              <a
+                href={dashboardLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium text-bayesiq-600 hover:text-bayesiq-800 transition-colors"
+              >
+                Open in new tab →
+              </a>
+            </div>
+          </>
+        ) : (
           <DashboardScreenshot
             screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
           />
-        </div>
-        {dashboardLink && (
-          <div className="border-t border-bayesiq-100 px-5 py-3 flex items-center justify-between bg-bayesiq-50/50">
-            <span className="text-xs text-bayesiq-500">Live interactive dashboard — certified data</span>
-            <a
-              href={dashboardLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-bayesiq-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
-            >
-              Explore Dashboard
-              <svg className="ml-1.5 h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </div>
         )}
       </div>
 
