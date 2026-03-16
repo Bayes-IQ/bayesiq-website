@@ -18,7 +18,7 @@ import {
   serializeGovernanceForClient,
   serializeDecisionLog,
 } from "@/lib/governance";
-import type { ApprovalStatusValue, GovernanceDetailData } from "@/lib/governance";
+import type { GovernanceDetailData } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import VerticalHero from "@/components/golden-flows/VerticalHero";
 import RealityReveal from "@/components/golden-flows/RealityReveal";
@@ -79,28 +79,6 @@ export default async function VerticalPage({ params }: Props) {
       return null;
     }
   })();
-
-  // Pre-compute trust statuses as plain objects (serializable for client components)
-  const trustStatuses: Record<string, ApprovalStatusValue> = {};
-  if (governance) {
-    for (const v of verticals) {
-      const badge = governance.badgesByObjectId.get(v.slug);
-      if (badge) {
-        trustStatuses[v.slug] = badge.approval_status;
-      }
-    }
-  }
-
-  // Pre-compute trust badge object IDs (C-002, C-015: keys match vertical slugs)
-  const trustBadgeObjectIds: Record<string, string> = {};
-  if (governance) {
-    for (const v of verticals) {
-      const badge = governance.badgesByObjectId.get(v.slug);
-      if (badge) {
-        trustBadgeObjectIds[v.slug] = badge.object_id;
-      }
-    }
-  }
 
   // Pre-compute governance detail data (serializable for client GovernanceDetailPanel)
   const governanceDetailData: GovernanceDetailData | null = governance
@@ -181,8 +159,6 @@ export default async function VerticalPage({ params }: Props) {
           verticals={verticals}
           hookMetrics={hookMetrics}
           currentSlug={slug}
-          trustStatuses={trustStatuses}
-          trustBadgeObjectIds={trustBadgeObjectIds}
         />
 
         {trajectory && (
