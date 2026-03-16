@@ -130,7 +130,7 @@ export default async function VerticalPage({ params }: Props) {
         </p>
       </div>
 
-      <GovernanceProgressBar summary={governance?.trustBadgeSummary ?? null} />
+      <GovernanceProgressBar entries={decisionLogEntries} />
 
       {decisionLogEntries.length > 0 && boardReport && (
         <>

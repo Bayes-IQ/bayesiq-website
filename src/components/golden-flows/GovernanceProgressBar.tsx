@@ -1,24 +1,22 @@
-import type { TrustBadgeSummary } from "@/lib/governance";
+import type { DecisionLogEntry } from "@/lib/governance";
 
 interface Props {
-  summary: TrustBadgeSummary | null;
+  entries: DecisionLogEntry[];
 }
 
-export default function GovernanceProgressBar({ summary }: Props) {
-  if (!summary || summary.total_objects === 0) return null;
+export default function GovernanceProgressBar({ entries }: Props) {
+  if (entries.length === 0) return null;
 
-  const approved = summary.by_status.approved ?? 0;
-  const rejected = summary.by_status.rejected ?? 0;
-  const pending = summary.by_status.pending ?? 0;
-  const deferred = summary.by_status.deferred ?? 0;
+  const total = entries.length;
+  const approved = entries.filter((e) => e.approval_status === "approved").length;
+  const rejected = entries.filter((e) => e.approval_status === "rejected").length;
+  const pending = entries.filter((e) => e.approval_status === "pending" || e.approval_status === "deferred").length;
   const reviewed = approved + rejected;
-  const outstanding = pending + deferred;
-  const total = summary.total_objects;
   const coveragePct = Math.round((reviewed / total) * 100);
 
   const approvedPct = (approved / total) * 100;
   const rejectedPct = (rejected / total) * 100;
-  const outstandingPct = (outstanding / total) * 100;
+  const pendingPct = (pending / total) * 100;
 
   return (
     <div data-testid="governance-progress-bar" className="mb-8">
@@ -43,8 +41,8 @@ export default function GovernanceProgressBar({ summary }: Props) {
         {rejectedPct > 0 && (
           <div className="bg-red-400 transition-all" style={{ width: `${rejectedPct}%` }} />
         )}
-        {outstandingPct > 0 && (
-          <div className="bg-amber-300 transition-all" style={{ width: `${outstandingPct}%` }} />
+        {pendingPct > 0 && (
+          <div className="bg-amber-300 transition-all" style={{ width: `${pendingPct}%` }} />
         )}
       </div>
 
@@ -62,10 +60,10 @@ export default function GovernanceProgressBar({ summary }: Props) {
             {rejected} rejected
           </span>
         )}
-        {outstanding > 0 && (
+        {pending > 0 && (
           <span className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-            {outstanding} pending review
+            {pending} pending review
           </span>
         )}
       </div>
