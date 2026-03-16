@@ -174,7 +174,7 @@ export default async function VerticalPage({ params }: Props) {
         {boardReport && (
           <RealityReveal
             metrics={boardReport.key_metrics}
-            topRisk={boardReport.top_risks[0] ?? null}
+            risks={boardReport.top_risks}
             headlineFinding={narrative?.headline_finding ?? null}
           />
         )}
