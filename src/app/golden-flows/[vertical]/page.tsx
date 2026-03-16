@@ -30,7 +30,7 @@ import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
 import BusinessEventList from "@/components/golden-flows/BusinessEventList";
-import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
+import WorkflowStatusBar from "@/components/golden-flows/WorkflowStatusBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
 import DashboardGrid from "@/components/golden-flows/DashboardGrid";
@@ -170,40 +170,61 @@ export default async function VerticalPage({ params }: Props) {
   );
 
   const workflowContent = (
-    <div className="space-y-8">
-      <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
+    <div data-testid="workflow-tab">
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-lg font-bold tracking-tight text-bayesiq-900">
+          Governance Workflow
+        </h2>
+        <p className="text-sm text-bayesiq-500 mt-1">
+          Approvals, remediation, and evidence tracking for this audit.
+        </p>
+      </div>
 
-      {executiveQuestions && hasCascades ? (
-        <AskAndCascadeSection
-          questions={executiveQuestions.questions}
-          cascades={cascadeData.cascades}
-          cascadeGovernanceStatuses={cascadeGovernanceStatuses}
-        />
-      ) : executiveQuestions ? (
-        <AskButtons questions={executiveQuestions.questions} />
-      ) : null}
+      {/* Progress bar */}
+      <WorkflowStatusBar summary={governance?.trustBadgeSummary ?? null} />
 
-      {discoverInsights && <DiscoverInsights data={discoverInsights} />}
+      {/* Active Investigation */}
+      <div className="mt-8">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
+          Investigation — questions traced through source evidence
+        </h3>
+        <div className="space-y-6">
+          {executiveQuestions && hasCascades ? (
+            <AskAndCascadeSection
+              questions={executiveQuestions.questions}
+              cascades={cascadeData.cascades}
+              cascadeGovernanceStatuses={cascadeGovernanceStatuses}
+            />
+          ) : executiveQuestions ? (
+            <AskButtons questions={executiveQuestions.questions} />
+          ) : null}
 
-      {feedbackItems.length > 0 && (
-        <section>
-          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
-            Feedback Threads
-          </h2>
-          <FeedbackThreadList feedbackItems={feedbackItems} />
-        </section>
-      )}
+          {discoverInsights && <DiscoverInsights data={discoverInsights} />}
+        </div>
+      </div>
 
-      {businessEvents.length > 0 && (
-        <section>
-          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
-            Business Events
-          </h2>
-          <p className="text-sm text-bayesiq-500 mb-4">
-            Metric changes and restatements flowing through governance review.
-          </p>
-          <BusinessEventList events={businessEvents} />
-        </section>
+      {/* Follow-Through */}
+      {(feedbackItems.length > 0 || businessEvents.length > 0) && (
+        <div className="mt-8 pt-8 border-t border-bayesiq-100">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
+            Follow-through — feedback and ongoing review
+          </h3>
+          <div className="space-y-6">
+            {feedbackItems.length > 0 && (
+              <FeedbackThreadList feedbackItems={feedbackItems} />
+            )}
+
+            {businessEvents.length > 0 && (
+              <div>
+                <p className="text-sm font-medium text-bayesiq-700 mb-3">
+                  Business Events
+                </p>
+                <BusinessEventList events={businessEvents} />
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );

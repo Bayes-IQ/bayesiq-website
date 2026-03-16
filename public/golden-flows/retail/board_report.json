@@ -46,5 +46,5 @@
   ],
   "total_findings": 2,
   "trend": null,
-  "executive_summary": "In this hypothetical example, BayesIQ audits a retailer's inventory and sell-through reporting pipeline. The audit identifies 2 findings — 128 near-duplicate transaction records inflating sell-through aggregations and an 8.6% overstatement in the headline sell-through metric. The buying team had been making seasonal procurement decisions based on phantom demand. After remediation, the reliability score improves from 30 to 85."
+  "executive_summary": "In this illustrative example, BayesIQ audits a retailer's inventory and sell-through reporting pipeline. The audit identifies 2 findings — 128 near-duplicate transaction records inflating sell-through aggregations and an 8.6% overstatement in the headline sell-through metric. The buying team had been making seasonal procurement decisions based on phantom demand. After remediation, the reliability score improves from 30 to 85."
 }

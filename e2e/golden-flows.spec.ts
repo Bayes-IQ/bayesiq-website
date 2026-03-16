@@ -201,3 +201,37 @@ test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () =
     }
   });
 });
+
+test.describe("Golden Flows Workflow tab (PR#46)", () => {
+  test("workflow tab shows governance header and status bar", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Workflow" }).click();
+    const tab = page.getByTestId("workflow-tab");
+    await expect(tab).toBeVisible();
+    await expect(tab.getByText("Governance Workflow")).toBeVisible();
+    await expect(page.getByTestId("workflow-status-bar")).toBeVisible();
+  });
+
+  test("workflow status bar shows reviewed/pending counts", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Workflow" }).click();
+    const bar = page.getByTestId("workflow-status-bar");
+    await expect(bar).toContainText("reviewed");
+  });
+
+  test("workflow tab has investigation and follow-through sections", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Workflow" }).click();
+    await expect(page.getByText("Investigation")).toBeVisible();
+    await expect(page.getByText("Follow-through")).toBeVisible();
+  });
+
+  test("all 5 verticals render workflow tab", async ({ page }) => {
+    const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
+    for (const v of verticals) {
+      await page.goto(`/golden-flows/${v}`);
+      await page.getByRole("tab", { name: "Workflow" }).click();
+      await expect(page.getByTestId("workflow-tab")).toBeVisible();
+    }
+  });
+});

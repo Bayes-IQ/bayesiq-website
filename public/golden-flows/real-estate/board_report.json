@@ -77,5 +77,5 @@
   ],
   "total_findings": 4,
   "trend": null,
-  "executive_summary": "In this hypothetical example, BayesIQ audits a real estate firm's portfolio performance reporting across vacancy tracking, tenant delinquency, and collection rates. The audit surfaces 4 issues — including a complete vacancy loss fabrication (reported 5.1%, actual 0.0%), null tenant IDs breaking lease-level aggregations, and 60 duplicate property records. LP distributions had been calculated on fundamentally incorrect occupancy assumptions. After remediation, the reliability score improves from 43 to 65."
+  "executive_summary": "In this illustrative example, BayesIQ audits a real estate firm's portfolio performance reporting across vacancy tracking, tenant delinquency, and collection rates. The audit surfaces 4 issues — including a complete vacancy loss fabrication (reported 5.1%, actual 0.0%), null tenant IDs breaking lease-level aggregations, and 60 duplicate property records. LP distributions had been calculated on fundamentally incorrect occupancy assumptions. After remediation, the reliability score improves from 43 to 65."
 }

@@ -93,7 +93,7 @@ function NarrativeParagraph({ text }: { text: string }) {
   return (
     <div className="mb-8" data-testid="report-narrative">
       <p className="text-[11px] font-medium uppercase tracking-wide text-bayesiq-400 mb-2">
-        Hypothetical example — illustrates the type of report BayesIQ produces
+        Illustrative example — representative of BayesIQ audit deliverables
       </p>
       <p className="text-base leading-relaxed text-bayesiq-700">{text}</p>
     </div>
@@ -248,7 +248,7 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
   return (
     <div className="bg-white shadow-md rounded-2xl max-w-3xl mx-auto p-8 relative" data-testid="report-document">
       <span className="absolute top-4 right-4 text-[10px] font-medium uppercase tracking-wider text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
-        Hypothetical Example
+        Illustrative Example
       </span>
       <DocumentHeader
         verticalName={displayName}
