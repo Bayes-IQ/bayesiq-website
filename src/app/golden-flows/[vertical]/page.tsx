@@ -18,6 +18,8 @@ import AskButtons from "@/components/golden-flows/AskButtons";
 import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
+import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
+import { loadGovernance } from "@/lib/governance";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -58,6 +60,17 @@ export default async function VerticalPage({ params }: Props) {
   const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
 
+  const governance = (() => {
+    try {
+      return loadGovernance();
+    } catch {
+      return null;
+    }
+  })();
+
+  const feedbackItems = governance?.feedbackById
+    ? Array.from(governance.feedbackById.values())
+    : [];
   const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
 
   return (
@@ -95,6 +108,15 @@ export default async function VerticalPage({ params }: Props) {
 
       {discoverInsights && <DiscoverInsights data={discoverInsights} />}
 
+      {/* Feedback Threads — GF-17 */}
+      {feedbackItems.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
+            Feedback Threads
+          </h2>
+          <FeedbackThreadList feedbackItems={feedbackItems} />
+        </section>
+      )}
       <GoldenFlowsCTA
         ctaLabel={narrative?.cta_label}
         vertical={vertical.display_name}
