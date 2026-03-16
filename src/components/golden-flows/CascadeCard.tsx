@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import type { CascadeEntry, TimelineStep } from "@/types/golden-flows/contract-b/cascade_data";
+import type { ApprovalStatusValue } from "@/lib/governance";
+import TrustBadge from "./TrustBadge";
 
 interface CascadeCardProps {
   entry: CascadeEntry;
+  governanceStatus?: ApprovalStatusValue | null;
 }
 
 const STEP_TYPE_META: Record<
@@ -30,7 +33,7 @@ function reviewerStatusColor(status: string): string {
   }
 }
 
-export default function CascadeCard({ entry }: CascadeCardProps) {
+export default function CascadeCard({ entry, governanceStatus }: CascadeCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -86,7 +89,7 @@ export default function CascadeCard({ entry }: CascadeCardProps) {
           </span>
         </div>
 
-        {/* Reviewer badge — always visible in collapsed state */}
+        {/* Reviewer badge + governance trust badge — always visible in collapsed state */}
         <div className="mt-3 flex items-center gap-2">
           <span
             className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${reviewerStatusColor(entry.reviewer_badge.status)}`}
@@ -96,6 +99,7 @@ export default function CascadeCard({ entry }: CascadeCardProps) {
           <span className="text-xs text-bayesiq-400">
             {entry.reviewer_badge.reviewer_name}
           </span>
+          <TrustBadge status={governanceStatus ?? null} size="sm" />
         </div>
       </button>
 

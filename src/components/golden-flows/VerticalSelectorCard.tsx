@@ -4,13 +4,16 @@ import {
   severityBorderColor,
   severityTextColor,
 } from "@/lib/golden-flows";
+import type { ApprovalStatusValue } from "@/lib/governance";
 import { VerticalClickTracker } from "./VerticalClickTracker";
+import TrustBadge from "./TrustBadge";
 
 interface Props {
   slug: string;
   displayName: string;
   metrics: HookMetrics;
   isSelected: boolean;
+  trustStatus?: ApprovalStatusValue | null;
 }
 
 function ScoreGauge({
@@ -69,6 +72,7 @@ export default function VerticalSelectorCard({
   displayName,
   metrics,
   isSelected,
+  trustStatus,
 }: Props) {
   const borderColor = severityBorderColor(metrics.severity_level);
 
@@ -107,6 +111,7 @@ export default function VerticalSelectorCard({
         <p className="mt-1 text-[10px] text-bayesiq-400">
           {metrics.trust_cue}
         </p>
+        <TrustBadge status={trustStatus ?? null} size="sm" />
       </div>
     </Link>
     </VerticalClickTracker>

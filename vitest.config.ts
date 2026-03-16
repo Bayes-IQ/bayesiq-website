@@ -9,6 +9,8 @@ export default defineConfig({
       "@": resolve(__dirname, "src"),
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  oxc: { jsx: "automatic" } as any,
   test: {
     globals: true,
     environment: "jsdom",

@@ -1,16 +1,20 @@
 import type { Vertical, HookMetrics } from "@/lib/golden-flows";
+import type { ApprovalStatusValue } from "@/lib/governance";
 import VerticalSelectorCard from "./VerticalSelectorCard";
 
 interface Props {
   verticals: Vertical[];
   hookMetrics: Map<string, HookMetrics>;
   currentSlug?: string;
+  /** Pre-computed trust statuses keyed by vertical slug */
+  trustStatuses?: Record<string, ApprovalStatusValue>;
 }
 
 export default function VerticalSelector({
   verticals,
   hookMetrics,
   currentSlug,
+  trustStatuses,
 }: Props) {
   return (
     <div className="sticky top-16 z-10 bg-white/95 backdrop-blur-sm pb-4">
@@ -26,6 +30,7 @@ export default function VerticalSelector({
               displayName={vertical.display_name}
               metrics={metrics}
               isSelected={vertical.slug === currentSlug}
+              trustStatus={trustStatuses?.[vertical.slug] ?? null}
             />
           );
         })}
