@@ -146,6 +146,9 @@ export default async function VerticalPage({ params }: Props) {
         <p className="text-sm text-bayesiq-500 mt-1">
           Every metric change is reviewed, attributed, and traceable.
         </p>
+        <p className="text-xs text-bayesiq-400 mt-2 italic">
+          Illustrative example — shows how BayesIQ governs metric changes with named reviewers, decisions, and evidence trails.
+        </p>
       </div>
 
       <GovernanceProgressBar summary={governance?.trustBadgeSummary ?? null} />
