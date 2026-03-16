@@ -12,17 +12,20 @@ export default function DiscoverInsights({ data }: DiscoverInsightsProps) {
       </h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {data.insights.map((insight) => (
-          <div
+          <a
             key={insight.insight_id}
-            className="rounded-lg border border-bayesiq-200 bg-white p-4"
+            href={insight.dashboard_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-bayesiq-200 bg-white p-4 transition-colors hover:border-bayesiq-400"
           >
             <p className="text-sm font-medium text-bayesiq-800">
               {insight.question_text}
             </p>
-            <span className="mt-2 inline-block text-xs text-bayesiq-300">
-              Dashboard preview coming soon
+            <span className="mt-2 inline-block text-xs font-medium text-bayesiq-500">
+              View in Dashboard &rarr;
             </span>
-          </div>
+          </a>
         ))}
       </div>
     </section>
