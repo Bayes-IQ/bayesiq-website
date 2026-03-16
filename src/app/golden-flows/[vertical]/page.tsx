@@ -104,7 +104,7 @@ export default async function VerticalPage({ params }: Props) {
     <DashboardGrid
       boardReport={boardReport}
       snapshots={trajectory.snapshots}
-      screenshotUrl={dashboardScreenshot?.url ?? null}
+      screenshotUrl={dashboardScreenshot?.url || null}
       screenshotAlt={dashboardScreenshot?.alt_text ?? null}
       dashboardLink={dashboardLink}
     />
