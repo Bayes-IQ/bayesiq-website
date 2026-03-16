@@ -76,5 +76,5 @@
   ],
   "total_findings": 4,
   "trend": null,
-  "executive_summary": "BayesIQ audited this SaaS company's core reporting pipeline covering active users, churn rate, and MRR calculations. We found 4 critical issues — including a 434% active user undercount caused by deduplication failures and a churn rate overstated by 84% due to denominator drift. Leadership was making expansion and retention decisions based on fundamentally wrong numbers. After remediation, the reliability score improved from 31 to 64, with active user counts now verified against raw event logs."
+  "executive_summary": "In this hypothetical example, BayesIQ audits a SaaS company's core reporting pipeline covering active users, churn rate, and MRR calculations. The audit surfaces 4 critical issues — including a 434% active user undercount caused by deduplication failures and a churn rate overstated by 84% due to denominator drift. Leadership had been making expansion and retention decisions based on fundamentally wrong numbers. After remediation, the reliability score improves from 31 to 64."
 }
