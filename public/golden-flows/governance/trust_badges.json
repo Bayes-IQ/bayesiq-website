@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "payload_type": "contract_c.trust_badges",
-  "generated_at": "2026-03-15T23:10:53.113815+00:00",
+  "generated_at": "2026-03-16T04:00:11.887540+00:00",
   "summary": {
-    "total_objects": 3,
+    "total_objects": 10,
     "by_status": {
-      "approved": 3,
+      "approved": 5,
       "deferred": 0,
-      "pending": 0,
-      "rejected": 0
+      "pending": 3,
+      "rejected": 2
     },
     "by_object_type": {
       "approval": {
@@ -18,6 +18,15 @@
           "deferred": 0,
           "pending": 0,
           "rejected": 0
+        }
+      },
+      "event": {
+        "total": 7,
+        "by_status": {
+          "approved": 2,
+          "deferred": 0,
+          "pending": 3,
+          "rejected": 2
         }
       }
     }
@@ -60,6 +69,97 @@
         "role": null
       },
       "last_reviewed_at": "2026-03-05T13:11:07.937155+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_churn_model_v3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-10T16:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_fee_schedule_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-10T20:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_ltv_recalc",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-10T16:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "fintech_nrr_redef_q1",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-10T14:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "hospital_billing_code_swap",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-12T13:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "hospital_drg_reclassification",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-11T15:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "hospital_sku_introduction",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-11T17:00:00+00:00",
       "approval_count": 1
     }
   ]
