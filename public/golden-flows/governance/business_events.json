@@ -1,6 +1,105 @@
 {
   "schema_version": 1,
   "payload_type": "contract_c.business_event_governance",
-  "generated_at": "2026-03-15T23:10:52.160313+00:00",
-  "items": []
+  "generated_at": "2026-03-16T04:00:12.592109+00:00",
+  "items": [
+    {
+      "event_id": "fintech_churn_model_v3",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-fintech-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-10T16:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": "Churn model v3 + LTV recalc bundled for joint review."
+    },
+    {
+      "event_id": "fintech_fee_schedule_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-fintech-03",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-10T18:00:00+00:00",
+      "ts_resolved": "2026-03-10T20:00:00+00:00",
+      "review_note": "Fee schedule override rejected — requires VP sign-off."
+    },
+    {
+      "event_id": "fintech_ltv_recalc",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-fintech-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-10T16:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": "Churn model v3 + LTV recalc bundled for joint review."
+    },
+    {
+      "event_id": "fintech_nrr_redef_q1",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-fintech-01",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-fintech",
+        "display_name": "Maya Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-10T12:00:00+00:00",
+      "ts_resolved": "2026-03-10T14:00:00+00:00",
+      "review_note": "NRR redefinition reviewed; impact scoped to sandbox accounts only."
+    },
+    {
+      "event_id": "hospital_billing_code_swap",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-hospital-03",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-12T12:00:00+00:00",
+      "ts_resolved": "2026-03-12T13:00:00+00:00",
+      "review_note": "Billing code swap rejected — conflicts with active payer contract."
+    },
+    {
+      "event_id": "hospital_drg_reclassification",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-hospital-01",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-11T12:00:00+00:00",
+      "ts_resolved": "2026-03-11T15:00:00+00:00",
+      "review_note": "DRG reclassification approved after clinical review."
+    },
+    {
+      "event_id": "hospital_sku_introduction",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-hospital-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-hospital",
+        "display_name": "Dr. Raj Patel",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-11T17:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": null
+    }
+  ]
 }
