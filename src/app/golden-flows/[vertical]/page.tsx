@@ -24,6 +24,7 @@ import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
+import BusinessEventList from "@/components/golden-flows/BusinessEventList";
 import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 
@@ -78,6 +79,14 @@ export default async function VerticalPage({ params }: Props) {
   // Feedback threads (GF-17)
   const feedbackItems = governance?.feedbackById
     ? Array.from(governance.feedbackById.values())
+    : [];
+
+  // Business events (GF-20) — filter by vertical prefix
+  const verticalPrefix = slug.replace(/-gf$/, "");
+  const businessEvents = governance?.businessEventById
+    ? Array.from(governance.businessEventById.values()).filter(
+        (e) => e.event_id.startsWith(verticalPrefix + "_")
+      )
     : [];
 
   // Pre-compute trust statuses as plain objects (serializable for client components)
@@ -169,6 +178,20 @@ export default async function VerticalPage({ params }: Props) {
             <FeedbackThreadList feedbackItems={feedbackItems} />
           </section>
         )}
+
+        {/* Business Events — GF-20 */}
+        {businessEvents.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
+              Business Events
+            </h2>
+            <p className="text-sm text-bayesiq-500 mb-4">
+              Metric changes and restatements flowing through governance review.
+            </p>
+            <BusinessEventList events={businessEvents} />
+          </section>
+        )}
+
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}
           vertical={vertical.display_name}
