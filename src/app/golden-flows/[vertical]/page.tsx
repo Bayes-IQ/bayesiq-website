@@ -160,7 +160,7 @@ export default async function VerticalPage({ params }: Props) {
       {/* Bridge to Dashboard tab */}
       <div className="mt-8 pt-6 border-t border-bayesiq-100 text-center">
         <p className="text-sm text-bayesiq-600">
-          After review and remediation, certified data flows into the operational dashboard.
+          Once all findings are reviewed and remediated, corrected data flows into the certified dashboard →
         </p>
       </div>
     </div>

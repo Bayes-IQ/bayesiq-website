@@ -99,11 +99,12 @@ test.describe("Golden Flows Dashboard tab", () => {
     await expect(screenshot).toBeVisible();
   });
 
-  test("dashboard shows post-remediation certified status", async ({ page }) => {
+  test("dashboard shows before/after comparison", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Dashboard" }).click();
-    await expect(page.getByText("Data certified")).toBeVisible();
-    await expect(page.getByText("Post-Remediation")).toBeVisible();
+    await expect(page.getByText("Before BayesIQ")).toBeVisible();
+    await expect(page.getByText("After BayesIQ")).toBeVisible();
+    await expect(page.getByText("Going forward")).toBeVisible();
   });
 
   test("all 5 verticals render dashboard tab", async ({ page }) => {
