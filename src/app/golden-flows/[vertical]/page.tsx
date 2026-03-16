@@ -28,7 +28,7 @@ import GovernanceProgressBar from "@/components/golden-flows/GovernanceProgressB
 import DecisionLog from "@/components/golden-flows/DecisionLog";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
-import DashboardScreenshot from "@/components/golden-flows/DashboardScreenshot";
+import DashboardGrid from "@/components/golden-flows/DashboardGrid";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -121,33 +121,15 @@ export default async function VerticalPage({ params }: Props) {
     artifactLinks?.artifacts.find((a) => a.type === "dashboard")?.url ??
     null;
 
-  const dashboardContent = (
-    <div data-testid="dashboard-grid">
-      <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden">
-        <div className="min-h-[280px]">
-          <DashboardScreenshot
-            screenshot={dashboardScreenshot ? { url: dashboardScreenshot.url, alt_text: dashboardScreenshot.alt_text, type: "dashboard" } : null}
-          />
-        </div>
-        {dashboardLink && (
-          <div className="border-t border-bayesiq-100 px-5 py-3 flex items-center justify-between bg-bayesiq-50/50">
-            <span className="text-xs text-bayesiq-500">Live interactive dashboard</span>
-            <a
-              href={dashboardLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-bayesiq-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
-            >
-              Explore Full Dashboard
-              <svg className="ml-1.5 h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  const dashboardContent = boardReport && trajectory ? (
+    <DashboardGrid
+      boardReport={boardReport}
+      snapshots={trajectory.snapshots}
+      screenshotUrl={dashboardScreenshot?.url ?? null}
+      screenshotAlt={dashboardScreenshot?.alt_text ?? null}
+      dashboardLink={dashboardLink}
+    />
+  ) : null;
 
   const reportContent = (
     <>
