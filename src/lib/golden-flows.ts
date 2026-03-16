@@ -158,6 +158,7 @@ export interface BoardReport {
   top_risks: BoardReportRisk[];
   recommended_actions: BoardReportAction[];
   trend: string | null;
+  executive_summary?: string;
 }
 
 // ============================================================

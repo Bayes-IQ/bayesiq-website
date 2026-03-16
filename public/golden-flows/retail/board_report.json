@@ -45,5 +45,6 @@
     }
   ],
   "total_findings": 2,
-  "trend": null
+  "trend": null,
+  "executive_summary": "In Q4 2025, BayesIQ audited RetailCo's inventory and sell-through reporting pipeline. We identified 2 findings — 128 near-duplicate transaction records inflating sell-through aggregations and an 8.6% overstatement in the headline sell-through metric. The buying team was making seasonal procurement decisions based on phantom demand. After deduplication and pipeline remediation, the reliability score improved from 30 to 85, and sell-through figures are now verified against raw POS event logs."
 }

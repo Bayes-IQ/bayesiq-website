@@ -12,6 +12,8 @@ import {
   getCascadeData,
   getDiscoverInsights,
   getBoardReport,
+  getScreenshotManifest,
+  getArtifactLinks,
 } from "@/lib/golden-flows";
 import {
   loadGovernance,
@@ -31,7 +33,9 @@ import BusinessEventList from "@/components/golden-flows/BusinessEventList";
 import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
-import ScoreTrajectory from "@/components/golden-flows/ScoreTrajectory";
+import DashboardGrid from "@/components/golden-flows/DashboardGrid";
+import RemediationArc from "@/components/golden-flows/RemediationArc";
+import BayesIQDifference from "@/components/golden-flows/BayesIQDifference";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -73,6 +77,8 @@ export default async function VerticalPage({ params }: Props) {
   const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
   const boardReport = getBoardReport(slug);
+  const screenshotManifest = getScreenshotManifest(slug);
+  const artifactLinks = getArtifactLinks(slug);
 
   // Load governance data (null-safe — returns empty maps if unavailable)
   const governance = (() => {
@@ -137,54 +143,29 @@ export default async function VerticalPage({ params }: Props) {
 
   // ── Tab content ──────────────────────────────────────────────
 
-  const dashboardContent = (
-    <div>
-      {trajectory && (
-        <div className="flex justify-center">
-          <ScoreTrajectory snapshots={trajectory.snapshots} />
-        </div>
-      )}
-      {boardReport && boardReport.top_risks.length > 0 && (
-        <div className="mt-6 space-y-2">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400">
-            Key Findings
-          </h3>
-          {boardReport.top_risks.map((risk) => (
-            <div
-              key={risk.title}
-              className="rounded-lg border border-bayesiq-200 bg-white px-4 py-3"
-            >
-              <div className="flex items-start gap-2">
-                <span
-                  className={`mt-0.5 shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                    risk.severity === "high"
-                      ? "bg-red-100 text-red-700"
-                      : risk.severity === "medium"
-                        ? "bg-amber-100 text-amber-700"
-                        : "bg-green-100 text-green-700"
-                  }`}
-                >
-                  {risk.severity}
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-bayesiq-900 leading-snug">
-                    {risk.title}
-                  </p>
-                  <p className="mt-1 text-xs text-bayesiq-500 leading-relaxed">
-                    {risk.business_impact}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  // Dashboard tab: 2×2 widget grid + footer bar
+  const dashboardScreenshot = screenshotManifest?.screenshots.find(
+    (s) => s.type === "dashboard"
+  ) ?? null;
+  // Streamlit URL: prefer discover_insights dashboard_link, fall back to artifact_links
+  const dashboardLink =
+    discoverInsights?.insights[0]?.dashboard_link ??
+    artifactLinks?.artifacts.find((a) => a.type === "dashboard")?.url ??
+    null;
+
+  const dashboardContent = boardReport && trajectory ? (
+    <DashboardGrid
+      boardReport={boardReport}
+      snapshots={trajectory.snapshots}
+      screenshotUrl={dashboardScreenshot?.url ?? null}
+      screenshotAlt={dashboardScreenshot?.alt_text ?? null}
+      dashboardLink={dashboardLink}
+    />
+  ) : null;
 
   const reportContent = (
     <>
-      {boardReport && <ReportPreview report={boardReport} />}
+      {boardReport && <ReportPreview report={boardReport} narrative={narrative} verticalName={vertical.display_name} />}
     </>
   );
 
@@ -263,6 +244,16 @@ export default async function VerticalPage({ params }: Props) {
           report={reportContent}
           workflow={workflowContent}
         />
+
+        {trajectory && boardReport && (
+          <RemediationArc
+            snapshots={trajectory.snapshots}
+            totalFindings={boardReport.total_findings}
+            topAction={boardReport.recommended_actions[0] ?? null}
+          />
+        )}
+
+        <BayesIQDifference />
 
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}

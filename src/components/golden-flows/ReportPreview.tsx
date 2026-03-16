@@ -4,10 +4,13 @@ import type {
   BoardReportRisk,
   BoardReportAction,
   BoardReportSeverity,
+  VerticalNarrativePayload,
 } from "@/lib/golden-flows";
 
 interface Props {
   report: BoardReport;
+  narrative?: VerticalNarrativePayload | null;
+  verticalName?: string;
 }
 
 // --------------- Severity helpers ---------------
@@ -48,16 +51,72 @@ function effortLabel(effort: "S" | "M" | "L"): string {
 
 // --------------- Sub-components ---------------
 
-function ScoreBadge({ score, interpretation }: { score: number; interpretation: string }) {
+function DocumentHeader({
+  verticalName,
+  score,
+  interpretation,
+}: {
+  verticalName: string;
+  score: number;
+  interpretation: string;
+}) {
   return (
-    <div className={`flex items-center gap-4 rounded-xl border px-6 py-4 ${scoreBgColor(score)}`}>
-      <span className={`text-5xl font-bold tabular-nums ${scoreColor(score)}`}>
-        {score}
-      </span>
-      <div className="min-w-0">
-        <p className="text-sm font-medium text-bayesiq-500">Reliability Score</p>
-        <p className="text-sm font-semibold text-bayesiq-800">{interpretation}</p>
+    <div className="flex items-start justify-between border-b border-gray-200 pb-6 mb-6">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-widest text-bayesiq-400">
+          BayesIQ Data Reliability Audit
+        </p>
+        <h2 className="mt-1 text-2xl font-bold text-bayesiq-900">
+          {verticalName}
+        </h2>
+        <p className="mt-1 text-sm text-bayesiq-500">
+          Audit Period: December 2025
+        </p>
       </div>
+      <div
+        data-testid="report-score-badge"
+        className={`flex items-center gap-3 rounded-xl border px-5 py-3 ${scoreBgColor(score)}`}
+      >
+        <span className={`text-4xl font-bold tabular-nums ${scoreColor(score)}`}>
+          {score}
+        </span>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-bayesiq-500">Reliability Score</p>
+          <p className="text-xs font-semibold text-bayesiq-800">{interpretation}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NarrativeParagraph({ text }: { text: string }) {
+  return (
+    <div className="mb-8" data-testid="report-narrative">
+      <p className="text-base leading-relaxed text-bayesiq-700">{text}</p>
+    </div>
+  );
+}
+
+function FindingsSummary({
+  totalFindings,
+  findingsBySeverity,
+}: {
+  totalFindings: number;
+  findingsBySeverity: Record<string, number>;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-3 text-sm mb-6">
+      <span className="font-medium text-bayesiq-600">
+        {totalFindings} finding{totalFindings !== 1 ? "s" : ""}
+      </span>
+      {Object.entries(findingsBySeverity).map(([sev, count]) => (
+        <span
+          key={sev}
+          className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${severityBadge(sev as BoardReportSeverity)}`}
+        >
+          {count} {sev}
+        </span>
+      ))}
     </div>
   );
 }
@@ -69,7 +128,7 @@ function MetricsTable({ metrics }: { metrics: BoardReportMetric[] }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-bayesiq-200 text-left">
+          <tr className="border-b border-gray-200 text-left">
             <th className="pb-2 pr-4 font-semibold text-bayesiq-500">Metric</th>
             <th className="pb-2 pr-4 font-semibold text-bayesiq-500">Period</th>
             <th className="pb-2 pr-4 font-semibold text-bayesiq-500 text-right">Reported</th>
@@ -79,7 +138,7 @@ function MetricsTable({ metrics }: { metrics: BoardReportMetric[] }) {
         </thead>
         <tbody>
           {metrics.map((m) => (
-            <tr key={`${m.metric}-${m.period}`} className="border-b border-bayesiq-100">
+            <tr key={`${m.metric}-${m.period}`} className="border-b border-gray-100">
               <td className="py-2.5 pr-4 font-medium text-bayesiq-800">{m.metric}</td>
               <td className="py-2.5 pr-4 text-bayesiq-600">{m.period}</td>
               <td className="py-2.5 pr-4 text-right tabular-nums text-bayesiq-700">
@@ -122,7 +181,7 @@ function formatMetricValue(value: number): string {
 
 function FindingCard({ risk }: { risk: BoardReportRisk }) {
   return (
-    <div className="rounded-lg border border-bayesiq-200 bg-white px-4 py-3">
+    <div className="rounded-lg border border-gray-150 bg-gray-50/50 px-4 py-3">
       <div className="flex items-start gap-2">
         <span
           className={`mt-0.5 shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${severityBadge(risk.severity)}`}
@@ -176,73 +235,72 @@ function ActionItem({ action, index }: { action: BoardReportAction; index: numbe
 
 // --------------- Main Component ---------------
 
-export default function ReportPreview({ report }: Props) {
-  return (
-    <section className="mt-12">
-      <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-1">
-        Board Report Preview
-      </h2>
-      <p className="text-sm text-bayesiq-500 mb-6">
-        Executive deliverable from the latest audit cycle.
-      </p>
+export default function ReportPreview({ report, narrative, verticalName }: Props) {
+  const displayName = verticalName ?? "Vertical";
 
-      <div className="space-y-6 rounded-2xl border border-bayesiq-200 bg-bayesiq-50/50 p-6">
-        {/* Score + Findings summary row */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-          <ScoreBadge score={report.score} interpretation={report.interpretation} />
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="font-medium text-bayesiq-600">
-              {report.total_findings} finding{report.total_findings !== 1 ? "s" : ""}
-            </span>
-            {Object.entries(report.findings_by_severity).map(([sev, count]) => (
-              <span
-                key={sev}
-                className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${severityBadge(sev as BoardReportSeverity)}`}
-              >
-                {count} {sev}
-              </span>
+  // Narrative text: prefer executive_summary, fall back to narrative.with_bayesiq
+  const narrativeText =
+    report.executive_summary ?? narrative?.with_bayesiq ?? null;
+
+  return (
+    <div className="bg-white shadow-md rounded-2xl max-w-3xl mx-auto p-8" data-testid="report-document">
+      <DocumentHeader
+        verticalName={displayName}
+        score={report.score}
+        interpretation={report.interpretation}
+      />
+
+      {narrativeText && <NarrativeParagraph text={narrativeText} />}
+
+      <FindingsSummary
+        totalFindings={report.total_findings}
+        findingsBySeverity={report.findings_by_severity}
+      />
+
+      {/* Key Metrics */}
+      {report.key_metrics.length > 0 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            Key Metrics: Reported vs Audited
+          </h3>
+          <MetricsTable metrics={report.key_metrics} />
+        </div>
+      )}
+
+      {/* Top Findings */}
+      {report.top_risks.length > 0 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            Top Findings
+          </h3>
+          <div className="space-y-2">
+            {report.top_risks.map((risk) => (
+              <FindingCard key={risk.title} risk={risk} />
             ))}
           </div>
         </div>
+      )}
 
-        {/* Key Metrics */}
-        {report.key_metrics.length > 0 && (
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
-              Key Metrics: Reported vs Audited
-            </h3>
-            <MetricsTable metrics={report.key_metrics} />
-          </div>
-        )}
+      {/* Recommended Actions — faded to suggest more content below */}
+      {report.recommended_actions.length > 0 && (
+        <div className="relative">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            Recommended Actions
+          </h3>
+          <ol className="divide-y divide-gray-100">
+            {report.recommended_actions.map((action, i) => (
+              <ActionItem key={action.action} action={action} index={i} />
+            ))}
+          </ol>
+          {/* Fade overlay to suggest document continues */}
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+        </div>
+      )}
 
-        {/* Top Findings */}
-        {report.top_risks.length > 0 && (
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
-              Top Findings
-            </h3>
-            <div className="space-y-2">
-              {report.top_risks.map((risk) => (
-                <FindingCard key={risk.title} risk={risk} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Recommended Actions */}
-        {report.recommended_actions.length > 0 && (
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
-              Recommended Actions
-            </h3>
-            <ol className="divide-y divide-bayesiq-100">
-              {report.recommended_actions.map((action, i) => (
-                <ActionItem key={action.action} action={action} index={i} />
-              ))}
-            </ol>
-          </div>
-        )}
+      {/* Footer */}
+      <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-bayesiq-400">
+        Prepared by BayesIQ · {report.key_metrics[0]?.period ?? "2025"}
       </div>
-    </section>
+    </div>
   );
 }
