@@ -10,6 +10,7 @@ import {
   getTrajectory,
   getCascadeData,
   getDiscoverInsights,
+  getBoardReport,
 } from "@/lib/golden-flows";
 import {
   loadGovernance,
@@ -27,6 +28,7 @@ import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
 import BusinessEventList from "@/components/golden-flows/BusinessEventList";
 import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
+import ReportPreview from "@/components/golden-flows/ReportPreview";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -66,6 +68,7 @@ export default async function VerticalPage({ params }: Props) {
   const trajectory = getTrajectory(slug);
   const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
+  const boardReport = getBoardReport(slug);
 
   // Load governance data (null-safe — returns empty maps if unavailable)
   const governance = (() => {
@@ -150,6 +153,8 @@ export default async function VerticalPage({ params }: Props) {
         )}
 
         {narrative && <StatusQuoComparison narrative={narrative} />}
+
+        {boardReport && <ReportPreview report={boardReport} />}
 
         <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
           {vertical.display_name}

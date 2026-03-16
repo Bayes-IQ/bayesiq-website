@@ -1,0 +1,61 @@
+{
+  "findings_by_severity": {
+    "high": 2,
+    "medium": 1
+  },
+  "interpretation": "Good \u2014 some issues need attention",
+  "key_metrics": [
+    {
+      "audited": 0.1228,
+      "delta_pct": 5.7,
+      "metric": "readmission_rate",
+      "period": "2025-12",
+      "reported": 0.1302
+    }
+  ],
+  "payload_type": "board_report",
+  "recommended_actions": [
+    {
+      "action": "Investigate duplicate records. Add dedup logic keyed on non-key fields.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Fix null values in required column 'patient_id' at the source.",
+      "effort": "M",
+      "owner": "Data Engineering",
+      "severity": "high"
+    },
+    {
+      "action": "Investigate root cause of readmission_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.",
+      "effort": "S",
+      "owner": "Data Engineering",
+      "severity": "medium"
+    }
+  ],
+  "schema_version": 1,
+  "score": 81,
+  "top_risks": [
+    {
+      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "rows_affected": 50,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "Null values in required fields break filters and aggregations",
+      "rows_affected": 25,
+      "severity": "high",
+      "title": "Null values in required column: patient_id"
+    },
+    {
+      "business_impact": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%.",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "readmission_rate misreported for 2025-12 (off by +5.7%)"
+    }
+  ],
+  "total_findings": 3,
+  "trend": null
+}

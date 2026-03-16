@@ -120,6 +120,47 @@ export type VerticalNarrative = VerticalNarrativePayload;
 export type QuestionSeverity = "critical" | "high" | "medium" | "low";
 
 // ============================================================
+// Board Report types (from DAK board_report.json)
+// ============================================================
+
+export type BoardReportSeverity = "high" | "medium" | "low";
+
+export interface BoardReportMetric {
+  metric: string;
+  period: string;
+  reported: number;
+  audited: number;
+  delta_pct: number;
+}
+
+export interface BoardReportRisk {
+  severity: BoardReportSeverity;
+  title: string;
+  business_impact: string;
+  rows_affected: number;
+}
+
+export interface BoardReportAction {
+  action: string;
+  owner: string;
+  effort: "S" | "M" | "L";
+  severity: BoardReportSeverity;
+}
+
+export interface BoardReport {
+  schema_version: number;
+  payload_type: "board_report";
+  score: number;
+  interpretation: string;
+  total_findings: number;
+  findings_by_severity: Record<string, number>;
+  key_metrics: BoardReportMetric[];
+  top_risks: BoardReportRisk[];
+  recommended_actions: BoardReportAction[];
+  trend: string | null;
+}
+
+// ============================================================
 // Core loader helpers
 // ============================================================
 
@@ -301,6 +342,12 @@ export function getDiscoverInsights(slug: string): DiscoverInsights | null {
 
 export function getTrajectory(slug: string): Trajectory | null {
   return loadContractB<Trajectory>(slug, "trajectory", "trajectory");
+}
+
+// --- Board Report ---
+
+export function getBoardReport(slug: string): BoardReport | null {
+  return loadContractB<BoardReport>(slug, "board_report", "board-report");
 }
 
 // ============================================================
