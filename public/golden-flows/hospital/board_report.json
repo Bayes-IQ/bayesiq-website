@@ -38,25 +38,25 @@
   "score": 81,
   "top_risks": [
     {
-      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "business_impact": "Board approved CMS compliance filing based on overstated readmission rate — potential $500K+ penalty exposure",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "readmission_rate misreported for 2025-12 (off by +5.7%)"
+    },
+    {
+      "business_impact": "50 duplicate patient records inflating readmission counts, distorting quality metrics reported to CMS",
       "rows_affected": 50,
       "severity": "high",
       "title": "Near-duplicate rows detected"
     },
     {
-      "business_impact": "Null values in required fields break filters and aggregations",
+      "business_impact": "25 records missing patient_id — these patients are invisible to outcome tracking and compliance reporting",
       "rows_affected": 25,
       "severity": "high",
       "title": "Null values in required column: patient_id"
-    },
-    {
-      "business_impact": "Reported readmission_rate for 2025-12 is 13.0%, but recomputed value from raw events is 12.3%. Discrepancy of +5.7%.",
-      "rows_affected": 1,
-      "severity": "medium",
-      "title": "readmission_rate misreported for 2025-12 (off by +5.7%)"
     }
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In this illustrative example, BayesIQ audits a healthcare organization's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. The audit identifies 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — directly affecting board-reported readmission metrics. After targeted remediation, the reliability score improves from 31 to 81 and the readmission rate discrepancy narrows from 5.7% to within acceptable tolerance."
+  "executive_summary": "BayesIQ audits a healthcare organization's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. The audit identifies 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — directly affecting board-reported readmission metrics. After targeted remediation, the reliability score improves from 31 to 81 and the readmission rate discrepancy narrows from 5.7% to within acceptable tolerance."
 }

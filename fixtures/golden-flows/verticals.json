@@ -1,9 +1,9 @@
 {
   "verticals": [
+    { "id": "fintech", "display_name": "Fintech", "slug": "fintech-gf", "status": "ready" },
+    { "id": "saas", "display_name": "SaaS", "slug": "saas", "status": "ready" },
     { "id": "hospital", "display_name": "Hospital", "slug": "hospital", "status": "ready" },
-    { "id": "real_estate", "display_name": "Real Estate", "slug": "real-estate", "status": "ready" },
-    { "id": "saas", "display_name": "SaaS", "slug": "saas", "status": "stub" },
-    { "id": "retail", "display_name": "Retail", "slug": "retail", "status": "stub" },
-    { "id": "fintech", "display_name": "Fintech", "slug": "fintech-gf", "status": "stub" }
+    { "id": "retail", "display_name": "Retail", "slug": "retail", "status": "ready" },
+    { "id": "real_estate", "display_name": "Real Estate", "slug": "real-estate", "status": "ready" }
   ]
 }

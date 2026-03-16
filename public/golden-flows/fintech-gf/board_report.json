@@ -38,25 +38,25 @@
   "score": 81,
   "top_risks": [
     {
-      "business_impact": "Duplicate records inflate aggregations and distort metrics",
+      "business_impact": "P&L showed $299K in fee revenue — actual is $274K. $25K phantom revenue on regulatory filings constitutes a material misstatement",
+      "rows_affected": 1,
+      "severity": "medium",
+      "title": "fee_revenue misreported for 2025-12 (off by +8.4%)"
+    },
+    {
+      "business_impact": "54 duplicate transaction records inflating fee calculations and distorting merchant reconciliation",
       "rows_affected": 54,
       "severity": "high",
       "title": "Near-duplicate rows detected"
     },
     {
-      "business_impact": "Null values in required fields break filters and aggregations",
+      "business_impact": "28 transactions missing merchant_id — cannot reconcile these fees to merchants or verify compliance",
       "rows_affected": 28,
       "severity": "high",
       "title": "Null values in required column: merchant_id"
-    },
-    {
-      "business_impact": "Reported fee_revenue for 2025-12 is 299,461, but recomputed value from raw events is 274,383. Discrepancy of +8.4%.",
-      "rows_affected": 1,
-      "severity": "medium",
-      "title": "fee_revenue misreported for 2025-12 (off by +8.4%)"
     }
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In this illustrative example, BayesIQ audits a fintech company's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. The audit identifies 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement constituting a material misstatement. After remediation, the reliability score improves from 33 to 81."
+  "executive_summary": "BayesIQ audits a fintech company's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. The audit identifies 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement constituting a material misstatement. After remediation, the reliability score improves from 33 to 81."
 }

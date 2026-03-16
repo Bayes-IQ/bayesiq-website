@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ServiceCard from "@/components/ServiceCard";
@@ -18,6 +19,7 @@ const playgroundEnabled =
   process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
 
 export default function HomePage() {
+  redirect("/golden-flows/fintech-gf");
   return (
     <>
       {/* Hero */}

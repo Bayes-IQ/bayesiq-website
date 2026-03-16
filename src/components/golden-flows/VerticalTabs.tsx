@@ -10,9 +10,9 @@ interface Tab {
 }
 
 const TABS: Tab[] = [
-  { key: "dashboard", label: "Dashboard" },
   { key: "report", label: "Board Report" },
   { key: "workflow", label: "Workflow" },
+  { key: "dashboard", label: "Dashboard" },
 ];
 
 interface VerticalTabsProps {
@@ -32,7 +32,7 @@ export default function VerticalTabs({
   dashboard,
   report,
   workflow,
-  initialTab = "dashboard",
+  initialTab = "report",
 }: VerticalTabsProps) {
   const [activeTab, setActiveTab] = useState<TabKey>(initialTab);
 

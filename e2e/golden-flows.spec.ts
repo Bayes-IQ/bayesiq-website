@@ -28,34 +28,34 @@ test.describe("Golden Flows tabs", () => {
     await page.goto("/golden-flows/hospital");
     const tabs = page.getByRole("tab");
     await expect(tabs).toHaveCount(3);
-    await expect(tabs.nth(0)).toHaveText("Dashboard");
-    await expect(tabs.nth(1)).toHaveText("Board Report");
-    await expect(tabs.nth(2)).toHaveText("Workflow");
+    await expect(tabs.nth(0)).toHaveText("Board Report");
+    await expect(tabs.nth(1)).toHaveText("Workflow");
+    await expect(tabs.nth(2)).toHaveText("Dashboard");
 
-    // Dashboard is selected by default
+    // Board Report is selected by default
     await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
 
-    // Click Board Report tab
+    // Click Workflow tab
     await tabs.nth(1).click();
     await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
     await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "false");
 
-    // Click Workflow tab
+    // Click Dashboard tab
     await tabs.nth(2).click();
     await expect(tabs.nth(2)).toHaveAttribute("aria-selected", "true");
   });
 
   test("tab selection persists via URL hash", async ({ page }) => {
-    // Load directly with #workflow hash
-    await page.goto("/golden-flows/hospital#workflow");
+    // Load directly with #dashboard hash
+    await page.goto("/golden-flows/hospital#dashboard");
     const tabs = page.getByRole("tab");
     // useEffect reads hash after hydration — wait for it
     await expect(tabs.nth(2)).toHaveAttribute("aria-selected", "true", { timeout: 5000 });
 
-    // Click Dashboard, then verify hash updated
+    // Click Board Report, then verify hash updated
     await tabs.nth(0).click();
     await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
-    expect(new URL(page.url()).hash).toBe("#dashboard");
+    expect(new URL(page.url()).hash).toBe("#report");
   });
 
   test("tabs render on all verticals", async ({ page }) => {
@@ -84,34 +84,35 @@ test.describe("Golden Flows tabs", () => {
   });
 });
 
-test.describe("Golden Flows Dashboard tab (PR#41)", () => {
+test.describe("Golden Flows Dashboard tab", () => {
   test("dashboard tab shows widget grid", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    // Dashboard is the default tab — widget grid should be visible
+    await page.getByRole("tab", { name: "Dashboard" }).click();
     const grid = page.getByTestId("dashboard-grid");
     await expect(grid).toBeVisible();
   });
 
-  test("ScoreTrajectory is visible in dashboard tab", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    // The SVG chart should be visible in dashboard tab
-    const chart = page.locator("svg[aria-label^='Score trajectory']");
-    await expect(chart.first()).toBeVisible();
-  });
-
   test("screenshot placeholder or image is present", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Dashboard" }).click();
     const screenshot = page.getByTestId("dashboard-screenshot");
     await expect(screenshot).toBeVisible();
   });
 
-  test("all 5 verticals render dashboard tab without errors", async ({ page }) => {
+  test("dashboard shows before/after comparison", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Dashboard" }).click();
+    await expect(page.getByText("Before BayesIQ")).toBeVisible();
+    await expect(page.getByText("After BayesIQ")).toBeVisible();
+    await expect(page.getByText("Going forward")).toBeVisible();
+  });
+
+  test("all 5 verticals render dashboard tab", async ({ page }) => {
     const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
     for (const v of verticals) {
-      const response = await page.goto(`/golden-flows/${v}`);
-      expect(response?.status()).toBe(200);
-      const dashboardPanel = page.getByRole("tabpanel");
-      await expect(dashboardPanel).toBeVisible();
+      await page.goto(`/golden-flows/${v}`);
+      await page.getByRole("tab", { name: "Dashboard" }).click();
+      await expect(page.getByTestId("dashboard-grid")).toBeVisible();
     }
   });
 });
@@ -119,16 +120,13 @@ test.describe("Golden Flows Dashboard tab (PR#41)", () => {
 test.describe("Board Report document preview", () => {
   test("board report tab shows document-style preview", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    const tabs = page.getByRole("tab");
-    await tabs.nth(1).click();
-    await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+    // Board Report is now the default tab
     const doc = page.getByTestId("report-document");
     await expect(doc).toBeVisible();
   });
 
   test("narrative text is visible in the report", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    await page.getByRole("tab").nth(1).click();
     const narrative = page.getByTestId("report-narrative");
     await expect(narrative).toBeVisible();
     await expect(narrative).toContainText("BayesIQ");
@@ -136,7 +134,6 @@ test.describe("Board Report document preview", () => {
 
   test("score badge is visible in the document header", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    await page.getByRole("tab").nth(1).click();
     const badge = page.getByTestId("report-score-badge");
     await expect(badge).toBeVisible();
     await expect(badge).toContainText("81");
@@ -146,69 +143,50 @@ test.describe("Board Report document preview", () => {
     const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
     for (const v of verticals) {
       await page.goto(`/golden-flows/${v}`);
-      const tabs = page.getByRole("tab");
-      await tabs.nth(1).click();
-      await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
-      const body = page.locator("body");
-      await expect(body).not.toContainText("Application error");
+      // Board Report is the default tab — just check it rendered
+      await expect(page.getByTestId("report-document")).toBeVisible();
     }
   });
 });
 
 test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () => {
-  test("dashboard tab shows 2x2 widget grid", async ({ page }) => {
+  test("board report is default tab with executive summary", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    const grid = page.getByTestId("dashboard-grid");
-    await expect(grid).toBeVisible();
-  });
-
-  test("dashboard screenshot or placeholder is visible in grid", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    const screenshot = page.getByTestId("dashboard-screenshot");
-    await expect(screenshot).toBeVisible();
-  });
-
-  test("board report shows executive summary narrative", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    await page.getByRole("tab").nth(1).click();
     const narrative = page.getByTestId("report-narrative");
     await expect(narrative).toBeVisible();
     await expect(narrative).toContainText("healthcare organization");
   });
 
-  test("remediation arc is visible with score badges", async ({ page }) => {
+  test("dashboard tab shows widget grid after clicking", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    const arc = page.getByTestId("remediation-arc");
-    await expect(arc).toBeVisible();
-    await expect(arc).toContainText("Discovery");
-    await expect(arc).toContainText("Steady State");
+    await page.getByRole("tab", { name: "Dashboard" }).click();
+    await expect(page.getByTestId("dashboard-grid")).toBeVisible();
+    await expect(page.getByTestId("dashboard-screenshot")).toBeVisible();
   });
 
-  test("BayesIQ difference section is visible", async ({ page }) => {
-    await page.goto("/golden-flows/hospital");
-    const diff = page.getByTestId("bayesiq-difference");
-    await expect(diff).toBeVisible();
-    await expect(diff).toContainText("business meaning");
-  });
-
-  test("all 5 verticals render dashboard grid + narrative sections", async ({ page }) => {
+  test("all 5 verticals render all three tabs", async ({ page }) => {
     const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
     for (const v of verticals) {
       await page.goto(`/golden-flows/${v}`);
+      // Board Report is default
+      await expect(page.getByTestId("report-document")).toBeVisible();
+      // Workflow
+      await page.getByRole("tab", { name: "Workflow" }).click();
+      await expect(page.getByTestId("workflow-tab")).toBeVisible();
+      // Dashboard
+      await page.getByRole("tab", { name: "Dashboard" }).click();
       await expect(page.getByTestId("dashboard-grid")).toBeVisible();
-      await expect(page.getByTestId("remediation-arc")).toBeVisible();
-      await expect(page.getByTestId("bayesiq-difference")).toBeVisible();
     }
   });
 });
 
 test.describe("Golden Flows Workflow tab", () => {
-  test("workflow tab shows Review & Approval Log header", async ({ page }) => {
+  test("workflow tab shows Governance header", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
     const tab = page.getByTestId("workflow-tab");
     await expect(tab).toBeVisible();
-    await expect(tab.getByText("Review & Approval Log")).toBeVisible();
+    await expect(tab.getByText("Governance", { exact: true })).toBeVisible();
   });
 
   test("governance progress bar shows coverage percentage", async ({ page }) => {
@@ -225,7 +203,7 @@ test.describe("Golden Flows Workflow tab", () => {
     const log = page.getByTestId("decision-log");
     await expect(log).toBeVisible();
     // Should show at least one reviewer name
-    await expect(log.getByText("Dr. Raj Patel").first()).toBeVisible();
+    await expect(log.getByText("John Doe").first()).toBeVisible();
   });
 
   test("rejected decisions show review notes", async ({ page }) => {
@@ -236,11 +214,12 @@ test.describe("Golden Flows Workflow tab", () => {
     await expect(log.getByText(/rejected/i).first()).toBeVisible();
   });
 
-  test("workflow tab has evidence and follow-through sections", async ({ page }) => {
+  test("workflow tab shows decision log without investigation content", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
-    await expect(page.getByText("Evidence — questions traced through source data")).toBeVisible();
-    await expect(page.getByText("Follow-through")).toBeVisible();
+    await expect(page.getByTestId("decision-log")).toBeVisible();
+    // Cascade and insights should NOT be in this tab
+    await expect(page.locator("text=Evidence — questions traced through source data")).not.toBeVisible();
   });
 
   test("all 5 verticals render workflow tab", async ({ page }) => {

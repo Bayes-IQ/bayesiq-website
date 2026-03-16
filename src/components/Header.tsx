@@ -9,15 +9,12 @@ const goldenFlowsLive =
   process.env.NEXT_PUBLIC_GOLDEN_FLOWS_STATE === "live";
 
 const navItems = [
+  { label: "See It Work", path: "/golden-flows" },
   { label: "Products", path: "/services" },
   { label: "Approach", path: "/approach" },
   ...(playgroundEnabled
     ? [{ label: "Playground", path: "/playground" }]
     : []),
-  ...(goldenFlowsLive
-    ? [{ label: "Golden Flows", path: "/golden-flows" }]
-    : []),
-  { label: "Case Studies", path: "/case-studies" },
   { label: "Blog", path: "/blog" },
 ];
 

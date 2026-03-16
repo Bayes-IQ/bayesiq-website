@@ -50,31 +50,31 @@
   "score": 64,
   "top_risks": [
     {
-      "business_impact": "Duplicate records inflate aggregations and distort metrics",
-      "rows_affected": 102,
-      "severity": "high",
-      "title": "Near-duplicate rows detected"
-    },
-    {
-      "business_impact": "Null values in required fields break filters and aggregations",
-      "rows_affected": 40,
-      "severity": "high",
-      "title": "Null values in required column: user_id"
-    },
-    {
-      "business_impact": "Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.",
+      "business_impact": "Leadership approved Series C deck showing 1,794 active users — actual count is 9,583. Investor materials contained a 434% undercount",
       "rows_affected": 1,
       "severity": "high",
       "title": "active_users misreported for 2025-12 (off by -434.2%)"
     },
     {
-      "business_impact": "Reported churn_rate for 2025-12 is 30.6%, but recomputed value from raw events is 4.8%. Discrepancy of +84.4%.",
+      "business_impact": "Churn rate reported to board at 30.6% triggered emergency retention spend — actual churn is 4.8%",
       "rows_affected": 1,
       "severity": "high",
       "title": "churn_rate misreported for 2025-12 (off by +84.4%)"
+    },
+    {
+      "business_impact": "102 duplicate user records inflating MRR calculations and distorting cohort analysis",
+      "rows_affected": 102,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
+    },
+    {
+      "business_impact": "40 records missing user_id — these accounts are invisible to retention tracking",
+      "rows_affected": 40,
+      "severity": "high",
+      "title": "Null values in required column: user_id"
     }
   ],
   "total_findings": 4,
   "trend": null,
-  "executive_summary": "In this illustrative example, BayesIQ audits a SaaS company's core reporting pipeline covering active users, churn rate, and MRR calculations. The audit surfaces 4 critical issues — including a 434% active user undercount caused by deduplication failures and a churn rate overstated by 84% due to denominator drift. Leadership had been making expansion and retention decisions based on fundamentally wrong numbers. After remediation, the reliability score improves from 31 to 64."
+  "executive_summary": "BayesIQ audits a SaaS company's core reporting pipeline covering active users, churn rate, and MRR calculations. The audit surfaces 4 critical issues — including a 434% active user undercount caused by deduplication failures and a churn rate overstated by 84% due to denominator drift. Leadership had been making expansion and retention decisions based on fundamentally wrong numbers. After remediation, the reliability score improves from 31 to 64."
 }

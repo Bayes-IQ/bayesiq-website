@@ -386,12 +386,15 @@ export interface DecisionLogEntry {
  * Excludes system-generated records (null display_name) — only shows
  * human-reviewed decisions.
  */
-export function serializeDecisionLog(governance: GovernanceData): DecisionLogEntry[] {
+export function serializeDecisionLog(governance: GovernanceData, verticalPrefix?: string): DecisionLogEntry[] {
   const entries: DecisionLogEntry[] = [];
 
   for (const [, badge] of governance.badgesByObjectId) {
     // Exclude system records (anonymous reviewer, no display_name)
     if (!badge.reviewer.display_name) continue;
+
+    // Filter by vertical prefix if provided (e.g., "hospital" only shows hospital_ events)
+    if (verticalPrefix && !badge.object_id.startsWith(verticalPrefix + "_")) continue;
 
     // Cross-reference approval_status items for review_note
     const approval = governance.approvalsByObjectId.get(badge.object_id);

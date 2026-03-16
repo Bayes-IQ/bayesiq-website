@@ -7,9 +7,7 @@ import {
   getAllHookMetrics,
   getHookMetrics,
   getNarrative,
-  getExecutiveQuestions,
   getTrajectory,
-  getCascadeData,
   getDiscoverInsights,
   getBoardReport,
   getScreenshotManifest,
@@ -20,24 +18,17 @@ import {
   serializeGovernanceForClient,
   serializeDecisionLog,
 } from "@/lib/governance";
-import type { ApprovalStatusValue, GovernanceDetailData } from "@/lib/governance";
+import type { GovernanceDetailData } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import VerticalHero from "@/components/golden-flows/VerticalHero";
 import RealityReveal from "@/components/golden-flows/RealityReveal";
 import VerticalTabs from "@/components/golden-flows/VerticalTabs";
-import AskButtons from "@/components/golden-flows/AskButtons";
-import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection";
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
-import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
-import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
-import BusinessEventList from "@/components/golden-flows/BusinessEventList";
 import GovernanceProgressBar from "@/components/golden-flows/GovernanceProgressBar";
 import DecisionLog from "@/components/golden-flows/DecisionLog";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
 import DashboardGrid from "@/components/golden-flows/DashboardGrid";
-import RemediationArc from "@/components/golden-flows/RemediationArc";
-import BayesIQDifference from "@/components/golden-flows/BayesIQDifference";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -74,9 +65,7 @@ export default async function VerticalPage({ params }: Props) {
   const hookMetrics = getAllHookMetrics();
   const verticalHookMetrics = getHookMetrics(slug);
   const narrative = getNarrative(slug);
-  const executiveQuestions = getExecutiveQuestions(slug);
   const trajectory = getTrajectory(slug);
-  const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
   const boardReport = getBoardReport(slug);
   const screenshotManifest = getScreenshotManifest(slug);
@@ -91,68 +80,21 @@ export default async function VerticalPage({ params }: Props) {
     }
   })();
 
-  // Feedback threads (GF-17)
-  const feedbackItems = governance?.feedbackById
-    ? Array.from(governance.feedbackById.values())
-    : [];
-
-  // Business events (GF-20) — filter by vertical prefix
-  const verticalPrefix = slug.replace(/-gf$/, "");
-  const businessEvents = governance?.businessEventById
-    ? Array.from(governance.businessEventById.values()).filter(
-        (e) => e.event_id.startsWith(verticalPrefix + "_")
-      )
-    : [];
-
-  // Pre-compute trust statuses as plain objects (serializable for client components)
-  const trustStatuses: Record<string, ApprovalStatusValue> = {};
-  if (governance) {
-    for (const v of verticals) {
-      const badge = governance.badgesByObjectId.get(v.slug);
-      if (badge) {
-        trustStatuses[v.slug] = badge.approval_status;
-      }
-    }
-  }
-
-  // Pre-compute trust badge object IDs (C-002, C-015: keys match vertical slugs)
-  const trustBadgeObjectIds: Record<string, string> = {};
-  if (governance) {
-    for (const v of verticals) {
-      const badge = governance.badgesByObjectId.get(v.slug);
-      if (badge) {
-        trustBadgeObjectIds[v.slug] = badge.object_id;
-      }
-    }
-  }
-
-  // Pre-compute cascade governance statuses
-  const cascadeGovernanceStatuses: Record<string, ApprovalStatusValue> = {};
-  if (governance && cascadeData) {
-    for (const questionId of Object.keys(cascadeData.cascades)) {
-      const item = governance.cascadeGovernanceByQuestionId.get(questionId);
-      if (item) {
-        cascadeGovernanceStatuses[questionId] = item.approval_status;
-      }
-    }
-  }
-  const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
-
   // Pre-compute governance detail data (serializable for client GovernanceDetailPanel)
   const governanceDetailData: GovernanceDetailData | null = governance
     ? serializeGovernanceForClient(governance)
     : null;
 
   // Decision Log — human-reviewed governance decisions (excludes system records)
-  const decisionLogEntries = governance ? serializeDecisionLog(governance) : [];
+  const verticalPrefix = slug.replace(/-gf$/, "");
+  const decisionLogEntries = governance ? serializeDecisionLog(governance, verticalPrefix) : [];
 
   // ── Tab content ──────────────────────────────────────────────
 
-  // Dashboard tab: 2×2 widget grid + footer bar
+  // Dashboard tab: screenshot preview + explore link
   const dashboardScreenshot = screenshotManifest?.screenshots.find(
     (s) => s.type === "dashboard"
   ) ?? null;
-  // Streamlit URL: prefer discover_insights dashboard_link, fall back to artifact_links
   const dashboardLink =
     discoverInsights?.insights[0]?.dashboard_link ??
     artifactLinks?.artifacts.find((a) => a.type === "dashboard")?.url ??
@@ -162,7 +104,7 @@ export default async function VerticalPage({ params }: Props) {
     <DashboardGrid
       boardReport={boardReport}
       snapshots={trajectory.snapshots}
-      screenshotUrl={dashboardScreenshot?.url ?? null}
+      screenshotUrl={dashboardScreenshot?.url || null}
       screenshotAlt={dashboardScreenshot?.alt_text ?? null}
       dashboardLink={dashboardLink}
     />
@@ -176,71 +118,39 @@ export default async function VerticalPage({ params }: Props) {
 
   const workflowContent = (
     <div data-testid="workflow-tab">
-      {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-bold tracking-tight text-bayesiq-900">
-          Review &amp; Approval Log
+          Governance
         </h2>
         <p className="text-sm text-bayesiq-500 mt-1">
-          Decisions, evidence, and reviewer attribution for this audit.
+          Every metric change is reviewed, attributed, and traceable.
+        </p>
+        <p className="text-xs text-bayesiq-400 mt-2 italic">
+          Illustrative example — shows how BayesIQ governs metric changes with named reviewers, decisions, and evidence trails.
         </p>
       </div>
 
-      {/* Governance Progress — the hero stat */}
-      <GovernanceProgressBar summary={governance?.trustBadgeSummary ?? null} />
+      <GovernanceProgressBar entries={decisionLogEntries} />
 
-      {/* Decision Log — individual decisions with attribution */}
-      {decisionLogEntries.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
-            Decisions
-          </h3>
+      {decisionLogEntries.length > 0 && boardReport ? (
+        <>
+          <p className="text-sm text-bayesiq-600 mb-3">
+            The {boardReport.total_findings} discrepanc{boardReport.total_findings === 1 ? "y" : "ies"} identified in the Board Report {boardReport.total_findings === 1 ? "was" : "were"} routed for governance review:
+          </p>
           <DecisionLog entries={decisionLogEntries} />
-        </div>
+        </>
+      ) : (
+        <p className="text-sm text-bayesiq-500 italic">
+          Governance decisions for this vertical will appear here as findings are reviewed.
+        </p>
       )}
 
-      {/* Evidence — cascade drill-downs and insights */}
-      <div className="pt-6 border-t border-bayesiq-100">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
-          Evidence — questions traced through source data
-        </h3>
-        <div className="space-y-6">
-          {executiveQuestions && hasCascades ? (
-            <AskAndCascadeSection
-              questions={executiveQuestions.questions}
-              cascades={cascadeData.cascades}
-              cascadeGovernanceStatuses={cascadeGovernanceStatuses}
-            />
-          ) : executiveQuestions ? (
-            <AskButtons questions={executiveQuestions.questions} />
-          ) : null}
-
-          {discoverInsights && <DiscoverInsights data={discoverInsights} />}
-        </div>
+      {/* Bridge to Dashboard tab */}
+      <div className="mt-8 pt-6 border-t border-bayesiq-100 text-center">
+        <p className="text-sm text-bayesiq-600">
+          Once all findings are reviewed and remediated, corrected data flows into the certified dashboard →
+        </p>
       </div>
-
-      {/* Follow-Through */}
-      {(feedbackItems.length > 0 || businessEvents.length > 0) && (
-        <div className="mt-6 pt-6 border-t border-bayesiq-100">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
-            Follow-through — feedback and ongoing review
-          </h3>
-          <div className="space-y-6">
-            {feedbackItems.length > 0 && (
-              <FeedbackThreadList feedbackItems={feedbackItems} />
-            )}
-
-            {businessEvents.length > 0 && (
-              <div>
-                <p className="text-sm font-medium text-bayesiq-700 mb-3">
-                  Business Events
-                </p>
-                <BusinessEventList events={businessEvents} />
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 
@@ -253,8 +163,6 @@ export default async function VerticalPage({ params }: Props) {
           verticals={verticals}
           hookMetrics={hookMetrics}
           currentSlug={slug}
-          trustStatuses={trustStatuses}
-          trustBadgeObjectIds={trustBadgeObjectIds}
         />
 
         {trajectory && (
@@ -270,7 +178,7 @@ export default async function VerticalPage({ params }: Props) {
         {boardReport && (
           <RealityReveal
             metrics={boardReport.key_metrics}
-            topRisk={boardReport.top_risks[0] ?? null}
+            risks={boardReport.top_risks}
             headlineFinding={narrative?.headline_finding ?? null}
           />
         )}
@@ -281,15 +189,39 @@ export default async function VerticalPage({ params }: Props) {
           workflow={workflowContent}
         />
 
-        {trajectory && boardReport && (
-          <RemediationArc
-            snapshots={trajectory.snapshots}
-            totalFindings={boardReport.total_findings}
-            topAction={boardReport.recommended_actions[0] ?? null}
-          />
-        )}
-
-        <BayesIQDifference />
+        {/* Deliverables bar */}
+        <div className="mt-10 rounded-xl border border-bayesiq-200 bg-white px-6 py-4 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400 mb-3">
+            Deliverables
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {dashboardLink && (
+              <a
+                href={dashboardLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
+              >
+                <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l4-4 4 2 5-6" />
+                </svg>
+                Live Dashboard
+              </a>
+            )}
+            <a
+              href={`/golden-flows/${slug}/audit_report.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
+            >
+              <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              Audit Report
+            </a>
+          </div>
+        </div>
 
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}

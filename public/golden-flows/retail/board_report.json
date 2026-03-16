@@ -32,19 +32,19 @@
   "score": 85,
   "top_risks": [
     {
-      "business_impact": "Duplicate records inflate aggregations and distort metrics",
-      "rows_affected": 128,
-      "severity": "high",
-      "title": "Near-duplicate rows detected"
-    },
-    {
-      "business_impact": "Reported sell_through for 2025-12 is 71.1%, but recomputed value from raw events is 64.9%. Discrepancy of +8.6%.",
+      "business_impact": "Buying team ordered $500K+ in seasonal inventory based on 71% sell-through — actual rate is 65%, creating excess stock risk",
       "rows_affected": 1,
       "severity": "medium",
       "title": "sell_through misreported for 2025-12 (off by +8.6%)"
+    },
+    {
+      "business_impact": "128 duplicate transaction records inflating sell-through aggregations and distorting demand forecasts",
+      "rows_affected": 128,
+      "severity": "high",
+      "title": "Near-duplicate rows detected"
     }
   ],
   "total_findings": 2,
   "trend": null,
-  "executive_summary": "In this illustrative example, BayesIQ audits a retailer's inventory and sell-through reporting pipeline. The audit identifies 2 findings — 128 near-duplicate transaction records inflating sell-through aggregations and an 8.6% overstatement in the headline sell-through metric. The buying team had been making seasonal procurement decisions based on phantom demand. After remediation, the reliability score improves from 30 to 85."
+  "executive_summary": "BayesIQ audits a retailer's inventory and sell-through reporting pipeline. The audit identifies 2 findings — 128 near-duplicate transaction records inflating sell-through aggregations and an 8.6% overstatement in the headline sell-through metric. The buying team had been making seasonal procurement decisions based on phantom demand. After remediation, the reliability score improves from 30 to 85."
 }
