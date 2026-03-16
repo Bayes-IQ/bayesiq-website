@@ -18,6 +18,7 @@ import {
 import {
   loadGovernance,
   serializeGovernanceForClient,
+  serializeDecisionLog,
 } from "@/lib/governance";
 import type { ApprovalStatusValue, GovernanceDetailData } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
@@ -30,7 +31,8 @@ import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
 import BusinessEventList from "@/components/golden-flows/BusinessEventList";
-import WorkflowStatusBar from "@/components/golden-flows/WorkflowStatusBar";
+import GovernanceProgressBar from "@/components/golden-flows/GovernanceProgressBar";
+import DecisionLog from "@/components/golden-flows/DecisionLog";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
 import DashboardGrid from "@/components/golden-flows/DashboardGrid";
@@ -141,6 +143,9 @@ export default async function VerticalPage({ params }: Props) {
     ? serializeGovernanceForClient(governance)
     : null;
 
+  // Decision Log — human-reviewed governance decisions (excludes system records)
+  const decisionLogEntries = governance ? serializeDecisionLog(governance) : [];
+
   // ── Tab content ──────────────────────────────────────────────
 
   // Dashboard tab: 2×2 widget grid + footer bar
@@ -174,20 +179,30 @@ export default async function VerticalPage({ params }: Props) {
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-bold tracking-tight text-bayesiq-900">
-          Governance Workflow
+          Review &amp; Approval Log
         </h2>
         <p className="text-sm text-bayesiq-500 mt-1">
-          Approvals, remediation, and evidence tracking for this audit.
+          Decisions, evidence, and reviewer attribution for this audit.
         </p>
       </div>
 
-      {/* Progress bar */}
-      <WorkflowStatusBar summary={governance?.trustBadgeSummary ?? null} />
+      {/* Governance Progress — the hero stat */}
+      <GovernanceProgressBar summary={governance?.trustBadgeSummary ?? null} />
 
-      {/* Active Investigation */}
-      <div className="mt-8">
+      {/* Decision Log — individual decisions with attribution */}
+      {decisionLogEntries.length > 0 && (
+        <div className="mb-8">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            Decisions
+          </h3>
+          <DecisionLog entries={decisionLogEntries} />
+        </div>
+      )}
+
+      {/* Evidence — cascade drill-downs and insights */}
+      <div className="pt-6 border-t border-bayesiq-100">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
-          Investigation — questions traced through source evidence
+          Evidence — questions traced through source data
         </h3>
         <div className="space-y-6">
           {executiveQuestions && hasCascades ? (
@@ -206,7 +221,7 @@ export default async function VerticalPage({ params }: Props) {
 
       {/* Follow-Through */}
       {(feedbackItems.length > 0 || businessEvents.length > 0) && (
-        <div className="mt-8 pt-8 border-t border-bayesiq-100">
+        <div className="mt-6 pt-6 border-t border-bayesiq-100">
           <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-4">
             Follow-through — feedback and ongoing review
           </h3>

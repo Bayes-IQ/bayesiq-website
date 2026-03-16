@@ -202,27 +202,44 @@ test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () =
   });
 });
 
-test.describe("Golden Flows Workflow tab (PR#46)", () => {
-  test("workflow tab shows governance header and status bar", async ({ page }) => {
+test.describe("Golden Flows Workflow tab", () => {
+  test("workflow tab shows Review & Approval Log header", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
     const tab = page.getByTestId("workflow-tab");
     await expect(tab).toBeVisible();
-    await expect(tab.getByText("Governance Workflow")).toBeVisible();
-    await expect(page.getByTestId("workflow-status-bar")).toBeVisible();
+    await expect(tab.getByText("Review & Approval Log")).toBeVisible();
   });
 
-  test("workflow status bar shows reviewed/pending counts", async ({ page }) => {
+  test("governance progress bar shows coverage percentage", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
-    const bar = page.getByTestId("workflow-status-bar");
-    await expect(bar).toContainText("reviewed");
+    const bar = page.getByTestId("governance-progress-bar");
+    await expect(bar).toBeVisible();
+    await expect(bar).toContainText("Governance Coverage");
   });
 
-  test("workflow tab has investigation and follow-through sections", async ({ page }) => {
+  test("decision log shows individual decisions with reviewer attribution", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
     await page.getByRole("tab", { name: "Workflow" }).click();
-    await expect(page.getByText("Investigation")).toBeVisible();
+    const log = page.getByTestId("decision-log");
+    await expect(log).toBeVisible();
+    // Should show at least one reviewer name
+    await expect(log.getByText("Dr. Raj Patel").first()).toBeVisible();
+  });
+
+  test("rejected decisions show review notes", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Workflow" }).click();
+    const log = page.getByTestId("decision-log");
+    // Hospital has a billing code swap rejection
+    await expect(log.getByText(/rejected/i).first()).toBeVisible();
+  });
+
+  test("workflow tab has evidence and follow-through sections", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab", { name: "Workflow" }).click();
+    await expect(page.getByText("Evidence — questions traced through source data")).toBeVisible();
     await expect(page.getByText("Follow-through")).toBeVisible();
   });
 
