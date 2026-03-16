@@ -156,6 +156,13 @@ export default async function VerticalPage({ params }: Props) {
       {decisionLogEntries.length > 0 && (
         <DecisionLog entries={decisionLogEntries} />
       )}
+
+      {/* Bridge to Dashboard tab */}
+      <div className="mt-8 pt-6 border-t border-bayesiq-100 text-center">
+        <p className="text-sm text-bayesiq-600">
+          After review and remediation, certified data flows into the operational dashboard.
+        </p>
+      </div>
     </div>
   );
 
