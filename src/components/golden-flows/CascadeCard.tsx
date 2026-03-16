@@ -8,6 +8,8 @@ import TrustBadge from "./TrustBadge";
 interface CascadeCardProps {
   entry: CascadeEntry;
   governanceStatus?: ApprovalStatusValue | null;
+  questionId?: string;
+  onGovernanceDetail?: (objectId: string, objectType: "finding" | "question") => void;
 }
 
 const STEP_TYPE_META: Record<
@@ -33,7 +35,7 @@ function reviewerStatusColor(status: string): string {
   }
 }
 
-export default function CascadeCard({ entry, governanceStatus }: CascadeCardProps) {
+export default function CascadeCard({ entry, governanceStatus, questionId, onGovernanceDetail }: CascadeCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -99,7 +101,17 @@ export default function CascadeCard({ entry, governanceStatus }: CascadeCardProp
           <span className="text-xs text-bayesiq-400">
             {entry.reviewer_badge.reviewer_name}
           </span>
-          <TrustBadge status={governanceStatus ?? null} size="sm" />
+          <TrustBadge
+            status={governanceStatus ?? null}
+            size="sm"
+            onClick={questionId && onGovernanceDetail
+              ? (e) => {
+                  e?.stopPropagation();
+                  onGovernanceDetail(questionId, "question");
+                }
+              : undefined
+            }
+          />
         </div>
       </button>
 

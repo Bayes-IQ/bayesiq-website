@@ -13,8 +13,9 @@ import {
 } from "@/lib/golden-flows";
 import {
   loadGovernance,
+  serializeGovernanceForClient,
 } from "@/lib/governance";
-import type { ApprovalStatusValue } from "@/lib/governance";
+import type { ApprovalStatusValue, GovernanceDetailData } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
 import VerticalLanding from "@/components/golden-flows/VerticalLanding";
@@ -24,6 +25,7 @@ import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
 import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
+import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -89,6 +91,17 @@ export default async function VerticalPage({ params }: Props) {
     }
   }
 
+  // Pre-compute trust badge object IDs (C-002, C-015: keys match vertical slugs)
+  const trustBadgeObjectIds: Record<string, string> = {};
+  if (governance) {
+    for (const v of verticals) {
+      const badge = governance.badgesByObjectId.get(v.slug);
+      if (badge) {
+        trustBadgeObjectIds[v.slug] = badge.object_id;
+      }
+    }
+  }
+
   // Pre-compute cascade governance statuses
   const cascadeGovernanceStatuses: Record<string, ApprovalStatusValue> = {};
   if (governance && cascadeData) {
@@ -101,58 +114,66 @@ export default async function VerticalPage({ params }: Props) {
   }
   const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
 
+  // Pre-compute governance detail data (serializable for client GovernanceDetailPanel)
+  const governanceDetailData: GovernanceDetailData | null = governance
+    ? serializeGovernanceForClient(governance)
+    : null;
+
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
-      <VerticalSelector
-        verticals={verticals}
-        hookMetrics={hookMetrics}
-        currentSlug={slug}
-        trustStatuses={trustStatuses}
-      />
-
-      <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
-
-      {trajectory && executiveQuestions && (
-        <VerticalLanding
-          trajectory={trajectory}
-          questions={executiveQuestions.questions}
-          verticalName={vertical.display_name}
+    <GovernanceDetailProvider data={governanceDetailData}>
+      <main className="mx-auto max-w-5xl px-6 py-16">
+        <VerticalSelector
+          verticals={verticals}
+          hookMetrics={hookMetrics}
+          currentSlug={slug}
+          trustStatuses={trustStatuses}
+          trustBadgeObjectIds={trustBadgeObjectIds}
         />
-      )}
 
-      {narrative && <StatusQuoComparison narrative={narrative} />}
+        <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
 
-      <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
-        {vertical.display_name}
-      </h1>
+        {trajectory && executiveQuestions && (
+          <VerticalLanding
+            trajectory={trajectory}
+            questions={executiveQuestions.questions}
+            verticalName={vertical.display_name}
+          />
+        )}
 
-      {/* If cascade data exists, render combined ask+cascade section;
-          otherwise fall back to ask buttons only */}
-      {executiveQuestions && hasCascades ? (
-        <AskAndCascadeSection
-          questions={executiveQuestions.questions}
-          cascades={cascadeData.cascades}
-          cascadeGovernanceStatuses={cascadeGovernanceStatuses}
+        {narrative && <StatusQuoComparison narrative={narrative} />}
+
+        <h1 className="mt-8 text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
+          {vertical.display_name}
+        </h1>
+
+        {/* If cascade data exists, render combined ask+cascade section;
+            otherwise fall back to ask buttons only */}
+        {executiveQuestions && hasCascades ? (
+          <AskAndCascadeSection
+            questions={executiveQuestions.questions}
+            cascades={cascadeData.cascades}
+            cascadeGovernanceStatuses={cascadeGovernanceStatuses}
+          />
+        ) : executiveQuestions ? (
+          <AskButtons questions={executiveQuestions.questions} />
+        ) : null}
+
+        {discoverInsights && <DiscoverInsights data={discoverInsights} />}
+
+        {/* Feedback Threads — GF-17 */}
+        {feedbackItems.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
+              Feedback Threads
+            </h2>
+            <FeedbackThreadList feedbackItems={feedbackItems} />
+          </section>
+        )}
+        <GoldenFlowsCTA
+          ctaLabel={narrative?.cta_label}
+          vertical={vertical.display_name}
         />
-      ) : executiveQuestions ? (
-        <AskButtons questions={executiveQuestions.questions} />
-      ) : null}
-
-      {discoverInsights && <DiscoverInsights data={discoverInsights} />}
-
-      {/* Feedback Threads — GF-17 */}
-      {feedbackItems.length > 0 && (
-        <section className="mt-12">
-          <h2 className="text-xl font-bold tracking-tight text-bayesiq-900 mb-4">
-            Feedback Threads
-          </h2>
-          <FeedbackThreadList feedbackItems={feedbackItems} />
-        </section>
-      )}
-      <GoldenFlowsCTA
-        ctaLabel={narrative?.cta_label}
-        vertical={vertical.display_name}
-      />
-    </main>
+      </main>
+    </GovernanceDetailProvider>
   );
 }

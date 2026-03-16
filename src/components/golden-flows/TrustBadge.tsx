@@ -4,6 +4,7 @@ interface TrustBadgeProps {
   status: ApprovalStatusValue | null;
   size?: "sm" | "md";
   showLabel?: boolean;
+  onClick?: (e?: React.MouseEvent) => void;
 }
 
 const STATUS_CONFIG: Record<
@@ -48,6 +49,7 @@ export default function TrustBadge({
   status,
   size = "md",
   showLabel = true,
+  onClick,
 }: TrustBadgeProps) {
   if (status === null) return null;
 
@@ -57,7 +59,7 @@ export default function TrustBadge({
   const textSize = size === "sm" ? "text-[10px]" : "text-xs";
   const iconSize = size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4";
 
-  return (
+  const badge = (
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 ${textSize} font-medium ${config.bg} ${config.text}`}
       aria-label={config.label}
@@ -74,6 +76,22 @@ export default function TrustBadge({
       {showLabel && <span>{config.label}</span>}
     </span>
   );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className="cursor-pointer hover:ring-2 hover:ring-bayesiq-300 rounded-full"
+        aria-haspopup="dialog"
+        data-testid="trust-badge-button"
+      >
+        {badge}
+      </button>
+    );
+  }
+
+  return badge;
 }
 
 /** Exported for testing */

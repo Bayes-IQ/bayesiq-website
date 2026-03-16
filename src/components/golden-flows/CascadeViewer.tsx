@@ -11,12 +11,15 @@ interface CascadeViewerProps {
   activeQuestionId?: string | null;
   /** Optional governance status lookup for cascade questions */
   getCascadeGovernanceStatus?: (questionId: string) => ApprovalStatusValue | null;
+  /** Callback to open governance detail panel */
+  onGovernanceDetail?: (objectId: string, objectType: "finding" | "question") => void;
 }
 
 export default function CascadeViewer({
   cascades,
   activeQuestionId,
   getCascadeGovernanceStatus,
+  onGovernanceDetail,
 }: CascadeViewerProps) {
   const entries = activeQuestionId
     ? cascades[activeQuestionId]
@@ -43,6 +46,8 @@ export default function CascadeViewer({
                 ? getCascadeGovernanceStatus(entry.question_id)
                 : undefined
             }
+            questionId={entry.question_id}
+            onGovernanceDetail={onGovernanceDetail}
           />
         ))}
       </div>

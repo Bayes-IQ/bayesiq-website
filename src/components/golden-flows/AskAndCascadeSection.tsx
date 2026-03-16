@@ -6,6 +6,7 @@ import type { CascadeEntry } from "@/types/golden-flows/contract-b/cascade_data"
 import type { ApprovalStatusValue } from "@/lib/governance";
 import AskButtons from "./AskButtons";
 import CascadeViewer from "./CascadeViewer";
+import { useGovernanceDetail } from "./GovernanceDetailProvider";
 
 interface AskAndCascadeSectionProps {
   questions: ExecutiveQuestion[];
@@ -20,6 +21,7 @@ export default function AskAndCascadeSection({
   cascadeGovernanceStatuses,
 }: AskAndCascadeSectionProps) {
   const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
+  const { openGovernanceDetail } = useGovernanceDetail();
 
   function handleQuestionClick(questionId: string) {
     // Toggle: click the same question again to clear filter
@@ -41,6 +43,7 @@ export default function AskAndCascadeSection({
         cascades={cascades}
         activeQuestionId={activeQuestionId}
         getCascadeGovernanceStatus={getCascadeGovernanceStatus}
+        onGovernanceDetail={openGovernanceDetail}
       />
     </>
   );
