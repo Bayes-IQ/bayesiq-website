@@ -185,6 +185,40 @@ export default async function VerticalPage({ params }: Props) {
           workflow={workflowContent}
         />
 
+        {/* Deliverables bar */}
+        <div className="mt-10 rounded-xl border border-bayesiq-200 bg-white px-6 py-4 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400 mb-3">
+            Deliverables
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {dashboardLink && (
+              <a
+                href={dashboardLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
+              >
+                <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l4-4 4 2 5-6" />
+                </svg>
+                Live Dashboard
+              </a>
+            )}
+            <a
+              href={`/golden-flows/${slug}/audit_report.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
+            >
+              <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              Audit Report
+            </a>
+          </div>
+        </div>
+
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}
           vertical={vertical.display_name}

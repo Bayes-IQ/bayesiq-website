@@ -1,0 +1,121 @@
+# BayesIQ Data Reliability Audit
+**Run ID:** saas_month_3
+**Generated:** 2026-03-16 06:31 UTC
+
+## Dataset Overview
+
+| Metric | Value |
+|--------|-------|
+| File | raw_month_3.csv |
+| Rows | 10,039 |
+| Columns | 16 |
+| File Size | 1.4 MB |
+
+## Data Quality Summary
+
+**4 issues found**
+
+- **High:** 4
+
+## Executive Scorecard
+
+### Data Reliability Score: 64 / 100
+
+**Fair — significant data quality issues detected**
+
+### Top Issues
+
+1. **[HIGH]** active_users misreported for 2025-12 (off by -434.2%) (1 rows)
+   - *Impact:* Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.
+2. **[HIGH]** churn_rate misreported for 2025-12 (off by +84.4%) (1 rows)
+   - *Impact:* Reported churn_rate for 2025-12 is 30.6%, but recomputed value from raw events is 4.8%. Discrepancy of +84.4%.
+3. **[HIGH]** Near-duplicate rows detected (102 rows)
+   - *Impact:* Duplicate records inflate aggregations and distort metrics
+4. **[HIGH]** Null values in required column: user_id (40 rows)
+   - *Impact:* Null values in required fields break filters and aggregations
+
+### Prioritized Remediation Plan
+
+| # | Action | Owner | Effort |
+|---|--------|-------|--------|
+| 1 | Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences. | Data Engineering | M |
+| 2 | Investigate root cause of churn_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences. | Data Engineering | M |
+| 3 | Investigate duplicate records. Add dedup logic keyed on non-key fields. | Data Engineering | M |
+| 4 | Fix null values in required column 'user_id' at the source. | Data Engineering | M |
+
+### Score Rationale
+
+| Finding | Severity | Prevalence | Deduction |
+|---------|----------|------------|-----------|
+| active_users misreported for 2025-12 (off by -434.2%) | high | low (0.0%) | -8 |
+| churn_rate misreported for 2025-12 (off by +84.4%) | high | low (0.0%) | -8 |
+| Near-duplicate rows detected | high | medium (1.0%) | -12 |
+| Null values in required column: user_id | high | low (0.4%) | -8 |
+
+## Findings
+
+### 1. [HIGH] active_users misreported for 2025-12 (off by -434.2%)
+
+Reported active_users for 2025-12 is 1,794, but recomputed value from raw events is 9,583. Discrepancy of -434.2%.
+
+- **Rows affected:** 1
+- **Examples:** {metric: active_users, period: 2025-12, reported: 1794.0, recomputed: 9583.0, discrepancy_pct: -434.2}
+
+**Recommended fix:** Investigate root cause of active_users discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.
+
+### 2. [HIGH] churn_rate misreported for 2025-12 (off by +84.4%)
+
+Reported churn_rate for 2025-12 is 30.6%, but recomputed value from raw events is 4.8%. Discrepancy of +84.4%.
+
+- **Rows affected:** 1
+- **Examples:** {metric: churn_rate, period: 2025-12, reported: 0.3056, recomputed: 0.0476, discrepancy_pct: 84.4}
+
+**Recommended fix:** Investigate root cause of churn_rate discrepancy for 2025-12. Check for duplicate events, missing data, or filter logic differences.
+
+### 3. [HIGH] Near-duplicate rows detected
+
+102 near-duplicate rows detected (identical on all fields except key columns). This suggests duplicate ingestion or recording.
+
+- **Rows affected:** 102
+- **Columns:** `user_id`, `account_id`, `event_name`, `timestamp`, `plan_tier`, `region`, `acquisition_channel`, `account_segment`, `mrr`, `expansion_amount`, `session_duration`, `churned_flag`, `active_flag`, `current_mrr`, `prior_mrr`
+- **Examples:** `248`, `708`, `774`, `871`, `929` ... and 5 more
+
+**Recommended fix:** Investigate duplicate records. Add dedup logic keyed on non-key fields.
+
+### 4. [HIGH] Null values in required column: user_id
+
+Required column 'user_id' has 40 null values.
+
+- **Rows affected:** 40
+- **Columns:** `user_id`
+- **Examples:** `341`, `599`, `811`, `937`, `2195` ... and 5 more
+
+**Recommended fix:** Fix null values in required column 'user_id' at the source.
+
+## Column Profile Summary
+
+| Column | Type | Null Rate | Unique | Cardinality |
+|--------|------|-----------|--------|-------------|
+| event_id | str | 0.0% | 10039 | 1.00 |
+| user_id | str | 0.4% | 1761 | 0.18 |
+| account_id | str | 0.0% | 1000 | 0.10 |
+| event_name | str | 0.0% | 8 | 0.00 |
+| timestamp | datetime64[us, UTC] | 0.0% | 721 | 0.07 |
+| plan_tier | str | 0.0% | 4 | 0.00 |
+| region | str | 0.0% | 4 | 0.00 |
+| acquisition_channel | str | 0.0% | 4 | 0.00 |
+| account_segment | str | 0.0% | 3 | 0.00 |
+| mrr | int64 | 0.0% | 4 | 0.00 |
+| expansion_amount | float64 | 0.0% | 4 | 0.00 |
+| session_duration | float64 | 0.0% | 631 | 0.06 |
+| churned_flag | int64 | 0.0% | 2 | 0.00 |
+| active_flag | int64 | 0.0% | 2 | 0.00 |
+| current_mrr | float64 | 0.0% | 4 | 0.00 |
+| prior_mrr | float64 | 0.0% | 4 | 0.00 |
+
+## Recommended Next Steps
+
+See the **Prioritized Remediation Plan** above for detailed actions with owners and effort estimates.
+
+---
+*Generated by BayesIQ Data Audit Kit*
