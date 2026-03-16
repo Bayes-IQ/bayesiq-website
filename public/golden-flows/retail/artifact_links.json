@@ -8,7 +8,7 @@
       "vertical": "retail",
       "month": 3,
       "type": "dashboard",
-      "url": "https://demo.bayesiq.com/dashboards/retail/month-3",
+      "url": "https://bayesiq-dashboard-golden-flows-retail.streamlit.app",
       "title": "Retail Data Quality Dashboard — Month 3"
     },
     {
@@ -16,7 +16,7 @@
       "vertical": "retail",
       "month": 3,
       "type": "report",
-      "url": "https://demo.bayesiq.com/reports/retail/month-3",
+      "url": "/golden-flows/retail",
       "title": "Retail Audit Report — Month 3"
     }
   ]

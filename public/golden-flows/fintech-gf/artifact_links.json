@@ -8,7 +8,7 @@
       "vertical": "fintech",
       "month": 3,
       "type": "dashboard",
-      "url": "https://demo.bayesiq.com/dashboards/fintech/month-3",
+      "url": "https://bayesiq-dashboard-golden-flows-fintech.streamlit.app",
       "title": "Fintech Data Quality Dashboard — Month 3"
     },
     {
@@ -16,7 +16,7 @@
       "vertical": "fintech",
       "month": 3,
       "type": "report",
-      "url": "https://demo.bayesiq.com/reports/fintech/month-3",
+      "url": "/golden-flows/fintech",
       "title": "Fintech Audit Report — Month 3"
     }
   ]

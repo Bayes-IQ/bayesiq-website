@@ -8,7 +8,7 @@
       "vertical": "saas",
       "month": 3,
       "type": "dashboard",
-      "url": "https://demo.bayesiq.com/dashboards/saas/month-3",
+      "url": "https://bayesiq-dashboard-golden-flows-saas.streamlit.app",
       "title": "SaaS Data Quality Dashboard — Month 3"
     },
     {
@@ -16,7 +16,7 @@
       "vertical": "saas",
       "month": 3,
       "type": "report",
-      "url": "https://demo.bayesiq.com/reports/saas/month-3",
+      "url": "/golden-flows/saas",
       "title": "SaaS Audit Report — Month 3"
     }
   ]

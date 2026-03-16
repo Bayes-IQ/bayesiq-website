@@ -8,7 +8,7 @@
       "vertical": "hospital",
       "month": 3,
       "type": "dashboard",
-      "url": "https://demo.bayesiq.com/dashboards/hospital/month-3",
+      "url": "https://bayesiq-dashboard-golden-flows-hospital.streamlit.app",
       "title": "Healthcare Data Quality Dashboard — Month 3"
     },
     {
@@ -16,7 +16,7 @@
       "vertical": "hospital",
       "month": 3,
       "type": "report",
-      "url": "https://demo.bayesiq.com/reports/hospital/month-3",
+      "url": "/golden-flows/hospital",
       "title": "Healthcare Audit Report — Month 3"
     }
   ]
