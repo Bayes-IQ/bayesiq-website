@@ -11,6 +11,10 @@ import {
   getCascadeData,
   getDiscoverInsights,
 } from "@/lib/golden-flows";
+import {
+  loadGovernance,
+} from "@/lib/governance";
+import type { ApprovalStatusValue } from "@/lib/governance";
 import VerticalSelector from "@/components/golden-flows/VerticalSelector";
 import StatusQuoComparison from "@/components/golden-flows/StatusQuoComparison";
 import VerticalLanding from "@/components/golden-flows/VerticalLanding";
@@ -19,7 +23,7 @@ import AskAndCascadeSection from "@/components/golden-flows/AskAndCascadeSection
 import GoldenFlowsCTA from "@/components/golden-flows/GoldenFlowsCTA";
 import DiscoverInsights from "@/components/golden-flows/DiscoverInsights";
 import FeedbackThreadList from "@/components/golden-flows/FeedbackThreadList";
-import { loadGovernance } from "@/lib/governance";
+import TrustSummaryBar from "@/components/golden-flows/TrustSummaryBar";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -60,6 +64,7 @@ export default async function VerticalPage({ params }: Props) {
   const cascadeData = getCascadeData(slug);
   const discoverInsights = getDiscoverInsights(slug);
 
+  // Load governance data (null-safe — returns empty maps if unavailable)
   const governance = (() => {
     try {
       return loadGovernance();
@@ -68,9 +73,32 @@ export default async function VerticalPage({ params }: Props) {
     }
   })();
 
+  // Feedback threads (GF-17)
   const feedbackItems = governance?.feedbackById
     ? Array.from(governance.feedbackById.values())
     : [];
+
+  // Pre-compute trust statuses as plain objects (serializable for client components)
+  const trustStatuses: Record<string, ApprovalStatusValue> = {};
+  if (governance) {
+    for (const v of verticals) {
+      const badge = governance.badgesByObjectId.get(v.slug);
+      if (badge) {
+        trustStatuses[v.slug] = badge.approval_status;
+      }
+    }
+  }
+
+  // Pre-compute cascade governance statuses
+  const cascadeGovernanceStatuses: Record<string, ApprovalStatusValue> = {};
+  if (governance && cascadeData) {
+    for (const questionId of Object.keys(cascadeData.cascades)) {
+      const item = governance.cascadeGovernanceByQuestionId.get(questionId);
+      if (item) {
+        cascadeGovernanceStatuses[questionId] = item.approval_status;
+      }
+    }
+  }
   const hasCascades = cascadeData && Object.keys(cascadeData.cascades).length > 0;
 
   return (
@@ -79,7 +107,10 @@ export default async function VerticalPage({ params }: Props) {
         verticals={verticals}
         hookMetrics={hookMetrics}
         currentSlug={slug}
+        trustStatuses={trustStatuses}
       />
+
+      <TrustSummaryBar summary={governance?.trustBadgeSummary ?? null} />
 
       {trajectory && executiveQuestions && (
         <VerticalLanding
@@ -101,6 +132,7 @@ export default async function VerticalPage({ params }: Props) {
         <AskAndCascadeSection
           questions={executiveQuestions.questions}
           cascades={cascadeData.cascades}
+          cascadeGovernanceStatuses={cascadeGovernanceStatuses}
         />
       ) : executiveQuestions ? (
         <AskButtons questions={executiveQuestions.questions} />

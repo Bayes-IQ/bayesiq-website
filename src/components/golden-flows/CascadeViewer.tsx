@@ -1,6 +1,7 @@
 "use client";
 
 import type { CascadeEntry } from "@/types/golden-flows/contract-b/cascade_data";
+import type { ApprovalStatusValue } from "@/lib/governance";
 import CascadeCard from "./CascadeCard";
 
 interface CascadeViewerProps {
@@ -8,11 +9,14 @@ interface CascadeViewerProps {
   cascades: Record<string, CascadeEntry>;
   /** When set, only show the cascade for this question */
   activeQuestionId?: string | null;
+  /** Optional governance status lookup for cascade questions */
+  getCascadeGovernanceStatus?: (questionId: string) => ApprovalStatusValue | null;
 }
 
 export default function CascadeViewer({
   cascades,
   activeQuestionId,
+  getCascadeGovernanceStatus,
 }: CascadeViewerProps) {
   const entries = activeQuestionId
     ? cascades[activeQuestionId]
@@ -31,7 +35,15 @@ export default function CascadeViewer({
       </h2>
       <div className="space-y-4">
         {entries.map((entry) => (
-          <CascadeCard key={entry.question_id} entry={entry} />
+          <CascadeCard
+            key={entry.question_id}
+            entry={entry}
+            governanceStatus={
+              getCascadeGovernanceStatus
+                ? getCascadeGovernanceStatus(entry.question_id)
+                : undefined
+            }
+          />
         ))}
       </div>
     </section>
