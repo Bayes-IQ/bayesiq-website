@@ -91,8 +91,8 @@ function DocumentHeader({
 
 function NarrativeParagraph({ text }: { text: string }) {
   return (
-    <div className="mb-6" data-testid="report-narrative">
-      <p className="text-sm leading-relaxed text-bayesiq-700">{text}</p>
+    <div className="mb-8" data-testid="report-narrative">
+      <p className="text-base leading-relaxed text-bayesiq-700">{text}</p>
     </div>
   );
 }
@@ -281,9 +281,9 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
         </div>
       )}
 
-      {/* Recommended Actions */}
+      {/* Recommended Actions — faded to suggest more content below */}
       {report.recommended_actions.length > 0 && (
-        <div>
+        <div className="relative">
           <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
             Recommended Actions
           </h3>
@@ -292,8 +292,15 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
               <ActionItem key={action.action} action={action} index={i} />
             ))}
           </ol>
+          {/* Fade overlay to suggest document continues */}
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none" />
         </div>
       )}
+
+      {/* Footer */}
+      <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-bayesiq-400">
+        Prepared by BayesIQ · {report.key_metrics[0]?.period ?? "2025"}
+      </div>
     </div>
   );
 }

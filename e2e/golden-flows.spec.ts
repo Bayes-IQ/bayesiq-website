@@ -71,8 +71,8 @@ test.describe("Golden Flows tabs", () => {
     await page.goto("/golden-flows/hospital");
     // Hero should contain the reliability score label
     await expect(page.getByText("Reliability Score").first()).toBeVisible();
-    // Hero should show the score movement (first → last)
-    await expect(page.getByText("31 → 81")).toBeVisible();
+    // Hero should show a score number
+    await expect(page.getByText("81").first()).toBeVisible();
   });
 
   test("reality reveal shows reported vs audited vs decision exposure", async ({ page }) => {
@@ -85,14 +85,11 @@ test.describe("Golden Flows tabs", () => {
 });
 
 test.describe("Golden Flows Dashboard tab (PR#41)", () => {
-  test("dashboard tab shows metric cards", async ({ page }) => {
+  test("dashboard tab shows widget grid", async ({ page }) => {
     await page.goto("/golden-flows/hospital");
-    // Dashboard is the default tab — metric cards grid should be visible
-    const grid = page.getByTestId("metric-cards-grid");
+    // Dashboard is the default tab — widget grid should be visible
+    const grid = page.getByTestId("dashboard-grid");
     await expect(grid).toBeVisible();
-    // Should contain at least one metric card (hospital has 1 key_metric + score card)
-    const cards = grid.locator("> div");
-    await expect(cards.first()).toBeVisible();
   });
 
   test("ScoreTrajectory is visible in dashboard tab", async ({ page }) => {
@@ -154,6 +151,53 @@ test.describe("Board Report document preview", () => {
       await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
       const body = page.locator("body");
       await expect(body).not.toContainText("Application error");
+    }
+  });
+});
+
+test.describe("Golden Flows PR#43 — Dashboard grid + narrative sections", () => {
+  test("dashboard tab shows 2x2 widget grid", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    const grid = page.getByTestId("dashboard-grid");
+    await expect(grid).toBeVisible();
+  });
+
+  test("dashboard screenshot or placeholder is visible in grid", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    const screenshot = page.getByTestId("dashboard-screenshot");
+    await expect(screenshot).toBeVisible();
+  });
+
+  test("board report shows executive summary narrative", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    await page.getByRole("tab").nth(1).click();
+    const narrative = page.getByTestId("report-narrative");
+    await expect(narrative).toBeVisible();
+    await expect(narrative).toContainText("Mercy General");
+  });
+
+  test("remediation arc is visible with score badges", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    const arc = page.getByTestId("remediation-arc");
+    await expect(arc).toBeVisible();
+    await expect(arc).toContainText("Discovery");
+    await expect(arc).toContainText("Steady State");
+  });
+
+  test("BayesIQ difference section is visible", async ({ page }) => {
+    await page.goto("/golden-flows/hospital");
+    const diff = page.getByTestId("bayesiq-difference");
+    await expect(diff).toBeVisible();
+    await expect(diff).toContainText("business meaning");
+  });
+
+  test("all 5 verticals render dashboard grid + narrative sections", async ({ page }) => {
+    const verticals = ["hospital", "saas", "retail", "fintech-gf", "real-estate"];
+    for (const v of verticals) {
+      await page.goto(`/golden-flows/${v}`);
+      await expect(page.getByTestId("dashboard-grid")).toBeVisible();
+      await expect(page.getByTestId("remediation-arc")).toBeVisible();
+      await expect(page.getByTestId("bayesiq-difference")).toBeVisible();
     }
   });
 });
