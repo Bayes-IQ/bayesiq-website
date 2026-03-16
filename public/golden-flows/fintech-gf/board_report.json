@@ -58,5 +58,5 @@
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In this hypothetical example, BayesIQ audits a fintech company's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. The audit identifies 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement constituting a material misstatement. After remediation, the reliability score improves from 33 to 81."
+  "executive_summary": "In this illustrative example, BayesIQ audits a fintech company's transaction fee revenue pipeline across merchant reconciliation, fee calculations, and regulatory reporting. The audit identifies 3 findings — including 54 near-duplicate transaction records, null merchant IDs breaking downstream aggregations, and an 8.4% fee revenue overstatement constituting a material misstatement. After remediation, the reliability score improves from 33 to 81."
 }

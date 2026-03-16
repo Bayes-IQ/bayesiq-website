@@ -367,3 +367,54 @@ export function serializeGovernanceForClient(governance: GovernanceData): Govern
 
   return { records, reviewContexts };
 }
+
+// ============================================================
+// Decision Log serialization (PR #47)
+// ============================================================
+
+export interface DecisionLogEntry {
+  object_id: string;
+  object_type: string;
+  approval_status: ApprovalStatusValue;
+  reviewer_name: string;
+  last_reviewed_at: string;
+  review_note: string | null;
+}
+
+/**
+ * Serialize governance badges + approval notes into a Decision Log.
+ * Excludes system-generated records (null display_name) — only shows
+ * human-reviewed decisions.
+ */
+export function serializeDecisionLog(governance: GovernanceData): DecisionLogEntry[] {
+  const entries: DecisionLogEntry[] = [];
+
+  for (const [, badge] of governance.badgesByObjectId) {
+    // Exclude system records (anonymous reviewer, no display_name)
+    if (!badge.reviewer.display_name) continue;
+
+    // Cross-reference approval_status items for review_note
+    const approval = governance.approvalsByObjectId.get(badge.object_id);
+    const reviewNote = approval?.review_note ?? null;
+
+    entries.push({
+      object_id: badge.object_id,
+      object_type: badge.object_type,
+      approval_status: badge.approval_status,
+      reviewer_name: badge.reviewer.display_name,
+      last_reviewed_at: badge.last_reviewed_at,
+      review_note: reviewNote,
+    });
+  }
+
+  // Sort: rejected first, then pending, then approved
+  const statusOrder: Record<string, number> = {
+    rejected: 0,
+    pending: 1,
+    deferred: 2,
+    approved: 3,
+  };
+  entries.sort((a, b) => (statusOrder[a.approval_status] ?? 4) - (statusOrder[b.approval_status] ?? 4));
+
+  return entries;
+}

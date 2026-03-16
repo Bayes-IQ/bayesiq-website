@@ -58,5 +58,5 @@
   ],
   "total_findings": 3,
   "trend": null,
-  "executive_summary": "In this hypothetical example, BayesIQ audits a healthcare organization's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. The audit identifies 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — directly affecting board-reported readmission metrics. After targeted remediation, the reliability score improves from 31 to 81 and the readmission rate discrepancy narrows from 5.7% to within acceptable tolerance."
+  "executive_summary": "In this illustrative example, BayesIQ audits a healthcare organization's patient data infrastructure across readmission tracking, patient identity matching, and outcome reporting. The audit identifies 3 material discrepancies — including 50 near-duplicate patient records inflating aggregations and null patient IDs breaking downstream filters — directly affecting board-reported readmission metrics. After targeted remediation, the reliability score improves from 31 to 81 and the readmission rate discrepancy narrows from 5.7% to within acceptable tolerance."
 }
