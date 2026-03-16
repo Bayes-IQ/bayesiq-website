@@ -4,11 +4,18 @@ import { test, expect } from "@playwright/test";
 // cascade_governance, so cascade cards render clickable trust badges.
 const VERTICAL = "/golden-flows/hospital";
 
+// Trust badges live inside the Workflow tab after the Golden Flows redesign.
+// Each test must navigate to the Workflow tab before interacting with badges.
+async function gotoWorkflowTab(page: import("@playwright/test").Page) {
+  await page.goto(VERTICAL);
+  await page.getByRole("tab", { name: "Workflow" }).click();
+}
+
 test.describe("Governance Detail Panel", () => {
   test("clicking a trust badge on cascade card opens governance detail dialog", async ({
     page,
   }) => {
-    await page.goto(VERTICAL);
+    await gotoWorkflowTab(page);
 
     // Cascade cards render trust badges for governed question_ids
     const badge = page.locator('[data-testid="trust-badge-button"]').first();
@@ -20,7 +27,7 @@ test.describe("Governance Detail Panel", () => {
   });
 
   test("panel shows approval status and reviewer info", async ({ page }) => {
-    await page.goto(VERTICAL);
+    await gotoWorkflowTab(page);
 
     const badge = page.locator('[data-testid="trust-badge-button"]').first();
     await badge.click();
@@ -38,7 +45,7 @@ test.describe("Governance Detail Panel", () => {
   });
 
   test("clicking close button closes the panel", async ({ page }) => {
-    await page.goto(VERTICAL);
+    await gotoWorkflowTab(page);
 
     const badge = page.locator('[data-testid="trust-badge-button"]').first();
     await badge.click();
@@ -53,7 +60,7 @@ test.describe("Governance Detail Panel", () => {
   });
 
   test("pressing Escape closes the panel", async ({ page }) => {
-    await page.goto(VERTICAL);
+    await gotoWorkflowTab(page);
 
     const badge = page.locator('[data-testid="trust-badge-button"]').first();
     await badge.click();
@@ -67,7 +74,7 @@ test.describe("Governance Detail Panel", () => {
   });
 
   test("clicking dialog backdrop closes the panel", async ({ page }) => {
-    await page.goto(VERTICAL);
+    await gotoWorkflowTab(page);
 
     const badge = page.locator('[data-testid="trust-badge-button"]').first();
     await badge.click();
