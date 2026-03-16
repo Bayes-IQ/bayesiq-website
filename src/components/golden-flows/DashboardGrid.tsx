@@ -94,26 +94,28 @@ export default function DashboardGrid({
         </div>
       </div>
 
-      {/* Dashboard link */}
-      {dashboardLink && (
-        <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm px-6 py-5 flex items-center justify-between" data-testid="dashboard-screenshot">
-          <div>
-            <p className="text-sm font-semibold text-bayesiq-900">Live Interactive Dashboard</p>
-            <p className="text-xs text-bayesiq-500 mt-0.5">Certified data — explore metrics, findings, and trends</p>
+      {/* Dashboard preview with real screenshot */}
+      <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden">
+        <DashboardScreenshot
+          screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
+        />
+        {dashboardLink && (
+          <div className="border-t border-bayesiq-100 px-5 py-3 flex items-center justify-between bg-bayesiq-50/50">
+            <span className="text-xs text-bayesiq-500">Live interactive dashboard — certified data</span>
+            <a
+              href={dashboardLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-lg bg-bayesiq-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
+            >
+              Open Live Dashboard
+              <svg className="ml-1.5 h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
-          <a
-            href={dashboardLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-lg bg-bayesiq-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
-          >
-            Open Dashboard
-            <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Forward-looking: ongoing monitoring */}
       <div className="mt-4 rounded-lg border border-bayesiq-100 bg-bayesiq-50/30 px-5 py-3">
