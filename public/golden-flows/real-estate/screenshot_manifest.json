@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "screenshot_manifest",
+  "vertical": "real_estate",
+  "screenshots": [
+    {
+      "artifact_id": "real_estate_3_dashboard_001",
+      "vertical": "real_estate",
+      "month": 3,
+      "type": "dashboard",
+      "url": "https://demo.bayesiq.com/screenshots/real_estate/month-3-dashboard.png",
+      "alt_text": "Real Estate audit dashboard — Month 3"
+    },
+    {
+      "artifact_id": "real_estate_3_report_001",
+      "vertical": "real_estate",
+      "month": 3,
+      "type": "report",
+      "url": "https://demo.bayesiq.com/screenshots/real_estate/month-3-report.png",
+      "alt_text": "Real Estate audit report — Month 3"
+    }
+  ]
+}
