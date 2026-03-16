@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "discover_insights",
+  "vertical": "real_estate",
+  "insights": [
+    {
+      "insight_id": "real_estate_INS_001",
+      "question_text": "Is our reported collection rate actually 95% or is the data inflating it?",
+      "dashboard_link": "https://bayesiq-dashboard-golden-flows-realestate.streamlit.app",
+      "finding_ids": [
+        "metric_mismatch"
+      ]
+    }
+  ]
+}

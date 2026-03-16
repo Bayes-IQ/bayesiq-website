@@ -6,7 +6,7 @@
     {
       "insight_id": "hospital_INS_001",
       "question_text": "Is our reported readmission rate of 13.3% accurate?",
-      "dashboard_link": "https://demo.bayesiq.com/dashboards/hospital/overview",
+      "dashboard_link": "https://bayesiq-dashboard-golden-flows-hospital.streamlit.app",
       "finding_ids": [
         "metric_mismatch"
       ]

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "payload_type": "artifact_links",
+  "vertical": "real_estate",
+  "artifacts": [
+    {
+      "artifact_id": "real_estate_3_dashboard_001",
+      "vertical": "real_estate",
+      "month": 3,
+      "type": "dashboard",
+      "url": "https://demo.bayesiq.com/dashboards/real_estate/month-3",
+      "title": "Real Estate Data Quality Dashboard — Month 3"
+    },
+    {
+      "artifact_id": "real_estate_3_report_001",
+      "vertical": "real_estate",
+      "month": 3,
+      "type": "report",
+      "url": "https://demo.bayesiq.com/reports/real_estate/month-3",
+      "title": "Real Estate Audit Report — Month 3"
+    }
+  ]
+}
