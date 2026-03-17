@@ -3,12 +3,12 @@
   "payload_type": "contract_c.trust_badges",
   "generated_at": "2026-03-16T04:00:11.887540+00:00",
   "summary": {
-    "total_objects": 10,
+    "total_objects": 19,
     "by_status": {
-      "approved": 5,
+      "approved": 8,
       "deferred": 0,
-      "pending": 3,
-      "rejected": 2
+      "pending": 6,
+      "rejected": 5
     },
     "by_object_type": {
       "approval": {
@@ -21,12 +21,12 @@
         }
       },
       "event": {
-        "total": 7,
+        "total": 16,
         "by_status": {
-          "approved": 2,
+          "approved": 5,
           "deferred": 0,
-          "pending": 3,
-          "rejected": 2
+          "pending": 6,
+          "rejected": 5
         }
       }
     }
@@ -160,6 +160,123 @@
         "role": "admin"
       },
       "last_reviewed_at": "2026-03-11T17:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_churn_reattribution",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-13T14:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_mrr_restatement",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-13T15:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_seat_count_correction",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-13T18:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_margin_reclassification",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-14T12:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_shrink_adjustment",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-14T14:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_promo_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-14T17:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_cap_rate_recalc",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-15T13:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_occupancy_restatement",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-15T14:00:00+00:00",
+      "approval_count": 1
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_lease_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "last_reviewed_at": "2026-03-15T17:00:00+00:00",
       "approval_count": 1
     }
   ]

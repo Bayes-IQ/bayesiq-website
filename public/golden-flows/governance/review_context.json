@@ -166,6 +166,212 @@
           "title": "Reclassification Assumptions"
         }
       ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_churn_reattribution",
+      "source_approval_id": "demo-appr-saas-01",
+      "timestamp": "2026-03-13T14:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "accounts_affected",
+              "value": "89"
+            },
+            {
+              "key": "mrr_delta",
+              "value": "+$12K",
+              "severity": "medium"
+            }
+          ],
+          "title": "Churn Reattribution Impact"
+        },
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "medium",
+              "description": "Churn reattribution reclassifies 89 accounts from voluntary to involuntary churn",
+              "provenance": "data_audit_kit v2.1"
+            }
+          ],
+          "title": "Audit Findings"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_mrr_restatement",
+      "source_approval_id": "demo-appr-saas-02",
+      "timestamp": "2026-03-13T15:00:00+00:00",
+      "review_context": [
+        {
+          "type": "warning",
+          "message": "MRR restatement affects Q1 board deck — revenue recognition timing changes $47K across 3 cohorts"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "saas_seat_count_correction",
+      "source_approval_id": "demo-appr-saas-03",
+      "timestamp": "2026-03-13T18:00:00+00:00",
+      "review_context": [
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "low",
+              "description": "Seat count discrepancy traced to SSO deduplication bug, not underlying data issue",
+              "provenance": "engineering incident report IR-2026-031"
+            }
+          ],
+          "title": "Root Cause Analysis"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_margin_reclassification",
+      "source_approval_id": "demo-appr-retail-01",
+      "timestamp": "2026-03-14T12:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "skus_affected",
+              "value": "1,247"
+            },
+            {
+              "key": "margin_delta",
+              "value": "+2.3pp",
+              "severity": "medium"
+            }
+          ],
+          "title": "Margin Reclassification Impact"
+        },
+        {
+          "type": "assumption_list",
+          "items": [
+            {
+              "description": "Vendor cost basis uses Q1 2026 negotiated rates",
+              "source": "procurement system"
+            },
+            {
+              "description": "Freight allocation unchanged from prior period",
+              "source": "logistics team confirmation"
+            }
+          ],
+          "title": "Reclassification Assumptions"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_shrink_adjustment",
+      "source_approval_id": "demo-appr-retail-02",
+      "timestamp": "2026-03-14T14:00:00+00:00",
+      "review_context": [
+        {
+          "type": "warning",
+          "message": "Inventory shrink adjustment of $340K requires loss prevention team sign-off per policy threshold"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "retail_promo_override",
+      "source_approval_id": "demo-appr-retail-03",
+      "timestamp": "2026-03-14T17:00:00+00:00",
+      "review_context": [
+        {
+          "type": "candidate_list",
+          "items": [
+            {
+              "description": "Reduce discount to stay within regional margin floor",
+              "confidence": "high",
+              "action": "modify"
+            },
+            {
+              "description": "Request VP exception for targeted promo in underperforming region",
+              "confidence": "medium",
+              "action": "escalate"
+            }
+          ],
+          "title": "Proposed Alternatives"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_cap_rate_recalc",
+      "source_approval_id": "demo-appr-realestate-01",
+      "timestamp": "2026-03-15T13:00:00+00:00",
+      "review_context": [
+        {
+          "type": "summary_stat",
+          "items": [
+            {
+              "key": "properties_affected",
+              "value": "23"
+            },
+            {
+              "key": "valuation_delta",
+              "value": "-$4.2M",
+              "severity": "high"
+            }
+          ],
+          "title": "Cap Rate Recalculation Impact"
+        },
+        {
+          "type": "assumption_list",
+          "items": [
+            {
+              "description": "Cap rates use Q1 2026 CBRE market survey",
+              "source": "cbre.com/research"
+            },
+            {
+              "description": "NOI projections assume current tenant mix through 2027",
+              "source": "asset management team"
+            }
+          ],
+          "title": "Valuation Assumptions"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_occupancy_restatement",
+      "source_approval_id": "demo-appr-realestate-02",
+      "timestamp": "2026-03-15T14:00:00+00:00",
+      "review_context": [
+        {
+          "type": "warning",
+          "message": "Occupancy restatement affects 7 properties — lease commencement dates differ from move-in dates by 30+ days"
+        }
+      ]
+    },
+    {
+      "object_type": "event",
+      "object_id": "real-estate_lease_override",
+      "source_approval_id": "demo-appr-realestate-03",
+      "timestamp": "2026-03-15T17:00:00+00:00",
+      "review_context": [
+        {
+          "type": "finding_list",
+          "items": [
+            {
+              "severity": "high",
+              "description": "Lease term override conflicts with amendment clause in master lease agreement",
+              "provenance": "legal review — counsel memo 2026-03-15"
+            }
+          ],
+          "title": "Legal Review Findings"
+        }
+      ]
     }
   ]
 }
