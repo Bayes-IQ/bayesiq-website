@@ -100,6 +100,132 @@
       "ts_requested": "2026-03-11T17:00:00+00:00",
       "ts_resolved": "",
       "review_note": null
+    },
+    {
+      "event_id": "saas_churn_reattribution",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-saas-01",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-13T10:00:00+00:00",
+      "ts_resolved": "2026-03-13T14:00:00+00:00",
+      "review_note": "Churn reattribution approved — affects 89 accounts, net impact +$12K MRR."
+    },
+    {
+      "event_id": "saas_mrr_restatement",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-saas-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-13T15:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": "MRR restatement pending — Q1 revenue recognition adjustment under review."
+    },
+    {
+      "event_id": "saas_seat_count_correction",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-saas-03",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-saas",
+        "display_name": "Alex Rivera",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-13T17:00:00+00:00",
+      "ts_resolved": "2026-03-13T18:00:00+00:00",
+      "review_note": "Seat count correction rejected — discrepancy traced to SSO dedup bug, not data issue."
+    },
+    {
+      "event_id": "retail_margin_reclassification",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-retail-01",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-14T09:00:00+00:00",
+      "ts_resolved": "2026-03-14T12:00:00+00:00",
+      "review_note": "Margin reclassification approved after vendor cost reconciliation."
+    },
+    {
+      "event_id": "retail_shrink_adjustment",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-retail-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-14T14:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": "Inventory shrink adjustment requires loss prevention sign-off."
+    },
+    {
+      "event_id": "retail_promo_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-retail-03",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-retail",
+        "display_name": "Sarah Kim",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-14T16:00:00+00:00",
+      "ts_resolved": "2026-03-14T17:00:00+00:00",
+      "review_note": "Promo discount override rejected — exceeds regional margin floor."
+    },
+    {
+      "event_id": "real-estate_cap_rate_recalc",
+      "approval_status": "approved",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-realestate-01",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-15T09:00:00+00:00",
+      "ts_resolved": "2026-03-15T13:00:00+00:00",
+      "review_note": "Cap rate recalculation approved — aligned with Q1 appraisal update."
+    },
+    {
+      "event_id": "real-estate_occupancy_restatement",
+      "approval_status": "pending",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-realestate-02",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-15T14:00:00+00:00",
+      "ts_resolved": "",
+      "review_note": "Occupancy restatement under review — lease commencement dates being verified."
+    },
+    {
+      "event_id": "real-estate_lease_override",
+      "approval_status": "rejected",
+      "record_origin": "live",
+      "source_approval_id": "demo-appr-realestate-03",
+      "reviewer": {
+        "reviewer_id": "demo-reviewer-realestate",
+        "display_name": "David Chen",
+        "role": "admin"
+      },
+      "ts_requested": "2026-03-15T16:00:00+00:00",
+      "ts_resolved": "2026-03-15T17:00:00+00:00",
+      "review_note": "Lease term override rejected — requires legal review of amendment clause."
     }
   ]
 }
