@@ -44,11 +44,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!vertical) return {};
 
   return {
-    title: `${vertical.display_name} — Golden Flows — BayesIQ`,
-    description: `See what BayesIQ found auditing ${vertical.display_name.toLowerCase()} data. Governed results, executive-ready.`,
+    title: "BayesIQ — Make Your Metrics Matter",
+    description:
+      "BayesIQ finds broken metrics and broken data pipelines fast. Scored audits, governed results, executive-ready.",
     openGraph: {
-      title: `${vertical.display_name} — Golden Flows — BayesIQ`,
-      description: `See what BayesIQ found auditing ${vertical.display_name.toLowerCase()} data. Governed results, executive-ready.`,
+      title: "BayesIQ — Make Your Metrics Matter",
+      description:
+        "BayesIQ finds broken metrics and broken data pipelines fast. Scored audits, governed results, executive-ready.",
     },
   };
 }
