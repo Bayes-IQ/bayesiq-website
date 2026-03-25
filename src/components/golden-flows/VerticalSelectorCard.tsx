@@ -82,7 +82,7 @@ export default function VerticalSelectorCard({
   return (
     <VerticalClickTracker slug={slug}>
       <Link
-        href={`/golden-flows/${slug}`}
+        href={`/consulting/explore/${slug}`}
         className={`
           group flex items-center gap-3 rounded-xl px-4 py-3 transition-all
           ${
