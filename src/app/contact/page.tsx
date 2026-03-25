@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import CalendlyEmbed from "@/components/CalendlyEmbed";
+import ContactContextCTA from "@/components/ContactContextCTA";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -26,62 +27,65 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
       />
-      <section className="px-6 py-24">
-      <div className="mx-auto max-w-5xl">
-        {/* ── Existing 2-col layout: messaging + form ── */}
-        <div className="grid gap-16 md:grid-cols-2">
-          {/* Left: messaging */}
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
-              Let&apos;s talk about your data.
-            </h1>
-            <p className="mt-4 text-lg text-bayesiq-600">
-              Tell us what&apos;s going on with your data systems. We&apos;ll
-              tell you what we&apos;d look at, what we&apos;d expect to find,
-              and whether we can help.
-            </p>
 
-            <div className="mt-12 space-y-6">
+      {/* ── Hero messaging ── */}
+      <section className="bg-bayesiq-50/60 px-6 py-32 md:py-40">
+        <div className="mx-auto max-w-3xl text-center">
+          <ContactContextCTA />
+        </div>
+      </section>
+
+      {/* ── Two-column: value props + form ── */}
+      <section className="px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-20 md:grid-cols-2">
+            {/* Left: value propositions */}
+            <div className="space-y-10">
               <div>
-                <p className="text-sm font-medium text-bayesiq-900">
+                <p className="text-base font-semibold text-bayesiq-900">
                   Free data health check
                 </p>
-                <p className="mt-1 text-sm text-bayesiq-600">
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
                   A 30-minute conversation where we review your data
                   architecture and identify the most likely problem areas. No
-                  commitment.
+                  commitment, no sales pressure.
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-bayesiq-900">
+                <p className="text-base font-semibold text-bayesiq-900">
                   Fast response
                 </p>
-                <p className="mt-1 text-sm text-bayesiq-600">
-                  We respond to every inquiry within one business day.
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
+                  We respond to every inquiry within one business day. Most
+                  hear back within a few hours.
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-bayesiq-900">
-                  No sales pressure
+                <p className="text-base font-semibold text-bayesiq-900">
+                  Honest assessment
                 </p>
-                <p className="mt-1 text-sm text-bayesiq-600">
-                  We&apos;ll tell you honestly if your problem is something we
-                  can help with — or if there&apos;s a better approach.
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
+                  We will tell you honestly if your problem is something we can
+                  help with, or if there is a better approach. No pitch, just
+                  perspective.
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* Right: form */}
-          <div>
-            <ContactForm />
+            {/* Right: form */}
+            <div>
+              <ContactForm />
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* ── Full-width Calendly embed below the 2-col grid ── */}
-        <CalendlyEmbed />
-      </div>
-    </section>
+      {/* ── Calendly embed ── */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50/40 px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-5xl">
+          <CalendlyEmbed />
+        </div>
+      </section>
     </>
   );
 }

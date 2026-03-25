@@ -12,7 +12,7 @@ export default function GoldenFlowsCTA({
   ctaLabel,
   vertical,
 }: GoldenFlowsCTAProps) {
-  const diagnosticHeadline = ctaLabel ?? "Ready to see this for your data?";
+  const diagnosticHeadline = ctaLabel ?? "Book a Data Diagnostic";
 
   return (
     <div className="mt-16 space-y-0">
@@ -48,7 +48,7 @@ export default function GoldenFlowsCTA({
             reporting. Starting at $2,500/month.
           </p>
           <Link
-            href="/consulting"
+            href="/platform"
             onClick={() => trackCtaClick("reliability", vertical || "unknown")}
             className="mt-8 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
           >
