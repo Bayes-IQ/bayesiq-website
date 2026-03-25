@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,24 +17,31 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-display",
+  display: "swap",
+});
+
 const SITE_URL = "https://bayes-iq.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "BayesIQ — Automated Data Auditing",
+    default: "BayesIQ — Governed Analytics",
     template: "%s — BayesIQ",
   },
   description:
-    "BayesIQ finds broken metrics and broken data pipelines fast, then gives you the fix path. Scored audits, dbt projects, and dashboards from any dataset.",
+    "BayesIQ delivers governed analytics consulting and a platform for teams that need trustworthy metrics, auditable pipelines, and evidence-backed decisions.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     siteName: "BayesIQ",
-    title: "BayesIQ — Automated Data Auditing",
+    title: "BayesIQ — Governed Analytics",
     description:
-      "BayesIQ finds broken metrics and broken data pipelines fast, then gives you the fix path.",
+      "Governed analytics consulting and platform for teams that need trustworthy metrics.",
   },
   twitter: {
     card: "summary_large_image",
@@ -54,7 +61,7 @@ const organizationJsonLd = {
   name: "BayesIQ",
   url: SITE_URL,
   description:
-    "Automated data audit tooling. We find broken metrics and broken pipelines, then deliver the fix path.",
+    "Governed analytics consulting and platform. We find broken metrics and broken pipelines, then deliver the fix path.",
 };
 
 export default function RootLayout({
@@ -63,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${dmSans.variable}`}>
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"

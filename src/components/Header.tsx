@@ -3,19 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const playgroundEnabled =
-  process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
-const goldenFlowsLive =
-  process.env.NEXT_PUBLIC_GOLDEN_FLOWS_STATE === "live";
-
 const navItems = [
-  { label: "See It Work", path: "/golden-flows" },
-  { label: "Products", path: "/services" },
-  { label: "Approach", path: "/approach" },
-  ...(playgroundEnabled
-    ? [{ label: "Playground", path: "/playground" }]
-    : []),
-  { label: "Blog", path: "/blog" },
+  { label: "Home", path: "/" },
+  { label: "Consulting", path: "/consulting" },
+  { label: "Platform", path: "/platform" },
 ];
 
 export default function Header() {

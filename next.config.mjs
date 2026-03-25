@@ -2,6 +2,71 @@
 const nextConfig = {
   productionBrowserSourceMaps: false,
 
+  async redirects() {
+    return [
+      {
+        source: "/services",
+        destination: "/platform",
+        permanent: true,
+      },
+      {
+        source: "/approach",
+        destination: "/consulting",
+        permanent: true,
+      },
+      {
+        source: "/fintech",
+        destination: "/consulting/industries",
+        permanent: true,
+      },
+      {
+        source: "/healthcare",
+        destination: "/consulting/industries",
+        permanent: true,
+      },
+      {
+        source: "/audit-kit",
+        destination: "/consulting",
+        permanent: true,
+      },
+      {
+        source: "/golden-flows",
+        destination: "/consulting/explore",
+        permanent: true,
+      },
+      {
+        source: "/golden-flows/:path*",
+        destination: "/consulting/explore",
+        permanent: true,
+      },
+      {
+        source: "/blog",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/playground",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/case-studies",
+        destination: "/consulting/case-studies",
+        permanent: true,
+      },
+      {
+        source: "/sample-report",
+        destination: "/consulting/sample-report",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

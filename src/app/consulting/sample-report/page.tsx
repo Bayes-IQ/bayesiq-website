@@ -238,7 +238,7 @@ export default function SampleReportPage() {
               Start Your Audit
             </Link>
             <Link
-              href="/services"
+              href="/platform"
               className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
             >
               See our services &rarr;

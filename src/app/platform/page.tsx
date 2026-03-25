@@ -209,7 +209,7 @@ export default function ServicesPage() {
               See How It Works
             </a>
             <Link
-              href="/audit-kit"
+              href="/consulting"
               className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
             >
               Start with the Audit Kit &rarr;
@@ -414,7 +414,7 @@ export default function ServicesPage() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
-              href="/audit-kit"
+              href="/consulting"
               className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
             >
               Try the Audit Kit
