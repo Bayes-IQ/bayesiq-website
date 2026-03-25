@@ -1,97 +1,132 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import { QUESTIONS, buildResult } from "./scoring";
 import type { AssessmentResponse, AssessmentResult } from "./assessmentTypes";
-import Progress from "./Progress";
+import StepDots from "./StepDots";
 import QuestionCard from "./QuestionCard";
-import ResultsPanel from "./ResultsPanel";
+import ScoreReveal from "./ScoreReveal";
 
 /**
- * AssessmentWizard orchestrates the full assessment flow:
- *   1. Steps through each question (with back/next navigation).
- *   2. Prevents progression without an answer selection.
- *   3. Computes the result on completion.
- *   4. Hands off to ResultsPanel.
- *   5. Emits analytics events for start and completion.
+ * AssessmentWizard — progressive disclosure assessment flow.
+ *
+ * Shows one question at a time with framer-motion slide transitions.
+ * Auto-advances on answer selection (400ms delay) except on the last question.
+ * Uses StepDots for progress and ScoreReveal for the results animation.
  */
 export default function AssessmentWizard() {
-  // currentIndex is 0-based index into QUESTIONS.
   const [currentIndex, setCurrentIndex] = useState(0);
-  // responses is a sparse map: questionIndex → choiceIndex selected.
   const [responses, setResponses] = useState<Record<number, number>>({});
-  // result is only set once the user completes the assessment.
   const [result, setResult] = useState<AssessmentResult | null>(null);
-  // Track whether the "assessment_started" event has been emitted.
+  const [direction, setDirection] = useState<1 | -1>(1);
   const startedRef = useRef(false);
+  const autoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalQuestions = QUESTIONS.length;
   const currentQuestion = QUESTIONS[currentIndex];
   const selectedIndex = responses[currentIndex] ?? null;
   const isLastQuestion = currentIndex === totalQuestions - 1;
 
-  // Focus management: move focus to the card heading on question change.
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  // Focus management: move focus to the question area on transitions.
+  const questionAreaRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    if (!result && headingRef.current) {
-      headingRef.current.focus();
+    if (!result && questionAreaRef.current) {
+      questionAreaRef.current.focus();
     }
   }, [currentIndex, result]);
 
-  function handleSelect(choiceIndex: number) {
-    // Emit assessment_started on first interaction (first choice selection).
-    if (!startedRef.current) {
-      startedRef.current = true;
-      track("assessment_started");
-    }
-    setResponses((prev) => ({ ...prev, [currentIndex]: choiceIndex }));
-  }
+  // Cleanup auto-advance timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+    };
+  }, []);
 
-  function handleNext() {
-    if (selectedIndex === null) return; // guard: no selection
+  const handleSelect = useCallback(
+    (choiceIndex: number) => {
+      // Emit assessment_started on first interaction
+      if (!startedRef.current) {
+        startedRef.current = true;
+        track("assessment_started");
+      }
 
-    if (isLastQuestion) {
-      // Build the full response array in question order.
-      const responseArray: AssessmentResponse[] = QUESTIONS.map((q, idx) => ({
-        questionId: q.id,
-        choiceIndex: responses[idx] ?? 0,
-        score: q.choices[responses[idx] ?? 0]?.score ?? 0,
-      }));
+      setResponses((prev) => ({ ...prev, [currentIndex]: choiceIndex }));
 
-      const computed = buildResult(responseArray);
-      setResult(computed);
+      // Clear any pending auto-advance
+      if (autoAdvanceRef.current) {
+        clearTimeout(autoAdvanceRef.current);
+        autoAdvanceRef.current = null;
+      }
 
-      // Emit assessment_completed with tier.
-      track("assessment_completed", { tier: computed.tier });
-    } else {
-      setCurrentIndex((prev) => prev + 1);
-    }
+      // Auto-advance after 400ms delay (except on last question)
+      if (!isLastQuestion) {
+        autoAdvanceRef.current = setTimeout(() => {
+          setDirection(1);
+          setCurrentIndex((prev) => prev + 1);
+          autoAdvanceRef.current = null;
+        }, 400);
+      }
+    },
+    [currentIndex, isLastQuestion],
+  );
+
+  function handleSubmit() {
+    if (selectedIndex === null) return;
+
+    const responseArray: AssessmentResponse[] = QUESTIONS.map((q, idx) => ({
+      questionId: q.id,
+      choiceIndex: responses[idx] ?? 0,
+      score: q.choices[responses[idx] ?? 0]?.score ?? 0,
+    }));
+
+    const computed = buildResult(responseArray);
+    setResult(computed);
+    track("assessment_completed", { tier: computed.tier });
   }
 
   function handleBack() {
+    // Clear any pending auto-advance when going back
+    if (autoAdvanceRef.current) {
+      clearTimeout(autoAdvanceRef.current);
+      autoAdvanceRef.current = null;
+    }
     if (currentIndex > 0) {
+      setDirection(-1);
       setCurrentIndex((prev) => prev - 1);
     }
   }
 
-  // Results view
+  // Slide transition variants
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 80 : -80,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -80 : 80,
+      opacity: 0,
+    }),
+  };
+
+  // Results view with score reveal
   if (result) {
-    return (
-      <div className="w-full">
-        <ResultsPanel result={result} />
-      </div>
-    );
+    return <ScoreReveal result={result} />;
   }
 
-  // Question view
+  // Question view with progressive disclosure
   return (
-    <div className="w-full space-y-8">
-      <Progress current={currentIndex + 1} total={totalQuestions} />
+    <div className="flex w-full flex-col items-center">
+      <StepDots current={currentIndex} total={totalQuestions} />
 
-      {/* Visually hidden heading for focus target on question transitions */}
+      {/* Visually hidden heading for screen readers */}
       <h2
-        ref={headingRef}
+        ref={questionAreaRef}
         tabIndex={-1}
         className="sr-only"
         aria-live="polite"
@@ -99,43 +134,61 @@ export default function AssessmentWizard() {
         Question {currentIndex + 1} of {totalQuestions}
       </h2>
 
-      <QuestionCard
-        question={currentQuestion}
-        selectedIndex={selectedIndex}
-        onSelect={handleSelect}
-      />
+      {/* Question area with slide transitions */}
+      <div className="relative mt-8 w-full overflow-hidden">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="w-full"
+          >
+            {/* Full-viewport layout on mobile */}
+            <div className="flex min-h-[50vh] flex-col justify-between md:min-h-0 md:py-4">
+              <div>
+                <QuestionCard
+                  question={currentQuestion}
+                  selectedIndex={selectedIndex}
+                  onSelect={handleSelect}
+                />
+              </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-between pt-2">
-        <button
-          type="button"
-          onClick={handleBack}
-          disabled={currentIndex === 0}
-          className="rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900 disabled:cursor-not-allowed disabled:opacity-30"
-        >
-          Back
-        </button>
+              {/* Navigation */}
+              <div className="flex items-center justify-between pt-8">
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  disabled={currentIndex === 0}
+                  className="rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900 disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Back
+                </button>
 
-        <button
-          type="button"
-          onClick={handleNext}
-          disabled={selectedIndex === null}
-          aria-describedby={selectedIndex === null ? "next-hint" : undefined}
-          className="rounded-lg bg-bayesiq-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          {isLastQuestion ? "See my results" : "Next"}
-        </button>
+                {isLastQuestion ? (
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={selectedIndex === null}
+                    className="rounded-lg bg-bayesiq-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    See my results
+                  </button>
+                ) : (
+                  <span className="text-xs text-bayesiq-400">
+                    {selectedIndex !== null
+                      ? "Advancing..."
+                      : "Select an answer to continue"}
+                  </span>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
-
-      {selectedIndex === null && (
-        <p
-          id="next-hint"
-          className="text-center text-xs text-bayesiq-400"
-          role="status"
-        >
-          Select an answer to continue.
-        </p>
-      )}
     </div>
   );
 }
