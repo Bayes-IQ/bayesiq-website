@@ -79,17 +79,15 @@ export default function TrustBadge({
 
   if (onClick) {
     return (
-      <span
-        role="button"
-        tabIndex={0}
+      <button
+        type="button"
         onClick={onClick}
-        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(undefined); } }}
         className="cursor-pointer hover:ring-2 hover:ring-bayesiq-300 rounded-full inline-flex"
         aria-haspopup="dialog"
         data-testid="trust-badge-button"
       >
         {badge}
-      </span>
+      </button>
     );
   }
 

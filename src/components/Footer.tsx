@@ -1,9 +1,6 @@
 import Link from "next/link";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
-const playgroundEnabled =
-  process.env.NEXT_PUBLIC_ENABLE_PLAYGROUND === "true";
-
 export default function Footer() {
   return (
     <footer className="border-t border-bayesiq-200 bg-bayesiq-50">
@@ -31,26 +28,18 @@ export default function Footer() {
           <div>
             <p className="text-lg font-bold text-bayesiq-900">BayesIQ</p>
             <p className="mt-1 text-sm text-bayesiq-500">
-              Automated data audit tooling and expert services for teams that can&apos;t afford bad metrics.
+              Governed analytics consulting and platform for teams that need trustworthy metrics.
             </p>
           </div>
           <nav className="flex flex-wrap gap-6">
-            <Link href="/services" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Products
+            <Link href="/consulting" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Consulting
             </Link>
-            <Link href="/approach" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Approach
+            <Link href="/platform" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Platform
             </Link>
-            {playgroundEnabled && (
-              <Link href="/playground" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-                Playground
-              </Link>
-            )}
-            <Link href="/case-studies" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Live Demo
-            </Link>
-            <Link href="/blog" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
-              Blog
+            <Link href="/consulting/case-studies" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
+              Case Studies
             </Link>
             <Link href="/contact" className="text-sm text-bayesiq-500 hover:text-bayesiq-900">
               Contact

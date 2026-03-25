@@ -308,7 +308,7 @@ export default function CaseStudiesPage() {
                   {study.ctaText}
                 </Link>
                 <Link
-                  href="/sample-report"
+                  href="/consulting/sample-report"
                   className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
                 >
                   See a Sample Report
