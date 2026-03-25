@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTA from "@/components/CTA";
-import InlineEvidence from "@/components/InlineEvidence";
-import SectionReveal from "@/components/SectionReveal";
 
 export const metadata: Metadata = {
   title: "Sample Audit Report",
@@ -12,7 +10,6 @@ export const metadata: Metadata = {
     title: "Sample Audit Report — BayesIQ",
     description:
       "See what the BayesIQ Audit Kit actually produces: scored findings, dataset profiles, dbt projects, Streamlit dashboards, and machine-readable quality checks.",
-    url: "/consulting/sample-report",
   },
 };
 
@@ -219,292 +216,293 @@ export default function SampleReportPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sampleReportJsonLd) }}
       />
-
-      {/* Hero */}
-      <SectionReveal>
-        <section className="px-6 py-24 md:py-32">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
-              What you get from a BayesIQ audit
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
-              Real artifacts from a real audit &mdash; not a PDF of
-              recommendations. The Audit Kit produces scored findings,
-              column-level profiles, data contracts, metric specs, a deployable
-              dbt project, and interactive dashboards.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link
-                href="/contact"
-                className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
-              >
-                Start Your Audit
-              </Link>
-              <Link
-                href="/consulting/case-studies"
-                className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
-              >
-                See case studies &rarr;
-              </Link>
-              <Link
-                href="/consulting/explore"
-                className="text-sm font-medium text-bayesiq-500 transition-colors hover:text-bayesiq-700"
-              >
-                Explore a live engagement &rarr;
-              </Link>
-            </div>
+      {/* ---------------------------------------------------------------- */}
+      {/* Hero                                                              */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
+            What you get from a BayesIQ audit
+          </h1>
+          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
+            Real artifacts from a real audit &mdash; not a PDF of
+            recommendations. The Audit Kit produces scored findings,
+            column-level profiles, data contracts, metric specs, a deployable
+            dbt project, and interactive dashboards.
+          </p>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <Link
+              href="/contact"
+              className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+            >
+              Start Your Audit
+            </Link>
+            <Link
+              href="/consulting/explore"
+              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+            >
+              Explore a live engagement &rarr;
+            </Link>
           </div>
-        </section>
-      </SectionReveal>
+        </div>
+      </section>
 
-      {/* Artifacts Overview */}
-      <SectionReveal>
-        <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl font-bold text-bayesiq-900">
-              Pipeline artifacts
-            </h2>
-            <p className="mt-3 text-base text-bayesiq-600">
-              Every audit produces these files. They land in your repo or shared
-              drive &mdash; no proprietary portal required.
-            </p>
-            <ul className="mt-8 space-y-6">
-              {artifacts.map((a) => (
-                <li key={a.file} className="flex gap-4">
-                  <span
-                    className="mt-1 h-2 w-2 shrink-0 rounded-full bg-bayesiq-400"
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <p className="text-sm font-semibold text-bayesiq-900">
-                      <InlineEvidence>{a.file}</InlineEvidence>
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
-                      {a.description}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Example Findings */}
-      <SectionReveal>
-        <section className="px-6 py-20">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="text-2xl font-bold text-bayesiq-900">
-              Example findings from{" "}
-              <InlineEvidence className="text-xl">audit_report.md</InlineEvidence>
-            </h2>
-            <p className="mt-3 text-base text-bayesiq-600">
-              Anonymized excerpt from an Audit Kit run on a B2B SaaS product
-              (~50 M events/month). Finding IDs, event names, and property names
-              have been changed.
-            </p>
-            <div className="mt-8 space-y-6">
-              {findings.map((f) => (
-                <div
-                  key={f.id}
-                  className="rounded-lg border border-bayesiq-200 bg-white p-5"
-                >
-                  <div className="flex items-center gap-3">
-                    <InlineEvidence>{f.id}</InlineEvidence>
-                    <span
-                      className={`inline-block rounded px-2 py-0.5 text-xs font-semibold ${f.severityColor}`}
-                    >
-                      {f.severity}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm font-medium leading-relaxed text-bayesiq-900">
-                    {f.finding}
+      {/* ---------------------------------------------------------------- */}
+      {/* Artifacts Overview                                                */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-bayesiq-900">
+            Pipeline artifacts
+          </h2>
+          <p className="mt-3 text-base text-bayesiq-600">
+            Every audit produces these files. They land in your repo or shared
+            drive &mdash; no proprietary portal required.
+          </p>
+          <ul className="mt-8 space-y-6">
+            {artifacts.map((a) => (
+              <li key={a.file} className="flex gap-4">
+                <span
+                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-bayesiq-400"
+                  aria-hidden="true"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-bayesiq-900">
+                    <code className="rounded bg-bayesiq-100 px-1.5 py-0.5 font-mono text-xs">
+                      {a.file}
+                    </code>
                   </p>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
-                        Root Cause
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
-                        {f.rootCause}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
-                        Recommended Fix
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
-                        {f.fix}
-                      </p>
-                    </div>
-                  </div>
+                  <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                    {a.description}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      {/* Scoring Rubric */}
-      <SectionReveal>
-        <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl font-bold text-bayesiq-900">
-              Scoring rubric (0&ndash;100)
-            </h2>
-            <p className="mt-3 text-base text-bayesiq-600">
-              Every audit produces an overall health score. The score reflects the
-              count, severity, and blast radius of confirmed issues.
-            </p>
-            <div className="mt-8 overflow-x-auto">
-              <table className="w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-bayesiq-200">
-                    <th
-                      scope="col"
-                      className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      Score
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      Rating
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      What it means
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-bayesiq-100">
-                  {scoringRubric.map((row) => (
-                    <tr key={row.label}>
-                      <td className="py-3 pr-6 align-top font-mono text-sm text-bayesiq-700">
-                        {row.range}
-                      </td>
-                      <td className="py-3 pr-6 align-top">
-                        <span
-                          className={`inline-block rounded border px-2 py-0.5 text-xs font-semibold ${row.color}`}
-                        >
-                          {row.label}
-                        </span>
-                      </td>
-                      <td className="py-3 align-top leading-relaxed text-bayesiq-600">
-                        {row.description}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Severity Definitions */}
-      <SectionReveal>
-        <section className="px-6 py-20">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl font-bold text-bayesiq-900">
-              Severity definitions
-            </h2>
-            <p className="mt-3 text-base text-bayesiq-600">
-              Every finding is ranked by business impact and blast radius &mdash;
-              how many downstream metrics or reports does this affect?
-            </p>
-            <div className="mt-8 overflow-x-auto">
-              <table className="w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-bayesiq-200">
-                    <th
-                      scope="col"
-                      className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      Severity
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      Definition
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
-                    >
-                      Typical action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-bayesiq-100">
-                  {severityDefinitions.map((row) => (
-                    <tr key={row.level}>
-                      <td className="py-3 pr-6 align-top">
-                        <span
-                          className={`inline-block rounded border px-2 py-0.5 text-xs font-semibold ${row.color}`}
-                        >
-                          {row.level}
-                        </span>
-                      </td>
-                      <td className="py-3 pr-6 align-top leading-relaxed text-bayesiq-700">
-                        {row.definition}
-                      </td>
-                      <td className="py-3 align-top text-bayesiq-600">
-                        {row.action}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Engagement Timeline */}
-      <SectionReveal>
-        <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl font-bold text-bayesiq-900">
-              Engagement timeline &mdash; 6 weeks
-            </h2>
-            <p className="mt-3 text-base text-bayesiq-600">
-              A full engagement runs 6 weeks from kickoff to validated dashboards.
-              Diagnostic sprints deliver findings in 1 week.
-            </p>
-            <div className="mt-10 space-y-8">
-              {timelineSteps.map((step, index) => (
-                <div key={step.phase} className="flex gap-6">
-                  <div className="flex shrink-0 flex-col items-center">
-                    <span className="text-sm font-bold text-bayesiq-300">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+      {/* ---------------------------------------------------------------- */}
+      {/* Example Findings                                                  */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-bayesiq-900">
+            Example findings from{" "}
+            <code className="rounded bg-bayesiq-100 px-1.5 py-0.5 font-mono text-xl">
+              audit_report.md
+            </code>
+          </h2>
+          <p className="mt-3 text-base text-bayesiq-600">
+            Anonymized excerpt from an Audit Kit run on a B2B SaaS product
+            (~50 M events/month). Finding IDs, event names, and property names
+            have been changed.
+          </p>
+          <div className="mt-8 space-y-6">
+            {findings.map((f) => (
+              <div
+                key={f.id}
+                className="rounded-lg border border-bayesiq-200 bg-white p-5"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs text-bayesiq-400">
+                    {f.id}
+                  </span>
+                  <span
+                    className={`inline-block rounded px-2 py-0.5 text-xs font-semibold ${f.severityColor}`}
+                  >
+                    {f.severity}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm font-medium leading-relaxed text-bayesiq-900">
+                  {f.finding}
+                </p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+                      Root Cause
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                      {f.rootCause}
+                    </p>
                   </div>
                   <div>
-                    <div className="flex items-baseline gap-3">
-                      <h3 className="text-base font-semibold text-bayesiq-900">
-                        {step.phase}
-                      </h3>
-                      <span className="text-xs text-bayesiq-400">
-                        {step.timeline}
-                      </span>
-                    </div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+                      Recommended Fix
+                    </p>
                     <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
-                      {step.description}
+                      {f.fix}
                     </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
-      </SectionReveal>
+        </div>
+      </section>
 
-      {/* CTA */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Scoring Rubric                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-bayesiq-900">
+            Scoring rubric (0&ndash;100)
+          </h2>
+          <p className="mt-3 text-base text-bayesiq-600">
+            Every audit produces an overall health score. The score reflects the
+            count, severity, and blast radius of confirmed issues.
+          </p>
+          <div className="mt-8 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-bayesiq-200">
+                  <th
+                    scope="col"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    Score
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    Rating
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    What it means
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-bayesiq-100">
+                {scoringRubric.map((row) => (
+                  <tr key={row.label}>
+                    <td className="py-3 pr-6 align-top font-mono text-sm text-bayesiq-700">
+                      {row.range}
+                    </td>
+                    <td className="py-3 pr-6 align-top">
+                      <span
+                        className={`inline-block rounded border px-2 py-0.5 text-xs font-semibold ${row.color}`}
+                      >
+                        {row.label}
+                      </span>
+                    </td>
+                    <td className="py-3 align-top leading-relaxed text-bayesiq-600">
+                      {row.description}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Severity Definitions                                              */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-bayesiq-900">
+            Severity definitions
+          </h2>
+          <p className="mt-3 text-base text-bayesiq-600">
+            Every finding is ranked by business impact and blast radius &mdash;
+            how many downstream metrics or reports does this affect?
+          </p>
+          <div className="mt-8 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-bayesiq-200">
+                  <th
+                    scope="col"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    Severity
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    Definition
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                  >
+                    Typical action
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-bayesiq-100">
+                {severityDefinitions.map((row) => (
+                  <tr key={row.level}>
+                    <td className="py-3 pr-6 align-top">
+                      <span
+                        className={`inline-block rounded border px-2 py-0.5 text-xs font-semibold ${row.color}`}
+                      >
+                        {row.level}
+                      </span>
+                    </td>
+                    <td className="py-3 pr-6 align-top leading-relaxed text-bayesiq-700">
+                      {row.definition}
+                    </td>
+                    <td className="py-3 align-top text-bayesiq-600">
+                      {row.action}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Engagement Timeline                                               */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-bayesiq-900">
+            Engagement timeline &mdash; 6 weeks
+          </h2>
+          <p className="mt-3 text-base text-bayesiq-600">
+            A full engagement runs 6 weeks from kickoff to validated dashboards.
+            Diagnostic sprints deliver findings in 1 week.
+          </p>
+          <div className="mt-10 space-y-8">
+            {timelineSteps.map((step, index) => (
+              <div key={step.phase} className="flex gap-6">
+                <div className="flex shrink-0 flex-col items-center">
+                  <span className="text-sm font-bold text-bayesiq-300">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div>
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="text-base font-semibold text-bayesiq-900">
+                      {step.phase}
+                    </h3>
+                    <span className="text-xs text-bayesiq-400">
+                      {step.timeline}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* CTA                                                               */}
+      {/* ---------------------------------------------------------------- */}
       <CTA
         headline="See it on your data"
         description="Drop a CSV in the playground for instant profiling, or book a diagnostic sprint."
