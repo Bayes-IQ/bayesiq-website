@@ -1,439 +1,239 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import CTA from "@/components/CTA";
+import PlatformSection from "@/components/platform/PlatformSection";
+import ThreeTruthLayers from "@/components/platform/ThreeTruthLayers";
+import GovernanceChainExpanded from "@/components/platform/GovernanceChainExpanded";
+import PlatformCTA from "@/components/platform/PlatformCTA";
 
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "The BayesIQ Platform — governed data delivery with policy gates, approval workflows, audit trails, and executor-neutral contracts across 11 tool namespaces.",
+    "BayesIQ is the governance layer that produces an auditable chain from raw output to approved deliverable. Every finding reviewed, every decision attributed, every transition evidence-backed.",
   openGraph: {
-    title: "Platform — BayesIQ",
+    title: "Platform -- BayesIQ",
     description:
-      "Governed data delivery with policy gates, approval workflows, audit trails, and executor-neutral contracts across 11 tool namespaces.",
+      "The governance layer for AI-driven delivery. Three truth layers, executor-neutral contracts, evidence-backed completion.",
   },
 };
 
 const platformJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "BayesIQ",
-  url: "https://bayes-iq.com",
-  makesOffer: [
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Product",
-        name: "BayesIQ Platform",
-        description:
-          "Governed data delivery platform with policy gates, approval workflows, audit trails, and executor-neutral contracts across 11 tool namespaces.",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Product",
-        name: "BayesIQ Data Audit Kit",
-        description:
-          "An automated pipeline that audits any dataset and generates production-ready artifacts including dbt projects, Streamlit dashboards, and documentation.",
-      },
-    },
-  ],
+  "@type": "SoftwareApplication",
+  name: "BayesIQ Platform",
+  applicationCategory: "BusinessApplication",
+  description:
+    "Governance platform that produces an auditable chain from raw output to approved deliverable with evidence-backed completion.",
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/PreOrder",
+  },
 };
 
-const truthLayers = [
+const notList = [
   {
-    layer: "Layer 1",
-    title: "Raw Evidence",
-    description:
-      "Immutable inputs — pipeline outputs, test results, call transcripts, emails, Slack messages. The ground truth your decisions rest on.",
-    style: "rounded-xl border border-bayesiq-200 bg-bayesiq-50 p-6",
-    labelStyle:
-      "text-xs font-semibold uppercase tracking-wider text-bayesiq-400",
+    label: "Not a dashboard tool",
+    detail:
+      "Dashboards show you what happened. BayesIQ governs what happens next -- who approved it, what evidence backed it, and whether the transition was valid.",
   },
   {
-    layer: "Layer 2",
-    title: "LLM Interpretation",
-    description:
-      "AI-generated proposals — extracted tasks, priority assessments, summaries. Always labeled as interpretation. Never auto-promoted to operational state.",
-    style: "rounded-xl border border-bayesiq-200 bg-white p-6",
-    labelStyle:
-      "text-xs font-semibold uppercase tracking-wider text-bayesiq-400",
+    label: "Not an AI wrapper",
+    detail:
+      "AI wrappers add a UI on top of model calls. BayesIQ owns the governance chain around any execution engine, including ones that use no AI at all.",
   },
   {
-    layer: "Layer 3",
-    title: "Human-Accepted State",
-    description:
-      "The only layer that drives dashboards, deadlines, and work state. Requires explicit human acceptance. This is your single source of governed truth.",
-    style: "rounded-xl border border-accent/20 bg-accent/5 p-6",
-    labelStyle: "text-xs font-semibold uppercase tracking-wider text-accent",
+    label: "Not a passive audit log",
+    detail:
+      "Audit logs record events after the fact. BayesIQ enforces gates before consequential state changes. The audit trail is a byproduct of active governance, not a bolt-on.",
   },
 ];
 
-const engagementPipeline = [
-  {
-    step: "01",
-    title: "Interaction Capture",
-    desc: "Calls, emails, Slack messages, meeting notes, and documents flow into the engagement ledger as raw evidence.",
-  },
-  {
-    step: "02",
-    title: "Evidence Extraction",
-    desc: "LLM-powered extraction identifies tasks, commitments, scope changes, and KPI discussions — labeled as interpretation, never auto-promoted.",
-  },
-  {
-    step: "03",
-    title: "Triage & Review",
-    desc: "Extracted candidates surface on a human review dashboard. Accept, reject, or defer. Nothing becomes governed work without explicit sign-off.",
-  },
-  {
-    step: "04",
-    title: "Governed Work",
-    desc: "Accepted items become tracked commitments with deadlines, owners, phase gates, and promotion rules. Visible across all client engagements.",
-  },
-  {
-    step: "05",
-    title: "Execution",
-    desc: "Executor-neutral contracts drive delivery — consumed by the Audit Kit, Claude Code, contractors, or CI systems. Same governed loop applies.",
-  },
-  {
-    step: "06",
-    title: "Approval & Evidence",
-    desc: "Every completion claim is backed by auditable evidence. Phase progression requires gate evaluation. Clients review via projected surfaces.",
-  },
-];
-
-const guidedBuilderFeatures = [
-  {
-    title: "Elicitation Engine",
-    description:
-      "Structured question flows extract domain knowledge, quality expectations, and business rules from stakeholders — before any pipeline runs.",
-  },
-  {
-    title: "Profile-Driven Configuration",
-    description:
-      "Industry-specific profiles (fintech, healthcare, SaaS) pre-load relevant checks, thresholds, and compliance requirements. Customize from a known-good baseline.",
-  },
-  {
-    title: "Pack Assembly",
-    description:
-      "Answers compile into executable configuration packs — vertical bundles of checks, thresholds, and output templates that any executor can consume.",
-  },
-];
-
-const projectionSurfaces = [
-  {
-    title: "Client Dashboards",
-    description:
-      "Real-time visibility into engagement status, deliverable progress, and quality metrics. Clients see governed state — not internal chatter.",
-  },
-  {
-    title: "Operational Views",
-    description:
-      "Internal dashboards for engagement managers showing pipeline health, blocked items, upcoming gates, and resource allocation across engagements.",
-  },
-  {
-    title: "Audit Trails",
-    description:
-      "Every decision, approval, and state change is logged with timestamp, actor, and evidence. Exportable for compliance and post-mortem analysis.",
-  },
-];
-
-const toolArchFeatures = [
-  {
-    title: "11 Tool Namespaces",
-    description:
-      "Calendar, GitHub, Sonos, memory, notifications, data ops, pipeline orchestration, and more. Each namespace is self-describing with JSON manifests.",
-  },
-  {
-    title: "Handler Purity",
-    description:
-      "Tool handlers import only the error module — no database access, no side-channel state. Pure functions with validated I/O schemas.",
-  },
-  {
-    title: "Executor-Neutral Contracts",
-    description:
-      "Work items are defined as contracts, not scripts. The same contract can be executed by the Audit Kit, Claude Code, a human contractor, or a CI pipeline.",
-  },
-  {
-    title: "Pack Abstraction",
-    description:
-      "Vertical configuration packs bundle checks, thresholds, and output templates for specific domains. Packs are composable and version-controlled.",
-  },
-];
-
-const safetyFeatures = [
-  {
-    title: "Policy Engine",
-    description:
-      "YAML role config with tool-specific overrides — volume caps, repo allowlists, execution modes. Constraints are explicit, not implicit.",
-  },
-  {
-    title: "Approval Gateway",
-    description:
-      "Single entry point: schema validation, policy check, human approval, execution, logging. No action runs without a trace.",
-  },
-  {
-    title: "51 Governed Entities",
-    description:
-      "Every entity in the platform — tools, policies, roles, packs, engagement records — is registered, versioned, and auditable.",
-  },
-];
-
-export default function ServicesPage() {
+export default function PlatformPage() {
   return (
-    <>
+    <div className="dark bg-bayesiq-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(platformJsonLd) }}
       />
 
-      {/* Hero */}
-      <section className="px-6 py-24 md:py-32">
+      {/* Section 1: The Problem */}
+      <PlatformSection className="pt-28 md:pt-36">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
-            Governed data delivery.
-            <br />
-            <span className="text-bayesiq-500">From intent to evidence.</span>
+          <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+            AI outputs are increasingly consequential.
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
-            The BayesIQ Platform turns scattered interactions into tracked
-            commitments, auditable decisions, and governed deliverables. Policy
-            gates enforce what can happen. Approval workflows control when.
-            Audit trails prove it did.
+          <p className="mt-6 font-display text-2xl font-medium text-[var(--dark-accent)] md:text-3xl">
+            Nobody can prove who approved what, or why.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="#truth-layers"
-              className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
-            >
-              See How It Works
-            </a>
-            <Link
-              href="/consulting"
-              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
-            >
-              Start with the Audit Kit &rarr;
-            </Link>
-          </div>
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-bayesiq-400">
+            Models generate insights, recommendations, and actions at a pace
+            that outstrips any human review process. The gap between what AI
+            produces and what a responsible organization can defend is growing
+            every quarter.
+          </p>
         </div>
-      </section>
+      </PlatformSection>
 
-      {/* Three Truth Layers */}
-      <section
+      {/* Section 2: The Thesis */}
+      <PlatformSection className="border-t border-bayesiq-800 bg-bayesiq-900">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            The thesis
+          </p>
+          <h2 className="mt-4 font-display text-2xl font-bold leading-snug text-white md:text-3xl">
+            BayesIQ is the governance layer that produces an auditable chain
+            from raw output to approved deliverable.
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-bayesiq-300">
+            Every finding reviewed. Every decision attributed. Every transition
+            evidence-backed. Not a policy document -- a running system that
+            enforces the chain in real time.
+          </p>
+        </div>
+      </PlatformSection>
+
+      {/* Section 3: Three Truth Layers */}
+      <PlatformSection
         id="truth-layers"
-        className="border-t border-bayesiq-200 px-6 py-20"
+        className="border-t border-bayesiq-800"
       >
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            The architecture
+          </p>
+          <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             Three layers of truth
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-bayesiq-400">
             Every piece of information moves through three distinct layers.
-            Nothing reaches operational state without human sign-off.
+            Nothing reaches operational state without explicit human acceptance.
+            The layers are the invariant -- they apply to every engagement, every
+            pipeline, every decision.
           </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {truthLayers.map((layer) => (
-              <div key={layer.title} className={layer.style}>
-                <p className={layer.labelStyle}>{layer.layer}</p>
-                <h3 className="mt-2 text-lg font-bold text-bayesiq-900">
-                  {layer.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
-                  {layer.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+        <ThreeTruthLayers />
+      </PlatformSection>
 
-      {/* Client Engagement Pipeline */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
-            Client engagement pipeline
+      {/* Section 4: Executor-Neutral */}
+      <PlatformSection className="border-t border-bayesiq-800 bg-bayesiq-900">
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            Executor-neutral
+          </p>
+          <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
+            The contract is portable. The audit trail is the product.
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
-            Every engagement follows the same path: raw evidence in, governed
-            deliverables out. No shortcuts, no untracked decisions.
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-bayesiq-400">
+            BayesIQ works with any execution engine -- your AI pipeline, a
+            coding assistant, a contractor, a CI job. The work is defined in
+            portable, human-readable contracts. Any compliant engine can consume
+            the same contract and return evidence through the same completion
+            protocol.
           </p>
-          <div className="mt-12 space-y-8">
-            {engagementPipeline.map((item) => (
-              <div key={item.step} className="flex gap-6">
-                <span className="text-2xl font-bold text-bayesiq-300">
-                  {item.step}
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold text-bayesiq-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+        <GovernanceChainExpanded />
+      </PlatformSection>
 
-      {/* Guided Builder */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
-            Guided builder
+      {/* Section 5: What Makes This Different */}
+      <PlatformSection className="border-t border-bayesiq-800">
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            Differentiation
+          </p>
+          <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
+            What this is not
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
-            Capture domain knowledge before pipelines run — not after they fail.
-            The guided builder turns stakeholder input into executable
-            configuration.
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-bayesiq-400">
+            The only system that joins ingestion, extraction, triage, governed
+            transitions, and evidence-backed completion in one loop.
           </p>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {guidedBuilderFeatures.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-lg border border-bayesiq-200 bg-bayesiq-50 p-6"
-              >
-                <h3 className="text-base font-bold text-bayesiq-900">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
-
-      {/* Projection Surfaces */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
-            Projection surfaces
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
-            Different stakeholders see different views — all derived from the
-            same governed state. No copy-paste dashboards, no stale status
-            decks.
-          </p>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {projectionSurfaces.map((surface) => (
-              <div
-                key={surface.title}
-                className="rounded-lg border border-bayesiq-200 bg-white p-6"
-              >
-                <h3 className="text-base font-bold text-bayesiq-900">
-                  {surface.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
-                  {surface.description}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {notList.map((item) => (
+            <div
+              key={item.label}
+              className="rounded-xl border border-bayesiq-700 bg-bayesiq-900 p-6"
+            >
+              <h3 className="text-sm font-bold text-[var(--dark-accent)]">
+                {item.label}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-bayesiq-400">
+                {item.detail}
+              </p>
+            </div>
+          ))}
         </div>
-      </section>
+      </PlatformSection>
 
-      {/* Tool Architecture */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
-            Tool architecture
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
-            Every capability in the platform is a registered tool with a JSON
-            manifest, validated I/O, and policy enforcement. No implicit
-            behavior, no undocumented side effects.
-          </p>
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
-            {toolArchFeatures.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-lg border border-bayesiq-200 bg-bayesiq-50 p-6"
-              >
-                <h3 className="text-base font-bold text-bayesiq-900">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Safety by Default */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl font-bold text-bayesiq-900">
-            Safety by default
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-bayesiq-600">
-            The platform is restrictive by design. Every action requires policy
-            clearance and leaves an audit trail. Constraints are explicit, not
-            bolted on.
-          </p>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {safetyFeatures.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-lg border border-bayesiq-200 bg-white p-6"
-              >
-                <h3 className="text-base font-bold text-bayesiq-900">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Bridge to Audit Kit */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
+      {/* Section 6: Built By a Consultant */}
+      <PlatformSection className="border-t border-bayesiq-800 bg-bayesiq-900">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400">
-            Where to start
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            Origin
           </p>
-          <h2 className="mt-2 text-2xl font-bold text-bayesiq-900">
-            Platform or Audit Kit?
+          <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
+            Built by a consultant, for consultants
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-bayesiq-600">
-            The <strong>Audit Kit</strong> is the fastest way to prove value —
-            drop a CSV, get a scored audit, a dbt project, and a dashboard. No
-            contracts, no setup.
+          <p className="mt-6 text-base leading-relaxed text-bayesiq-300">
+            We built this because we needed it. Managing multiple client
+            engagements with scattered emails, half-tracked commitments, and no
+            single surface to prove what was promised and what was delivered.
           </p>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-bayesiq-600">
-            The <strong>Platform</strong> is for organizations that need
-            governed delivery across multiple engagements — policy enforcement,
-            approval workflows, and audit trails at scale.
+          <p className="mt-4 text-base leading-relaxed text-bayesiq-300">
+            One place to track engagements. One governed surface for client
+            interactions. Contracts with evidence-backed completion -- so when a
+            client asks &ldquo;what happened?&rdquo; you have the answer, not a
+            guess.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/consulting"
-              className="rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
-            >
-              Try the Audit Kit
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
-            >
-              Book a platform walkthrough &rarr;
-            </Link>
+        </div>
+      </PlatformSection>
+
+      {/* Section 7: Regulated-Ready */}
+      <PlatformSection className="border-t border-bayesiq-800">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-500">
+            Compliance
+          </p>
+          <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
+            Regulated-ready by design
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-bayesiq-300">
+            The same governance chain that makes day-to-day operations
+            trustworthy also satisfies regulated environments. Every state
+            transition carries an attestation. Every decision links to its
+            evidence. Every approval identifies its actor.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            {[
+              "Attestation model",
+              "Cryptographic verification",
+              "Full audit lineage",
+              "Evidence-backed gates",
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="rounded-full border border-bayesiq-600 px-4 py-1.5 text-xs font-medium text-bayesiq-300"
+              >
+                {badge}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      </PlatformSection>
 
-      <CTA
-        headline="See the platform in action"
-        description="Start with a data audit or book a call to scope a governed engagement."
-        buttonText="Book a Call"
-      />
-    </>
+      {/* Section 8: CTA */}
+      <PlatformSection className="border-t border-bayesiq-800 bg-bayesiq-900">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
+            See it in action
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-bayesiq-300">
+            Explore a live engagement walkthrough, or talk to us about how the
+            platform fits your operation.
+          </p>
+          <div className="mt-10">
+            <PlatformCTA />
+          </div>
+        </div>
+      </PlatformSection>
+    </div>
   );
 }
