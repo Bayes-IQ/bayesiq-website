@@ -33,7 +33,7 @@ export default function QuestionCard({
               key={idx}
               htmlFor={inputId}
               className={[
-                "flex cursor-pointer items-start gap-4 rounded-lg border px-4 py-3 text-sm transition-colors",
+                "flex min-h-12 cursor-pointer items-start gap-4 rounded-lg border px-4 py-3 text-sm transition-colors",
                 isSelected
                   ? "border-bayesiq-900 bg-bayesiq-50 text-bayesiq-900"
                   : "border-bayesiq-200 text-bayesiq-700 hover:border-bayesiq-400 hover:bg-bayesiq-50",
