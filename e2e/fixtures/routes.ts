@@ -10,19 +10,16 @@ export interface RouteDefinition {
 // All static routes — every public page on the site
 export const staticRoutes: RouteDefinition[] = [
   { path: "/", titleContains: "BayesIQ" },
-  { path: "/services", titleContains: "Platform", hasJsonLd: true },
-  { path: "/audit-kit", titleContains: "Audit Kit", hasJsonLd: true },
-  { path: "/approach", titleContains: "Approach" },
-  { path: "/case-studies", titleContains: "Case Studies" },
-  { path: "/sample-report", titleContains: "Sample" },
-  { path: "/playground", titleContains: "Playground" },
+  { path: "/platform", titleContains: "BayesIQ" },
+  { path: "/consulting", titleContains: "BayesIQ" },
+  { path: "/consulting/industries", titleContains: "BayesIQ" },
+  { path: "/consulting/case-studies", titleContains: "Case Studies" },
+  { path: "/consulting/sample-report", titleContains: "Sample" },
+  { path: "/consulting/explore", titleContains: "BayesIQ" },
   { path: "/assessment", titleContains: "Assessment" },
   { path: "/contact", titleContains: "Contact" },
   { path: "/privacy", titleContains: "Privacy" },
   { path: "/terms", titleContains: "Terms" },
-  { path: "/blog", titleContains: "Blog" },
-  { path: "/fintech", titleContains: "Fintech" },
-  { path: "/healthcare", titleContains: "Healthcare" },
 ];
 
 // Discover blog slugs dynamically from content/blog/
