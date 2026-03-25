@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import type { AssessmentResult } from "./assessmentTypes";
-import type { Tier } from "./assessmentTypes";
 import EmailCaptureInline from "./EmailCaptureInline";
-import ShareResults from "./ShareResults";
 
 interface ResultsPanelProps {
   result: AssessmentResult;
@@ -22,40 +20,14 @@ const TIER_SCORE_COLOR: Record<string, string> = {
   strong: "text-emerald-700",
 };
 
-/** Tier-specific CTA copy and link targets (D-004). */
-const TIER_CTA: Record<
-  Tier,
-  { primary: string; primaryHref: string; secondary: string; secondaryHref: string }
-> = {
-  at_risk: {
-    primary: "Book a diagnostic call",
-    primaryHref: "/contact",
-    secondary: "See how audits work",
-    secondaryHref: "/consulting",
-  },
-  needs_work: {
-    primary: "See what a targeted review finds",
-    primaryHref: "/contact",
-    secondary: "Explore our approach",
-    secondaryHref: "/consulting",
-  },
-  strong: {
-    primary: "See what we find even in strong systems",
-    primaryHref: "/consulting/case-studies",
-    secondary: "Learn about our process",
-    secondaryHref: "/consulting",
-  },
-};
-
 /**
  * Displays the assessment result: tier, score band, description,
- * recommendations, contextual CTA, share button, and email capture.
+ * recommendations, CTA, and email capture.
  */
 export default function ResultsPanel({ result }: ResultsPanelProps) {
   const accentClasses =
     TIER_ACCENT[result.tier] ?? "text-bayesiq-900 bg-bayesiq-50 border-bayesiq-200";
   const scoreColorClass = TIER_SCORE_COLOR[result.tier] ?? "text-bayesiq-900";
-  const cta = TIER_CTA[result.tier];
 
   return (
     <div className="w-full space-y-8">
@@ -105,23 +77,18 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
         </ol>
       </div>
 
-      {/* Disclaimers — collapsible */}
-      <details className="rounded-lg border border-bayesiq-100 bg-bayesiq-50 px-4 py-3">
-        <summary className="cursor-pointer text-xs font-medium text-bayesiq-500">
-          About this score
-        </summary>
-        <div className="mt-2 space-y-2">
-          <p className="text-xs leading-relaxed text-bayesiq-400">
-            <strong className="font-medium text-bayesiq-500">Directional score:</strong>{" "}
-            This score is based on your self-reported answers, not a technical audit of your
-            actual systems. Use it as a starting point, not a definitive assessment.
-          </p>
-          <p className="text-xs leading-relaxed text-bayesiq-400">
-            <strong className="font-medium text-bayesiq-500">Not a compliance audit:</strong>{" "}
-            This assessment does not evaluate regulatory requirements (e.g., GDPR, CCPA, HIPAA).
-          </p>
-        </div>
-      </details>
+      {/* Disclaimers */}
+      <div className="rounded-lg border border-bayesiq-100 bg-bayesiq-50 px-4 py-4">
+        <p className="text-xs leading-relaxed text-bayesiq-400">
+          <strong className="font-medium text-bayesiq-500">Directional score:</strong>{" "}
+          This score is based on your self-reported answers, not a technical audit of your
+          actual systems. Use it as a starting point, not a definitive assessment.
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-bayesiq-400">
+          <strong className="font-medium text-bayesiq-500">Not a compliance audit:</strong>{" "}
+          This assessment does not evaluate regulatory requirements (e.g., GDPR, CCPA, HIPAA).
+        </p>
+      </div>
 
       {/* Email capture */}
       <EmailCaptureInline
@@ -133,25 +100,21 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
       {/* CTAs */}
       <div className="border-t border-bayesiq-200 pt-6">
         <p className="text-sm text-bayesiq-600">{result.ctaSubtext}</p>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <Link
-            href={cta.primaryHref}
+            href="/contact"
             className="rounded-lg bg-bayesiq-900 px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
             data-event="cta_click"
             data-location="assessment_results"
           >
-            {cta.primary}
+            Talk to an expert
           </Link>
           <Link
-            href={cta.secondaryHref}
+            href="/consulting"
             className="rounded-lg border border-bayesiq-300 px-6 py-3 text-center text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900"
           >
-            {cta.secondary}
+            See how audits work
           </Link>
-          <ShareResults
-            scorePercent={result.scorePercent}
-            tier={result.tier}
-          />
         </div>
       </div>
     </div>
