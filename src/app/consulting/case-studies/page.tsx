@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTA from "@/components/CTA";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import BeforeAfterSplit from "@/components/BeforeAfterSplit";
+import InlineEvidence from "@/components/InlineEvidence";
+import SectionReveal from "@/components/SectionReveal";
 
 export const metadata: Metadata = {
-  title: "Case Studies — BayesIQ",
+  title: "Case Studies",
   description:
     "Representative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
   openGraph: {
     title: "Case Studies — BayesIQ",
     description:
       "Representative engagements showing how BayesIQ finds broken metrics, validates pipelines, and delivers scored audit reports — across SaaS, Fintech, and Healthcare.",
+    url: "/consulting/case-studies",
   },
 };
 
@@ -29,6 +34,7 @@ interface CaseStudy {
   timeline: string;
   keyStats: string[];
   ctaText: string;
+  hidden?: boolean;
 }
 
 const caseStudies: CaseStudy[] = [
@@ -140,7 +146,28 @@ const caseStudies: CaseStudy[] = [
     ],
     ctaText: "Audit Your Clinical Data",
   },
+  // Shuk placeholder — structurally ready, not rendered until post-contract
+  {
+    industry: "Real Estate — Property Management",
+    slug: "shuk",
+    hidden: true,
+    context: "",
+    brokenState: "",
+    findings: [],
+    impact: "",
+    remediation: "",
+    deliverables: [],
+    score: 0,
+    severity: "",
+    resultScore: 0,
+    tier: "",
+    timeline: "",
+    keyStats: [],
+    ctaText: "",
+  },
 ];
+
+const visibleCaseStudies = caseStudies.filter((s) => !s.hidden);
 
 const caseStudiesJsonLd = {
   "@context": "https://schema.org",
@@ -155,16 +182,6 @@ const caseStudiesJsonLd = {
   },
 };
 
-function scoreBadgeClasses(score: number): string {
-  if (score < 50) {
-    return "bg-red-500/10 text-red-700 border-red-200";
-  }
-  if (score < 70) {
-    return "bg-orange-500/10 text-orange-700 border-orange-200";
-  }
-  return "bg-yellow-500/10 text-yellow-700 border-yellow-200";
-}
-
 export default function CaseStudiesPage() {
   return (
     <>
@@ -173,148 +190,171 @@ export default function CaseStudiesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudiesJsonLd) }}
       />
 
+      {/* Hero */}
       <section className="px-6 py-24">
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
-            Case Studies
-          </h1>
-          <p className="mt-4 text-lg text-bayesiq-600">
-            Representative engagements based on real patterns we see across
-            industries. Details are composites — your audit uses your actual
-            data.
-          </p>
+          <SectionReveal>
+            <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
+              Case Studies
+            </h1>
+            <p className="mt-4 text-lg text-bayesiq-600">
+              Representative engagements based on real patterns we see across
+              industries. Details are composites — your audit uses your actual
+              data.
+            </p>
 
-          <div className="mt-6 flex gap-4">
-            {caseStudies.map((s) => (
-              <a
-                key={s.slug}
-                href={`#${s.slug}`}
-                className="text-sm font-medium text-bayesiq-600 hover:text-bayesiq-900"
-              >
-                {s.industry.split(" — ")[0]}
-              </a>
-            ))}
-          </div>
+            <div className="mt-6 flex gap-4">
+              {visibleCaseStudies.map((s) => (
+                <a
+                  key={s.slug}
+                  href={`#${s.slug}`}
+                  className="text-sm font-medium text-bayesiq-600 hover:text-bayesiq-900"
+                >
+                  {s.industry.split(" — ")[0]}
+                </a>
+              ))}
+            </div>
+          </SectionReveal>
         </div>
       </section>
 
+      {/* Case Studies */}
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-5xl space-y-16">
-          {caseStudies.map((study) => (
-            <article
-              key={study.slug}
-              id={study.slug}
-              className="rounded-2xl border border-bayesiq-200 bg-white p-8 shadow-sm"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-bayesiq-900">
-                    {study.industry}
-                  </h2>
-                  <p className="mt-1 text-sm text-bayesiq-500">
-                    {study.tier} · {study.timeline}
-                  </p>
+          {visibleCaseStudies.map((study) => (
+            <SectionReveal key={study.slug}>
+              <article
+                id={study.slug}
+                className="rounded-2xl border border-bayesiq-200 bg-white p-8 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-bayesiq-900">
+                      {study.industry}
+                    </h2>
+                    <p className="mt-1 text-sm text-bayesiq-500">
+                      <InlineEvidence>{study.tier}</InlineEvidence>
+                      <span className="mx-2">·</span>
+                      {study.timeline}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 rounded-lg border border-bayesiq-200 bg-bayesiq-50 px-3 py-1.5 text-sm font-semibold text-bayesiq-700">
+                    <AnimatedCounter
+                      from={study.score}
+                      to={study.score}
+                      className="font-mono"
+                    />
+                    <span className="mx-1 text-bayesiq-400">&rarr;</span>
+                    <AnimatedCounter
+                      from={study.score}
+                      to={study.resultScore}
+                      className="font-mono text-green-700"
+                    />
+                  </div>
                 </div>
-                <span
-                  className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold ${scoreBadgeClasses(study.score)}`}
-                >
-                  {study.score} → {study.resultScore}
-                  <span className="text-xs font-normal">
-                    ({study.severity})
-                  </span>
-                </span>
-              </div>
 
-              <div className="mt-4 flex flex-wrap gap-4">
-                {study.keyStats.map((stat) => (
-                  <span
-                    key={stat}
-                    className="rounded-full bg-bayesiq-100 px-3 py-1 text-sm font-medium text-bayesiq-700"
+                {/* Before/After Split */}
+                <div className="mt-6">
+                  <BeforeAfterSplit
+                    before={{
+                      label: "Before Audit",
+                      score: study.score,
+                      severity: study.severity,
+                      details: study.brokenState,
+                    }}
+                    after={{
+                      label: "After Remediation",
+                      score: study.resultScore,
+                      tier: study.tier,
+                      details: study.remediation,
+                    }}
+                  />
+                </div>
+
+                {/* Key Stats */}
+                <div className="mt-6 flex flex-wrap gap-4">
+                  {study.keyStats.map((stat) => (
+                    <span
+                      key={stat}
+                      className="rounded-full bg-bayesiq-100 px-3 py-1 text-sm font-medium text-bayesiq-700"
+                    >
+                      {stat}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 space-y-6">
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                      Client Context
+                    </h3>
+                    <p className="mt-1 text-bayesiq-700">{study.context}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                      What BayesIQ Found
+                    </h3>
+                    <ul className="mt-1 space-y-1">
+                      {study.findings.map((finding, j) => (
+                        <li
+                          key={j}
+                          className="flex items-start gap-2 text-bayesiq-700"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
+                          {finding}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                      Business Impact
+                    </h3>
+                    <p className="mt-1 text-bayesiq-700">{study.impact}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                      Deliverables
+                    </h3>
+                    <ul className="mt-1 space-y-1">
+                      {study.deliverables.map((d, j) => (
+                        <li
+                          key={j}
+                          className="flex items-start gap-2 text-bayesiq-700"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href="/contact"
+                    className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
                   >
-                    {stat}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-6 space-y-6">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    Client Context
-                  </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.context}</p>
+                    {study.ctaText}
+                  </Link>
+                  <Link
+                    href="/consulting/sample-report"
+                    className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
+                  >
+                    See a Sample Report
+                  </Link>
+                  <Link
+                    href="/consulting/explore"
+                    className="px-4 py-2 text-sm font-medium text-bayesiq-500 transition-colors hover:text-bayesiq-700"
+                  >
+                    Explore a live engagement &rarr;
+                  </Link>
                 </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    What Was Broken
-                  </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.brokenState}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    What BayesIQ Found
-                  </h3>
-                  <ul className="mt-1 space-y-1">
-                    {study.findings.map((finding, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-2 text-bayesiq-700"
-                      >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
-                        {finding}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    Business Impact
-                  </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.impact}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    Remediation
-                  </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.remediation}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
-                    Deliverables
-                  </h3>
-                  <ul className="mt-1 space-y-1">
-                    {study.deliverables.map((d, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-2 text-bayesiq-700"
-                      >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/contact"
-                  className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
-                >
-                  {study.ctaText}
-                </Link>
-                <Link
-                  href="/consulting/sample-report"
-                  className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
-                >
-                  See a Sample Report
-                </Link>
-              </div>
-            </article>
+              </article>
+            </SectionReveal>
           ))}
         </div>
       </section>
