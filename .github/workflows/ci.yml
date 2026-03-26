@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Bayes-IQ/bayesiq-design-system
-          path: ../bayesiq-design-system
+          path: bayesiq-design-system
 
       - uses: actions/setup-node@v4
         with:
@@ -24,7 +24,10 @@ jobs:
 
       - name: Build design system
         run: npm install && npm run build
-        working-directory: ../bayesiq-design-system
+        working-directory: bayesiq-design-system
+
+      - name: Link design system as sibling
+        run: ln -s "$GITHUB_WORKSPACE/bayesiq-design-system" ../bayesiq-design-system
 
       - run: npm ci
 
