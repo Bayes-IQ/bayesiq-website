@@ -23,10 +23,10 @@ export default function WorkflowStatusBar({ summary }: Props) {
   return (
     <div data-testid="workflow-status-bar">
       {/* Progress bar */}
-      <div className="h-2 rounded-full bg-bayesiq-100 overflow-hidden flex">
+      <div className="h-2 rounded-full bg-biq-surface-2 overflow-hidden flex">
         {approvedPct > 0 && (
           <div
-            className="bg-green-500 transition-all"
+            className="bg-biq-status-success-subtle0 transition-all"
             style={{ width: `${approvedPct}%` }}
           />
         )}
@@ -45,12 +45,12 @@ export default function WorkflowStatusBar({ summary }: Props) {
       </div>
 
       {/* Status summary */}
-      <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-bayesiq-600">
+      <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-biq-text-secondary">
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="h-2 w-2 rounded-full bg-biq-status-success-subtle0" />
           {reviewed} reviewed
           {approved > 0 && rejected > 0 && (
-            <span className="text-bayesiq-400">
+            <span className="text-biq-text-muted">
               ({approved} approved, {rejected} rejected)
             </span>
           )}
@@ -61,7 +61,7 @@ export default function WorkflowStatusBar({ summary }: Props) {
             {outstanding} pending review
           </span>
         )}
-        <span className="text-bayesiq-400">
+        <span className="text-biq-text-muted">
           {total} total items
         </span>
       </div>

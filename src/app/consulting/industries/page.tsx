@@ -20,17 +20,17 @@ export default function IndustriesPage() {
       {/* Hero */}
       <section className="px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
             Industries We Serve
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
+          <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary">
             Every industry has its own failure patterns. We know what breaks in
             each one because we have audited it.
           </p>
-          <p className="mt-4 text-sm text-bayesiq-500">
+          <p className="mt-4 text-sm text-biq-text-muted">
             <Link
               href="/consulting"
-              className="font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+              className="font-medium text-biq-text-secondary transition-colors hover:text-biq-text-primary"
             >
               &larr; Back to Consulting
             </Link>
@@ -39,7 +39,7 @@ export default function IndustriesPage() {
       </section>
 
       {/* Tabs */}
-      <section className="border-t border-bayesiq-200 px-6 py-12">
+      <section className="border-t border-biq-border px-6 py-12">
         <div className="mx-auto max-w-4xl">
           <IndustryTabs />
         </div>

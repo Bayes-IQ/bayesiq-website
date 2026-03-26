@@ -16,20 +16,20 @@ const STEP_TYPE_META: Record<
   TimelineStep["step_type"],
   { label: string; color: string; icon: string }
 > = {
-  finding: { label: "Finding", color: "bg-red-100 text-red-700", icon: "!" },
-  correction: { label: "Correction", color: "bg-amber-100 text-amber-700", icon: "\u2192" },
-  dashboard: { label: "Dashboard", color: "bg-blue-100 text-blue-700", icon: "\u25A3" },
+  finding: { label: "Finding", color: "bg-biq-status-error-subtle text-biq-status-error", icon: "!" },
+  correction: { label: "Correction", color: "bg-biq-status-warning-subtle text-biq-status-warning", icon: "\u2192" },
+  dashboard: { label: "Dashboard", color: "bg-biq-status-info-subtle text-biq-status-info", icon: "\u25A3" },
   report: { label: "Report", color: "bg-indigo-100 text-indigo-700", icon: "\u25A0" },
   presentation: { label: "Presentation", color: "bg-purple-100 text-purple-700", icon: "\u25B6" },
-  governance: { label: "Governance", color: "bg-green-100 text-green-700", icon: "\u2713" },
+  governance: { label: "Governance", color: "bg-biq-status-success-subtle text-biq-status-success", icon: "\u2713" },
 };
 
 function reviewerStatusColor(status: string): string {
   switch (status) {
     case "approved":
-      return "bg-green-100 text-green-700";
+      return "bg-biq-status-success-subtle text-biq-status-success";
     case "rejected":
-      return "bg-red-100 text-red-700";
+      return "bg-biq-status-error-subtle text-biq-status-error";
     default:
       return "bg-yellow-100 text-yellow-700";
   }
@@ -39,42 +39,42 @@ export default function CascadeCard({ entry, governanceStatus, questionId, onGov
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm">
+    <div className="rounded-xl border border-biq-border bg-white shadow-sm">
       {/* Collapsed view — always visible */}
       <button
         type="button"
         onClick={() => setExpanded((prev) => !prev)}
-        className="w-full text-left px-5 py-4 sm:px-6 sm:py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-bayesiq-500 rounded-xl"
+        className="w-full text-left px-5 py-4 sm:px-6 sm:py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary rounded-xl"
         aria-expanded={expanded}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-2">
             {/* Delta row */}
             <div className="flex flex-wrap items-center gap-2 text-sm">
-              <span className="font-medium text-bayesiq-500">Reported:</span>
-              <span className="text-bayesiq-700">{entry.reported_value}</span>
-              <span className="text-bayesiq-300 mx-1">/</span>
-              <span className="font-medium text-bayesiq-500">Audited:</span>
-              <span className="text-bayesiq-700">{entry.audited_value}</span>
-              <span className="ml-1 inline-flex items-center rounded-full bg-bayesiq-100 px-2 py-0.5 text-xs font-semibold text-bayesiq-900">
+              <span className="font-medium text-biq-text-muted">Reported:</span>
+              <span className="text-biq-text-secondary">{entry.reported_value}</span>
+              <span className="text-biq-text-muted mx-1">/</span>
+              <span className="font-medium text-biq-text-muted">Audited:</span>
+              <span className="text-biq-text-secondary">{entry.audited_value}</span>
+              <span className="ml-1 inline-flex items-center rounded-full bg-biq-surface-2 px-2 py-0.5 text-xs font-semibold text-biq-text-primary">
                 {entry.delta}
               </span>
             </div>
 
             {/* Root cause */}
-            <p className="text-sm font-medium text-bayesiq-900 leading-snug">
+            <p className="text-sm font-medium text-biq-text-primary leading-snug">
               {entry.root_cause}
             </p>
 
             {/* Consequence */}
-            <p className="text-xs text-bayesiq-500 leading-relaxed">
+            <p className="text-xs text-biq-text-muted leading-relaxed">
               {entry.consequence}
             </p>
           </div>
 
           {/* Expand chevron */}
           <span
-            className={`mt-1 shrink-0 text-bayesiq-400 transition-transform duration-200 ${
+            className={`mt-1 shrink-0 text-biq-text-muted transition-transform duration-200 ${
               expanded ? "rotate-180" : ""
             }`}
             aria-hidden="true"
@@ -98,7 +98,7 @@ export default function CascadeCard({ entry, governanceStatus, questionId, onGov
           >
             {entry.reviewer_badge.status}
           </span>
-          <span className="text-xs text-bayesiq-400">
+          <span className="text-xs text-biq-text-muted">
             {entry.reviewer_badge.reviewer_name}
           </span>
           <TrustBadge
@@ -117,8 +117,8 @@ export default function CascadeCard({ entry, governanceStatus, questionId, onGov
 
       {/* Expandable timeline */}
       {expanded && entry.timeline_steps.length > 0 && (
-        <div className="border-t border-bayesiq-100 px-5 pb-5 pt-4 sm:px-6">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+        <div className="border-t border-biq-border-subtle px-5 pb-5 pt-4 sm:px-6">
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-biq-text-muted mb-3">
             Timeline
           </h4>
           <ol className="relative space-y-4">
@@ -131,7 +131,7 @@ export default function CascadeCard({ entry, governanceStatus, questionId, onGov
                   {/* Connector line */}
                   {!isLast && (
                     <span
-                      className="absolute left-[11px] top-6 h-full w-px bg-bayesiq-200"
+                      className="absolute left-[11px] top-6 h-full w-px bg-biq-surface-2"
                       aria-hidden="true"
                     />
                   )}
@@ -149,11 +149,11 @@ export default function CascadeCard({ entry, governanceStatus, questionId, onGov
                     >
                       {meta.label}
                     </span>
-                    <p className="mt-1 text-sm font-medium text-bayesiq-800 leading-snug">
+                    <p className="mt-1 text-sm font-medium text-biq-text-primary leading-snug">
                       {step.label}
                     </p>
                     {step.description && (
-                      <p className="mt-0.5 text-xs text-bayesiq-500">
+                      <p className="mt-0.5 text-xs text-biq-text-muted">
                         {step.description}
                       </p>
                     )}

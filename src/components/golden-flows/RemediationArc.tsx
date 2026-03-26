@@ -8,9 +8,9 @@ interface Props {
 }
 
 function scoreColor(score: number): string {
-  if (score >= 80) return "bg-green-100 text-green-700 border-green-200";
-  if (score >= 60) return "bg-amber-100 text-amber-700 border-amber-200";
-  return "bg-red-100 text-red-700 border-red-200";
+  if (score >= 80) return "bg-biq-status-success-subtle text-biq-status-success border-biq-status-success-subtle";
+  if (score >= 60) return "bg-biq-status-warning-subtle text-biq-status-warning border-biq-status-warning-subtle";
+  return "bg-biq-status-error-subtle text-biq-status-error border-biq-status-error-subtle";
 }
 
 interface Step {
@@ -56,7 +56,7 @@ export default function RemediationArc({ snapshots, totalFindings, topAction }: 
 
   return (
     <section className="mt-12" data-testid="remediation-arc">
-      <h2 className="text-lg font-bold tracking-tight text-bayesiq-900 mb-6">
+      <h2 className="text-lg font-bold tracking-tight text-biq-text-primary mb-6">
         What working with BayesIQ looks like
       </h2>
 
@@ -69,17 +69,17 @@ export default function RemediationArc({ snapshots, totalFindings, topAction }: 
               <span className={`inline-flex items-center justify-center h-10 w-10 rounded-full border-2 text-sm font-bold tabular-nums ${scoreColor(step.score)}`}>
                 {step.score}
               </span>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-bayesiq-500">
+              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-biq-text-muted">
                 {step.label}
               </p>
-              <p className="mt-1 text-xs text-bayesiq-400 leading-snug max-w-[140px]">
+              <p className="mt-1 text-xs text-biq-text-muted leading-snug max-w-[140px]">
                 {step.description}
               </p>
             </div>
 
             {/* Connector line (not after last step) */}
             {i < steps.length - 1 && (
-              <div className="hidden sm:block flex-1 h-0.5 bg-bayesiq-200 mx-3" />
+              <div className="hidden sm:block flex-1 h-0.5 bg-biq-surface-2 mx-3" />
             )}
           </div>
         ))}
@@ -87,16 +87,16 @@ export default function RemediationArc({ snapshots, totalFindings, topAction }: 
         {/* Implied step 4 */}
         <div className="flex items-center flex-1 w-full sm:w-auto">
           {steps.length > 0 && (
-            <div className="hidden sm:block flex-1 h-0.5 bg-bayesiq-200 mx-3 border-dashed" />
+            <div className="hidden sm:block flex-1 h-0.5 bg-biq-surface-2 mx-3 border-dashed" />
           )}
           <div className="flex flex-col items-center text-center min-w-[100px]">
-            <span className="inline-flex items-center justify-center h-10 w-10 rounded-full border-2 border-dashed border-bayesiq-300 text-sm font-bold text-bayesiq-400">
+            <span className="inline-flex items-center justify-center h-10 w-10 rounded-full border-2 border-dashed border-biq-border text-sm font-bold text-biq-text-muted">
               ?
             </span>
-            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-bayesiq-400">
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-biq-text-muted">
               Your Data
             </p>
-            <p className="mt-1 text-xs text-bayesiq-400 leading-snug max-w-[140px]">
+            <p className="mt-1 text-xs text-biq-text-muted leading-snug max-w-[140px]">
               This could be your story
             </p>
           </div>

@@ -52,7 +52,7 @@ export default function VerticalTabs({
   return (
     <div className="mt-10">
       {/* Tab bar */}
-      <div className="border-b border-bayesiq-200" role="tablist">
+      <div className="border-b border-biq-border" role="tablist">
         <div className="flex gap-0 -mb-px">
           {TABS.map((tab) => (
             <button
@@ -62,8 +62,8 @@ export default function VerticalTabs({
               onClick={() => handleTabClick(tab.key)}
               className={`px-5 py-3 text-sm font-medium transition-colors ${
                 activeTab === tab.key
-                  ? "border-b-2 border-bayesiq-900 text-bayesiq-900"
-                  : "text-bayesiq-500 hover:text-bayesiq-700"
+                  ? "border-b-2 border-bayesiq-900 text-biq-text-primary"
+                  : "text-biq-text-muted hover:text-biq-text-secondary"
               }`}
             >
               {tab.label}

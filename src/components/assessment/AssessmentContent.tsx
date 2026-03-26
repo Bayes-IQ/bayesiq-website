@@ -14,15 +14,15 @@ const TIER_LABELS: Record<Tier, string> = {
 };
 
 const TIER_ACCENT: Record<Tier, string> = {
-  at_risk: "text-red-600 bg-red-50 border-red-200",
-  needs_work: "text-amber-700 bg-amber-50 border-amber-200",
-  strong: "text-emerald-700 bg-emerald-50 border-emerald-200",
+  at_risk: "text-biq-status-error bg-biq-status-error-subtle border-biq-status-error-subtle",
+  needs_work: "text-biq-status-warning bg-biq-status-warning-subtle border-biq-status-warning-subtle",
+  strong: "text-biq-status-success bg-emerald-50 border-emerald-200",
 };
 
 const TIER_SCORE_COLOR: Record<Tier, string> = {
-  at_risk: "text-red-600",
-  needs_work: "text-amber-700",
-  strong: "text-emerald-700",
+  at_risk: "text-biq-status-error",
+  needs_work: "text-biq-status-warning",
+  strong: "text-biq-status-success",
 };
 
 /**
@@ -56,7 +56,7 @@ export default function AssessmentContent() {
     return (
       <div className="mx-auto max-w-2xl">
         <div className="text-center">
-          <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+          <p className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
             Shared Assessment Result
           </p>
           <div
@@ -74,7 +74,7 @@ export default function AssessmentContent() {
           </div>
 
           <div className="mt-10 space-y-4">
-            <p className="text-base text-bayesiq-600">
+            <p className="text-base text-biq-text-secondary">
               Someone shared their data quality assessment results with you.
               <br />
               Take the assessment to see how your data infrastructure compares.

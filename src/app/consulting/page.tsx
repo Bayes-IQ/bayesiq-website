@@ -75,10 +75,10 @@ export default function ConsultingPage() {
       {/* Hero */}
       <section className="px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
             Audit-First Analytics Consulting
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
+          <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary">
             We find what&apos;s broken, fix it, and hand you the infrastructure
             to keep it right.
           </p>
@@ -91,7 +91,7 @@ export default function ConsultingPage() {
             </Link>
             <Link
               href="/assessment"
-              className="rounded-lg border border-bayesiq-300 px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-50"
+              className="rounded-lg border border-biq-border px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
             >
               Take the Self-Assessment
             </Link>
@@ -100,12 +100,12 @@ export default function ConsultingPage() {
       </section>
 
       {/* Methodology */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-bayesiq-900">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary">
             How We Work
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-bayesiq-600">
+          <p className="mt-4 text-base leading-relaxed text-biq-text-secondary">
             A repeatable, six-stage pipeline. Every engagement follows the same
             sequence so nothing gets missed and every finding is traceable back
             to source data.
@@ -117,13 +117,13 @@ export default function ConsultingPage() {
       </section>
 
       {/* Engagement Tiers */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
+      <section className="border-t border-biq-border px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <h2 className="font-display text-2xl font-bold tracking-tight text-bayesiq-900">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary">
               Engagement Tiers
             </h2>
-            <p className="mt-4 text-base text-bayesiq-600">
+            <p className="mt-4 text-base text-biq-text-secondary">
               Start with a one-week diagnostic. The sprint fee is{" "}
               <span className="font-mono">100%</span> credited toward a full
               engagement.
@@ -136,12 +136,12 @@ export default function ConsultingPage() {
       </section>
 
       {/* Deliverables — Bento Grid */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-bayesiq-900">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary">
             What You Get
           </h2>
-          <p className="mt-4 text-base text-bayesiq-600">
+          <p className="mt-4 text-base text-biq-text-secondary">
             Concrete artifacts, not a slide deck. Every engagement produces
             working infrastructure your team can use from day one.
           </p>
@@ -161,9 +161,9 @@ export default function ConsultingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-bayesiq-200 px-6 py-20">
+      <section className="border-t border-biq-border px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-bayesiq-900">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary">
             Frequently Asked Questions
           </h2>
           <div className="mt-8">
@@ -173,25 +173,25 @@ export default function ConsultingPage() {
       </section>
 
       {/* What We Work With */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-12">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-12">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm text-bayesiq-500">
-            <span className="font-medium text-bayesiq-700">
+          <p className="text-sm text-biq-text-muted">
+            <span className="font-medium text-biq-text-secondary">
               Warehouses:
             </span>{" "}
             Snowflake, BigQuery, Redshift{" "}
-            <span className="mx-2 text-bayesiq-300">|</span>
-            <span className="font-medium text-bayesiq-700">
+            <span className="mx-2 text-biq-text-muted">|</span>
+            <span className="font-medium text-biq-text-secondary">
               Transform:
             </span>{" "}
             dbt preferred, any stack{" "}
-            <span className="mx-2 text-bayesiq-300">|</span>
-            <span className="font-medium text-bayesiq-700">
+            <span className="mx-2 text-biq-text-muted">|</span>
+            <span className="font-medium text-biq-text-secondary">
               Dashboards:
             </span>{" "}
             Looker, Tableau, Mode, Metabase{" "}
-            <span className="mx-2 text-bayesiq-300">|</span>
-            <span className="font-medium text-bayesiq-700">Access:</span>{" "}
+            <span className="mx-2 text-biq-text-muted">|</span>
+            <span className="font-medium text-biq-text-secondary">Access:</span>{" "}
             Read-only
           </p>
         </div>
