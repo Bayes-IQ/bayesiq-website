@@ -15,10 +15,10 @@ export default function Progress({ current, total }: ProgressProps) {
   return (
     <div className="w-full">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+        <span className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
           Question {current} of {total}
         </span>
-        <span className="text-xs text-bayesiq-400">{percent}%</span>
+        <span className="text-xs text-biq-text-muted">{percent}%</span>
       </div>
       <div
         role="progressbar"
@@ -26,7 +26,7 @@ export default function Progress({ current, total }: ProgressProps) {
         aria-valuemin={1}
         aria-valuemax={total}
         aria-label={`Question ${current} of ${total}`}
-        className="h-1.5 w-full overflow-hidden rounded-full bg-bayesiq-100"
+        className="h-1.5 w-full overflow-hidden rounded-full bg-biq-surface-2"
       >
         <div
           className="h-full rounded-full bg-bayesiq-900 transition-all duration-300"

@@ -17,14 +17,14 @@ export default function BentoCard({
 }: BentoCardProps) {
   return (
     <div
-      className={`rounded-xl border border-bayesiq-200 bg-white p-5 ${
+      className={`rounded-xl border border-biq-border bg-white p-5 ${
         span === 2 ? "sm:col-span-2" : ""
       }`}
     >
-      <h3 className="font-mono text-sm font-semibold text-bayesiq-900">
+      <h3 className="font-mono text-sm font-semibold text-biq-text-primary">
         {title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-bayesiq-600">
+      <p className="mt-2 text-sm leading-relaxed text-biq-text-secondary">
         {description}
       </p>
     </div>

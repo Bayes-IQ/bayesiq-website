@@ -23,14 +23,14 @@ export default function ProofStrip() {
     >
       {stats.map((stat) => (
         <div key={stat.label} className="text-center" data-testid="stat-item">
-          <p className="text-4xl font-bold text-bayesiq-900 md:text-5xl">
+          <p className="text-4xl font-bold text-biq-text-primary md:text-5xl">
             <StatCounter
               value={stat.value}
               prefix={stat.prefix}
               suffix={stat.suffix}
             />
           </p>
-          <p className="mt-2 text-sm font-medium text-bayesiq-500">
+          <p className="mt-2 text-sm font-medium text-biq-text-muted">
             {stat.label}
           </p>
         </div>

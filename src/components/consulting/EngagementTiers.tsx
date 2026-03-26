@@ -69,7 +69,7 @@ export default function EngagementTiers() {
           className={`flex flex-col rounded-xl border p-6 ${
             tier.highlighted
               ? "border-bayesiq-900 ring-1 ring-bayesiq-900"
-              : "border-bayesiq-200"
+              : "border-biq-border"
           }`}
         >
           {tier.highlighted && (
@@ -77,22 +77,22 @@ export default function EngagementTiers() {
               Most Popular
             </span>
           )}
-          <h3 className="font-display text-xl font-semibold text-bayesiq-900">
+          <h3 className="font-display text-xl font-semibold text-biq-text-primary">
             {tier.name}
           </h3>
-          <p className="mt-1 font-mono text-sm text-bayesiq-500">
+          <p className="mt-1 font-mono text-sm text-biq-text-muted">
             {tier.timeline}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-bayesiq-600">
+          <p className="mt-3 text-sm leading-relaxed text-biq-text-secondary">
             {tier.description}
           </p>
           <ul className="mt-4 flex-1 space-y-2">
             {tier.includes.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-2 text-sm text-bayesiq-700"
+                className="flex items-start gap-2 text-sm text-biq-text-secondary"
               >
-                <span className="mt-1 shrink-0 text-bayesiq-400" aria-hidden="true">
+                <span className="mt-1 shrink-0 text-biq-text-muted" aria-hidden="true">
                   &bull;
                 </span>
                 {item}
@@ -104,7 +104,7 @@ export default function EngagementTiers() {
             className={`mt-6 block rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-colors ${
               tier.highlighted
                 ? "bg-bayesiq-900 text-white hover:bg-bayesiq-800"
-                : "border border-bayesiq-300 text-bayesiq-900 hover:bg-bayesiq-50"
+                : "border border-biq-border text-biq-text-primary hover:bg-biq-surface-1"
             }`}
           >
             {tier.cta}
