@@ -2,9 +2,11 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "hello@bayesiq.com";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "jamey.mcdowell@bayes-iq.com";
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "website@bayesiq.com";
 
 const MAX_NAME_LENGTH = 200;
@@ -46,6 +48,13 @@ export async function submitContactForm(
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return { success: false, error: "Please enter a valid email address." };
+  }
+
+  if (!resend) {
+    return {
+      success: false,
+      error: "Contact form is not configured yet. Please email jamey.mcdowell@bayes-iq.com directly.",
+    };
   }
 
   try {
