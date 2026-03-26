@@ -26,8 +26,8 @@ jobs:
         run: npm install && npm run build
         working-directory: bayesiq-design-system
 
-      - name: Link design system as sibling
-        run: ln -s "$GITHUB_WORKSPACE/bayesiq-design-system" ../bayesiq-design-system
+      - name: Place design system as sibling
+        run: mv bayesiq-design-system ../bayesiq-design-system
 
       - run: npm ci
 
