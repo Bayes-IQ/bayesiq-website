@@ -14,10 +14,10 @@ export default function MetricCard({ metric }: Props) {
   // Color by magnitude: >10% red, >5% amber, else green
   const badgeColor =
     absDelta > 10
-      ? "bg-red-100 text-red-700"
+      ? "bg-biq-status-error-subtle text-biq-status-error"
       : absDelta > 5
-        ? "bg-amber-100 text-amber-700"
-        : "bg-green-100 text-green-700";
+        ? "bg-biq-status-warning-subtle text-biq-status-warning"
+        : "bg-biq-status-success-subtle text-biq-status-success";
 
   const direction = metric.delta_pct > 0 ? "overstated" : "understated";
   const deltaText = `${direction} ${absDelta.toFixed(1)}%`;
@@ -32,12 +32,12 @@ export default function MetricCard({ metric }: Props) {
   const metricName = metric.metric.replace(/_/g, " ");
 
   return (
-    <div className="rounded-xl border border-bayesiq-200 bg-white px-5 py-4 shadow-sm">
-      <p className="text-xs font-medium uppercase tracking-wide text-bayesiq-400">
+    <div className="rounded-xl border border-biq-border bg-white px-5 py-4 shadow-sm">
+      <p className="text-xs font-medium uppercase tracking-wide text-biq-text-muted">
         {metricName}
       </p>
       <div className="mt-2 flex items-baseline gap-3">
-        <span className="text-2xl font-bold text-bayesiq-900">
+        <span className="text-2xl font-bold text-biq-text-primary">
           {formattedValue}
         </span>
         <span
@@ -46,7 +46,7 @@ export default function MetricCard({ metric }: Props) {
           {deltaText}
         </span>
       </div>
-      <p className="mt-1.5 text-[11px] text-bayesiq-400">{metric.period}</p>
+      <p className="mt-1.5 text-[11px] text-biq-text-muted">{metric.period}</p>
     </div>
   );
 }

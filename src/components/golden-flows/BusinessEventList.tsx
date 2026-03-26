@@ -60,7 +60,7 @@ export default function BusinessEventList({
 
         return (
           <div key={group} className="mt-6 first:mt-0">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-biq-text-muted mb-3">
               {GROUP_LABELS[group]}
             </h3>
             <div className="space-y-3">

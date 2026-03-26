@@ -137,9 +137,9 @@
 }
 
 @theme {
-  /* Gray scale: preserved exactly for zero visual regression.
-     Components use text-bayesiq-900, bg-bayesiq-50, etc.
-     Future PR will migrate to semantic --biq-color-surface-* tokens. */
+  /* Gray scale: retained for dark-section contexts (buttons, CTA,
+     platform page, Header, Footer, GovernanceChain dark theme).
+     Light-context components now use semantic biq-* tokens above. */
   --color-bayesiq-950: #0a0f1a;
   --color-bayesiq-900: #111827;
   --color-bayesiq-800: #1f2937;
@@ -156,6 +156,27 @@
   --color-accent: var(--biq-color-primary);
   --color-accent-dark: var(--biq-color-primary-hover);
 
+  /* ── Design system semantic colors for Tailwind ── */
+  --color-biq-text-primary: var(--biq-color-text-primary);
+  --color-biq-text-secondary: var(--biq-color-text-secondary);
+  --color-biq-text-muted: var(--biq-color-text-muted);
+  --color-biq-surface-0: var(--biq-color-surface-0);
+  --color-biq-surface-1: var(--biq-color-surface-1);
+  --color-biq-surface-2: var(--biq-color-surface-2);
+  --color-biq-border: var(--biq-color-border);
+  --color-biq-border-subtle: var(--biq-color-border-subtle);
+  --color-biq-primary: var(--biq-color-primary);
+  --color-biq-primary-hover: var(--biq-color-primary-hover);
+  --color-biq-primary-subtle: var(--biq-color-primary-subtle);
+  --color-biq-status-success: var(--biq-color-status-success);
+  --color-biq-status-success-subtle: var(--biq-color-status-success-subtle);
+  --color-biq-status-warning: var(--biq-color-status-warning);
+  --color-biq-status-warning-subtle: var(--biq-color-status-warning-subtle);
+  --color-biq-status-error: var(--biq-color-status-error);
+  --color-biq-status-error-subtle: var(--biq-color-status-error-subtle);
+  --color-biq-status-info: var(--biq-color-status-info);
+  --color-biq-status-info-subtle: var(--biq-color-status-info-subtle);
+
   /* Fonts: CSS variable names unchanged, values now from design system */
   --font-sans: var(--biq-font-sans);
   --font-mono: var(--biq-font-mono);
@@ -167,12 +188,12 @@ html {
 }
 
 ::selection {
-  background-color: var(--color-bayesiq-200);
-  color: var(--color-bayesiq-900);
+  background-color: var(--color-biq-border);
+  color: var(--color-biq-text-primary);
 }
 
 body {
-  color: var(--color-bayesiq-900);
+  color: var(--color-biq-text-primary);
   background-color: white;
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

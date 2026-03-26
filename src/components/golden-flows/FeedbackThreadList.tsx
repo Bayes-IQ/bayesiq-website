@@ -37,7 +37,7 @@ export default function FeedbackThreadList({ feedbackItems }: FeedbackThreadList
 
   if (clientFeedback.length === 0) {
     return (
-      <p className="text-sm text-bayesiq-400 italic">No feedback threads available.</p>
+      <p className="text-sm text-biq-text-muted italic">No feedback threads available.</p>
     );
   }
 
@@ -66,7 +66,7 @@ export default function FeedbackThreadList({ feedbackItems }: FeedbackThreadList
 
         return (
           <div key={disposition} className="mt-6 first:mt-0">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-biq-text-muted mb-3">
               {DISPOSITION_LABELS[disposition]}
             </h3>
             <div className="space-y-3">

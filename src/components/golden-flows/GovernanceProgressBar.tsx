@@ -22,21 +22,21 @@ export default function GovernanceProgressBar({ entries }: Props) {
     <div data-testid="governance-progress-bar" className="mb-8">
       {/* Coverage headline */}
       <div className="flex items-baseline gap-3 mb-3">
-        <span className="text-3xl font-extrabold tabular-nums text-bayesiq-900">
+        <span className="text-3xl font-extrabold tabular-nums text-biq-text-primary">
           {coveragePct}%
         </span>
-        <span className="text-sm font-medium text-bayesiq-500">
+        <span className="text-sm font-medium text-biq-text-muted">
           Governance Coverage
         </span>
-        <span className="text-xs text-bayesiq-400">
+        <span className="text-xs text-biq-text-muted">
           {reviewed} of {total} items reviewed
         </span>
       </div>
 
       {/* Segmented progress bar */}
-      <div className="h-2.5 rounded-full bg-bayesiq-100 overflow-hidden flex">
+      <div className="h-2.5 rounded-full bg-biq-surface-2 overflow-hidden flex">
         {approvedPct > 0 && (
-          <div className="bg-green-500 transition-all" style={{ width: `${approvedPct}%` }} />
+          <div className="bg-biq-status-success-subtle0 transition-all" style={{ width: `${approvedPct}%` }} />
         )}
         {rejectedPct > 0 && (
           <div className="bg-red-400 transition-all" style={{ width: `${rejectedPct}%` }} />
@@ -47,10 +47,10 @@ export default function GovernanceProgressBar({ entries }: Props) {
       </div>
 
       {/* Legend */}
-      <div className="mt-2.5 flex flex-wrap items-center gap-4 text-xs text-bayesiq-600">
+      <div className="mt-2.5 flex flex-wrap items-center gap-4 text-xs text-biq-text-secondary">
         {approved > 0 && (
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
+            <span className="h-2.5 w-2.5 rounded-full bg-biq-status-success-subtle0" />
             {approved} approved
           </span>
         )}

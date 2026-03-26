@@ -17,12 +17,12 @@ export default function TrustSummaryBar({ summary }: TrustSummaryBarProps) {
 
   return (
     <div
-      className="rounded-xl border border-bayesiq-200 bg-bayesiq-50 p-4"
+      className="rounded-xl border border-biq-border bg-biq-surface-1 p-4"
       data-testid="trust-summary-bar"
     >
       {/* Row 1: Overall counts */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-semibold text-bayesiq-600 mr-1">
+        <span className="text-xs font-semibold text-biq-text-secondary mr-1">
           Trust overview
         </span>
         {STATUS_ORDER.map((status) => {
@@ -31,13 +31,13 @@ export default function TrustSummaryBar({ summary }: TrustSummaryBarProps) {
           return (
             <span key={status} className="inline-flex items-center gap-1">
               <TrustBadge status={status} size="md" showLabel />
-              <span className="text-xs font-medium text-bayesiq-700">
+              <span className="text-xs font-medium text-biq-text-secondary">
                 {count}
               </span>
             </span>
           );
         })}
-        <span className="text-xs text-bayesiq-400">
+        <span className="text-xs text-biq-text-muted">
           of {summary.total_objects} objects
         </span>
       </div>
@@ -51,7 +51,7 @@ export default function TrustSummaryBar({ summary }: TrustSummaryBarProps) {
               return (
                 <span
                   key={objectType}
-                  className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-[10px] font-medium text-bayesiq-600 ring-1 ring-inset ring-bayesiq-200"
+                  className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-[10px] font-medium text-biq-text-secondary ring-1 ring-inset ring-biq-border"
                 >
                   {objectType}: {approved}/{rollup.total}
                 </span>
