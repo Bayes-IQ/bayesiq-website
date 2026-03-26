@@ -56,7 +56,7 @@ export default function HomePage() {
             <div className="grid gap-8 md:grid-cols-2">
               <PathCard
                 headline="Fix Your Metrics"
-                description="Audit-first analytics consulting. We find what's broken, fix it, and hand you the infrastructure to keep it right."
+                description="Audit-first analytics. We find it, fix it, prove it."
                 audience="For data team leads, VPs Analytics, and CFOs"
                 href="/consulting"
                 cta="Explore Consulting"
