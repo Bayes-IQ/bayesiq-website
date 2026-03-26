@@ -21,9 +21,9 @@ export default function HomePage() {
       <section className="px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-bayesiq-900 md:text-6xl">
-            Your metrics are wrong.
+            Your data tells a story.
             <br />
-            Your AI can&apos;t prove they&apos;re right.
+            Make sure it&apos;s the right one.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-bayesiq-600">
             BayesIQ delivers governed analytics — whether you need us hands-on
