@@ -12,22 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-        with:
-          repository: Bayes-IQ/bayesiq-design-system
-          path: bayesiq-design-system
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
-      - name: Build design system
-        run: npm install && npm run build
-        working-directory: bayesiq-design-system
-
-      - name: Place design system as sibling
-        run: mv bayesiq-design-system ../bayesiq-design-system
 
       - run: npm ci
 

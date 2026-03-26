@@ -7,13 +7,13 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 const inter = localFont({
-  src: "../../node_modules/@bayesiq/design-system/dist/fonts/inter/Inter-Variable.woff2",
+  src: "../../public/fonts/inter/Inter-Variable.woff2",
   variable: "--font-sans",
   display: "swap",
 });
 
 const jetbrainsMono = localFont({
-  src: "../../node_modules/@bayesiq/design-system/dist/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2",
+  src: "../../public/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2",
   variable: "--font-mono",
   display: "swap",
 });

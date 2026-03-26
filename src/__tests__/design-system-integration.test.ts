@@ -3,34 +3,30 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 
 describe("Design system integration", () => {
-  const dsRoot = join(
-    process.cwd(),
-    "node_modules/@bayesiq/design-system/dist"
-  );
+  const globalsPath = join(process.cwd(), "src/app/globals.css");
+  const fontsDir = join(process.cwd(), "public/fonts");
 
-  it("tokens.css is installed and contains --biq-color-primary", () => {
-    const tokensPath = join(dsRoot, "tokens.css");
-    expect(existsSync(tokensPath)).toBe(true);
-    const css = readFileSync(tokensPath, "utf-8");
+  it("globals.css contains --biq-color-primary token", () => {
+    const css = readFileSync(globalsPath, "utf-8");
     expect(css).toContain("--biq-color-primary");
   });
 
-  it("tokens.css contains font tokens", () => {
-    const css = readFileSync(join(dsRoot, "tokens.css"), "utf-8");
+  it("globals.css contains font tokens", () => {
+    const css = readFileSync(globalsPath, "utf-8");
     expect(css).toContain("--biq-font-sans");
     expect(css).toContain("--biq-font-mono");
   });
 
-  it("Inter font file is installed", () => {
+  it("Inter font file exists in public/fonts", () => {
     expect(
-      existsSync(join(dsRoot, "fonts/inter/Inter-Variable.woff2"))
+      existsSync(join(fontsDir, "inter/Inter-Variable.woff2"))
     ).toBe(true);
   });
 
-  it("JetBrains Mono font file is installed", () => {
+  it("JetBrains Mono font file exists in public/fonts", () => {
     expect(
       existsSync(
-        join(dsRoot, "fonts/jetbrains-mono/JetBrainsMono-Regular.woff2")
+        join(fontsDir, "jetbrains-mono/JetBrainsMono-Regular.woff2")
       )
     ).toBe(true);
   });
