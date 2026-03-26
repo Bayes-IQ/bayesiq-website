@@ -95,7 +95,7 @@ export default function GovernanceChain({
                 fontSize={variant === "simple" ? 14 : 16}
                 fontFamily="var(--font-sans)"
               >
-                {i === 0 ? "\u25CB" : "\u2713"}
+                {i === 0 ? "\u25CB" : i === 1 ? "\u25C9" : "\u2713"}
               </text>
 
               {/* Label below */}
@@ -157,7 +157,7 @@ export default function GovernanceChain({
                 fontSize={14}
                 fontFamily="var(--font-sans)"
               >
-                {i === 0 ? "\u25CB" : "\u2713"}
+                {i === 0 ? "\u25CB" : i === 1 ? "\u25C9" : "\u2713"}
               </text>
 
               {/* Label to the right */}
