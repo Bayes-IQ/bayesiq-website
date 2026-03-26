@@ -14,6 +14,7 @@
     "validate:schemas": "node scripts/validate-schemas.mjs"
   },
   "dependencies": {
+    "@bayesiq/design-system": "file:../bayesiq-design-system",
     "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
