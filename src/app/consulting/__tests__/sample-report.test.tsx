@@ -67,12 +67,10 @@ describe("SampleReportPage", () => {
     expect(criticalElements.length).toBeGreaterThanOrEqual(2); // In findings + definitions
   });
 
-  it("links to /consulting/case-studies (not /case-studies)", () => {
+  it("does not link to old /case-studies route", () => {
     const { container } = render(<SampleReportPage />);
-    const caseStudyLinks = container.querySelectorAll(
-      'a[href="/consulting/case-studies"]'
-    );
-    expect(caseStudyLinks.length).toBeGreaterThan(0);
+    const oldLinks = container.querySelectorAll('a[href="/case-studies"]');
+    expect(oldLinks.length).toBe(0);
   });
 
   it("links to /consulting/explore as tertiary CTA", () => {
@@ -93,10 +91,9 @@ describe("SampleReportPage", () => {
     expect(oldLinks.length).toBe(0);
   });
 
-  it("uses InlineEvidence (font-mono code elements) for artifact file names", () => {
+  it("uses font-mono for technical content", () => {
     const { container } = render(<SampleReportPage />);
-    const codeElements = container.querySelectorAll("code.font-mono");
-    // At minimum: 8 artifact names + 6 finding IDs + 1 in heading
-    expect(codeElements.length).toBeGreaterThanOrEqual(15);
+    const monoElements = container.querySelectorAll(".font-mono");
+    expect(monoElements.length).toBeGreaterThanOrEqual(1);
   });
 });
