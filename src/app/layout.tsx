@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { DM_Sans } from "next/font/google";
+import { Inter, JetBrains_Mono, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const inter = localFont({
-  src: "../../public/fonts/inter/Inter-Variable.woff2",
+const inter = Inter({
+  subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const jetbrainsMono = localFont({
-  src: "../../public/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2",
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 });
