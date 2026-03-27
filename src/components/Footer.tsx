@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Brand + nav */}
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <p className="text-lg font-bold text-biq-text-primary">BayesIQ</p>
+            <p className="text-lg font-bold text-biq-text-primary">Bayes<span className="text-biq-primary">IQ</span></p>
             <p className="mt-1 text-sm text-biq-text-muted">
               Governed analytics consulting and platform for teams that need trustworthy metrics.
             </p>
