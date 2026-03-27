@@ -28,25 +28,25 @@ export interface ExecutiveQuestion {
 export function questionSeverityBorderColor(level: QuestionSeverity): string {
   switch (level) {
     case "critical":
-      return "border-biq-status-error";
+      return "border-red-600";
     case "high":
-      return "border-biq-status-warning";
+      return "border-amber-500";
     case "medium":
       return "border-yellow-400";
     case "low":
-      return "border-biq-status-success";
+      return "border-green-500";
   }
 }
 
 export function questionSeverityBadgeColors(level: QuestionSeverity): string {
   switch (level) {
     case "critical":
-      return "bg-biq-status-error-subtle text-biq-status-error";
+      return "bg-red-100 text-red-700";
     case "high":
-      return "bg-biq-status-warning-subtle text-biq-status-warning";
+      return "bg-amber-100 text-amber-700";
     case "medium":
       return "bg-yellow-100 text-yellow-700";
     case "low":
-      return "bg-biq-status-success-subtle text-biq-status-success";
+      return "bg-green-100 text-green-700";
   }
 }

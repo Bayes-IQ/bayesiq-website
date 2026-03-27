@@ -20,12 +20,12 @@ export default function HomePage() {
           ──────────────────────────────────────────── */}
       <section className="px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-biq-text-primary md:text-6xl">
+          <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-bayesiq-900 md:text-6xl">
             Your data tells a story.
             <br />
             Make sure it&apos;s the right one.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-biq-text-secondary">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-bayesiq-600">
             BayesIQ delivers governed analytics — whether you need us hands-on
             or want the platform embedded in your workflow. Every finding
             reviewed. Every decision attributed.
@@ -39,7 +39,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/contact"
-              className="text-sm font-medium text-biq-text-secondary transition-colors hover:text-biq-text-primary"
+              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
             >
               Talk to Us &rarr;
             </Link>
@@ -50,7 +50,7 @@ export default function HomePage() {
       {/* ──────────────────────────────────────────────
           Section 2: Two-Path Cards
           ──────────────────────────────────────────── */}
-      <section className="bg-biq-surface-1 px-6 py-20 md:py-24">
+      <section className="bg-bayesiq-50 px-6 py-20 md:py-24">
         <SectionReveal>
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-8 md:grid-cols-2">
@@ -93,7 +93,7 @@ export default function HomePage() {
         <SectionReveal>
           <div className="mx-auto max-w-3xl text-center">
             <GovernanceChain variant="simple" theme="light" />
-            <p className="mt-10 text-lg leading-relaxed text-biq-text-muted">
+            <p className="mt-10 text-lg leading-relaxed text-bayesiq-300">
               Every finding reviewed. Every decision attributed.
               <br className="hidden sm:inline" />
               Every transition evidence-backed.
@@ -108,10 +108,10 @@ export default function HomePage() {
       <section className="px-6 py-20 md:py-24">
         <SectionReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-biq-text-primary md:text-4xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-bayesiq-900 md:text-4xl">
               How reliable is your data?
             </h2>
-            <p className="mt-4 text-lg text-biq-text-secondary">
+            <p className="mt-4 text-lg text-bayesiq-600">
               Find out in 2 minutes.
             </p>
             <Link
@@ -129,7 +129,7 @@ export default function HomePage() {
           ──────────────────────────────────────────── */}
       <section
         data-testid="social-proof"
-        className={`bg-biq-surface-1 px-6 py-20 md:py-24 ${
+        className={`bg-bayesiq-50 px-6 py-20 md:py-24 ${
           SHOW_SOCIAL_PROOF ? "" : "hidden"
         }`}
         aria-hidden={!SHOW_SOCIAL_PROOF}
@@ -137,17 +137,17 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl">
           {/* Logo bar placeholder */}
           <div className="flex items-center justify-center gap-12">
-            <span className="text-sm text-biq-text-muted">
+            <span className="text-sm text-bayesiq-400">
               Client logos will appear here
             </span>
           </div>
 
           {/* Quote pull placeholder */}
           <blockquote className="mt-12 text-center">
-            <p className="text-lg italic text-biq-text-secondary">
+            <p className="text-lg italic text-bayesiq-600">
               &ldquo;Quote placeholder&rdquo;
             </p>
-            <footer className="mt-4 text-sm text-biq-text-muted">
+            <footer className="mt-4 text-sm text-bayesiq-400">
               — Name, Title, Company
             </footer>
           </blockquote>

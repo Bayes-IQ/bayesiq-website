@@ -122,7 +122,7 @@ export default function ScoreTrajectory({ snapshots, size = "compact" }: Props) 
               x={x(i)}
               y={padTop + plotH + 16}
               textAnchor="middle"
-              className="fill-biq-text-muted"
+              className="fill-bayesiq-500"
               fontSize={10}
             >
               {monthLabel(snap)}

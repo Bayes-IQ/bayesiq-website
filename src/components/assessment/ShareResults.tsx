@@ -41,7 +41,7 @@ export default function ShareResults({ scorePercent, tier }: ShareResultsProps) 
     <button
       type="button"
       onClick={handleShare}
-      className="inline-flex items-center gap-2 rounded-lg border border-biq-border px-4 py-2.5 text-sm font-medium text-biq-text-secondary transition-colors hover:border-biq-primary hover:text-biq-text-primary"
+      className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900"
       aria-label="Share your assessment results"
     >
       {copied ? (

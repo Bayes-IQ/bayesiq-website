@@ -81,17 +81,17 @@ export default function AssessmentPage() {
       {/* Hero */}
       <section className="px-6 py-20 md:py-28">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
+          <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
             ~2 minutes · 6 questions · Free
           </p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
             Is your data actually reliable?
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary">
+          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
             Answer 6 questions and find out where your data infrastructure
             stands — and what to do about it.
           </p>
-          <p className="mt-3 text-sm text-biq-text-muted">
+          <p className="mt-3 text-sm text-bayesiq-400">
             You&apos;ll get a score, a tier assessment (At Risk / Needs Work /
             Strong), and tailored recommendations.
           </p>
@@ -99,19 +99,19 @@ export default function AssessmentPage() {
       </section>
 
       {/* Assessment wizard */}
-      <section className="border-t border-biq-border px-6 pb-24 pt-12">
+      <section className="border-t border-bayesiq-200 px-6 pb-24 pt-12">
         <div className="mx-auto max-w-2xl">
           <AssessmentWizard />
         </div>
       </section>
 
       {/* Credibility block: what BayesIQ looks for */}
-      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-biq-text-primary">
+          <h2 className="text-xl font-bold text-bayesiq-900">
             What BayesIQ looks for in a real audit
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-biq-text-secondary">
+          <p className="mt-3 text-sm leading-relaxed text-bayesiq-600">
             When we begin a data quality engagement, we evaluate six dimensions
             — the same dimensions this assessment measures. The self-assessment
             gives you a directional view; an audit gives you the specifics.
@@ -124,10 +124,10 @@ export default function AssessmentPage() {
                   aria-hidden="true"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-biq-text-primary">
+                  <p className="text-sm font-semibold text-bayesiq-900">
                     {dim.label}
                   </p>
-                  <p className="mt-0.5 text-sm text-biq-text-secondary">{dim.desc}</p>
+                  <p className="mt-0.5 text-sm text-bayesiq-600">{dim.desc}</p>
                 </div>
               </div>
             ))}
@@ -135,7 +135,7 @@ export default function AssessmentPage() {
           <div className="mt-10">
             <Link
               href="/consulting"
-              className="text-sm font-medium text-biq-text-secondary underline-offset-2 transition-colors hover:text-biq-text-primary hover:underline"
+              className="text-sm font-medium text-bayesiq-700 underline-offset-2 transition-colors hover:text-bayesiq-900 hover:underline"
             >
               See how a BayesIQ engagement works &rarr;
             </Link>
@@ -146,16 +146,16 @@ export default function AssessmentPage() {
       {/* FAQ */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-biq-text-primary">
+          <h2 className="text-xl font-bold text-bayesiq-900">
             Common questions
           </h2>
           <dl className="mt-8 space-y-8">
             {FAQ_ITEMS.map((item) => (
               <div key={item.q}>
-                <dt className="text-sm font-semibold text-biq-text-primary">
+                <dt className="text-sm font-semibold text-bayesiq-900">
                   {item.q}
                 </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-biq-text-secondary">
+                <dd className="mt-2 text-sm leading-relaxed text-bayesiq-600">
                   {item.a}
                 </dd>
               </div>
@@ -165,19 +165,19 @@ export default function AssessmentPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="border-t border-biq-border bg-bayesiq-900 px-6 py-20 text-center">
+      <section className="border-t border-bayesiq-200 bg-bayesiq-900 px-6 py-20 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-white">
             Want a real answer, not a directional one?
           </h2>
-          <p className="mt-4 text-base text-biq-text-muted">
+          <p className="mt-4 text-base text-bayesiq-300">
             A BayesIQ audit examines your actual telemetry, pipelines, and
             metric definitions — and gives you a severity-ranked fix plan in
             under two weeks.
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-100"
           >
             Book a free data health check
           </Link>

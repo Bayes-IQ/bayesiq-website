@@ -9,15 +9,15 @@ interface ResultsPanelProps {
 }
 
 const TIER_ACCENT: Record<string, string> = {
-  at_risk: "text-biq-status-error bg-biq-status-error-subtle border-biq-status-error-subtle",
-  needs_work: "text-biq-status-warning bg-biq-status-warning-subtle border-biq-status-warning-subtle",
-  strong: "text-biq-status-success bg-emerald-50 border-emerald-200",
+  at_risk: "text-red-600 bg-red-50 border-red-200",
+  needs_work: "text-amber-700 bg-amber-50 border-amber-200",
+  strong: "text-emerald-700 bg-emerald-50 border-emerald-200",
 };
 
 const TIER_SCORE_COLOR: Record<string, string> = {
-  at_risk: "text-biq-status-error",
-  needs_work: "text-biq-status-warning",
-  strong: "text-biq-status-success",
+  at_risk: "text-red-600",
+  needs_work: "text-amber-700",
+  strong: "text-emerald-700",
 };
 
 /**
@@ -26,8 +26,8 @@ const TIER_SCORE_COLOR: Record<string, string> = {
  */
 export default function ResultsPanel({ result }: ResultsPanelProps) {
   const accentClasses =
-    TIER_ACCENT[result.tier] ?? "text-biq-text-primary bg-biq-surface-1 border-biq-border";
-  const scoreColorClass = TIER_SCORE_COLOR[result.tier] ?? "text-biq-text-primary";
+    TIER_ACCENT[result.tier] ?? "text-bayesiq-900 bg-bayesiq-50 border-bayesiq-200";
+  const scoreColorClass = TIER_SCORE_COLOR[result.tier] ?? "text-bayesiq-900";
 
   return (
     <div className="w-full space-y-8">
@@ -52,23 +52,23 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
 
       {/* Recommendations */}
       <div>
-        <h2 className="text-lg font-bold text-biq-text-primary">
+        <h2 className="text-lg font-bold text-bayesiq-900">
           What to do next
         </h2>
         <ol className="mt-4 space-y-4">
           {result.recommendations.map((rec, idx) => (
             <li key={idx} className="flex gap-4">
               <span
-                className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-biq-surface-2 text-xs font-bold text-biq-text-muted"
+                className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bayesiq-100 text-xs font-bold text-bayesiq-500"
                 aria-hidden="true"
               >
                 {idx + 1}
               </span>
               <div>
-                <p className="text-sm font-semibold text-biq-text-primary">
+                <p className="text-sm font-semibold text-bayesiq-900">
                   {rec.heading}
                 </p>
-                <p className="mt-0.5 text-sm leading-relaxed text-biq-text-secondary">
+                <p className="mt-0.5 text-sm leading-relaxed text-bayesiq-600">
                   {rec.body}
                 </p>
               </div>
@@ -78,14 +78,14 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
       </div>
 
       {/* Disclaimers */}
-      <div className="rounded-lg border border-biq-border-subtle bg-biq-surface-1 px-4 py-4">
-        <p className="text-xs leading-relaxed text-biq-text-muted">
-          <strong className="font-medium text-biq-text-muted">Directional score:</strong>{" "}
+      <div className="rounded-lg border border-bayesiq-100 bg-bayesiq-50 px-4 py-4">
+        <p className="text-xs leading-relaxed text-bayesiq-400">
+          <strong className="font-medium text-bayesiq-500">Directional score:</strong>{" "}
           This score is based on your self-reported answers, not a technical audit of your
           actual systems. Use it as a starting point, not a definitive assessment.
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-biq-text-muted">
-          <strong className="font-medium text-biq-text-muted">Not a compliance audit:</strong>{" "}
+        <p className="mt-2 text-xs leading-relaxed text-bayesiq-400">
+          <strong className="font-medium text-bayesiq-500">Not a compliance audit:</strong>{" "}
           This assessment does not evaluate regulatory requirements (e.g., GDPR, CCPA, HIPAA).
         </p>
       </div>
@@ -98,8 +98,8 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
       />
 
       {/* CTAs */}
-      <div className="border-t border-biq-border pt-6">
-        <p className="text-sm text-biq-text-secondary">{result.ctaSubtext}</p>
+      <div className="border-t border-bayesiq-200 pt-6">
+        <p className="text-sm text-bayesiq-600">{result.ctaSubtext}</p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/contact"
@@ -111,7 +111,7 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
           </Link>
           <Link
             href="/consulting"
-            className="rounded-lg border border-biq-border px-6 py-3 text-center text-sm font-medium text-biq-text-secondary transition-colors hover:border-biq-primary hover:text-biq-text-primary"
+            className="rounded-lg border border-bayesiq-300 px-6 py-3 text-center text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900"
           >
             See how audits work
           </Link>

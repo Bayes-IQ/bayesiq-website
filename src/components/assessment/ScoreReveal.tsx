@@ -53,19 +53,19 @@ export default function ScoreReveal({ result }: ScoreRevealProps) {
   }, [phase, result.scorePercent]);
 
   const TIER_COLOR: Record<string, string> = {
-    at_risk: "text-biq-status-error",
-    needs_work: "text-biq-status-warning",
-    strong: "text-biq-status-success",
+    at_risk: "text-red-600",
+    needs_work: "text-amber-700",
+    strong: "text-emerald-700",
   };
 
   const TIER_BG: Record<string, string> = {
-    at_risk: "bg-biq-status-error-subtle border-biq-status-error-subtle",
-    needs_work: "bg-biq-status-warning-subtle border-biq-status-warning-subtle",
+    at_risk: "bg-red-50 border-red-200",
+    needs_work: "bg-amber-50 border-amber-200",
     strong: "bg-emerald-50 border-emerald-200",
   };
 
-  const scoreColor = TIER_COLOR[result.tier] ?? "text-biq-text-primary";
-  const tierBg = TIER_BG[result.tier] ?? "bg-biq-surface-1 border-biq-border";
+  const scoreColor = TIER_COLOR[result.tier] ?? "text-bayesiq-900";
+  const tierBg = TIER_BG[result.tier] ?? "bg-bayesiq-50 border-bayesiq-200";
 
   return (
     <div className="w-full" aria-live="polite" aria-atomic="true">
@@ -79,8 +79,8 @@ export default function ScoreReveal({ result }: ScoreRevealProps) {
             transition={{ duration: 0.2 }}
             className="flex flex-col items-center justify-center py-20"
           >
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-biq-border border-t-bayesiq-900" />
-            <p className="mt-4 text-sm font-medium text-biq-text-muted">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-bayesiq-200 border-t-bayesiq-900" />
+            <p className="mt-4 text-sm font-medium text-bayesiq-500">
               Calculating your score...
             </p>
           </motion.div>

@@ -109,9 +109,9 @@ export default function EmailCaptureInline({
 
   if (submitState === "success") {
     return (
-      <div className="rounded-xl border border-biq-border bg-biq-surface-1 p-6 text-center">
-        <p className="font-semibold text-biq-text-primary">You&apos;re on the list.</p>
-        <p className="mt-1 text-sm text-biq-text-secondary">
+      <div className="rounded-xl border border-bayesiq-200 bg-bayesiq-50 p-6 text-center">
+        <p className="font-semibold text-bayesiq-900">You&apos;re on the list.</p>
+        <p className="mt-1 text-sm text-bayesiq-600">
           We&apos;ll send the Data Quality Checklist to {email}.
         </p>
       </div>
@@ -119,9 +119,9 @@ export default function EmailCaptureInline({
   }
 
   return (
-    <div className="rounded-xl border border-biq-border bg-biq-surface-1 p-6">
-      <p className="font-semibold text-biq-text-primary">Get the full checklist</p>
-      <p className="mt-1 text-sm text-biq-text-secondary">
+    <div className="rounded-xl border border-bayesiq-200 bg-bayesiq-50 p-6">
+      <p className="font-semibold text-bayesiq-900">Get the full checklist</p>
+      <p className="mt-1 text-sm text-bayesiq-600">
         Enter your email to get the complete Data Quality Checklist — the same
         framework BayesIQ uses when starting a new engagement.
       </p>
@@ -130,7 +130,7 @@ export default function EmailCaptureInline({
         {submitState === "error" && errorMessage && (
           <div
             role="alert"
-            className="mb-3 rounded-lg bg-biq-status-error-subtle px-4 py-2 text-sm text-biq-status-error"
+            className="mb-3 rounded-lg bg-red-50 px-4 py-2 text-sm text-red-700"
           >
             {errorMessage}
           </div>
@@ -149,7 +149,7 @@ export default function EmailCaptureInline({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
             autoComplete="email"
-            className="flex-1 rounded-lg border border-biq-border px-4 py-2.5 text-sm text-biq-text-primary placeholder-biq-text-muted focus:border-biq-text-primary focus:outline-none focus:ring-1 focus:ring-biq-text-primary"
+            className="flex-1 rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm text-bayesiq-900 placeholder-bayesiq-400 focus:border-bayesiq-900 focus:outline-none focus:ring-1 focus:ring-bayesiq-900"
           />
           <button
             type="submit"
@@ -160,9 +160,9 @@ export default function EmailCaptureInline({
           </button>
         </div>
 
-        <p className="mt-3 text-xs text-biq-text-muted">
+        <p className="mt-3 text-xs text-bayesiq-400">
           No spam. Unsubscribe anytime.{" "}
-          <Link href="/privacy" className="underline hover:text-biq-text-secondary">
+          <Link href="/privacy" className="underline hover:text-bayesiq-600">
             Privacy Policy
           </Link>
           .

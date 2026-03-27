@@ -30,9 +30,9 @@ interface GovernanceDetailPanelProps {
 type ApprovalStatusValue = "approved" | "pending" | "rejected" | "deferred";
 
 const STATUS_PILL_COLORS: Record<ApprovalStatusValue, string> = {
-  approved: "bg-biq-status-success-subtle text-biq-status-success",
-  pending: "bg-biq-status-warning-subtle text-biq-status-warning",
-  rejected: "bg-biq-status-error-subtle text-biq-status-error",
+  approved: "bg-emerald-100 text-emerald-700",
+  pending: "bg-amber-100 text-amber-700",
+  rejected: "bg-red-100 text-red-700",
   deferred: "bg-gray-100 text-gray-500",
 };
 
@@ -71,8 +71,8 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
         const statValue = (b.value as string | number) ?? "N/A";
         return (
           <div className="flex items-baseline justify-between gap-2">
-            <span className="text-sm text-biq-text-secondary">{statLabel}</span>
-            <span className="text-sm font-semibold text-biq-text-primary">{String(statValue)}</span>
+            <span className="text-sm text-bayesiq-600">{statLabel}</span>
+            <span className="text-sm font-semibold text-bayesiq-900">{String(statValue)}</span>
           </div>
         );
       }
@@ -81,7 +81,7 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
         return (
           <ul className="list-disc list-inside space-y-1">
             {findings.map((f, i) => (
-              <li key={i} className="text-sm text-biq-text-secondary">
+              <li key={i} className="text-sm text-bayesiq-700">
                 {(f.description as string) ?? (f.label as string) ?? JSON.stringify(f)}
               </li>
             ))}
@@ -91,7 +91,7 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
       case "warning": {
         const message = (b.message as string) ?? (b.text as string) ?? JSON.stringify(b);
         return (
-          <div className="rounded-md bg-biq-status-warning-subtle border border-biq-status-warning-subtle px-3 py-2">
+          <div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2">
             <p className="text-sm text-amber-800">{message}</p>
           </div>
         );
@@ -101,7 +101,7 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
         return (
           <ul className="list-disc list-inside space-y-1">
             {assumptions.map((a, i) => (
-              <li key={i} className="text-sm text-biq-text-secondary">
+              <li key={i} className="text-sm text-bayesiq-700">
                 {typeof a === "string" ? a : JSON.stringify(a)}
               </li>
             ))}
@@ -113,7 +113,7 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
         return (
           <ul className="list-disc list-inside space-y-1">
             {candidates.map((c, i) => (
-              <li key={i} className="text-sm text-biq-text-secondary">
+              <li key={i} className="text-sm text-bayesiq-700">
                 {typeof c === "string" ? c : JSON.stringify(c)}
               </li>
             ))}
@@ -134,12 +134,12 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-biq-text-secondary underline hover:text-biq-text-primary"
+                      className="text-bayesiq-600 underline hover:text-bayesiq-800"
                     >
                       {linkLabel}
                     </a>
                   ) : (
-                    <span className="text-biq-text-secondary">{linkLabel}</span>
+                    <span className="text-bayesiq-700">{linkLabel}</span>
                   )}
                 </li>
               );
@@ -150,7 +150,7 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
       default: {
         const { type: _type, ...rest } = b;
         return (
-          <pre className="text-xs text-biq-text-secondary whitespace-pre-wrap break-words">
+          <pre className="text-xs text-bayesiq-700 whitespace-pre-wrap break-words">
             {JSON.stringify(rest, null, 2)}
           </pre>
         );
@@ -159,8 +159,8 @@ function ReviewContextBlockRenderer({ block }: { block: ReviewContextBlock }) {
   }
 
   return (
-    <div className="rounded-lg border border-biq-border-subtle p-3" data-testid="review-context-block">
-      <p className="text-xs font-semibold uppercase tracking-wide text-biq-text-muted mb-1">
+    <div className="rounded-lg border border-bayesiq-100 p-3" data-testid="review-context-block">
+      <p className="text-xs font-semibold uppercase tracking-wide text-bayesiq-400 mb-1">
         {label}
       </p>
       {renderBody()}
@@ -179,15 +179,15 @@ function LinkedReferences({ record }: { record: SerializedCascadeGovernanceRecor
 
   return (
     <div className="space-y-3" data-testid="linked-references">
-      <h3 className="text-sm font-semibold text-biq-text-primary">Linked References</h3>
+      <h3 className="text-sm font-semibold text-bayesiq-800">Linked References</h3>
       {sections.map((section) => (
         <div key={section.label}>
-          <p className="text-xs font-medium text-biq-text-muted mb-1">{section.label}</p>
+          <p className="text-xs font-medium text-bayesiq-500 mb-1">{section.label}</p>
           <div className="flex flex-wrap gap-1">
             {section.ids.map((id) => (
               <code
                 key={id}
-                className="rounded bg-biq-surface-1 px-1.5 py-0.5 text-xs text-biq-text-secondary"
+                className="rounded bg-bayesiq-50 px-1.5 py-0.5 text-xs text-bayesiq-700"
               >
                 {id}
               </code>
@@ -274,7 +274,7 @@ export default function GovernanceDetailPanel({
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-6">
           <div className="min-w-0 flex-1">
-            <code className="text-xs text-biq-text-muted break-all" data-testid="panel-object-id">
+            <code className="text-xs text-bayesiq-500 break-all" data-testid="panel-object-id">
               {objectId}
             </code>
             {status && (
@@ -286,7 +286,7 @@ export default function GovernanceDetailPanel({
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 rounded-full p-1 text-biq-text-muted hover:bg-biq-surface-2 hover:text-biq-text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary"
+            className="shrink-0 rounded-full p-1 text-bayesiq-400 hover:bg-bayesiq-100 hover:text-bayesiq-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-bayesiq-500"
             aria-label="Close governance detail"
             data-testid="panel-close-button"
           >
@@ -302,7 +302,7 @@ export default function GovernanceDetailPanel({
 
         {/* No governance record fallback */}
         {objectId !== null && !record && (
-          <p className="text-sm text-biq-text-muted" data-testid="no-governance-message">
+          <p className="text-sm text-bayesiq-500" data-testid="no-governance-message">
             No governance record found for this object.
           </p>
         )}
@@ -312,11 +312,11 @@ export default function GovernanceDetailPanel({
           <div className="space-y-4 mb-6" data-testid="governance-details">
             {/* Reviewer */}
             <div>
-              <p className="text-xs font-medium text-biq-text-muted mb-0.5">Reviewer</p>
-              <p className="text-sm text-biq-text-primary">
+              <p className="text-xs font-medium text-bayesiq-400 mb-0.5">Reviewer</p>
+              <p className="text-sm text-bayesiq-800">
                 {reviewer?.display_name ?? "Unknown reviewer"}
                 {reviewer?.role && (
-                  <span className="ml-1 text-biq-text-muted">({reviewer.role})</span>
+                  <span className="ml-1 text-bayesiq-500">({reviewer.role})</span>
                 )}
               </p>
             </div>
@@ -324,8 +324,8 @@ export default function GovernanceDetailPanel({
             {/* Record origin */}
             {recordOrigin && (
               <div>
-                <p className="text-xs font-medium text-biq-text-muted mb-0.5">Record origin</p>
-                <span className="inline-flex items-center rounded-full bg-biq-surface-2 px-2 py-0.5 text-xs font-medium text-biq-text-secondary">
+                <p className="text-xs font-medium text-bayesiq-400 mb-0.5">Record origin</p>
+                <span className="inline-flex items-center rounded-full bg-bayesiq-100 px-2 py-0.5 text-xs font-medium text-bayesiq-700">
                   {ORIGIN_LABELS[recordOrigin] ?? recordOrigin}
                 </span>
               </div>
@@ -334,8 +334,8 @@ export default function GovernanceDetailPanel({
             {/* Timestamp */}
             {timestamp && (
               <div>
-                <p className="text-xs font-medium text-biq-text-muted mb-0.5">Timestamp</p>
-                <p className="text-sm text-biq-text-secondary">
+                <p className="text-xs font-medium text-bayesiq-400 mb-0.5">Timestamp</p>
+                <p className="text-sm text-bayesiq-700">
                   {formatTimestamp(timestamp)}
                 </p>
               </div>
@@ -344,9 +344,9 @@ export default function GovernanceDetailPanel({
             {/* Review note */}
             {reviewNote && (
               <div data-testid="review-note">
-                <p className="text-xs font-medium text-biq-text-muted mb-0.5">Review note</p>
-                <div className="bg-biq-surface-1 rounded-lg p-3">
-                  <p className="text-sm text-biq-text-primary">{reviewNote}</p>
+                <p className="text-xs font-medium text-bayesiq-400 mb-0.5">Review note</p>
+                <div className="bg-bayesiq-50 rounded-lg p-3">
+                  <p className="text-sm text-bayesiq-800">{reviewNote}</p>
                 </div>
               </div>
             )}
@@ -356,7 +356,7 @@ export default function GovernanceDetailPanel({
         {/* Review Context */}
         {reviewContext && reviewContext.review_context.length > 0 && (
           <div className="space-y-3 mb-6" data-testid="review-context-section">
-            <h3 className="text-sm font-semibold text-biq-text-primary">Review Context</h3>
+            <h3 className="text-sm font-semibold text-bayesiq-800">Review Context</h3>
             {reviewContext.review_context.map((block, idx) => (
               <ReviewContextBlockRenderer key={`${block.type}-${idx}`} block={block} />
             ))}

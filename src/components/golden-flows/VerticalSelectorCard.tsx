@@ -87,12 +87,12 @@ export default function VerticalSelectorCard({
           group flex items-center gap-3 rounded-xl px-4 py-3 transition-all
           ${
             isSelected
-              ? "border border-biq-border bg-biq-surface-1 shadow-sm text-biq-text-primary"
-              : "border border-biq-border bg-white hover:border-biq-border hover:bg-biq-surface-1/50 text-biq-text-secondary hover:text-biq-text-primary"
+              ? "border border-bayesiq-300 bg-bayesiq-50 shadow-sm text-bayesiq-900"
+              : "border border-bayesiq-200 bg-white hover:border-bayesiq-300 hover:bg-bayesiq-50/50 text-bayesiq-600 hover:text-bayesiq-800"
           }
         `}
       >
-        <span className={isSelected ? "text-biq-text-primary" : "text-biq-text-muted group-hover:text-biq-text-secondary"}>
+        <span className={isSelected ? "text-bayesiq-900" : "text-bayesiq-400 group-hover:text-bayesiq-600"}>
           <VerticalIcon slug={slug} />
         </span>
         <span className={`text-sm ${isSelected ? "font-bold" : "font-medium"}`}>

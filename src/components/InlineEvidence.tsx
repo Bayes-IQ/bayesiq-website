@@ -13,7 +13,7 @@ export default function InlineEvidence({
 }: InlineEvidenceProps) {
   return (
     <code
-      className={`rounded bg-biq-surface-2 px-1.5 py-0.5 font-mono text-xs font-medium ${className}`}
+      className={`rounded bg-bayesiq-100 px-1.5 py-0.5 font-mono text-xs font-medium ${className}`}
     >
       {children}
     </code>

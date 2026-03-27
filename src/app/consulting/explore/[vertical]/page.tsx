@@ -121,13 +121,13 @@ export default async function ExploreVerticalPage({ params }: Props) {
   const workflowContent = (
     <div data-testid="workflow-tab">
       <div className="mb-6">
-        <h2 className="text-lg font-bold tracking-tight text-biq-text-primary">
+        <h2 className="text-lg font-bold tracking-tight text-bayesiq-900">
           Governance
         </h2>
-        <p className="text-sm text-biq-text-muted mt-1">
+        <p className="text-sm text-bayesiq-500 mt-1">
           Every metric change is reviewed, attributed, and traceable.
         </p>
-        <p className="text-xs text-biq-text-muted mt-2 italic">
+        <p className="text-xs text-bayesiq-400 mt-2 italic">
           Illustrative example — shows how BayesIQ governs metric changes with named reviewers, decisions, and evidence trails.
         </p>
       </div>
@@ -136,20 +136,20 @@ export default async function ExploreVerticalPage({ params }: Props) {
 
       {decisionLogEntries.length > 0 && boardReport ? (
         <>
-          <p className="text-sm text-biq-text-secondary mb-3">
+          <p className="text-sm text-bayesiq-600 mb-3">
             The {boardReport.total_findings} discrepanc{boardReport.total_findings === 1 ? "y" : "ies"} identified in the Board Report {boardReport.total_findings === 1 ? "was" : "were"} routed for governance review:
           </p>
           <DecisionLog entries={decisionLogEntries} />
         </>
       ) : (
-        <p className="text-sm text-biq-text-muted italic">
+        <p className="text-sm text-bayesiq-500 italic">
           Governance decisions for this vertical will appear here as findings are reviewed.
         </p>
       )}
 
       {/* Bridge to Dashboard tab */}
-      <div className="mt-8 pt-6 border-t border-biq-border-subtle text-center">
-        <p className="text-sm text-biq-text-secondary">
+      <div className="mt-8 pt-6 border-t border-bayesiq-100 text-center">
+        <p className="text-sm text-bayesiq-600">
           Once all findings are reviewed and remediated, corrected data flows into the certified dashboard →
         </p>
       </div>
@@ -163,10 +163,10 @@ export default async function ExploreVerticalPage({ params }: Props) {
       <main className="mx-auto max-w-5xl px-6 py-16">
         {/* Framing copy */}
         <div className="mb-10 text-center">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-biq-text-primary sm:text-4xl">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-bayesiq-900 sm:text-4xl">
             Explore a Live Engagement
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-biq-text-secondary">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-bayesiq-600">
             This is what a governed analytics engagement looks like end-to-end.
             Select an industry to walk through real findings, board reports, and
             governance workflows.
@@ -204,8 +204,8 @@ export default async function ExploreVerticalPage({ params }: Props) {
         />
 
         {/* Deliverables bar */}
-        <div className="mt-10 rounded-xl border border-biq-border bg-white px-6 py-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-muted mb-3">
+        <div className="mt-10 rounded-xl border border-bayesiq-200 bg-white px-6 py-4 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-bayesiq-400 mb-3">
             Deliverables
           </p>
           <div className="flex flex-wrap gap-3">
@@ -214,9 +214,9 @@ export default async function ExploreVerticalPage({ params }: Props) {
                 href={dashboardLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-biq-border px-4 py-2 text-sm font-medium text-biq-text-secondary hover:bg-biq-surface-1 transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
               >
-                <svg className="h-4 w-4 text-biq-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l4-4 4 2 5-6" />
                 </svg>
@@ -227,9 +227,9 @@ export default async function ExploreVerticalPage({ params }: Props) {
               href={`/golden-flows/${slug}/audit_report.md`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-biq-border px-4 py-2 text-sm font-medium text-biq-text-secondary hover:bg-biq-surface-1 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg border border-bayesiq-200 px-4 py-2 text-sm font-medium text-bayesiq-700 hover:bg-bayesiq-50 transition-colors"
             >
-              <svg className="h-4 w-4 text-biq-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+              <svg className="h-4 w-4 text-bayesiq-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
               </svg>
               Audit Report

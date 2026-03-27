@@ -38,7 +38,7 @@ export default function DashboardScreenshot({ screenshot }: Props) {
 
       {/* Screenshot content */}
       {showPlaceholder ? (
-        <div className="flex h-48 items-center justify-center bg-gray-100 text-sm text-biq-text-muted">
+        <div className="flex h-48 items-center justify-center bg-gray-100 text-sm text-bayesiq-400">
           Dashboard preview coming soon
         </div>
       ) : (

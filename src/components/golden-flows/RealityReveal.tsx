@@ -40,7 +40,7 @@ export default function RealityReveal({
 
   return (
     <section className="mt-6">
-      <div className="rounded-xl border border-biq-border bg-biq-surface-1/50 p-6">
+      <div className="rounded-xl border border-bayesiq-200 bg-bayesiq-50/50 p-6">
         <div className="space-y-5">
           {shown.map((m) => {
             const matchedRisk = findMatchingRisk(m, risks);
@@ -50,11 +50,11 @@ export default function RealityReveal({
                 className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6"
               >
                 {/* Reported */}
-                <div className="rounded-lg bg-biq-status-error-subtle/60 border border-red-100 px-5 py-4">
+                <div className="rounded-lg bg-red-50/60 border border-red-100 px-5 py-4">
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-red-400 mb-1">
                     Reported
                   </p>
-                  <p className="text-xl tabular-nums text-biq-status-error/70">
+                  <p className="text-xl tabular-nums text-red-700/70">
                     {formatValue(m.reported)}
                   </p>
                   <p className="text-xs text-red-400 mt-1">
@@ -63,20 +63,20 @@ export default function RealityReveal({
                 </div>
 
                 {/* Audited */}
-                <div className="rounded-lg bg-biq-status-success-subtle border border-green-100 px-5 py-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-biq-status-success mb-1">
+                <div className="rounded-lg bg-green-50 border border-green-100 px-5 py-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-green-600 mb-1">
                     Audited
                   </p>
                   <p className="text-xl font-bold tabular-nums text-green-800">
                     {formatValue(m.audited)}
                   </p>
-                  <p className="text-xs text-biq-status-success/70 mt-1">
+                  <p className="text-xs text-green-600/70 mt-1">
                     {m.delta_pct > 0 ? "Overstated" : "Understated"} {Math.abs(m.delta_pct)}%
                   </p>
                 </div>
 
                 {/* Decision exposure — matched to this metric's risk */}
-                <div className="rounded-lg bg-biq-status-warning-subtle/70 border border-amber-100 px-5 py-4">
+                <div className="rounded-lg bg-amber-50/70 border border-amber-100 px-5 py-4">
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-amber-500 mb-1">
                     Decision Exposure
                   </p>
@@ -91,7 +91,7 @@ export default function RealityReveal({
         </div>
 
         {headlineFinding && (
-          <p className="mt-5 text-sm text-biq-text-secondary leading-relaxed border-t border-biq-border-subtle pt-4">
+          <p className="mt-5 text-sm text-bayesiq-600 leading-relaxed border-t border-bayesiq-100 pt-4">
             {headlineFinding}
           </p>
         )}

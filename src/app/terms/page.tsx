@@ -21,16 +21,16 @@ export default function TermsPage() {
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary">
+        <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
           Terms of Service
         </h1>
-        <p className="mt-4 text-sm text-biq-text-muted">
+        <p className="mt-4 text-sm text-bayesiq-400">
           Effective: 2026-03-05
         </p>
 
-        <div className="mt-12 space-y-10 text-sm leading-relaxed text-biq-text-secondary">
+        <div className="mt-12 space-y-10 text-sm leading-relaxed text-bayesiq-700">
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">Overview</h2>
+            <h2 className="text-lg font-semibold text-bayesiq-900">Overview</h2>
             <p className="mt-3">
               BayesIQ provides data quality auditing, telemetry validation, and
               analytics pipeline consulting services. These terms govern your use
@@ -45,7 +45,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Website use
             </h2>
             <p className="mt-3">
@@ -56,7 +56,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Consulting engagements
             </h2>
             <p className="mt-3">
@@ -68,7 +68,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Confidentiality
             </h2>
             <p className="mt-3">
@@ -80,7 +80,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Data access
             </h2>
             <p className="mt-3">
@@ -92,7 +92,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Intellectual property
             </h2>
             <p className="mt-3">
@@ -104,7 +104,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Limitation of liability
             </h2>
             <p className="mt-3">
@@ -116,7 +116,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">
+            <h2 className="text-lg font-semibold text-bayesiq-900">
               Governing law
             </h2>
             <p className="mt-3">
@@ -126,19 +126,19 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-biq-text-primary">Contact</h2>
+            <h2 className="text-lg font-semibold text-bayesiq-900">Contact</h2>
             <p className="mt-3">
               Questions about these terms? Email us at{" "}
               <a
                 href="mailto:hello@bayesiq.com"
-                className="text-biq-text-primary underline hover:text-accent"
+                className="text-bayesiq-900 underline hover:text-accent"
               >
                 hello@bayesiq.com
               </a>{" "}
               or use our{" "}
               <Link
                 href="/contact"
-                className="text-biq-text-primary underline hover:text-accent"
+                className="text-bayesiq-900 underline hover:text-accent"
               >
                 contact form
               </Link>

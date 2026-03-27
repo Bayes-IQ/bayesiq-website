@@ -163,7 +163,7 @@ export default function AssessmentWizard() {
                   type="button"
                   onClick={handleBack}
                   disabled={currentIndex === 0}
-                  className="rounded-lg border border-biq-border px-4 py-2.5 text-sm font-medium text-biq-text-secondary transition-colors hover:border-biq-primary hover:text-biq-text-primary disabled:cursor-not-allowed disabled:opacity-30"
+                  className="rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm font-medium text-bayesiq-700 transition-colors hover:border-bayesiq-500 hover:text-bayesiq-900 disabled:cursor-not-allowed disabled:opacity-30"
                 >
                   Back
                 </button>
@@ -178,7 +178,7 @@ export default function AssessmentWizard() {
                     See my results
                   </button>
                 ) : (
-                  <span className="text-xs text-biq-text-muted">
+                  <span className="text-xs text-bayesiq-400">
                     {selectedIndex !== null
                       ? "Advancing..."
                       : "Select an answer to continue"}
