@@ -54,3 +54,26 @@ instead of at the repo root. Always `cd` to the main repo root before
 - Accessibility (contrast, touch targets, heading hierarchy) belongs in L1
 - Need specific anti-patterns list, not just "avoid SaaS templates"
 - Per-page design debt score tracks quality drift over time
+
+---
+
+## 2026-03-27: Visual QA Pipeline — Plan-Critic Feedback
+
+### PR-A (Phase 0) — plan-critic approved-with-notes (9 findings)
+- `playwright test scripts/visual-qa.ts` invocation won't work if testDir
+  doesn't cover scripts/ — resolved by placing in e2e/ instead
+- "Playwright's own screenshot stitching" is a phantom API — doesn't exist
+- 16-page coverage matrix must be defined in the script, not just the plan
+
+### PR-B (Phase 1) — plan-critic approved-with-notes (10 findings)
+- Pin @axe-core/playwright to a verified compatible version
+- Use keyboard Tab simulation for focus-ring checks (not script.focus())
+- Reuse Phase 0 viewport constants and page list instead of duplicating
+- Verify review prompt output vocabulary aligns with schema severity enum
+- Add early guard if test-results/visual-qa/ is missing
+- Ensure TypeScript runner (tsx/ts-node) available for visual-review.ts
+
+### Worktree session scope issue
+bash-guard detects `source ~/BayesIQCode/bayesiq-workspace/gh-api.sh` as a
+cross-repo write when CWD is inside a worktree. Workaround: `cd` to the
+main repo root before running gh-api.sh commands.

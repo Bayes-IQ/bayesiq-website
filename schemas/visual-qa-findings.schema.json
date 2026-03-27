@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Visual QA Findings",
+  "type": "object",
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "commit": { "type": "string" },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "page": { "type": "string" },
+          "viewport": { "type": "string" },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "layer": {
+                  "type": "string",
+                  "enum": ["L1", "L2", "L3", "L4"]
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": ["regression", "violation", "nit", "suggestion"]
+                },
+                "region": {
+                  "type": "string",
+                  "description": "Approximate location in the screenshot"
+                },
+                "description": { "type": "string" },
+                "suggestion": { "type": "string" }
+              },
+              "required": ["layer", "severity", "description"]
+            }
+          }
+        },
+        "required": ["page", "findings"]
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_pages": { "type": "number" },
+        "total_findings": { "type": "number" },
+        "by_severity": { "type": "object" },
+        "by_layer": { "type": "object" }
+      }
+    }
+  },
+  "required": ["timestamp", "pages", "summary"]
+}
