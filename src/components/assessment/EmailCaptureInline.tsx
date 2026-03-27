@@ -154,7 +154,7 @@ export default function EmailCaptureInline({
           <button
             type="submit"
             disabled={!isValidEmail || submitState === "pending"}
-            className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 disabled:opacity-50"
+            className="rounded-lg bg-biq-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover disabled:opacity-50"
           >
             {submitState === "pending" ? "Sending…" : "Send me the checklist"}
           </button>

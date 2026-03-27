@@ -196,7 +196,7 @@ function VerticalPanel({ vertical }: { vertical: VerticalData }) {
       {/* CTA */}
       <a
         href="/contact"
-        className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+        className="inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
       >
         {vertical.ctaLabel}
       </a>

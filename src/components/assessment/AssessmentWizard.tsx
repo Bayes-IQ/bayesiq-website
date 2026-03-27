@@ -173,7 +173,7 @@ export default function AssessmentWizard() {
                     type="button"
                     onClick={handleSubmit}
                     disabled={selectedIndex === null}
-                    className="rounded-lg bg-bayesiq-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-lg bg-biq-primary px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     See my results
                   </button>

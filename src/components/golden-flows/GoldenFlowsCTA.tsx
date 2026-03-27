@@ -50,7 +50,7 @@ export default function GoldenFlowsCTA({
           <Link
             href="/platform"
             onClick={() => trackCtaClick("reliability", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+            className="mt-8 inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
           >
             Learn more
           </Link>

@@ -103,7 +103,7 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/contact"
-            className="rounded-lg bg-bayesiq-900 px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+            className="rounded-lg bg-biq-primary px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
             data-event="cta_click"
             data-location="assessment_results"
           >

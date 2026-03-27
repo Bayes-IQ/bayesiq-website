@@ -303,7 +303,7 @@ export default function CaseStudiesPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+                  className="rounded-lg bg-biq-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
                 >
                   {study.ctaText}
                 </Link>

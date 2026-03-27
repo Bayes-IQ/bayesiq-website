@@ -81,7 +81,7 @@ export default function AssessmentContent() {
             </p>
             <Link
               href="/assessment"
-              className="inline-block rounded-lg bg-bayesiq-900 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+              className="inline-block rounded-lg bg-biq-primary px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
             >
               Take the assessment
             </Link>

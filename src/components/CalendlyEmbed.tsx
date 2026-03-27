@@ -45,7 +45,7 @@ export default function CalendlyEmbed() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleBookClick}
-          className="mt-6 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 focus:outline-none focus:ring-2 focus:ring-biq-text-primary focus:ring-offset-2"
+          className="mt-6 inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover focus:outline-none focus:ring-2 focus:ring-biq-text-primary focus:ring-offset-2"
           aria-label="Book a call on Calendly (opens in new tab)"
         >
           Book a call

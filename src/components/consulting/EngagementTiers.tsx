@@ -103,7 +103,7 @@ export default function EngagementTiers() {
             href="/contact"
             className={`mt-6 block rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-colors ${
               tier.highlighted
-                ? "bg-bayesiq-900 text-white hover:bg-bayesiq-800"
+                ? "bg-biq-primary text-white hover:bg-biq-primary-hover"
                 : "border border-biq-border text-biq-text-primary hover:bg-biq-surface-1"
             }`}
           >

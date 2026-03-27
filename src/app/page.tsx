@@ -33,7 +33,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/assessment"
-              className="rounded-lg bg-bayesiq-900 px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+              className="rounded-lg bg-biq-primary px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
             >
               Take the Assessment
             </Link>
@@ -116,7 +116,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/assessment"
-              className="mt-8 inline-block rounded-lg bg-bayesiq-900 px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+              className="mt-8 inline-block rounded-lg bg-biq-primary px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
             >
               Take the Assessment
             </Link>

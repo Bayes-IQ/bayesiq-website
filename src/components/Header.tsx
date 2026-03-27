@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-biq-border bg-white/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-xl font-bold tracking-tight text-biq-text-primary">
+        <Link href="/" className="text-xl font-semibold tracking-tight text-biq-text-primary">
           Bayes<span className="text-biq-primary">IQ</span>
         </Link>
 
@@ -25,14 +25,14 @@ export default function Header() {
             <Link
               key={item.path}
               href={item.path}
-              className="text-sm text-biq-text-secondary transition-colors hover:text-biq-text-primary"
+              className="rounded-md px-2 py-1 text-sm text-biq-text-secondary transition-colors hover:bg-biq-surface-1 hover:text-biq-text-primary"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="rounded-lg bg-bayesiq-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+            className="rounded-lg bg-biq-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
           >
             Get in Touch
           </Link>
@@ -69,7 +69,7 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="mt-2 block rounded-lg bg-bayesiq-900 px-4 py-2 text-center text-sm font-medium text-white"
+            className="mt-2 block rounded-lg bg-biq-primary px-4 py-2 text-center text-sm font-medium text-white"
             onClick={() => setMenuOpen(false)}
           >
             Get in Touch
