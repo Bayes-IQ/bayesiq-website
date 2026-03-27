@@ -32,7 +32,7 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="rounded-lg bg-biq-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
+            className="rounded-lg bg-bayesiq-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
           >
             Get in Touch
           </Link>
@@ -69,7 +69,7 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="mt-2 block rounded-lg bg-biq-primary px-4 py-2 text-center text-sm font-medium text-white"
+            className="mt-2 block rounded-lg bg-bayesiq-900 px-4 py-2 text-center text-sm font-medium text-white"
             onClick={() => setMenuOpen(false)}
           >
             Get in Touch

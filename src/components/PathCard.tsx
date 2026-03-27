@@ -44,7 +44,7 @@ export default function PathCard({
       <div className="mt-8">
         <Link
           href={href}
-          className="inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
+          className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
         >
           {cta}
         </Link>
