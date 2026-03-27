@@ -11,7 +11,9 @@
     "test:unit": "vitest run",
     "test:install": "playwright install chromium",
     "generate:types": "bash scripts/generate-types.sh",
-    "validate:schemas": "node scripts/validate-schemas.mjs"
+    "validate:schemas": "node scripts/validate-schemas.mjs",
+    "visual-qa": "npx playwright test e2e/visual-qa.spec.ts --project=chromium --reporter=list",
+    "visual-qa:baseline": "bash scripts/visual-qa-baseline.sh"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
