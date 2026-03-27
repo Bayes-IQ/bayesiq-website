@@ -73,6 +73,13 @@ instead of at the repo root. Always `cd` to the main repo root before
 - Add early guard if test-results/visual-qa/ is missing
 - Ensure TypeScript runner (tsx/ts-node) available for visual-review.ts
 
+### PR-C (Phase 2) — plan-critic approved-with-notes (7 findings, 3 attempts)
+- TS script runner strategy (node vs tsx) must be resolved at wiring time
+- Findings JSON schema validation needs graceful degradation
+- `diffs/` directory creation should use mkdir -p for idempotency
+- @types/pngjs needed for TypeScript compilation
+- npm script must exist before shell wiring is exercised (atomic commit)
+
 ### Worktree session scope issue
 bash-guard detects `source ~/BayesIQCode/bayesiq-workspace/gh-api.sh` as a
 cross-repo write when CWD is inside a worktree. Workaround: `cd` to the
