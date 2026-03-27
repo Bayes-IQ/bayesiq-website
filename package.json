@@ -15,7 +15,9 @@
     "visual-qa": "npx playwright test e2e/visual-qa.spec.ts --project=chromium --reporter=list",
     "visual-qa:baseline": "bash scripts/visual-qa-baseline.sh",
     "a11y-check": "npx playwright test e2e/a11y-check.spec.ts --project=chromium --reporter=list",
-    "visual-review": "echo 'Run: npm run visual-qa && then review screenshots with the visual-review-prompt.md template'"
+    "visual-review": "echo 'Run: npm run visual-qa && then review screenshots with the visual-review-prompt.md template'",
+    "pixel-diff": "npx tsx scripts/pixel-diff.ts",
+    "design-debt": "npx tsx scripts/design-debt.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -36,6 +38,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.0.0",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.1",
@@ -43,7 +46,10 @@
     "ajv-formats": "^3.0.1",
     "jsdom": "^29.0.0",
     "json-schema-to-typescript": "^15.0.4",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
     "tailwindcss": "^4.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.0",
     "vitest": "^4.1.0"
   }
