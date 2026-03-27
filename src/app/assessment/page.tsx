@@ -170,7 +170,7 @@ export default function AssessmentPage() {
           <h2 className="text-2xl font-bold tracking-tight text-white">
             Want a real answer, not a directional one?
           </h2>
-          <p className="mt-4 text-base text-biq-text-muted">
+          <p className="mt-4 text-base text-bayesiq-300">
             A BayesIQ audit examines your actual telemetry, pipelines, and
             metric definitions — and gives you a severity-ranked fix plan in
             under two weeks.

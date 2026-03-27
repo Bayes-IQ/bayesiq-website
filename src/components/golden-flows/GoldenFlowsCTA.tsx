@@ -22,7 +22,7 @@ export default function GoldenFlowsCTA({
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {diagnosticHeadline}
           </h2>
-          <p className="mt-4 text-lg text-biq-text-muted">
+          <p className="mt-4 text-lg text-bayesiq-300">
             A focused $7,500 engagement. We audit your{" "}
             {vertical ? vertical.toLowerCase() : ""} data, score your metrics,
             and deliver a remediation roadmap in 2 weeks.

@@ -18,7 +18,7 @@ export default function CTA({
       <div className="mx-auto max-w-2xl">
         <h2 className="text-3xl font-bold tracking-tight text-white">{headline}</h2>
         {description && (
-          <p className="mt-4 text-lg text-biq-text-muted">{description}</p>
+          <p className="mt-4 text-lg text-bayesiq-300">{description}</p>
         )}
         <Link
           href={href}

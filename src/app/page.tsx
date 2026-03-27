@@ -93,7 +93,7 @@ export default function HomePage() {
         <SectionReveal>
           <div className="mx-auto max-w-3xl text-center">
             <GovernanceChain variant="simple" theme="light" />
-            <p className="mt-10 text-lg leading-relaxed text-biq-text-muted">
+            <p className="mt-10 text-lg leading-relaxed text-bayesiq-300">
               Every finding reviewed. Every decision attributed.
               <br className="hidden sm:inline" />
               Every transition evidence-backed.
