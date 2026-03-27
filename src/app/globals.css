@@ -1,100 +1,33 @@
+/*
+ * BayesIQ Website — Global Styles
+ *
+ * Design system integration:
+ *   1. tokens.css     — brand values (--biq-* CSS variables)
+ *   2. tailwindcss     — utility framework
+ *   3. tw v4 theme     — maps --biq-* vars to Tailwind utilities
+ *   4. this file       — site-specific overrides only
+ *
+ * To update design system tokens: copy from bayesiq-design-system/dist/
+ * into src/vendor/biq/ and rebuild. Token values live in tokens.css;
+ * Tailwind mappings live in tailwind-v4-theme.css. For a new LOB brand,
+ * swap tokens.css — the theme mappings stay unchanged.
+ */
+
+/* Step 1: Design system token values (must load before Tailwind) */
+@import "../vendor/biq/tokens.css";
+
+/* Step 2: Tailwind framework */
 @import "tailwindcss";
 
-/*
- * BayesIQ Design System Tokens (vendored from bayesiq-design-system v0.1.0)
- * Source: bayesiq-design-system/dist/tokens.css
- * To update: copy token values from the design system repo after rebuild.
- */
-:root, [data-theme="light"] {
-  /* ── Color tokens (light) ── */
-  --biq-color-primary: #1a73e8;
-  --biq-color-primary-hover: #1560c4;
-  --biq-color-primary-subtle: #dde8f8;
-  --biq-color-surface-0: #ffffff;
-  --biq-color-surface-1: #f8fafc;
-  --biq-color-surface-2: #f1f5f9;
-  --biq-color-text-primary: #0f172a;
-  --biq-color-text-secondary: #475569;
-  --biq-color-text-muted: #64748b;
-  --biq-color-border: #e2e8f0;
-  --biq-color-border-subtle: #f1f5f9;
-  --biq-color-focus-ring: #1a73e8;
-  --biq-color-status-success: #16a34a;
-  --biq-color-status-success-subtle: #dcfce7;
-  --biq-color-status-warning: #d97706;
-  --biq-color-status-warning-subtle: #fef3c7;
-  --biq-color-status-error: #dc2626;
-  --biq-color-status-error-subtle: #fee2e2;
-  --biq-color-status-info: #1a73e8;
-  --biq-color-status-info-subtle: #dde8f8;
+/* Step 3: Design system → Tailwind v4 theme mappings (all token categories) */
+@import "../vendor/biq/tailwind-v4-theme.css";
 
-  /* ── Typography ── */
-  --biq-font-sans: "Inter", system-ui, sans-serif;
-  --biq-font-serif: "Source Serif 4", Georgia, serif;
-  --biq-font-mono: "JetBrains Mono", monospace;
-  --biq-font-size-xs: 12px;
-  --biq-line-height-xs: 1.5;
-  --biq-font-size-sm: 14px;
-  --biq-line-height-sm: 1.5;
-  --biq-font-size-base: 15px;
-  --biq-line-height-base: 1.6;
-  --biq-font-size-lg: 17px;
-  --biq-line-height-lg: 1.5;
-  --biq-font-size-xl: 20px;
-  --biq-line-height-xl: 1.3;
-  --biq-font-size-2xl: 28px;
-  --biq-line-height-2xl: 1.2;
-  --biq-font-size-3xl: 36px;
-  --biq-line-height-3xl: 1.1;
-  --biq-font-weight-normal: 400;
-  --biq-font-weight-medium: 500;
-  --biq-font-weight-semibold: 600;
-  --biq-font-weight-bold: 700;
-
-  /* ── Spacing ── */
-  --biq-space-1: 4px;
-  --biq-space-2: 8px;
-  --biq-space-3: 12px;
-  --biq-space-4: 16px;
-  --biq-space-5: 20px;
-  --biq-space-6: 24px;
-  --biq-space-8: 32px;
-  --biq-space-10: 40px;
-  --biq-space-12: 48px;
-  --biq-space-16: 64px;
-
-  /* ── Radius ── */
-  --biq-radius-sm: 4px;
-  --biq-radius-md: 8px;
-  --biq-radius-lg: 12px;
-  --biq-radius-full: 9999px;
-
-  /* ── Shadow ── */
-  --biq-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --biq-shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-
-  /* ── Motion ── */
-  --biq-duration-fast: 100ms;
-  --biq-duration-normal: 200ms;
-  --biq-duration-slow: 400ms;
-  --biq-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --biq-ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --biq-ease-out: cubic-bezier(0, 0, 0.2, 1);
-
-  /* ── Breakpoints ── */
-  --biq-breakpoint-sm: 640px;
-  --biq-breakpoint-md: 768px;
-  --biq-breakpoint-lg: 1024px;
-  --biq-breakpoint-xl: 1280px;
-}
-
-/* Dark mode tokens omitted — site is light-only.
-   Re-add when dark mode support is implemented. */
-
+/* Step 4: Site-specific theme additions */
 @theme {
   /* Gray scale: retained for dark-section contexts (buttons, CTA,
      platform page, Header, Footer, GovernanceChain dark theme).
-     Light-context components now use semantic biq-* tokens above. */
+     These are site-specific — not part of the centralized design system.
+     TODO: migrate dark sections to a DS dark-surface token set. */
   --color-bayesiq-950: #0a0f1a;
   --color-bayesiq-900: #111827;
   --color-bayesiq-800: #1f2937;
@@ -107,36 +40,17 @@
   --color-bayesiq-100: #f3f4f6;
   --color-bayesiq-50: #f9fafb;
 
-  /* Accent: now sourced from design system primary token */
+  /* Accent aliases (resolve to DS primary) */
   --color-accent: var(--biq-color-primary);
   --color-accent-dark: var(--biq-color-primary-hover);
 
-  /* ── Design system semantic colors for Tailwind ── */
-  --color-biq-text-primary: var(--biq-color-text-primary);
-  --color-biq-text-secondary: var(--biq-color-text-secondary);
-  --color-biq-text-muted: var(--biq-color-text-muted);
-  --color-biq-surface-0: var(--biq-color-surface-0);
-  --color-biq-surface-1: var(--biq-color-surface-1);
-  --color-biq-surface-2: var(--biq-color-surface-2);
-  --color-biq-border: var(--biq-color-border);
-  --color-biq-border-subtle: var(--biq-color-border-subtle);
-  --color-biq-primary: var(--biq-color-primary);
-  --color-biq-primary-hover: var(--biq-color-primary-hover);
-  --color-biq-primary-subtle: var(--biq-color-primary-subtle);
-  --color-biq-status-success: var(--biq-color-status-success);
-  --color-biq-status-success-subtle: var(--biq-color-status-success-subtle);
-  --color-biq-status-warning: var(--biq-color-status-warning);
-  --color-biq-status-warning-subtle: var(--biq-color-status-warning-subtle);
-  --color-biq-status-error: var(--biq-color-status-error);
-  --color-biq-status-error-subtle: var(--biq-color-status-error-subtle);
-  --color-biq-status-info: var(--biq-color-status-info);
-  --color-biq-status-info-subtle: var(--biq-color-status-info-subtle);
-
-  /* Fonts: CSS variable names unchanged, values now from design system */
+  /* Site fonts: DS fonts + display font (not in DS) */
   --font-sans: var(--biq-font-sans);
   --font-mono: var(--biq-font-mono);
   --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
+
+/* ── Base element styles ── */
 
 html {
   scroll-behavior: smooth;
