@@ -123,8 +123,8 @@ describe("FeedbackThread", () => {
     fireEvent.click(screen.getByRole("button"));
 
     const pills = screen.getAllByText(/^(approved|rejected|pending)$/);
-    expect(pills[0].className).toContain("bg-green-100");
-    expect(pills[1].className).toContain("bg-red-100");
+    expect(pills[0].className).toContain("bg-biq-status-success-subtle");
+    expect(pills[1].className).toContain("bg-biq-status-error-subtle");
     expect(pills[2].className).toContain("bg-yellow-100");
   });
 

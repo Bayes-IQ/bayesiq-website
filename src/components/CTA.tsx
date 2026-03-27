@@ -16,13 +16,13 @@ export default function CTA({
   return (
     <section className="bg-bayesiq-900 px-6 py-20 text-center">
       <div className="mx-auto max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight text-white">{headline}</h2>
+        <h2 className="font-display text-3xl font-bold tracking-tight text-white">{headline}</h2>
         {description && (
           <p className="mt-4 text-lg text-bayesiq-300">{description}</p>
         )}
         <Link
           href={href}
-          className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-100"
+          className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
         >
           {buttonText}
         </Link>

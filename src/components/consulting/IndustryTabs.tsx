@@ -83,7 +83,7 @@ function IndustryTabsInner() {
       <div
         role="tablist"
         aria-label="Industry verticals"
-        className="flex gap-1 overflow-x-auto border-b border-bayesiq-200"
+        className="flex gap-1 overflow-x-auto border-b border-biq-border"
       >
         {verticals.map((vertical, index) => (
           <button
@@ -100,8 +100,8 @@ function IndustryTabsInner() {
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={`shrink-0 border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
               vertical.id === activeId
-                ? "border-bayesiq-900 text-bayesiq-900"
-                : "border-transparent text-bayesiq-500 hover:text-bayesiq-700"
+                ? "border-bayesiq-900 text-biq-text-primary"
+                : "border-transparent text-biq-text-muted hover:text-biq-text-secondary"
             }`}
           >
             {vertical.displayName}
@@ -130,22 +130,22 @@ function VerticalPanel({ vertical }: { vertical: VerticalData }) {
   return (
     <div className="space-y-10 py-8">
       {/* Headline problem */}
-      <p className="text-lg font-medium text-bayesiq-800">
+      <p className="text-lg font-medium text-biq-text-primary">
         {vertical.headline}
       </p>
 
       {/* Failure patterns */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-bayesiq-400">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-biq-text-muted">
           Common failure patterns
         </h3>
         <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {vertical.failurePatterns.map((pattern) => (
             <div key={pattern.title}>
-              <h4 className="text-sm font-semibold text-bayesiq-900">
+              <h4 className="text-sm font-semibold text-biq-text-primary">
                 {pattern.title}
               </h4>
-              <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+              <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
                 {pattern.description}
               </p>
             </div>
@@ -155,7 +155,7 @@ function VerticalPanel({ vertical }: { vertical: VerticalData }) {
 
       {/* Representative finding */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-bayesiq-400">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-biq-text-muted">
           Representative finding
         </h3>
         <div className="mt-4">
@@ -171,24 +171,24 @@ function VerticalPanel({ vertical }: { vertical: VerticalData }) {
 
       {/* Score result */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-bayesiq-400">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-biq-text-muted">
           Result
         </h3>
         <div className="mt-4 flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-3xl font-bold text-red-600">
+            <span className="font-mono text-3xl font-bold text-biq-status-error">
               {vertical.result.scoreBefore}
             </span>
-            <span className="text-bayesiq-400" aria-hidden="true">
+            <span className="text-biq-text-muted" aria-hidden="true">
               &rarr;
             </span>
-            <span className="font-mono text-3xl font-bold text-green-600">
+            <span className="font-mono text-3xl font-bold text-biq-status-success">
               {vertical.result.scoreAfter}
             </span>
           </div>
-          <span className="text-xs text-bayesiq-500">Reliability Score</span>
+          <span className="text-xs text-biq-text-muted">Reliability Score</span>
         </div>
-        <p className="mt-2 text-sm text-bayesiq-600">
+        <p className="mt-2 text-sm text-biq-text-secondary">
           {vertical.result.summary}
         </p>
       </div>
@@ -196,7 +196,7 @@ function VerticalPanel({ vertical }: { vertical: VerticalData }) {
       {/* CTA */}
       <a
         href="/contact"
-        className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+        className="inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
       >
         {vertical.ctaLabel}
       </a>
@@ -208,7 +208,7 @@ export default function IndustryTabs() {
   return (
     <Suspense
       fallback={
-        <div className="py-8 text-center text-sm text-bayesiq-500">
+        <div className="py-8 text-center text-sm text-biq-text-muted">
           Loading...
         </div>
       }

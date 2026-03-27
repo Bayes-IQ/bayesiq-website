@@ -11,9 +11,9 @@ interface Props {
 }
 
 function scoreColor(score: number): string {
-  if (score >= 80) return "text-green-600";
+  if (score >= 80) return "text-biq-status-success";
   if (score >= 60) return "text-amber-500";
-  return "text-red-600";
+  return "text-biq-status-error";
 }
 
 function formatMetricValue(value: number): string {
@@ -38,27 +38,27 @@ export default function DashboardGrid({
       {/* Before / After comparison */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         {/* Before */}
-        <div className="rounded-xl border border-red-200 bg-red-50/50 px-5 py-4">
+        <div className="rounded-xl border border-biq-status-error-subtle bg-biq-status-error-subtle/50 px-5 py-4">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-red-500 mb-3">
             Before BayesIQ
           </p>
           <div className="space-y-2">
             <div className="flex items-baseline justify-between">
-              <span className="text-xs text-red-600">Reliability Score</span>
-              <span className="text-xl font-bold tabular-nums text-red-700">{first.score}</span>
+              <span className="text-xs text-biq-status-error">Reliability Score</span>
+              <span className="text-xl font-bold tabular-nums text-biq-status-error">{first.score}</span>
             </div>
             {metric && (
               <div className="flex items-baseline justify-between">
-                <span className="text-xs text-red-600">{metric.metric.replace(/_/g, " ")}</span>
-                <span className="text-sm font-semibold tabular-nums text-red-700">
+                <span className="text-xs text-biq-status-error">{metric.metric.replace(/_/g, " ")}</span>
+                <span className="text-sm font-semibold tabular-nums text-biq-status-error">
                   {formatMetricValue(metric.reported)}
                   <span className="text-[10px] font-normal ml-1 text-red-400">reported</span>
                 </span>
               </div>
             )}
             <div className="flex items-baseline justify-between">
-              <span className="text-xs text-red-600">Findings</span>
-              <span className="text-sm font-semibold text-red-700">
+              <span className="text-xs text-biq-status-error">Findings</span>
+              <span className="text-sm font-semibold text-biq-status-error">
                 {boardReport.total_findings} unresolved
               </span>
             </div>
@@ -66,18 +66,18 @@ export default function DashboardGrid({
         </div>
 
         {/* After */}
-        <div className="rounded-xl border border-green-200 bg-green-50/50 px-5 py-4">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-green-600 mb-3">
+        <div className="rounded-xl border border-biq-status-success-subtle bg-biq-status-success-subtle/50 px-5 py-4">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-biq-status-success mb-3">
             After BayesIQ
           </p>
           <div className="space-y-2">
             <div className="flex items-baseline justify-between">
-              <span className="text-xs text-green-700">Reliability Score</span>
+              <span className="text-xs text-biq-status-success">Reliability Score</span>
               <span className={`text-xl font-bold tabular-nums ${scoreColor(latest.score)}`}>{latest.score}</span>
             </div>
             {metric && (
               <div className="flex items-baseline justify-between">
-                <span className="text-xs text-green-700">{metric.metric.replace(/_/g, " ")}</span>
+                <span className="text-xs text-biq-status-success">{metric.metric.replace(/_/g, " ")}</span>
                 <span className="text-sm font-semibold tabular-nums text-green-800">
                   {formatMetricValue(metric.audited)}
                   <span className="text-[10px] font-normal ml-1 text-green-500">verified ✓</span>
@@ -85,7 +85,7 @@ export default function DashboardGrid({
               </div>
             )}
             <div className="flex items-baseline justify-between">
-              <span className="text-xs text-green-700">Findings</span>
+              <span className="text-xs text-biq-status-success">Findings</span>
               <span className="text-sm font-semibold text-green-800">
                 {boardReport.total_findings} reviewed ✓
               </span>
@@ -95,18 +95,18 @@ export default function DashboardGrid({
       </div>
 
       {/* Dashboard preview with real screenshot */}
-      <div className="rounded-xl border border-bayesiq-200 bg-white shadow-sm overflow-hidden">
+      <div className="rounded-xl border border-biq-border bg-white shadow-sm overflow-hidden">
         <DashboardScreenshot
           screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
         />
         {dashboardLink && (
-          <div className="border-t border-bayesiq-100 px-5 py-3 flex items-center justify-between bg-bayesiq-50/50">
-            <span className="text-xs text-bayesiq-500">Live interactive dashboard — certified data</span>
+          <div className="border-t border-biq-border-subtle px-5 py-3 flex items-center justify-between bg-biq-surface-1/50">
+            <span className="text-xs text-biq-text-muted">Live interactive dashboard — certified data</span>
             <a
               href={dashboardLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-bayesiq-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-bayesiq-700 transition-colors"
+              className="inline-flex items-center rounded-lg bg-biq-text-secondary px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-biq-text-secondary transition-colors"
             >
               Open Live Dashboard
               <svg className="ml-1.5 h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,8 +118,8 @@ export default function DashboardGrid({
       </div>
 
       {/* Forward-looking: ongoing monitoring */}
-      <div className="mt-4 rounded-lg border border-bayesiq-100 bg-bayesiq-50/30 px-5 py-3">
-        <p className="text-sm text-bayesiq-700">
+      <div className="mt-4 rounded-lg border border-biq-border-subtle bg-biq-surface-1/30 px-5 py-3">
+        <p className="text-sm text-biq-text-secondary">
           <span className="font-semibold">Going forward:</span>{" "}
           BayesIQ continuously validates metric calculations and flags discrepancies before they reach reporting. New data quality issues are surfaced within hours, not quarters.
         </p>

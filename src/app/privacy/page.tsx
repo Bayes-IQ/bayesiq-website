@@ -19,16 +19,16 @@ export default function PrivacyPage() {
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
+        <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary">
           Privacy Policy
         </h1>
-        <p className="mt-4 text-sm text-bayesiq-400">
+        <p className="mt-4 text-sm text-biq-text-muted">
           Effective: 2026-03-05
         </p>
 
-        <div className="mt-12 space-y-10 text-sm leading-relaxed text-bayesiq-700">
+        <div className="mt-12 space-y-10 text-sm leading-relaxed text-biq-text-secondary">
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               What we collect
             </h2>
             <p className="mt-3">
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               Analytics
             </h2>
             <p className="mt-3">
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               How we use your data
             </h2>
             <ul className="mt-3 list-inside list-disc space-y-2">
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               Third-party services
             </h2>
             <p className="mt-3">We use the following services to operate this site:</p>
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               Data retention
             </h2>
             <p className="mt-3">
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">
+            <h2 className="text-lg font-semibold text-biq-text-primary">
               Your rights
             </h2>
             <p className="mt-3">
@@ -114,7 +114,7 @@ export default function PrivacyPage() {
               deletion of your personal data. To make a request, contact us at{" "}
               <a
                 href="mailto:privacy@bayesiq.com"
-                className="text-bayesiq-900 underline hover:text-accent"
+                className="text-biq-text-primary underline hover:text-accent"
               >
                 privacy@bayesiq.com
               </a>
@@ -123,12 +123,12 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold text-bayesiq-900">Contact</h2>
+            <h2 className="text-lg font-semibold text-biq-text-primary">Contact</h2>
             <p className="mt-3">
               Questions about this privacy policy? Email us at{" "}
               <a
                 href="mailto:privacy@bayesiq.com"
-                className="text-bayesiq-900 underline hover:text-accent"
+                className="text-biq-text-primary underline hover:text-accent"
               >
                 privacy@bayesiq.com
               </a>

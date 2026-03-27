@@ -157,7 +157,7 @@ const caseStudiesJsonLd = {
 
 function scoreBadgeClasses(score: number): string {
   if (score < 50) {
-    return "bg-red-500/10 text-red-700 border-red-200";
+    return "bg-biq-status-error-subtle0/10 text-biq-status-error border-biq-status-error-subtle";
   }
   if (score < 70) {
     return "bg-orange-500/10 text-orange-700 border-orange-200";
@@ -175,10 +175,10 @@ export default function CaseStudiesPage() {
 
       <section className="px-6 py-24">
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900">
+          <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary">
             Case Studies
           </h1>
-          <p className="mt-4 text-lg text-bayesiq-600">
+          <p className="mt-4 text-lg text-biq-text-secondary">
             Representative engagements based on real patterns we see across
             industries. Details are composites — your audit uses your actual
             data.
@@ -189,7 +189,7 @@ export default function CaseStudiesPage() {
               <a
                 key={s.slug}
                 href={`#${s.slug}`}
-                className="text-sm font-medium text-bayesiq-600 hover:text-bayesiq-900"
+                className="text-sm font-medium text-biq-text-secondary hover:text-biq-text-primary"
               >
                 {s.industry.split(" — ")[0]}
               </a>
@@ -204,14 +204,14 @@ export default function CaseStudiesPage() {
             <article
               key={study.slug}
               id={study.slug}
-              className="rounded-2xl border border-bayesiq-200 bg-white p-8 shadow-sm"
+              className="rounded-2xl border border-biq-border bg-white p-8 shadow-sm"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-bayesiq-900">
+                  <h2 className="text-2xl font-bold text-biq-text-primary">
                     {study.industry}
                   </h2>
-                  <p className="mt-1 text-sm text-bayesiq-500">
+                  <p className="mt-1 text-sm text-biq-text-muted">
                     {study.tier} · {study.timeline}
                   </p>
                 </div>
@@ -229,7 +229,7 @@ export default function CaseStudiesPage() {
                 {study.keyStats.map((stat) => (
                   <span
                     key={stat}
-                    className="rounded-full bg-bayesiq-100 px-3 py-1 text-sm font-medium text-bayesiq-700"
+                    className="rounded-full bg-biq-surface-2 px-3 py-1 text-sm font-medium text-biq-text-secondary"
                   >
                     {stat}
                   </span>
@@ -238,30 +238,30 @@ export default function CaseStudiesPage() {
 
               <div className="mt-6 space-y-6">
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     Client Context
                   </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.context}</p>
+                  <p className="mt-1 text-biq-text-secondary">{study.context}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     What Was Broken
                   </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.brokenState}</p>
+                  <p className="mt-1 text-biq-text-secondary">{study.brokenState}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     What BayesIQ Found
                   </h3>
                   <ul className="mt-1 space-y-1">
                     {study.findings.map((finding, j) => (
                       <li
                         key={j}
-                        className="flex items-start gap-2 text-bayesiq-700"
+                        className="flex items-start gap-2 text-biq-text-secondary"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-biq-text-muted" />
                         {finding}
                       </li>
                     ))}
@@ -269,30 +269,30 @@ export default function CaseStudiesPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     Business Impact
                   </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.impact}</p>
+                  <p className="mt-1 text-biq-text-secondary">{study.impact}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     Remediation
                   </h3>
-                  <p className="mt-1 text-bayesiq-700">{study.remediation}</p>
+                  <p className="mt-1 text-biq-text-secondary">{study.remediation}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
                     Deliverables
                   </h3>
                   <ul className="mt-1 space-y-1">
                     {study.deliverables.map((d, j) => (
                       <li
                         key={j}
-                        className="flex items-start gap-2 text-bayesiq-700"
+                        className="flex items-start gap-2 text-biq-text-secondary"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-bayesiq-400" />
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-biq-text-muted" />
                         {d}
                       </li>
                     ))}
@@ -303,19 +303,19 @@ export default function CaseStudiesPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="rounded-lg bg-bayesiq-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+                  className="rounded-lg bg-biq-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
                 >
                   {study.ctaText}
                 </Link>
                 <Link
                   href="/consulting/sample-report"
-                  className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
+                  className="rounded-lg border border-biq-border px-4 py-2 text-sm font-medium text-biq-text-secondary transition-colors hover:bg-biq-surface-1"
                 >
                   See a Sample Report
                 </Link>
                 <Link
                   href="/consulting/explore"
-                  className="rounded-lg border border-bayesiq-300 px-4 py-2 text-sm font-medium text-bayesiq-700 transition-colors hover:bg-bayesiq-50"
+                  className="rounded-lg border border-biq-border px-4 py-2 text-sm font-medium text-biq-text-secondary transition-colors hover:bg-biq-surface-1"
                 >
                   Explore a Live Engagement
                 </Link>

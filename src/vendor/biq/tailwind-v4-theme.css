@@ -1,0 +1,117 @@
+/* BayesIQ Design System — Tailwind v4 Theme Mappings (vendored)
+ * Source: bayesiq-design-system v0.1.0
+ * Regenerate: copy updated output from design system after rebuild.
+ *
+ * This file maps design system CSS variables (--biq-*) to Tailwind v4
+ * @theme tokens, generating utility classes like bg-biq-primary,
+ * text-biq-text-secondary, font-biq-sans, rounded-biq-md, etc.
+ *
+ * Architecture (multi-LOB ready):
+ *   tokens.css      = brand values   (swap per LOB / white-label)
+ *   this file        = semantic map   (shared across ALL surfaces)
+ *   globals.css      = surface overrides (site-specific additions)
+ *
+ * Any Tailwind v4 surface can @import this file after @import "tailwindcss"
+ * to get the full BayesIQ design system as utility classes.
+ */
+
+@theme {
+  /* ── Colors ──
+   * Generates: bg-biq-primary, text-biq-text-primary, border-biq-border, etc.
+   */
+  --color-biq-primary: var(--biq-color-primary);
+  --color-biq-primary-hover: var(--biq-color-primary-hover);
+  --color-biq-primary-subtle: var(--biq-color-primary-subtle);
+  --color-biq-surface-0: var(--biq-color-surface-0);
+  --color-biq-surface-1: var(--biq-color-surface-1);
+  --color-biq-surface-2: var(--biq-color-surface-2);
+  --color-biq-text-primary: var(--biq-color-text-primary);
+  --color-biq-text-secondary: var(--biq-color-text-secondary);
+  --color-biq-text-muted: var(--biq-color-text-muted);
+  --color-biq-border: var(--biq-color-border);
+  --color-biq-border-subtle: var(--biq-color-border-subtle);
+  --color-biq-focus-ring: var(--biq-color-focus-ring);
+  --color-biq-status-success: var(--biq-color-status-success);
+  --color-biq-status-success-subtle: var(--biq-color-status-success-subtle);
+  --color-biq-status-warning: var(--biq-color-status-warning);
+  --color-biq-status-warning-subtle: var(--biq-color-status-warning-subtle);
+  --color-biq-status-error: var(--biq-color-status-error);
+  --color-biq-status-error-subtle: var(--biq-color-status-error-subtle);
+  --color-biq-status-info: var(--biq-color-status-info);
+  --color-biq-status-info-subtle: var(--biq-color-status-info-subtle);
+
+  /* ── Font Families ──
+   * Generates: font-biq-sans, font-biq-serif, font-biq-mono
+   */
+  --font-biq-sans: var(--biq-font-sans);
+  --font-biq-serif: var(--biq-font-serif);
+  --font-biq-mono: var(--biq-font-mono);
+
+  /* ── Font Sizes (with paired line heights) ──
+   * Generates: text-biq-xs, text-biq-sm, text-biq-base, etc.
+   */
+  --text-biq-xs: 12px;
+  --text-biq-xs--line-height: 1.5;
+  --text-biq-sm: 14px;
+  --text-biq-sm--line-height: 1.5;
+  --text-biq-base: 15px;
+  --text-biq-base--line-height: 1.6;
+  --text-biq-lg: 17px;
+  --text-biq-lg--line-height: 1.5;
+  --text-biq-xl: 20px;
+  --text-biq-xl--line-height: 1.3;
+  --text-biq-2xl: 28px;
+  --text-biq-2xl--line-height: 1.2;
+  --text-biq-3xl: 36px;
+  --text-biq-3xl--line-height: 1.1;
+
+  /* ── Font Weights ──
+   * Generates: font-biq-normal, font-biq-medium, font-biq-semibold, font-biq-bold
+   */
+  --font-weight-biq-normal: 400;
+  --font-weight-biq-medium: 500;
+  --font-weight-biq-semibold: 600;
+  --font-weight-biq-bold: 700;
+
+  /* ── Spacing (4px base unit) ──
+   * Generates: p-biq-1, m-biq-4, gap-biq-8, etc.
+   */
+  --spacing-biq-1: 4px;
+  --spacing-biq-2: 8px;
+  --spacing-biq-3: 12px;
+  --spacing-biq-4: 16px;
+  --spacing-biq-5: 20px;
+  --spacing-biq-6: 24px;
+  --spacing-biq-8: 32px;
+  --spacing-biq-10: 40px;
+  --spacing-biq-12: 48px;
+  --spacing-biq-16: 64px;
+
+  /* ── Border Radius ──
+   * Generates: rounded-biq-sm, rounded-biq-md, rounded-biq-lg, rounded-biq-full
+   */
+  --radius-biq-sm: 4px;
+  --radius-biq-md: 8px;
+  --radius-biq-lg: 12px;
+  --radius-biq-full: 9999px;
+
+  /* ── Box Shadows ──
+   * Generates: shadow-biq-sm, shadow-biq-md
+   */
+  --shadow-biq-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-biq-md: 0 4px 12px rgba(0,0,0,0.08);
+
+  /* ── Transition Durations ──
+   * Generates: duration-biq-fast, duration-biq-normal, duration-biq-slow
+   */
+  --transition-duration-biq-fast: var(--biq-duration-fast);
+  --transition-duration-biq-normal: var(--biq-duration-normal);
+  --transition-duration-biq-slow: var(--biq-duration-slow);
+
+  /* ── Transition Timing Functions ──
+   * Generates: ease-biq-default, ease-biq-in, ease-biq-out
+   */
+  --transition-timing-function-biq-default: var(--biq-ease-default);
+  --transition-timing-function-biq-in: var(--biq-ease-in);
+  --transition-timing-function-biq-out: var(--biq-ease-out);
+}

@@ -19,7 +19,7 @@ export default function QuestionCard({
 }: QuestionCardProps) {
   return (
     <fieldset className="w-full">
-      <legend className="text-lg font-semibold leading-snug text-bayesiq-900 sm:text-xl">
+      <legend className="text-lg font-semibold leading-snug text-biq-text-primary sm:text-xl">
         {question.text}
       </legend>
 
@@ -35,8 +35,8 @@ export default function QuestionCard({
               className={[
                 "flex min-h-12 cursor-pointer items-start gap-4 rounded-lg border px-4 py-3 text-sm transition-colors",
                 isSelected
-                  ? "border-bayesiq-900 bg-bayesiq-50 text-bayesiq-900"
-                  : "border-bayesiq-200 text-bayesiq-700 hover:border-bayesiq-400 hover:bg-bayesiq-50",
+                  ? "border-bayesiq-900 bg-biq-surface-1 text-biq-text-primary"
+                  : "border-biq-border text-biq-text-secondary hover:border-biq-text-muted hover:bg-biq-surface-1",
               ].join(" ")}
             >
               <input

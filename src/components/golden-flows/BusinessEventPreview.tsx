@@ -76,13 +76,13 @@ export default function BusinessEventPreview({
       <button
         type="button"
         onClick={() => setExpanded((prev) => !prev)}
-        className="w-full text-left px-5 py-4 sm:px-6 sm:py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-bayesiq-500 rounded-xl"
+        className="w-full text-left px-5 py-4 sm:px-6 sm:py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary rounded-xl"
         aria-expanded={expanded}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-2">
             {/* Event name */}
-            <p className="text-sm font-medium text-bayesiq-900 leading-snug">
+            <p className="text-sm font-medium text-biq-text-primary leading-snug">
               {humanizeEventId(item.event_id)}
             </p>
 
@@ -94,11 +94,11 @@ export default function BusinessEventPreview({
                 showLabel
               />
               {item.reviewer?.display_name && (
-                <span className="text-xs text-bayesiq-500">
+                <span className="text-xs text-biq-text-muted">
                   {item.reviewer.display_name}
                 </span>
               )}
-              <span className="text-xs text-bayesiq-400">
+              <span className="text-xs text-biq-text-muted">
                 {relativeTime(item.ts_requested)}
               </span>
             </div>
@@ -106,7 +106,7 @@ export default function BusinessEventPreview({
 
           {/* Expand chevron */}
           <span
-            className={`mt-1 shrink-0 text-bayesiq-400 transition-transform duration-200 ${
+            className={`mt-1 shrink-0 text-biq-text-muted transition-transform duration-200 ${
               expanded ? "rotate-180" : ""
             }`}
             aria-hidden="true"
@@ -126,19 +126,19 @@ export default function BusinessEventPreview({
 
       {/* Expanded detail */}
       {expanded && (
-        <div className="border-t border-bayesiq-100 px-5 pb-5 pt-4 sm:px-6">
+        <div className="border-t border-biq-border-subtle px-5 pb-5 pt-4 sm:px-6">
           {/* Review note */}
           {item.review_note && (
-            <div className="bg-bayesiq-50 rounded-lg p-3 mb-3">
-              <p className="text-xs font-semibold text-bayesiq-500 mb-1">
+            <div className="bg-biq-surface-1 rounded-lg p-3 mb-3">
+              <p className="text-xs font-semibold text-biq-text-muted mb-1">
                 Review Note
               </p>
-              <p className="text-sm text-bayesiq-800">{item.review_note}</p>
+              <p className="text-sm text-biq-text-primary">{item.review_note}</p>
             </div>
           )}
 
           {/* Timestamps */}
-          <div className="flex flex-wrap gap-4 text-xs text-bayesiq-400 mb-3">
+          <div className="flex flex-wrap gap-4 text-xs text-biq-text-muted mb-3">
             <span>Requested: {formatDate(item.ts_requested)}</span>
             {item.ts_resolved && (
               <span>Resolved: {formatDate(item.ts_resolved)}</span>
@@ -147,10 +147,10 @@ export default function BusinessEventPreview({
 
           {/* Record origin + source approval */}
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full px-2 py-0.5 text-xs font-semibold bg-bayesiq-100 text-bayesiq-700">
+            <span className="rounded-full px-2 py-0.5 text-xs font-semibold bg-biq-surface-2 text-biq-text-secondary">
               {ORIGIN_LABELS[item.record_origin]}
             </span>
-            <span className="text-[10px] text-bayesiq-300">
+            <span className="text-[10px] text-biq-text-muted">
               Source: <code>{item.source_approval_id}</code>
             </span>
           </div>

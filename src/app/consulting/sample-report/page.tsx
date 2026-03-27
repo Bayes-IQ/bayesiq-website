@@ -64,7 +64,7 @@ const findings = [
   {
     id: "F-01",
     severity: "Critical",
-    severityColor: "text-red-700 bg-red-50",
+    severityColor: "text-biq-status-error bg-biq-status-error-subtle",
     finding:
       "checkout_completed fires on payment attempt, not payment confirmation — 23% funnel inflation.",
     rootCause:
@@ -114,7 +114,7 @@ const findings = [
   {
     id: "F-06",
     severity: "Low",
-    severityColor: "text-bayesiq-600 bg-bayesiq-50",
+    severityColor: "text-biq-text-secondary bg-biq-surface-1",
     finding:
       "device_type inconsistent across platforms — iOS sends \"iPhone\", Android sends \"ios\", web sends \"iOS\".",
     rootCause: "Inconsistent client library versions across platforms.",
@@ -126,7 +126,7 @@ const scoringRubric = [
   {
     range: "90\u2013100",
     label: "Strong",
-    color: "text-green-700 bg-green-50 border-green-200",
+    color: "text-biq-status-success bg-biq-status-success-subtle border-biq-status-success-subtle",
     description: "Minor issues only. Data infrastructure is well-maintained and trustworthy.",
   },
   {
@@ -139,7 +139,7 @@ const scoringRubric = [
   {
     range: "0\u201369",
     label: "At Risk",
-    color: "text-red-700 bg-red-50 border-red-200",
+    color: "text-biq-status-error bg-biq-status-error-subtle border-biq-status-error-subtle",
     description:
       "Critical issues affecting key metrics. Decisions based on this data are likely incorrect.",
   },
@@ -148,7 +148,7 @@ const scoringRubric = [
 const severityDefinitions = [
   {
     level: "Critical",
-    color: "text-red-700 bg-red-50 border-red-200",
+    color: "text-biq-status-error bg-biq-status-error-subtle border-biq-status-error-subtle",
     definition:
       "Metric is systematically wrong. Decisions made on this data are likely incorrect.",
     action: "Fix before next reporting cycle.",
@@ -169,7 +169,7 @@ const severityDefinitions = [
   },
   {
     level: "Low",
-    color: "text-bayesiq-600 bg-bayesiq-50 border-bayesiq-200",
+    color: "text-biq-text-secondary bg-biq-surface-1 border-biq-border",
     definition:
       "Minor discrepancy or edge-case gap. Negligible business impact at current scale.",
     action: "Address opportunistically.",
@@ -221,10 +221,10 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       <section className="px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
             What you get from a BayesIQ audit
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600">
+          <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary">
             Real artifacts from a real audit &mdash; not a PDF of
             recommendations. The Audit Kit produces scored findings,
             column-level profiles, data contracts, metric specs, a deployable
@@ -233,13 +233,13 @@ export default function SampleReportPage() {
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800"
+              className="inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
             >
               Start Your Audit
             </Link>
             <Link
               href="/consulting/explore"
-              className="text-sm font-medium text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+              className="text-sm font-medium text-biq-text-secondary transition-colors hover:text-biq-text-primary"
             >
               Explore a live engagement &rarr;
             </Link>
@@ -250,12 +250,12 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Artifacts Overview                                                */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-bayesiq-900">
+          <h2 className="text-2xl font-bold text-biq-text-primary">
             Pipeline artifacts
           </h2>
-          <p className="mt-3 text-base text-bayesiq-600">
+          <p className="mt-3 text-base text-biq-text-secondary">
             Every audit produces these files. They land in your repo or shared
             drive &mdash; no proprietary portal required.
           </p>
@@ -263,16 +263,16 @@ export default function SampleReportPage() {
             {artifacts.map((a) => (
               <li key={a.file} className="flex gap-4">
                 <span
-                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-bayesiq-400"
+                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-biq-text-muted"
                   aria-hidden="true"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-bayesiq-900">
-                    <code className="rounded bg-bayesiq-100 px-1.5 py-0.5 font-mono text-xs">
+                  <p className="text-sm font-semibold text-biq-text-primary">
+                    <code className="rounded bg-biq-surface-2 px-1.5 py-0.5 font-mono text-xs">
                       {a.file}
                     </code>
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                  <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
                     {a.description}
                   </p>
                 </div>
@@ -287,13 +287,13 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-bayesiq-900">
+          <h2 className="text-2xl font-bold text-biq-text-primary">
             Example findings from{" "}
-            <code className="rounded bg-bayesiq-100 px-1.5 py-0.5 font-mono text-xl">
+            <code className="rounded bg-biq-surface-2 px-1.5 py-0.5 font-mono text-xl">
               audit_report.md
             </code>
           </h2>
-          <p className="mt-3 text-base text-bayesiq-600">
+          <p className="mt-3 text-base text-biq-text-secondary">
             Anonymized excerpt from an Audit Kit run on a B2B SaaS product
             (~50 M events/month). Finding IDs, event names, and property names
             have been changed.
@@ -302,10 +302,10 @@ export default function SampleReportPage() {
             {findings.map((f) => (
               <div
                 key={f.id}
-                className="rounded-lg border border-bayesiq-200 bg-white p-5"
+                className="rounded-lg border border-biq-border bg-white p-5"
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-bayesiq-400">
+                  <span className="font-mono text-xs text-biq-text-muted">
                     {f.id}
                   </span>
                   <span
@@ -314,23 +314,23 @@ export default function SampleReportPage() {
                     {f.severity}
                   </span>
                 </div>
-                <p className="mt-2 text-sm font-medium leading-relaxed text-bayesiq-900">
+                <p className="mt-2 text-sm font-medium leading-relaxed text-biq-text-primary">
                   {f.finding}
                 </p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+                    <p className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
                       Root Cause
                     </p>
-                    <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                    <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
                       {f.rootCause}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
+                    <p className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
                       Recommended Fix
                     </p>
-                    <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                    <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
                       {f.fix}
                     </p>
                   </div>
@@ -344,43 +344,43 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Scoring Rubric                                                    */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-bayesiq-900">
+          <h2 className="text-2xl font-bold text-biq-text-primary">
             Scoring rubric (0&ndash;100)
           </h2>
-          <p className="mt-3 text-base text-bayesiq-600">
+          <p className="mt-3 text-base text-biq-text-secondary">
             Every audit produces an overall health score. The score reflects the
             count, severity, and blast radius of confirmed issues.
           </p>
           <div className="mt-8 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="border-b border-bayesiq-200">
+                <tr className="border-b border-biq-border">
                   <th
                     scope="col"
-                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     Score
                   </th>
                   <th
                     scope="col"
-                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     Rating
                   </th>
                   <th
                     scope="col"
-                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     What it means
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-bayesiq-100">
+              <tbody className="divide-y divide-biq-border-subtle">
                 {scoringRubric.map((row) => (
                   <tr key={row.label}>
-                    <td className="py-3 pr-6 align-top font-mono text-sm text-bayesiq-700">
+                    <td className="py-3 pr-6 align-top font-mono text-sm text-biq-text-secondary">
                       {row.range}
                     </td>
                     <td className="py-3 pr-6 align-top">
@@ -390,7 +390,7 @@ export default function SampleReportPage() {
                         {row.label}
                       </span>
                     </td>
-                    <td className="py-3 align-top leading-relaxed text-bayesiq-600">
+                    <td className="py-3 align-top leading-relaxed text-biq-text-secondary">
                       {row.description}
                     </td>
                   </tr>
@@ -406,38 +406,38 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-bayesiq-900">
+          <h2 className="text-2xl font-bold text-biq-text-primary">
             Severity definitions
           </h2>
-          <p className="mt-3 text-base text-bayesiq-600">
+          <p className="mt-3 text-base text-biq-text-secondary">
             Every finding is ranked by business impact and blast radius &mdash;
             how many downstream metrics or reports does this affect?
           </p>
           <div className="mt-8 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="border-b border-bayesiq-200">
+                <tr className="border-b border-biq-border">
                   <th
                     scope="col"
-                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     Severity
                   </th>
                   <th
                     scope="col"
-                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 pr-6 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     Definition
                   </th>
                   <th
                     scope="col"
-                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-bayesiq-400"
+                    className="py-3 text-left text-xs font-medium uppercase tracking-wider text-biq-text-muted"
                   >
                     Typical action
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-bayesiq-100">
+              <tbody className="divide-y divide-biq-border-subtle">
                 {severityDefinitions.map((row) => (
                   <tr key={row.level}>
                     <td className="py-3 pr-6 align-top">
@@ -447,10 +447,10 @@ export default function SampleReportPage() {
                         {row.level}
                       </span>
                     </td>
-                    <td className="py-3 pr-6 align-top leading-relaxed text-bayesiq-700">
+                    <td className="py-3 pr-6 align-top leading-relaxed text-biq-text-secondary">
                       {row.definition}
                     </td>
-                    <td className="py-3 align-top text-bayesiq-600">
+                    <td className="py-3 align-top text-biq-text-secondary">
                       {row.action}
                     </td>
                   </tr>
@@ -464,12 +464,12 @@ export default function SampleReportPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Engagement Timeline                                               */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-bayesiq-200 bg-bayesiq-50 px-6 py-20">
+      <section className="border-t border-biq-border bg-biq-surface-1 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-bayesiq-900">
+          <h2 className="text-2xl font-bold text-biq-text-primary">
             Engagement timeline &mdash; 6 weeks
           </h2>
-          <p className="mt-3 text-base text-bayesiq-600">
+          <p className="mt-3 text-base text-biq-text-secondary">
             A full engagement runs 6 weeks from kickoff to validated dashboards.
             Diagnostic sprints deliver findings in 1 week.
           </p>
@@ -477,20 +477,20 @@ export default function SampleReportPage() {
             {timelineSteps.map((step, index) => (
               <div key={step.phase} className="flex gap-6">
                 <div className="flex shrink-0 flex-col items-center">
-                  <span className="text-sm font-bold text-bayesiq-300">
+                  <span className="text-sm font-bold text-biq-text-muted">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <h3 className="text-base font-semibold text-bayesiq-900">
+                    <h3 className="text-base font-semibold text-biq-text-primary">
                       {step.phase}
                     </h3>
-                    <span className="text-xs text-bayesiq-400">
+                    <span className="text-xs text-biq-text-muted">
                       {step.timeline}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
+                  <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
                     {step.description}
                   </p>
                 </div>

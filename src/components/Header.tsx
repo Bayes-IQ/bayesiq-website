@@ -13,10 +13,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-bayesiq-200 bg-white/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-biq-border bg-white/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-xl font-bold tracking-tight text-bayesiq-900">
-          BayesIQ
+        <Link href="/" className="text-xl font-semibold tracking-tight text-biq-text-primary">
+          Bayes<span className="text-biq-primary">IQ</span>
         </Link>
 
         {/* Desktop nav */}
@@ -25,7 +25,7 @@ export default function Header() {
             <Link
               key={item.path}
               href={item.path}
-              className="text-sm text-bayesiq-600 transition-colors hover:text-bayesiq-900"
+              className="rounded-md px-2 py-1 text-sm text-biq-text-secondary transition-colors hover:bg-biq-surface-1 hover:text-biq-text-primary"
             >
               {item.label}
             </Link>
@@ -44,7 +44,7 @@ export default function Header() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <svg className="h-6 w-6 text-bayesiq-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-6 w-6 text-biq-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -56,12 +56,12 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <nav className="border-t border-bayesiq-200 px-6 py-4 md:hidden">
+        <nav className="border-t border-biq-border px-6 py-4 md:hidden">
           {navItems.map((item) => (
             <Link
               key={item.path}
               href={item.path}
-              className="block py-2 text-sm text-bayesiq-600"
+              className="block py-2 text-sm text-biq-text-secondary"
               onClick={() => setMenuOpen(false)}
             >
               {item.label}
