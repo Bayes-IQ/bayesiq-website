@@ -34,3 +34,6 @@ CLAUDE.md
 server/.venv
 server/__pycache__
 server/bayesiq-data-audit-kit/
+
+# Visual QA screenshots (local artifacts)
+test-results/visual-qa/
