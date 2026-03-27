@@ -11,9 +11,9 @@ interface Props {
 }
 
 function scoreColor(score: number): string {
-  if (score >= 80) return "text-biq-status-success";
+  if (score >= 80) return "text-green-600";
   if (score >= 60) return "text-amber-500";
-  return "text-biq-status-error";
+  return "text-red-600";
 }
 
 export default function VerticalHero({
@@ -42,20 +42,20 @@ export default function VerticalHero({
   const consequence = boardReport?.top_risks?.[0]?.business_impact ?? null;
 
   return (
-    <section className="mt-6 rounded-2xl border border-biq-border bg-white p-6 shadow-sm sm:p-8">
+    <section className="mt-6 rounded-2xl border border-bayesiq-200 bg-white p-6 shadow-sm sm:p-8">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
         {/* Score + delta */}
         <div className="flex-shrink-0 text-center sm:text-left">
-          <p className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
+          <p className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
             Reliability Score
           </p>
-          <p className="mt-1 text-5xl font-extrabold tabular-nums text-biq-text-primary">
+          <p className="mt-1 text-5xl font-extrabold tabular-nums text-bayesiq-900">
             {latest.score}
           </p>
           {snapshots.length > 1 && (
             <p
               className={`mt-1 text-sm font-medium ${
-                improving ? "text-biq-status-success" : "text-biq-status-error"
+                improving ? "text-green-600" : "text-red-600"
               }`}
             >
               {first.score} → {latest.score}
@@ -69,16 +69,16 @@ export default function VerticalHero({
 
         {/* Headline + framing */}
         <div className="min-w-0 flex-1">
-          <h1 className="text-xl font-bold tracking-tight text-biq-text-primary sm:text-2xl leading-snug">
+          <h1 className="text-xl font-bold tracking-tight text-bayesiq-900 sm:text-2xl leading-snug">
             {headline}
           </h1>
           {framing && (
-            <p className="mt-2 text-sm text-biq-text-secondary leading-relaxed">
+            <p className="mt-2 text-sm text-bayesiq-600 leading-relaxed">
               {framing}
             </p>
           )}
           {consequence && (
-            <p className="mt-3 text-xs text-biq-text-muted leading-relaxed border-l-2 border-amber-300 pl-3">
+            <p className="mt-3 text-xs text-bayesiq-500 leading-relaxed border-l-2 border-amber-300 pl-3">
               {consequence}
             </p>
           )}

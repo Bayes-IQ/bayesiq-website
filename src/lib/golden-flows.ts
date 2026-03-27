@@ -389,53 +389,53 @@ export function getTrustBadges(): TrustBadges | null {
 
 export function severityBorderColor(level: SeverityLevel): string {
   switch (level) {
-    case "critical": return "border-biq-status-error";
-    case "warning": return "border-biq-status-warning";
+    case "critical": return "border-red-600";
+    case "warning": return "border-amber-500";
     case "moderate": return "border-yellow-400";
-    case "healthy": return "border-biq-status-success";
+    case "healthy": return "border-green-500";
   }
 }
 
 export function severityTextColor(level: SeverityLevel): string {
   switch (level) {
-    case "critical": return "text-biq-status-error";
-    case "warning": return "text-biq-status-warning";
+    case "critical": return "text-red-600";
+    case "warning": return "text-amber-500";
     case "moderate": return "text-yellow-500";
-    case "healthy": return "text-biq-status-success";
+    case "healthy": return "text-green-500";
   }
 }
 
 export function severityBgColor(level: SeverityLevel): string {
   switch (level) {
-    case "critical": return "bg-biq-status-error-subtle";
-    case "warning": return "bg-biq-status-warning-subtle";
+    case "critical": return "bg-red-50";
+    case "warning": return "bg-amber-50";
     case "moderate": return "bg-yellow-50";
-    case "healthy": return "bg-biq-status-success-subtle";
+    case "healthy": return "bg-green-50";
   }
 }
 
 export function questionSeverityBorderColor(level: QuestionSeverity): string {
   switch (level) {
     case "critical":
-      return "border-biq-status-error";
+      return "border-red-600";
     case "high":
-      return "border-biq-status-warning";
+      return "border-amber-500";
     case "medium":
       return "border-yellow-400";
     case "low":
-      return "border-biq-status-success";
+      return "border-green-500";
   }
 }
 
 export function questionSeverityBadgeColors(level: QuestionSeverity): string {
   switch (level) {
     case "critical":
-      return "bg-biq-status-error-subtle text-biq-status-error";
+      return "bg-red-100 text-red-700";
     case "high":
-      return "bg-biq-status-warning-subtle text-biq-status-warning";
+      return "bg-amber-100 text-amber-700";
     case "medium":
       return "bg-yellow-100 text-yellow-700";
     case "low":
-      return "bg-biq-status-success-subtle text-biq-status-success";
+      return "bg-green-100 text-green-700";
   }
 }

@@ -33,10 +33,10 @@ function ContactHeading() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
+      <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
         {headline}
       </h1>
-      <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary md:text-xl">
+      <p className="mt-6 text-lg leading-relaxed text-bayesiq-600 md:text-xl">
         {subtext}
       </p>
     </div>
@@ -48,10 +48,10 @@ export default function ContactContextCTA() {
     <Suspense
       fallback={
         <div>
-          <h1 className="text-4xl font-bold tracking-tight text-biq-text-primary md:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-bayesiq-900 md:text-5xl">
             {contextContent.default.headline}
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-biq-text-secondary md:text-xl">
+          <p className="mt-6 text-lg leading-relaxed text-bayesiq-600 md:text-xl">
             {contextContent.default.subtext}
           </p>
         </div>

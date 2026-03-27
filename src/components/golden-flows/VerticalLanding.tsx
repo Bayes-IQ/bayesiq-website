@@ -28,21 +28,21 @@ export default function VerticalLanding({
   const devastating = pickDevastating(questions);
 
   return (
-    <section className="mt-6 rounded-2xl border border-biq-border bg-white p-6 shadow-sm sm:p-8">
+    <section className="mt-6 rounded-2xl border border-bayesiq-200 bg-white p-6 shadow-sm sm:p-8">
       {/* Top row: score + chart */}
       <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
         {/* Current score */}
         <div className="flex-shrink-0 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-biq-text-muted">
+          <p className="text-sm font-semibold uppercase tracking-wide text-bayesiq-500">
             Reliability Score
           </p>
-          <p className="mt-1 text-5xl font-extrabold tabular-nums text-biq-text-primary">
+          <p className="mt-1 text-5xl font-extrabold tabular-nums text-bayesiq-900">
             {latest.score}
           </p>
           {snapshots.length > 1 && (
             <p
               className={`mt-1 text-sm font-medium ${
-                improving ? "text-biq-status-success" : "text-biq-status-error"
+                improving ? "text-green-600" : "text-red-600"
               }`}
             >
               {improving ? "+" : ""}
@@ -59,14 +59,14 @@ export default function VerticalLanding({
 
       {/* Devastating finding */}
       {devastating && (
-        <div className="mt-6 rounded-xl border border-biq-status-error-subtle bg-biq-status-error-subtle p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-biq-status-error mb-2">
+        <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-red-700 mb-2">
             Most Critical Finding — {verticalName}
           </p>
-          <p className="text-base font-semibold text-biq-text-primary leading-snug">
+          <p className="text-base font-semibold text-bayesiq-900 leading-snug">
             {devastating.question_text}
           </p>
-          <p className="mt-2 text-sm text-biq-text-secondary leading-relaxed">
+          <p className="mt-2 text-sm text-bayesiq-700 leading-relaxed">
             {devastating.answer_summary}
           </p>
         </div>

@@ -60,7 +60,7 @@ export default function PipelineSteps({
     <div className="relative">
       {/* Connector line */}
       <div
-        className="absolute left-5 top-0 hidden h-full w-px bg-biq-surface-2 md:block"
+        className="absolute left-5 top-0 hidden h-full w-px bg-bayesiq-200 md:block"
         aria-hidden="true"
       />
       <ol className="space-y-8">
@@ -71,15 +71,15 @@ export default function PipelineSteps({
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bayesiq-900 font-mono text-sm font-medium text-white">
                 {step.number}
               </span>
-              <h3 className="font-display text-lg font-semibold text-biq-text-primary md:hidden">
+              <h3 className="font-display text-lg font-semibold text-bayesiq-900 md:hidden">
                 {step.label}
               </h3>
             </div>
             <div>
-              <h3 className="hidden font-display text-lg font-semibold text-biq-text-primary md:block">
+              <h3 className="hidden font-display text-lg font-semibold text-bayesiq-900 md:block">
                 {step.label}
               </h3>
-              <p className="mt-1 text-sm leading-relaxed text-biq-text-secondary">
+              <p className="mt-1 text-sm leading-relaxed text-bayesiq-600">
                 {step.description}
               </p>
             </div>

@@ -58,12 +58,12 @@ export default function FAQAccordion({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-biq-border border-t border-b border-biq-border">
+    <div className="divide-y divide-bayesiq-200 border-t border-b border-bayesiq-200">
       {items.map((item, index) => (
         <div key={index}>
           <button
             type="button"
-            className="flex w-full items-center justify-between py-4 text-left text-sm font-medium text-biq-text-primary transition-colors hover:text-biq-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="flex w-full items-center justify-between py-4 text-left text-sm font-medium text-bayesiq-900 transition-colors hover:text-bayesiq-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
             aria-expanded={openIndex === index}
             aria-controls={`faq-panel-${index}`}
@@ -87,7 +87,7 @@ export default function FAQAccordion({
               openIndex === index ? "max-h-96 pb-4" : "max-h-0"
             }`}
           >
-            <p className="text-sm leading-relaxed text-biq-text-secondary">
+            <p className="text-sm leading-relaxed text-bayesiq-600">
               {item.answer}
             </p>
           </div>

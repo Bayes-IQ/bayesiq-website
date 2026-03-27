@@ -20,15 +20,15 @@ export default function MetricCardsGrid({ metrics, score, interpretation }: Prop
       data-testid="metric-cards-grid"
     >
       {showScoreCard && (
-        <div className="rounded-xl border border-biq-border bg-white px-5 py-4 shadow-sm">
-          <p className="text-xs font-medium uppercase tracking-wide text-biq-text-muted">
+        <div className="rounded-xl border border-bayesiq-200 bg-white px-5 py-4 shadow-sm">
+          <p className="text-xs font-medium uppercase tracking-wide text-bayesiq-400">
             Reliability Score
           </p>
           <div className="mt-2">
-            <span className="text-2xl font-bold text-biq-text-primary">{score}</span>
-            <span className="text-lg text-biq-text-muted"> / 100</span>
+            <span className="text-2xl font-bold text-bayesiq-900">{score}</span>
+            <span className="text-lg text-bayesiq-400"> / 100</span>
           </div>
-          <p className="mt-1.5 text-[11px] text-biq-text-muted">{interpretation}</p>
+          <p className="mt-1.5 text-[11px] text-bayesiq-400">{interpretation}</p>
         </div>
       )}
       {metrics.map((m) => (

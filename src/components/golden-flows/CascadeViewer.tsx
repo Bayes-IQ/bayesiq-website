@@ -33,7 +33,7 @@ export default function CascadeViewer({
 
   return (
     <section id="cascade-viewer" className="mt-10 scroll-mt-24">
-      <h2 className="text-xl font-semibold tracking-tight text-biq-text-primary mb-4">
+      <h2 className="text-xl font-semibold tracking-tight text-bayesiq-900 mb-4">
         {activeQuestionId ? "Cascade detail" : "All cascades"}
       </h2>
       <div className="space-y-4">

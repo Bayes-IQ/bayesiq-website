@@ -22,7 +22,7 @@ export default function GoldenFlowsCTA({
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {diagnosticHeadline}
           </h2>
-          <p className="mt-4 text-lg text-biq-text-muted">
+          <p className="mt-4 text-lg text-bayesiq-300">
             A focused $7,500 engagement. We audit your{" "}
             {vertical ? vertical.toLowerCase() : ""} data, score your metrics,
             and deliver a remediation roadmap in 2 weeks.
@@ -30,7 +30,7 @@ export default function GoldenFlowsCTA({
           <Link
             href="/contact"
             onClick={() => trackCtaClick("diagnostic", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-100"
           >
             Book a diagnostic
           </Link>
@@ -38,12 +38,12 @@ export default function GoldenFlowsCTA({
       </section>
 
       {/* Section 2 — Monthly Reliability Program */}
-      <section className="bg-biq-surface-1 px-6 py-14 text-center">
+      <section className="bg-bayesiq-50 px-6 py-14 text-center">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight text-biq-text-primary sm:text-3xl">
+          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900 sm:text-3xl">
             Monthly Metric Reliability Program
           </h2>
-          <p className="mt-4 text-lg text-biq-text-secondary">
+          <p className="mt-4 text-lg text-bayesiq-600">
             Ongoing monitoring, governed corrections, and executive-ready
             reporting. Starting at $2,500/month.
           </p>
@@ -58,12 +58,12 @@ export default function GoldenFlowsCTA({
       </section>
 
       {/* Section 3 — Book a Session */}
-      <section className="rounded-b-xl border border-biq-border bg-white px-6 py-14 text-center">
+      <section className="rounded-b-xl border border-bayesiq-200 bg-white px-6 py-14 text-center">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight text-biq-text-primary sm:text-3xl">
+          <h2 className="text-2xl font-bold tracking-tight text-bayesiq-900 sm:text-3xl">
             Not sure where to start?
           </h2>
-          <p className="mt-4 text-lg text-biq-text-secondary">
+          <p className="mt-4 text-lg text-bayesiq-600">
             Book 20&ndash;30 minutes. We&apos;ll tell you honestly what we see.
           </p>
           <a
@@ -71,7 +71,7 @@ export default function GoldenFlowsCTA({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackCtaClick("book_session", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg border border-bayesiq-900 bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
+            className="mt-8 inline-block rounded-lg border border-bayesiq-900 bg-white px-6 py-3 text-sm font-medium text-bayesiq-900 transition-colors hover:bg-bayesiq-50"
           >
             Book a call
           </a>

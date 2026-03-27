@@ -29,13 +29,13 @@ export default function StepDots({ current, total }: StepDotsProps) {
                   ? "bg-bayesiq-900"
                   : isCurrent
                     ? "bg-bayesiq-900 animate-pulse"
-                    : "bg-biq-surface-2",
+                    : "bg-bayesiq-200",
               ].join(" ")}
             />
           );
         })}
       </div>
-      <span className="text-xs font-medium uppercase tracking-wider text-biq-text-muted">
+      <span className="text-xs font-medium uppercase tracking-wider text-bayesiq-400">
         Question {current + 1} of {total}
       </span>
     </div>

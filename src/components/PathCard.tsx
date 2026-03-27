@@ -28,16 +28,16 @@ export default function PathCard({
   return (
     <div
       data-testid="path-card"
-      className="flex flex-col justify-between rounded-2xl border border-biq-border bg-white p-8 transition-shadow hover:shadow-lg md:p-10"
+      className="flex flex-col justify-between rounded-2xl border border-bayesiq-200 bg-white p-8 transition-shadow hover:shadow-lg md:p-10"
     >
       <div>
-        <h3 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary md:text-3xl">
+        <h3 className="font-display text-2xl font-bold tracking-tight text-bayesiq-900 md:text-3xl">
           {headline}
         </h3>
-        <p className="mt-4 text-base leading-relaxed text-biq-text-secondary">
+        <p className="mt-4 text-base leading-relaxed text-bayesiq-600">
           {description}
         </p>
-        <p className="mt-4 text-sm font-medium text-biq-text-muted">
+        <p className="mt-4 text-sm font-medium text-bayesiq-400">
           {audience}
         </p>
       </div>

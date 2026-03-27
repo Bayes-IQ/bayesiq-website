@@ -23,18 +23,18 @@ function handleBookClick() {
 export default function CalendlyEmbed() {
   return (
     <section
-      className="mt-20 border-t border-biq-border-subtle pt-16"
+      className="mt-20 border-t border-bayesiq-100 pt-16"
       aria-labelledby="book-a-call-heading"
     >
       {/* Section header + CTA button */}
       <div className="mb-8 text-center">
         <h2
           id="book-a-call-heading"
-          className="text-3xl font-bold tracking-tight text-biq-text-primary"
+          className="text-3xl font-bold tracking-tight text-bayesiq-900"
         >
           Book a call
         </h2>
-        <p className="mt-3 text-lg text-biq-text-secondary">
+        <p className="mt-3 text-lg text-bayesiq-600">
           Book 20&ndash;30 minutes to walk through your telemetry or data
           quality situation. No commitment — we&apos;ll tell you honestly what
           we see.
@@ -45,7 +45,7 @@ export default function CalendlyEmbed() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleBookClick}
-          className="mt-6 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 focus:outline-none focus:ring-2 focus:ring-biq-text-primary focus:ring-offset-2"
+          className="mt-6 inline-block rounded-lg bg-bayesiq-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bayesiq-800 focus:outline-none focus:ring-2 focus:ring-bayesiq-900 focus:ring-offset-2"
           aria-label="Book a call on Calendly (opens in new tab)"
         >
           Book a call
@@ -59,7 +59,7 @@ export default function CalendlyEmbed() {
        * alternative in case the widget script is blocked or fails.
        */}
       <div
-        className="calendly-inline-widget overflow-hidden rounded-xl border border-biq-border-subtle"
+        className="calendly-inline-widget overflow-hidden rounded-xl border border-bayesiq-100"
         data-url={CALENDLY_URL}
         style={{ minHeight: "700px", width: "100%" }}
         role="region"
@@ -67,25 +67,25 @@ export default function CalendlyEmbed() {
       >
         {/* Fallback: visible if widget.js doesn't initialise */}
         <noscript>
-          <p className="p-6 text-center text-sm text-biq-text-secondary">
+          <p className="p-6 text-center text-sm text-bayesiq-600">
             JavaScript is required to display the booking calendar.{" "}
             <a
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-biq-text-primary"
+              className="underline hover:text-bayesiq-900"
             >
               Book directly on Calendly →
             </a>
           </p>
         </noscript>
-        <p className="fallback-link p-6 text-center text-sm text-biq-text-secondary">
+        <p className="fallback-link p-6 text-center text-sm text-bayesiq-600">
           If the calendar doesn&apos;t load,{" "}
           <a
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-biq-text-primary"
+            className="underline hover:text-bayesiq-900"
           >
             book directly on Calendly →
           </a>

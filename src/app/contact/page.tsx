@@ -29,7 +29,7 @@ export default function ContactPage() {
       />
 
       {/* ── Hero messaging ── */}
-      <section className="bg-biq-surface-1/60 px-6 py-32 md:py-40">
+      <section className="bg-bayesiq-50/60 px-6 py-32 md:py-40">
         <div className="mx-auto max-w-3xl text-center">
           <ContactContextCTA />
         </div>
@@ -42,29 +42,29 @@ export default function ContactPage() {
             {/* Left: value propositions */}
             <div className="space-y-10">
               <div>
-                <p className="text-base font-semibold text-biq-text-primary">
+                <p className="text-base font-semibold text-bayesiq-900">
                   Free data health check
                 </p>
-                <p className="mt-2 text-base leading-relaxed text-biq-text-secondary">
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
                   A 30-minute conversation where we review your data
                   architecture and identify the most likely problem areas. No
                   commitment, no sales pressure.
                 </p>
               </div>
               <div>
-                <p className="text-base font-semibold text-biq-text-primary">
+                <p className="text-base font-semibold text-bayesiq-900">
                   Fast response
                 </p>
-                <p className="mt-2 text-base leading-relaxed text-biq-text-secondary">
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
                   We respond to every inquiry within one business day. Most
                   hear back within a few hours.
                 </p>
               </div>
               <div>
-                <p className="text-base font-semibold text-biq-text-primary">
+                <p className="text-base font-semibold text-bayesiq-900">
                   Honest assessment
                 </p>
-                <p className="mt-2 text-base leading-relaxed text-biq-text-secondary">
+                <p className="mt-2 text-base leading-relaxed text-bayesiq-600">
                   We will tell you honestly if your problem is something we can
                   help with, or if there is a better approach. No pitch, just
                   perspective.
@@ -81,7 +81,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── Calendly embed ── */}
-      <section className="border-t border-biq-border bg-biq-surface-1/40 px-6 py-24 md:py-32">
+      <section className="border-t border-bayesiq-200 bg-bayesiq-50/40 px-6 py-24 md:py-32">
         <div className="mx-auto max-w-5xl">
           <CalendlyEmbed />
         </div>

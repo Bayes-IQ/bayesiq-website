@@ -10,9 +10,9 @@ export default function ContactForm() {
 
   if (state.success) {
     return (
-      <div className="rounded-xl border border-biq-border p-8 text-center">
-        <p className="text-lg font-semibold text-biq-text-primary">Thanks for reaching out.</p>
-        <p className="mt-2 text-sm text-biq-text-secondary">
+      <div className="rounded-xl border border-bayesiq-200 p-8 text-center">
+        <p className="text-lg font-semibold text-bayesiq-900">Thanks for reaching out.</p>
+        <p className="mt-2 text-sm text-bayesiq-600">
           We&apos;ll get back to you within one business day.
         </p>
       </div>
@@ -22,13 +22,13 @@ export default function ContactForm() {
   return (
     <form action={formAction} className="space-y-6">
       {state.error && (
-        <div className="rounded-lg bg-biq-status-error-subtle px-4 py-3 text-sm text-biq-status-error">
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
           {state.error}
         </div>
       )}
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-biq-text-secondary">
+        <label htmlFor="name" className="block text-sm font-medium text-bayesiq-700">
           Name
         </label>
         <input
@@ -36,13 +36,13 @@ export default function ContactForm() {
           id="name"
           name="name"
           required
-          className="mt-1 w-full rounded-lg border border-biq-border px-4 py-2.5 text-sm text-biq-text-primary placeholder-biq-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="mt-1 w-full rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm text-bayesiq-900 placeholder-bayesiq-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           placeholder="Your name"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-biq-text-secondary">
+        <label htmlFor="email" className="block text-sm font-medium text-bayesiq-700">
           Email
         </label>
         <input
@@ -50,26 +50,26 @@ export default function ContactForm() {
           id="email"
           name="email"
           required
-          className="mt-1 w-full rounded-lg border border-biq-border px-4 py-2.5 text-sm text-biq-text-primary placeholder-biq-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="mt-1 w-full rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm text-bayesiq-900 placeholder-bayesiq-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           placeholder="you@company.com"
         />
       </div>
 
       <div>
-        <label htmlFor="company" className="block text-sm font-medium text-biq-text-secondary">
+        <label htmlFor="company" className="block text-sm font-medium text-bayesiq-700">
           Company
         </label>
         <input
           type="text"
           id="company"
           name="company"
-          className="mt-1 w-full rounded-lg border border-biq-border px-4 py-2.5 text-sm text-biq-text-primary placeholder-biq-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="mt-1 w-full rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm text-bayesiq-900 placeholder-bayesiq-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           placeholder="Your company"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-biq-text-secondary">
+        <label htmlFor="message" className="block text-sm font-medium text-bayesiq-700">
           What data challenges are you facing?
         </label>
         <textarea
@@ -77,7 +77,7 @@ export default function ContactForm() {
           name="message"
           rows={4}
           required
-          className="mt-1 w-full rounded-lg border border-biq-border px-4 py-2.5 text-sm text-biq-text-primary placeholder-biq-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="mt-1 w-full rounded-lg border border-bayesiq-300 px-4 py-2.5 text-sm text-bayesiq-900 placeholder-bayesiq-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           placeholder="Tell us about your data systems and what's not working..."
         />
       </div>

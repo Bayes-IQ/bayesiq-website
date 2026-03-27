@@ -11,17 +11,17 @@ export default function AssessmentLoading() {
           {Array.from({ length: 6 }, (_, i) => (
             <span
               key={i}
-              className="block h-2.5 w-2.5 rounded-full bg-biq-surface-2"
+              className="block h-2.5 w-2.5 rounded-full bg-bayesiq-100"
             />
           ))}
         </div>
         {/* Question text placeholder */}
         <div className="w-full space-y-3">
-          <div className="h-6 w-3/4 animate-pulse rounded bg-biq-surface-2" />
-          <div className="h-12 w-full animate-pulse rounded-lg bg-biq-surface-1" />
-          <div className="h-12 w-full animate-pulse rounded-lg bg-biq-surface-1" />
-          <div className="h-12 w-full animate-pulse rounded-lg bg-biq-surface-1" />
-          <div className="h-12 w-full animate-pulse rounded-lg bg-biq-surface-1" />
+          <div className="h-6 w-3/4 animate-pulse rounded bg-bayesiq-100" />
+          <div className="h-12 w-full animate-pulse rounded-lg bg-bayesiq-50" />
+          <div className="h-12 w-full animate-pulse rounded-lg bg-bayesiq-50" />
+          <div className="h-12 w-full animate-pulse rounded-lg bg-bayesiq-50" />
+          <div className="h-12 w-full animate-pulse rounded-lg bg-bayesiq-50" />
         </div>
       </div>
     </div>
