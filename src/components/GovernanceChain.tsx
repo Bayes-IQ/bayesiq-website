@@ -46,8 +46,9 @@ export default function GovernanceChain({
   const verticalSpacing = 80;
   const svgHeightVertical =
     (nodes.length - 1) * verticalSpacing + nodeRadius * 2 + 60;
-  const centerX = 60;
+  const centerX = 30;
   const startY = nodeRadius + 20;
+  const svgWidthVertical = 160;
 
   return (
     <div data-testid="governance-chain">
@@ -116,8 +117,8 @@ export default function GovernanceChain({
 
       {/* Mobile: vertical */}
       <svg
-        viewBox={`0 0 120 ${svgHeightVertical}`}
-        className="mx-auto block w-28 md:hidden"
+        viewBox={`0 0 ${svgWidthVertical} ${svgHeightVertical}`}
+        className="mx-auto block w-40 md:hidden"
         role="img"
         aria-label={`Governance chain: ${nodes.map((n) => n.label).join(" to ")}`}
       >
