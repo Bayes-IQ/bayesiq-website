@@ -71,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${dmSans.variable}`}>
+    <html lang="en" data-theme="light" className={`${inter.variable} ${jetbrainsMono.variable} ${dmSans.variable}`}>
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"
