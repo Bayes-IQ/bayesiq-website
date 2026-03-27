@@ -193,7 +193,7 @@ export default function PlatformPage() {
             Compliance
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
-            Regulated-ready by design
+            Regulation built in, not bolted on
           </h2>
           <p className="mt-6 text-base leading-relaxed text-bayesiq-300">
             The same governance chain that makes day-to-day operations
