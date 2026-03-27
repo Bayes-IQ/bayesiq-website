@@ -1,16 +1,11 @@
 /* BayesIQ Design System — Vendored Tokens (light-only)
- * Source: bayesiq-design-system v0.1.0 dist/tokens.css
- * To update: copy token values from the design system repo after rebuild.
- *
- * Multi-LOB theming: swap this file per brand. The @theme mappings in
- * tailwind-v4-theme.css stay unchanged — only the values here change.
- *
- * Dark mode tokens omitted — site is light-only. Re-add when dark mode
- * support is implemented (see bayesiq-design-system dist/tokens.css).
+ * Source: bayesiq-design-system/dist/tokens.css
+ * Synced by: scripts/vendor-sync.sh
+ * Dark mode blocks and @font-face removed (site is light-only, uses next/font).
+ * Do not edit manually — re-run vendor-sync.sh to update.
  */
-
-:root, [data-theme="light"] {
-  /* ── Color tokens ── */
+:root {
+  /* ── Color tokens (light) ── */
   --biq-color-primary: #1a73e8;
   --biq-color-primary-hover: #1560c4;
   --biq-color-primary-subtle: #dde8f8;
@@ -33,6 +28,11 @@
   --biq-color-status-info-subtle: #dde8f8;
 
   /* ── Typography ── */
+  /* ── Spacing ── */
+  /* ── Radius ── */
+  /* ── Shadow ── */
+  /* ── Motion ── */
+  /* ── Breakpoints ── */
   --biq-font-sans: "Inter", system-ui, sans-serif;
   --biq-font-serif: "Source Serif 4", Georgia, serif;
   --biq-font-mono: "JetBrains Mono", monospace;
@@ -54,8 +54,6 @@
   --biq-font-weight-medium: 500;
   --biq-font-weight-semibold: 600;
   --biq-font-weight-bold: 700;
-
-  /* ── Spacing (4px base unit) ── */
   --biq-space-1: 4px;
   --biq-space-2: 8px;
   --biq-space-3: 12px;
@@ -66,26 +64,18 @@
   --biq-space-10: 40px;
   --biq-space-12: 48px;
   --biq-space-16: 64px;
-
-  /* ── Radius ── */
   --biq-radius-sm: 4px;
   --biq-radius-md: 8px;
   --biq-radius-lg: 12px;
   --biq-radius-full: 9999px;
-
-  /* ── Shadow ── */
   --biq-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
   --biq-shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-
-  /* ── Motion ── */
   --biq-duration-fast: 100ms;
   --biq-duration-normal: 200ms;
   --biq-duration-slow: 400ms;
   --biq-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
   --biq-ease-in: cubic-bezier(0.4, 0, 1, 1);
   --biq-ease-out: cubic-bezier(0, 0, 0.2, 1);
-
-  /* ── Breakpoints ── */
   --biq-breakpoint-sm: 640px;
   --biq-breakpoint-md: 768px;
   --biq-breakpoint-lg: 1024px;

@@ -1,10 +1,6 @@
-/* BayesIQ Design System — Tailwind v4 Theme Mappings (vendored)
- * Source: bayesiq-design-system v0.1.0
- * Regenerate: copy updated output from design system after rebuild.
- *
- * This file maps design system CSS variables (--biq-*) to Tailwind v4
- * @theme tokens, generating utility classes like bg-biq-primary,
- * text-biq-text-secondary, font-biq-sans, rounded-biq-md, etc.
+/* BayesIQ Design System — Tailwind v4 Theme Mappings (generated)
+ * Do not edit manually. Regenerate with: npm run build
+ * Version: 0.1.0
  *
  * Architecture (multi-LOB ready):
  *   tokens.css      = brand values   (swap per LOB / white-label)
