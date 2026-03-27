@@ -13,7 +13,9 @@
     "generate:types": "bash scripts/generate-types.sh",
     "validate:schemas": "node scripts/validate-schemas.mjs",
     "visual-qa": "npx playwright test e2e/visual-qa.spec.ts --project=chromium --reporter=list",
-    "visual-qa:baseline": "bash scripts/visual-qa-baseline.sh"
+    "visual-qa:baseline": "bash scripts/visual-qa-baseline.sh",
+    "a11y-check": "npx playwright test e2e/a11y-check.spec.ts --project=chromium --reporter=list",
+    "visual-review": "echo 'Run: npm run visual-qa && then review screenshots with the visual-review-prompt.md template'"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -27,6 +29,7 @@
     "resend": "^6.9.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.50.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@testing-library/jest-dom": "^6.9.1",
