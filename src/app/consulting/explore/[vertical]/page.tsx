@@ -29,6 +29,9 @@ import DecisionLog from "@/components/golden-flows/DecisionLog";
 import GovernanceDetailProvider from "@/components/golden-flows/GovernanceDetailProvider";
 import ReportPreview from "@/components/golden-flows/ReportPreview";
 import DashboardGrid from "@/components/golden-flows/DashboardGrid";
+import WhyThisMatters from "@/components/golden-flows/WhyThisMatters";
+import RemediationArc from "@/components/golden-flows/RemediationArc";
+import BayesIQDifference from "@/components/golden-flows/BayesIQDifference";
 
 interface Props {
   params: Promise<{ vertical: string }>;
@@ -236,6 +239,20 @@ export default async function ExploreVerticalPage({ params }: Props) {
             </a>
           </div>
         </div>
+
+        {boardReport && boardReport.top_risks.length > 0 && (
+          <WhyThisMatters risks={boardReport.top_risks} />
+        )}
+
+        {trajectory && boardReport && (
+          <RemediationArc
+            snapshots={trajectory.snapshots}
+            totalFindings={boardReport.total_findings}
+            topAction={boardReport.recommended_actions[0] ?? null}
+          />
+        )}
+
+        <BayesIQDifference />
 
         <GoldenFlowsCTA
           ctaLabel={narrative?.cta_label}

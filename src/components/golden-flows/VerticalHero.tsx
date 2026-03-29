@@ -29,11 +29,10 @@ export default function VerticalHero({
   const delta = latest.score - first.score;
   const improving = delta >= 0;
 
-  // Vertical-specific headline: use hookMetrics question or narrative headline
-  const headline =
-    hookMetrics?.discrepancy_headline ??
-    narrative?.headline_finding ??
-    `${verticalName} data reliability`;
+  // Confidence-first: frame the headline as what BayesIQ achieved, not what was broken
+  const headline = narrative?.with_bayesiq
+    ? `${verticalName}: ${narrative.headline_finding}`
+    : hookMetrics?.discrepancy_headline ?? `${verticalName} data reliability`;
 
   // Business framing
   const framing = narrative?.with_bayesiq ?? null;
@@ -69,7 +68,7 @@ export default function VerticalHero({
 
         {/* Headline + framing */}
         <div className="min-w-0 flex-1">
-          <h1 className="text-xl font-bold tracking-tight text-biq-text-primary sm:text-2xl leading-snug">
+          <h1 className="text-2xl font-bold tracking-tight text-biq-text-primary sm:text-3xl leading-snug">
             {headline}
           </h1>
           {framing && (
