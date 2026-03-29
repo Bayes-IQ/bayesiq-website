@@ -1,64 +1,195 @@
 # BayesIQ Website — Architecture State
 
-Last Updated: 2026-03-07 (Website Phase 4 complete; Audit Kit Phase 3.8 complete — Phase 5A unblocked)
+Last Updated: 2026-03-29 (Website rewrite complete; golden flows, consulting, assessment, platform pages live)
 
 ---
 
 # System Status
 
-The BayesIQ website has completed **Phase 4 (Product Landing & Playground)**. The site has been fully rewritten to position BayesIQ as a product company with two products: the Data Audit Kit and the Platform. A self-serve CSV playground lets users drop a file, get instant profiling, and download a ready-to-run Streamlit dashboard as a single self-extracting shell script.
+The BayesIQ website has been fully rewritten to position BayesIQ as a consulting-led company with two main paths: **Consulting** (audit-first engagements with golden-flow demos) and **Platform** (governed data intelligence). The site features a self-assessment wizard, interactive golden-flow vertical demos with live governance visualization, and a consulting engagement pipeline.
 
-**Phase 5A (Server-Side Audit Pipeline)** is next — running the real audit kit on the server so users get full quality checks without installing anything. **Phase 5B (Downloads, Limits, Polish)** follows with artifact bundles, rate limiting, and free/paid entitlements.
+The golden flows system uses a JSON schema contract layer (Contract B for data payloads, Contract C for governance state) with auto-generated TypeScript types and a static data loader that supports both `public/` and `fixtures/` sources.
 
 ---
 
 # Pages
 
-| Route | Page | Status | Derives from |
-|-------|------|--------|-------------|
-| `/` | Homepage | ✅ live | `company_overview.md`, `company_tagline.md`, `problems.md` |
-| `/services` | Products | ✅ live | `services.md` (Audit Kit + Platform feature grids) |
-| `/approach` | Approach | ✅ live | `engagement_model.md` (pipeline architecture + tiers) |
-| `/playground` | CSV Playground | ✅ live | Client-side profiler + Streamlit generator |
-| `/case-studies` | Live Demo | ✅ live | Embedded Streamlit dashboard |
-| `/sample-report` | Sample Report | ✅ live | Audit Kit artifacts + scoring rubric |
-| `/healthcare` | Healthcare Landing | ✅ live | Industry-specific Audit Kit positioning |
-| `/fintech` | Fintech Landing | ✅ live | Industry-specific Audit Kit positioning |
-| `/assessment` | Self-Assessment | ✅ live | 6-question scoring wizard |
-| `/contact` | Contact | ✅ live | Resend form + Calendly embed |
-| `/blog` | Blog Index | ✅ live | MDX posts from `content/blog/` |
-| `/blog/[slug]` | Blog Post | ✅ live | 3 posts live |
-| `/privacy` | Privacy Policy | ✅ live | Standalone |
-| `/terms` | Terms of Service | ✅ live | Standalone |
+| Route | Page | Status | Purpose |
+|-------|------|--------|---------|
+| `/` | Homepage | live | Hero, governance chain, proof strip, path cards |
+| `/consulting` | Consulting | live | Audit-first pipeline steps, engagement tiers, bento grid, FAQ |
+| `/consulting/explore` | Golden Flows Hub | live | Redirects to `/consulting/explore/fintech-gf` |
+| `/consulting/explore/[vertical]` | Golden Flow Vertical | live | SSG dynamic pages (5 verticals), interactive demo |
+| `/consulting/case-studies` | Case Studies | live | Case study index |
+| `/consulting/industries` | Industries | live | Healthcare + fintech combined via IndustryTabs |
+| `/consulting/sample-report` | Sample Report | live | Sample audit report |
+| `/platform` | Platform | live | GovernanceChainExpanded, ThreeTruthLayers, PlatformSection, PlatformCTA |
+| `/assessment` | Assessment | live | Self-assessment scoring wizard |
+| `/contact` | Contact | live | Contact form + Calendly embed |
+| `/privacy` | Privacy Policy | live | Legal |
+| `/terms` | Terms of Service | live | Legal |
+
+### Redirects (next.config.mjs)
+
+| Old Route | Target |
+|-----------|--------|
+| `/services` | `/platform` |
+| `/approach` | `/consulting` |
+| `/fintech` | `/consulting/industries` |
+| `/healthcare` | `/consulting/industries` |
+| `/audit-kit` | `/consulting` |
+| `/golden-flows/*` | `/consulting/explore` |
+| `/blog/*` | `/` |
+| `/playground` | `/` |
+| `/case-studies` | `/consulting/case-studies` |
+| `/sample-report` | `/consulting/sample-report` |
+
+---
+
+# Navigation (Header.tsx)
+
+- Home
+- Consulting
+- Platform
+- "Get in Touch" CTA button
 
 ---
 
 # Components
 
-| Component | Path | Purpose |
+All components live in `src/components/`.
+
+### Core
+
+| Component | File | Purpose |
 |-----------|------|---------|
-| Header | `src/components/Header.tsx` | Sticky nav: Products, Approach, Playground, Live Demo, Blog |
-| Footer | `src/components/Footer.tsx` | Tagline, nav links, newsletter signup |
-| CsvPlayground | `src/components/playground/CsvPlayground.tsx` | CSV drag-drop, profiler, Streamlit app generator, self-extracting installer |
-| ServiceCard | `src/components/ServiceCard.tsx` | Linked card with title + description |
-| CTA | `src/components/CTA.tsx` | Reusable call-to-action section (requires `headline` prop) |
-| ContactForm | `src/components/ContactForm.tsx` | Form with Resend server action |
-| CalendlyEmbed | `src/components/CalendlyEmbed.tsx` | Calendly inline embed |
-| NewsletterSignup | `src/components/NewsletterSignup.tsx` | Email capture with Resend |
-| AssessmentWizard | `src/components/assessment/AssessmentWizard.tsx` | 6-question scoring wizard |
+| Header | `Header.tsx` | Sticky nav (client component) |
+| Footer | `Footer.tsx` | Site footer with nav links |
+| CTA | `CTA.tsx` | Reusable call-to-action section |
+| ContactForm | `ContactForm.tsx` | Form with server action (client component) |
+| CalendlyEmbed | `CalendlyEmbed.tsx` | Calendly inline embed |
+| PathCard | `PathCard.tsx` | Navigation card for consulting/platform paths |
+| ProofStrip | `ProofStrip.tsx` | Social proof metrics strip |
+| GovernanceChain | `GovernanceChain.tsx` | Governance visualization chain |
+| SectionReveal | `SectionReveal.tsx` | Scroll-triggered section animation |
+| AnimatedCounter | `AnimatedCounter.tsx` | Animated number counter |
+| StatCounter | `StatCounter.tsx` | Statistic display with counter |
+| BeforeAfterSplit | `BeforeAfterSplit.tsx` | Before/after comparison layout |
+| InlineEvidence | `InlineEvidence.tsx` | Inline evidence callout |
+| ContactContextCTA | `ContactContextCTA.tsx` | Context-aware contact CTA |
+
+### Consulting
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| PipelineSteps | `consulting/PipelineSteps.tsx` | Audit pipeline step visualization |
+| EngagementTiers | `consulting/EngagementTiers.tsx` | Engagement tier cards |
+| BentoGrid | `consulting/BentoGrid.tsx` | Capability bento grid layout |
+| BentoCard | `consulting/BentoCard.tsx` | Individual bento card |
+| FAQAccordion | `consulting/FAQAccordion.tsx` | Expandable FAQ section |
+| BeforeAfter | `consulting/BeforeAfter.tsx` | Before/after comparison |
+| IndustryTabs | `consulting/IndustryTabs.tsx` | Healthcare/fintech tab switcher |
+
+### Platform
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| GovernanceChainExpanded | `platform/GovernanceChainExpanded.tsx` | Expanded governance chain visualization |
+| ThreeTruthLayers | `platform/ThreeTruthLayers.tsx` | Three truth layers diagram |
+| PlatformSection | `platform/PlatformSection.tsx` | Platform feature section |
+| PlatformCTA | `platform/PlatformCTA.tsx` | Platform-specific CTA |
+
+### Assessment
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| AssessmentWizard | `assessment/AssessmentWizard.tsx` | Multi-step scoring wizard |
+| AssessmentContent | `assessment/AssessmentContent.tsx` | Assessment page content wrapper |
+| AssessmentLoading | `assessment/AssessmentLoading.tsx` | Loading state for assessment |
+| EmailCaptureInline | `assessment/EmailCaptureInline.tsx` | Inline email capture |
+| Progress | `assessment/Progress.tsx` | Progress indicator |
+| QuestionCard | `assessment/QuestionCard.tsx` | Individual question card |
+| ResultsPanel | `assessment/ResultsPanel.tsx` | Results display panel |
+| ScoreReveal | `assessment/ScoreReveal.tsx` | Animated score reveal |
+| ShareResults | `assessment/ShareResults.tsx` | Share results functionality |
+| StepDots | `assessment/StepDots.tsx` | Step indicator dots |
+
+### Golden Flows (35+ components)
+
+**Vertical navigation:**
+VerticalSelector, VerticalSelectorCard, VerticalClickTracker, VerticalHero, VerticalLanding, VerticalTabs
+
+**Data visualization:**
+ScoreTrajectory, MetricCard, MetricCardsGrid
+
+**Interactive:**
+AskButtons, AskAndCascadeSection, CascadeCard, CascadeViewer
+
+**Dashboard:**
+DashboardGrid, DashboardScreenshot
+
+**Content:**
+DiscoverInsights, RealityReveal, StatusQuoComparison, BayesIQDifference, RemediationArc, ReportPreview
+
+**Governance:**
+GovernanceProgressBar, GovernanceTrustBadge, GovernanceDetailPanel, GovernanceDetailProvider, TrustBadge, TrustSummaryBar, WorkflowStatusBar, DecisionLog
+
+**Feedback:**
+FeedbackThread, FeedbackThreadList
+
+**Business Events:**
+BusinessEventPreview, BusinessEventList
+
+**CTA:**
+GoldenFlowsCTA
 
 ---
 
-# Product Definitions (Source of Truth)
+# Libs
 
-| File | Purpose | Status |
-|------|---------|--------|
-| `docs/product/company_overview.md` | Two-product positioning, engagement tiers, ideal clients | ✅ updated |
-| `docs/product/company_tagline.md` | Product-specific taglines + one-liner | ✅ updated |
-| `docs/product/brand.md` | Tone, language rules, visual identity | ✅ |
-| `docs/product/services.md` | Audit Kit features (6) + Platform features (4) + engagement tiers | ✅ updated |
-| `docs/product/problems.md` | 6 problems mapped to specific product solutions | ✅ updated |
-| `docs/product/engagement_model.md` | Self-serve → Diagnostic → Audit+Plan → Full Implementation | ✅ updated |
+| File | Purpose |
+|------|---------|
+| `src/lib/golden-flows.ts` | Static data loader with `public/` to `fixtures/` fallback, typed accessors for Contract B + C payloads |
+| `src/lib/governance.ts` | Governance normalization layer with indexed Maps, coherence validation, client serialization helpers |
+| `src/lib/gf-analytics.ts` | Golden flows analytics event helpers |
+| `src/lib/golden-flows-ui.ts` | Golden flows UI helper utilities |
+| `src/lib/flags.ts` | Feature flags (e.g., `SHOW_SOCIAL_PROOF`) |
+| `src/lib/industry-data.ts` | Industry page data for healthcare + fintech |
+
+---
+
+# Data Layer
+
+### Schemas
+
+- **Contract B** (data payloads): `schemas/golden-flows/contract-b/` (8 schemas)
+- **Contract C** (governance state): `schemas/golden-flows/contract-c/` (7 schemas)
+- **Contract freeze**: `schemas/golden-flows/CONTRACT_FREEZE_v1.md`
+
+### Types
+
+- Auto-generated from schemas: `src/types/golden-flows/`
+- Generation command: `npm run generate:types`
+
+### Data
+
+- Production data: `public/golden-flows/{vertical}/` (5 verticals, all payloads)
+- Governance data: `public/golden-flows/governance/`
+- Fixtures: `fixtures/golden-flows/` (hook-metrics, executive-questions, narratives, `verticals.json`)
+
+---
+
+# Design System
+
+| File | Purpose |
+|------|---------|
+| `src/vendor/biq/tokens.css` | Design system token values |
+| `src/vendor/biq/tailwind-v4-theme.css` | Token to Tailwind v4 theme mappings |
+| `src/app/globals.css` | Site-specific gray scale (`bayesiq-{50..900}`) |
+
+**Semantic tokens:** `biq-primary`, `biq-text-*`, `biq-surface-*`, `biq-border`, `biq-status-*`
+
+**Exception:** Semantic error colors (red) used directly in error boundaries, documented as intentional deviation.
 
 ---
 
@@ -67,53 +198,45 @@ The BayesIQ website has completed **Phase 4 (Product Landing & Playground)**. Th
 | Layer | Choice | Notes |
 |-------|--------|-------|
 | Framework | Next.js 15 (App Router) | React 19, TypeScript 5.7 |
-| Styling | Tailwind CSS v4 | Custom `bayesiq-*` color scale + `accent` |
-| Hosting | Vercel | |
-| Forms | Resend server action | Contact form + newsletter |
-| Analytics | Vercel Analytics | Event spec in `docs/ops/analytics_events.md` |
-| Content | TSX pages + MDX blog | `next-mdx-remote/rsc` + `gray-matter` |
+| Styling | Tailwind CSS v4 | Centralized design system with vendor tokens |
+| Animation | framer-motion | Section reveals, counters, score animations |
+| Hosting | Vercel | Analytics + Speed Insights |
+| Forms | Resend server action | Contact form |
 | Scheduling | Calendly embed | On contact page |
+| Schema validation | ajv + ajv-formats | Golden flows contract validation |
+| Type generation | json-schema-to-typescript | Schema to TS type generation |
+| E2E testing | Playwright | + @axe-core/playwright for a11y |
+| Unit testing | Vitest | Component + lib tests |
 
 ---
 
-# Playground Architecture
+# Testing
 
-The CSV playground processes everything client-side:
+### E2E (Playwright)
 
-```
-User drops CSV
-    → FileReader.readAsText()
-    → parseCsv() (custom parser, no dependencies)
-    → profileDataset() (type inference, null counts, cardinality, top values)
-    → Display profile table + detected dimensions
-    → User clicks "Download & Run"
-    → generateStreamlitApp() (builds app.py as string)
-    → generateInstaller() (embeds app.py + requirements.txt + data.csv as heredocs)
-    → downloadFile() (single .sh file download)
-    → Post-download card with copy-paste terminal command
-```
+- `smoke.spec.ts` — page load smoke tests
+- `links.spec.ts` — internal link validation
+- `json-ld.spec.ts` — structured data validation
+- `golden-flows.spec.ts` — golden flows page tests
+- `governance-detail.spec.ts` — governance detail panel tests
+- `visual-qa.spec.ts` — visual regression checks
+- `a11y-check.spec.ts` — accessibility audit
 
-The installer (`bayesiq-dashboard.sh`) is self-extracting:
-- Creates `~/bayesiq-dashboard/`
-- Writes `app.py`, `requirements.txt`, `data.csv` from embedded heredocs
-- Creates Python venv, installs deps (one-time)
-- Launches Streamlit
+### Unit (Vitest)
 
-No data leaves the browser. No server-side processing (yet — that's Phase 5).
+- `governance.spec.ts` — governance normalization logic
+- 11+ component tests
 
----
+### Scripts
 
-# Analytics Events
+- `validate:schemas` — JSON schema validation
+- `generate:types` — schema to TypeScript generation
+- `visual-qa` — visual QA checks
+- `a11y-check` — accessibility checks
+- `pixel-diff` — pixel-level diff comparison
+- `design-debt` — design system debt tracking
 
-| Event | Properties | Notes |
-|-------|-----------|-------|
-| `playground_csv_uploaded` | — | User dropped a CSV |
-| `playground_profile_complete` | `rows`, `columns` | Profiling finished |
-| `playground_download` | — | User downloaded the installer |
-| `assessment_started` | — | First answer selected |
-| `assessment_completed` | `tier` | Results generated |
-| `contact_submit_started` | — | Form engagement |
-| `contact_submit_success` | — | Lead captured |
+**Total: ~80 tests passing.**
 
 ---
 
@@ -121,23 +244,20 @@ No data leaves the browser. No server-side processing (yet — that's Phase 5).
 
 | File | Purpose |
 |------|---------|
-| `site.config.yaml` | Page definitions, nav items, CTA config |
-| `next.config.mjs` | Next.js configuration |
+| `next.config.mjs` | Next.js config, redirects, security headers |
 | `tsconfig.json` | TypeScript strict mode |
 | `package.json` | Dependencies and scripts |
+| `tailwind.config.ts` | Tailwind v4 configuration |
+| `playwright.config.ts` | Playwright test configuration |
+| `vitest.config.ts` | Vitest test configuration |
 
 ---
 
 # What's Next
 
-## Phase 5A — Server-Side Audit Pipeline
-- API route (`/api/audit`) accepting CSV upload, returning scored findings
-- Full quality checks (12+) on the website, not just profiling
-- Scored report display (0-100 with findings) rendered in Next.js
-- **Dependency satisfied:** `bayesiq-data-audit-kit` Phase 3.8 complete (29 PRs, 238 tests, 14 modules, standard return envelope, module manifests, vertical config packs)
-
-## Phase 5B — Downloads, Limits, Polish
-- Artifact download bundles (dbt project, dashboard, docs)
-- Rate limiting (1 audit/day free, 5MB max)
-- Free vs paid entitlement boundary
-- Error handling for timeouts, oversized files, malformed CSVs
+- **Real data integration** — replace demo/fixture data with production audit kit output (Issue #50)
+- **Visual QA retrofit** — systematic visual regression coverage (Issue #83)
+- **Brand assets** — favicon and OG images (Issue #80)
+- **Contact form endpoint** — Formspree endpoint setup (Issue #79)
+- **Design system token migration** — dark section token coverage (Issues #77, #78)
+- **Industry page fate decision** — redirect to golden-flows verticals or coexist

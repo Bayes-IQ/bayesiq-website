@@ -1,84 +1,91 @@
 # BayesIQ Website — Bootstrap Prompt
 
-You are picking up development on the BayesIQ website (`biq_website`). This document gives you everything you need to contribute effectively.
+You are picking up development on the BayesIQ website. This document reflects the current state of the codebase as of 2026-03-29.
 
 ---
 
 ## What This Repo Is
 
-A Next.js 15 (App Router) website that serves as the product surface for the BayesIQ ecosystem. It does two things:
+A Next.js 15 (App Router) website for BayesIQ. It does three things:
 
-1. **Lead conversion** — marketing pages that drive consulting engagement bookings
-2. **Self-serve product experience** — CSV playground where users drop a file, get instant profiling, and download a ready-to-run Streamlit dashboard
-
-The site is deployed on Vercel at bayesiq.com.
-
----
-
-## The Two Products
-
-### BayesIQ Data Audit Kit (`bayesiq-data-audit-kit` repo)
-Automated data quality audit pipeline. Takes any CSV/Parquet/Excel/Snowflake, runs 12+ quality checks, validates metrics, generates a scored report (0-100), a dbt project, a Streamlit dashboard, and documentation. 185 tests, domain-agnostic, production-ready. Currently at Phase 3.7 (guided intake with interactive mode).
-
-### BayesIQ Platform (`bayesiq` repo)
-Personal assistant operating system with tool registry, policy engine, approval gateway, and audit trails. Built-in tools for Calendar, GitHub, Sonos, memory, notifications, and data operations. Safety-first architecture: every dangerous action gated.
+1. **Lead conversion** — consulting pages, case studies, contact/booking flows
+2. **Platform showcase** — platform capabilities page
+3. **Golden Flows commercial demo** — the core commercial experience: interactive pages that walk executives through real governed analytics engagements, showing scored audits, board reports, cascade drill-downs, and governance workflows across 5 industry verticals
 
 ---
 
-## Current State (Phase 4 Complete)
+## Route Structure
 
-The website was fully rewritten to position BayesIQ as a product company (not a consulting firm). All pages reference the two products by name.
+| Route | Purpose |
+|-------|---------|
+| `/` | Homepage |
+| `/consulting` | Audit-first consulting |
+| `/consulting/explore` | Golden flows hub |
+| `/consulting/explore/[vertical]` | Golden flows vertical pages (fintech-gf, saas, hospital, retail, real-estate) |
+| `/consulting/case-studies` | Case studies |
+| `/consulting/industries` | Industry pages |
+| `/consulting/sample-report` | Sample report |
+| `/platform` | Platform page |
+| `/assessment` | Self-assessment wizard |
+| `/contact` | Contact + Calendly |
+| `/privacy`, `/terms` | Legal |
 
-**What's live:**
-- Product-first homepage with Audit Kit + Platform cards and engagement tiers
-- Products page (`/services`) with feature grids for both products
-- CSV Playground (`/playground`) — drag-and-drop CSV, client-side profiling, downloadable self-extracting `.sh` installer that bundles app.py + requirements.txt + data.csv, creates venv, installs deps, launches Streamlit
-- Approach page with pipeline architecture (6-step flow) and engagement tiers
-- Sample report page showing actual Audit Kit artifacts and scoring rubric
-- Healthcare and Fintech industry landing pages
-- Blog (3 posts), assessment tool, contact form (Resend), Calendly embed
-- Full SEO (structured data, sitemap, robots.txt)
+Old routes (`/services`, `/approach`, `/golden-flows/*`, `/blog/*`, `/playground`, `/fintech`, `/healthcare`, `/audit-kit`, `/case-studies`, `/sample-report`) redirect via `next.config.mjs`.
 
-**Nav:** Products | Approach | Playground | Live Demo | Blog | Get in Touch
-
----
-
-## What's Next (Phase 5 — Server-Side Audit Pipeline)
-
-Run the real audit kit on the website server-side. User drops CSV, gets full quality checks + scored report + dbt project — no local install needed. See ROADMAP.md Phase 5 for details.
-
-**After that:**
-- Phase 6: Conversational audit (chat UI for column approval, metric intent, finding drill-down)
-- Phase 7: Hosted dashboards, user accounts, subscriptions
+**Nav:** Home | Consulting | Platform | Get in Touch
 
 ---
 
-## Key Architecture Decisions
+## Golden Flows Architecture
 
-1. **Source of truth chain:** `docs/product/*` → `src/app/*` ← `site.config.yaml`. Never write page copy that doesn't trace to a product doc.
-2. **Client-side CSV processing:** The playground parses and profiles CSVs entirely in the browser. No data is uploaded. The generated installer embeds the CSV as a heredoc.
-3. **Self-extracting installer:** Download is a single `.sh` file (not a ZIP). Contains app.py, requirements.txt, and data.csv as heredocs. Creates `~/bayesiq-dashboard/`, sets up venv, installs deps, launches Streamlit.
-4. **No heavy dependencies in the website:** The playground profiler is a TypeScript reimplementation of the audit kit's schema_profiler. Server-side audit kit integration is Phase 5.
+This is the main commercial surface. Understanding it is essential.
+
+- **15 JSON schemas** (8 Contract B + 7 Contract C) in `schemas/golden-flows/`
+- Contract freeze v1 since 2026-03-15
+- TypeScript types auto-generated from schemas (`npm run generate:types`)
+- **Data:** `public/golden-flows/{vertical}/` (5 verticals, all payload types) + `public/golden-flows/governance/`
+- **Static data loader:** `src/lib/golden-flows.ts` with `public/` to `fixtures/` fallback
+- **Governance normalization:** `src/lib/governance.ts` normalizes 6 Contract C payloads into indexed Maps
+- **35+ components** in `src/components/golden-flows/`
+- **E2E tests:** `golden-flows.spec.ts`, `governance-detail.spec.ts`
+- **Analytics:** `src/lib/gf-analytics.ts`
+
+### The Vertical Page Experience
+
+Each vertical page (`/consulting/explore/[vertical]`) shows:
+
+- Vertical selector cards (hook metrics: headline discrepancy + consequence + trust cue)
+- Hero section (score trajectory, board report summary, narrative)
+- Reality reveal (key metrics with reported vs audited values, top risks)
+- Tabbed content (Dashboard / Report / Workflow)
+- Governance decision log + progress bar
+- Deliverables bar (dashboard link, audit report)
+- Vertical-specific CTA
+
+---
+
+## Design System
+
+- Centralized: `src/vendor/biq/tokens.css` + `src/vendor/biq/tailwind-v4-theme.css`
+- Semantic tokens: `biq-primary`, `biq-text-primary/secondary/muted`, `biq-surface-1/2`, `biq-border`, `biq-status-*`
+- Site-specific gray scale: `bayesiq-{50..900}` for dark sections
 
 ---
 
 ## Tech Stack
 
-- Next.js 15 (App Router) + TypeScript + React 19
-- Tailwind CSS v4 with custom `bayesiq-{50..900}` color scale
-- Vercel hosting
-- Resend for contact form + newsletter
-- Vercel Analytics
-- MDX blog via `next-mdx-remote/rsc` + `gray-matter`
+- Next.js 15 (App Router) + React 19 + TypeScript 5.7
+- Tailwind CSS v4 with centralized design system
+- framer-motion for animations
+- Playwright (E2E) + Vitest (unit) + @axe-core/playwright (a11y)
+- Vercel Analytics, Resend, Calendly
 
 ---
 
-## Brand Voice (from docs/product/brand.md)
+## Brand Voice
 
 - Technical but accessible — write for senior data engineers
 - Specific over vague — "7 broken metrics" not "improved quality"
-- Say "audit" not "solution", "broken" not "suboptimal"
-- Never use: revolutionary, game-changing, leverage, synergy, unlock
 - Clean, minimal design — Stripe/Linear/Vercel aesthetic
 
 ---
@@ -86,25 +93,33 @@ Run the real audit kit on the website server-side. User drops CSV, gets full qua
 ## File Layout
 
 ```
-src/app/           → Next.js routes (each page.tsx is a route)
-src/components/    → Shared UI (Header, Footer, CTA, ServiceCard, etc.)
-src/components/playground/  → CSV profiler + Streamlit generator
-docs/product/      → Source of truth for all messaging
-docs/ai/           → ROADMAP.md, ARCH_STATE.md, this file
-docs/ops/          → Deploy checklist, analytics events
-site.config.yaml   → Page definitions, nav config, SEO metadata
+src/app/                     → Next.js routes
+src/app/consulting/explore/  → Golden flows hub + [vertical] pages
+src/components/              → Shared UI components
+src/components/golden-flows/ → 35+ golden flows components
+src/components/consulting/   → Consulting page components
+src/components/platform/     → Platform page components
+src/components/assessment/   → Assessment wizard components
+src/lib/                     → Data loading, governance, analytics, flags
+src/types/golden-flows/      → Auto-generated TypeScript types from schemas
+src/vendor/biq/              → Design system tokens + Tailwind theme
+schemas/golden-flows/        → JSON schemas (Contract B + C)
+fixtures/golden-flows/       → Fixture/fallback data
+public/golden-flows/         → Production golden flows data (5 verticals + governance)
+docs/product/                → Source of truth for messaging
+docs/ai/                     → ROADMAP, ARCH_STATE, plans, contracts
+e2e/                         → Playwright E2E tests (7 spec files)
 ```
 
 ---
 
 ## Cross-Repo Dependencies
 
-| This Website Needs | From Repo | When |
-|-------------------|-----------|------|
-| Module interface manifests | `bayesiq-data-audit-kit` Phase 3.8 | Phase 5 |
-| Audit pipeline as importable package | `bayesiq-data-audit-kit` | Phase 5 |
-| Orchestration layer for multi-turn workflows | `bayesiq` Phase 4 | Phase 6 |
-| Multi-tenant infrastructure | `bayesiq` Phase 5 | Phase 7 |
+| Dependency | Direction | Status |
+|-----------|-----------|--------|
+| Contract B (data payloads) | data-audit-kit → website | Schemas frozen v1, demo data in use |
+| Contract C (governance payloads) | bayesiq platform → website | Schemas frozen v1, demo data in use |
+| Real data integration | Both → website | Pending (Issue #50) |
 
 ---
 
@@ -112,14 +127,31 @@ site.config.yaml   → Page definitions, nav config, SEO metadata
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # production build (must pass before merge)
-npm run lint         # ESLint
-npx tsc --noEmit     # typecheck
+npm run dev              # http://localhost:3000
+npm run build            # production build
+npm run lint             # ESLint
+npx tsc --noEmit         # typecheck
+npm run generate:types   # regenerate golden flows types from schemas
+npm run validate:schemas # validate JSON schemas
 ```
 
 ---
 
 ## Quality Gates
 
-Every change must pass: `npm run build` + `npm run lint` + `npx tsc --noEmit`. Lighthouse targets: Performance ≥ 90, Accessibility ≥ 90, SEO ≥ 90.
+Every change must pass:
+
+- `npm run build` + `npm run lint` + `npx tsc --noEmit`
+- `npm test` — Playwright E2E (~80 tests)
+- `npm run test:unit` — Vitest unit tests
+- `npm run validate:schemas` — JSON schema validation
+
+---
+
+## What's Next
+
+- Real data integration — replace demo data with production audit output (Issue #50)
+- Visual QA retrofit (Issue #83)
+- Brand assets: favicon + OG images (Issue #80)
+- Formspree contact form backend (Issue #79)
+- Design system dark section migration (Issues #77, #78)

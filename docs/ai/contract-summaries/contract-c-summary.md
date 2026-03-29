@@ -8,7 +8,7 @@
 
 The website consumes 7 governance payload types from the platform at build time. These power trust badges, feedback threads, governance detail panels, business-event previews, review context blocks, and cascade governance overlays. All payloads are static JSON files — no runtime API calls.
 
-The website will normalize all Contract C payloads through a single `src/lib/governance.ts` module (built in GF-16). Components never import raw governance JSON directly.
+The website normalizes all Contract C payloads through a single `src/lib/governance.ts` module (shipped in GF-16). Components never import raw governance JSON directly.
 
 ## Common Conventions (all payloads)
 
