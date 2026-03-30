@@ -86,3 +86,11 @@ body {
   --biq-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Force Calendly iframe to fill its container — widget.js sets a
+   tiny default height (150px) and relies on postMessage resizing
+   which is unreliable in sandboxed/embedded contexts. */
+.calendly-inline-widget iframe {
+  height: 100% !important;
+  min-height: inherit !important;
+}
+
