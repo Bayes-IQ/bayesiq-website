@@ -58,3 +58,31 @@ body {
   outline-offset: 2px;
 }
 
+/* ── Dark mode site-specific polish ──
+ * The DS dark tokens use a warm-neutral stone palette (#0c0a09, #1c1917,
+ * #292524). The BayesIQ website brand uses cool blue accents. These
+ * overrides shift borders and secondary surfaces toward blue for brand
+ * consistency and better visual separation in dark mode.
+ *
+ * Token overrides (applied AFTER vendor/biq/tokens.css):
+ */
+[data-theme="dark"] {
+  /* Borders: blue-tinted for visibility and brand feel */
+  --biq-color-border: #1e3a5f;
+  --biq-color-border-subtle: #162d50;
+
+  /* Surfaces: cool blue-gray instead of warm stone */
+  --biq-color-surface-1: #111827;
+  --biq-color-surface-2: #1e293b;
+
+  /* Dark-section tokens: match the shifted palette so platform page
+     sections get proper layering when wrapped in data-theme="dark" */
+  --biq-color-dark-surface-0: #0a0f1a;
+  --biq-color-dark-surface-1: #111827;
+  --biq-color-dark-surface-2: #1e293b;
+  --biq-color-dark-border: #1e3a5f;
+
+  /* Stronger shadow for elevated cards */
+  --biq-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+

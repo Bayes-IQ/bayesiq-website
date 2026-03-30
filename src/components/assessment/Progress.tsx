@@ -29,7 +29,7 @@ export default function Progress({ current, total }: ProgressProps) {
         className="h-1.5 w-full overflow-hidden rounded-full bg-biq-surface-2"
       >
         <div
-          className="h-full rounded-full bg-biq-dark-surface-1 transition-all duration-300"
+          className="h-full rounded-full bg-biq-primary transition-all duration-300"
           style={{ width: `${percent}%` }}
         />
       </div>

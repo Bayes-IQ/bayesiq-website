@@ -68,12 +68,12 @@ export default function EngagementTiers() {
           key={tier.name}
           className={`flex flex-col rounded-xl border p-6 ${
             tier.highlighted
-              ? "border-biq-dark-surface-1 ring-1 ring-biq-dark-surface-1"
+              ? "border-biq-primary ring-1 ring-biq-primary"
               : "border-biq-border"
           }`}
         >
           {tier.highlighted && (
-            <span className="mb-3 inline-block w-fit rounded-full bg-biq-dark-surface-1 px-3 py-0.5 text-xs font-medium text-white">
+            <span className="mb-3 inline-block w-fit rounded-full bg-biq-primary px-3 py-0.5 text-xs font-medium text-white">
               Most Popular
             </span>
           )}

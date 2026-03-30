@@ -16,7 +16,7 @@ export default function PlatformCTA() {
     >
       <Link
         href="/consulting/explore"
-        className="inline-block rounded-lg bg-white px-8 py-3.5 text-sm font-semibold text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+        className="inline-block rounded-lg bg-biq-primary px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-biq-primary-hover"
       >
         See it in action
       </Link>

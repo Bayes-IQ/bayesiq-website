@@ -62,7 +62,7 @@ export default function VerticalTabs({
               onClick={() => handleTabClick(tab.key)}
               className={`px-5 py-3 text-sm font-medium transition-colors ${
                 activeTab === tab.key
-                  ? "border-b-2 border-biq-dark-surface-1 text-biq-text-primary"
+                  ? "border-b-2 border-biq-primary text-biq-text-primary"
                   : "text-biq-text-muted hover:text-biq-text-secondary"
               }`}
             >

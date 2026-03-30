@@ -27,12 +27,14 @@ export default function GovernanceChain({
   const nodeRadius = variant === "simple" ? 20 : 24;
   const nodeSpacing = variant === "simple" ? 160 : 200;
 
-  // Theme-aware colors
-  const nodeFill =
-    theme === "light" ? "var(--biq-color-dark-text-secondary)" : "var(--color-biq-text-primary)";
-  const nodeText = theme === "light" ? "var(--color-biq-text-primary)" : "white";
+  // Theme-aware colors — blue accent for brand presence
+  const nodeColors = [
+    { fill: "var(--biq-color-primary-subtle)", stroke: "var(--biq-color-primary)", icon: "var(--biq-color-primary)" },         // Raw Data: outlined, pending
+    { fill: "var(--biq-color-primary)", stroke: "var(--biq-color-primary)", icon: "white" },                                    // Reviewed: solid blue, active
+    { fill: "var(--biq-color-status-success)", stroke: "var(--biq-color-status-success)", icon: "white" },                      // Approved: green, complete
+  ];
   const connectorColor =
-    theme === "light" ? "var(--biq-color-dark-text-secondary)" : "var(--color-biq-text-muted)";
+    theme === "light" ? "var(--biq-color-primary)" : "var(--color-biq-text-muted)";
   const labelColor =
     theme === "light" ? "var(--biq-color-dark-text-primary)" : "var(--color-biq-text-secondary)";
 
@@ -83,17 +85,18 @@ export default function GovernanceChain({
                 </>
               )}
 
-              {/* Node circle */}
-              <circle cx={x} cy={centerY} r={nodeRadius} fill={nodeFill} />
+              {/* Node circle with brand color */}
+              <circle cx={x} cy={centerY} r={nodeRadius} fill={nodeColors[Math.min(i, nodeColors.length - 1)].fill} stroke={nodeColors[Math.min(i, nodeColors.length - 1)].stroke} strokeWidth={2} />
 
-              {/* Checkmark inside circle */}
+              {/* Icon inside circle */}
               <text
                 x={x}
                 y={centerY + 1}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={nodeText}
+                fill={nodeColors[Math.min(i, nodeColors.length - 1)].icon}
                 fontSize={variant === "simple" ? 14 : 16}
+                fontWeight={600}
                 fontFamily="var(--font-sans)"
               >
                 {i === 0 ? "\u25CB" : i === 1 ? "\u25C9" : "\u2713"}
@@ -145,8 +148,8 @@ export default function GovernanceChain({
                 </>
               )}
 
-              {/* Node circle */}
-              <circle cx={centerX} cy={y} r={nodeRadius} fill={nodeFill} />
+              {/* Node circle with brand color */}
+              <circle cx={centerX} cy={y} r={nodeRadius} fill={nodeColors[Math.min(i, nodeColors.length - 1)].fill} stroke={nodeColors[Math.min(i, nodeColors.length - 1)].stroke} strokeWidth={2} />
 
               {/* Icon */}
               <text
@@ -154,8 +157,9 @@ export default function GovernanceChain({
                 y={y + 1}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={nodeText}
+                fill={nodeColors[Math.min(i, nodeColors.length - 1)].icon}
                 fontSize={14}
+                fontWeight={600}
                 fontFamily="var(--font-sans)"
               >
                 {i === 0 ? "\u25CB" : i === 1 ? "\u25C9" : "\u2713"}

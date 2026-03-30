@@ -79,7 +79,7 @@ export default function ScoreReveal({ result }: ScoreRevealProps) {
             transition={{ duration: 0.2 }}
             className="flex flex-col items-center justify-center py-20"
           >
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-biq-border border-t-biq-dark-surface-1" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-biq-border border-t-biq-primary" />
             <p className="mt-4 text-sm font-medium text-biq-text-muted">
               Calculating your score...
             </p>
