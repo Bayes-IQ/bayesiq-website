@@ -48,7 +48,7 @@ const notList = [
 
 export default function PlatformPage() {
   return (
-    <div data-theme="dark" className="bg-biq-surface-0">
+    <div className="bg-biq-dark-surface-0">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(platformJsonLd) }}
@@ -63,7 +63,7 @@ export default function PlatformPage() {
           <p className="mt-6 font-display text-2xl font-medium text-accent md:text-3xl">
             Nobody can prove who approved what, or why.
           </p>
-          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-biq-text-secondary">
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-biq-dark-text-secondary">
             Models generate insights, recommendations, and actions at a pace
             that outstrips any human review process. The gap between what AI
             produces and what a responsible organization can defend is growing
@@ -73,16 +73,16 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 2: The Thesis */}
-      <PlatformSection className="border-t border-biq-border bg-biq-surface-1">
+      <PlatformSection className="border-t border-biq-dark-border bg-biq-dark-surface-1">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             The thesis
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold leading-snug text-white md:text-3xl">
             BayesIQ is the governance layer that produces an auditable chain
             from raw output to approved deliverable.
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-biq-text-primary">
+          <p className="mt-6 text-base leading-relaxed text-biq-dark-text-primary">
             Every finding reviewed. Every decision attributed. Every transition
             evidence-backed. Not a policy document -- a running system that
             enforces the chain in real time.
@@ -93,16 +93,16 @@ export default function PlatformPage() {
       {/* Section 3: Three Truth Layers */}
       <PlatformSection
         id="truth-layers"
-        className="border-t border-biq-border"
+        className="border-t border-biq-dark-border"
       >
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             The architecture
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             Three layers of truth
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-text-secondary">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-dark-text-secondary">
             Every piece of information moves through three distinct layers.
             Nothing reaches operational state without explicit human acceptance.
             The layers are the invariant -- they apply to every engagement, every
@@ -113,15 +113,15 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 4: Executor-Neutral */}
-      <PlatformSection className="border-t border-biq-border bg-biq-surface-1">
+      <PlatformSection className="border-t border-biq-dark-border bg-biq-dark-surface-1">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             Executor-neutral
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             The contract is portable. The audit trail is the product.
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-text-secondary">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-dark-text-secondary">
             BayesIQ works with any execution engine -- your AI pipeline, a
             coding assistant, a contractor, a CI job. The work is defined in
             portable, human-readable contracts. Any compliant engine can consume
@@ -133,15 +133,15 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 5: What Makes This Different */}
-      <PlatformSection className="border-t border-biq-border">
+      <PlatformSection className="border-t border-biq-dark-border">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             Differentiation
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             What this is not
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-text-secondary">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-biq-dark-text-secondary">
             The only system that joins ingestion, extraction, triage, governed
             transitions, and evidence-backed completion in one loop.
           </p>
@@ -150,12 +150,12 @@ export default function PlatformPage() {
           {notList.map((item) => (
             <div
               key={item.label}
-              className="rounded-xl border border-biq-border bg-biq-surface-1 p-6"
+              className="rounded-xl border border-biq-dark-border bg-biq-dark-surface-1 p-6"
             >
               <h3 className="text-sm font-bold text-accent">
                 {item.label}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-biq-text-secondary">
+              <p className="mt-3 text-sm leading-relaxed text-biq-dark-text-secondary">
                 {item.detail}
               </p>
             </div>
@@ -164,20 +164,20 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 6: Built By a Consultant */}
-      <PlatformSection className="border-t border-biq-border bg-biq-surface-1">
+      <PlatformSection className="border-t border-biq-dark-border bg-biq-dark-surface-1">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             Origin
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             Built by a consultant, for consultants
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-biq-text-primary">
+          <p className="mt-6 text-base leading-relaxed text-biq-dark-text-primary">
             We built this because we needed it. Managing multiple client
             engagements with scattered emails, half-tracked commitments, and no
             single surface to prove what was promised and what was delivered.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-biq-text-primary">
+          <p className="mt-4 text-base leading-relaxed text-biq-dark-text-primary">
             One place to track engagements. One governed surface for client
             interactions. Contracts with evidence-backed completion -- so when a
             client asks &ldquo;what happened?&rdquo; you have the answer, not a
@@ -187,15 +187,15 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 7: Regulated-Ready */}
-      <PlatformSection className="border-t border-biq-border">
+      <PlatformSection className="border-t border-biq-dark-border">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-biq-text-secondary">
+          <p className="text-xs font-semibold uppercase tracking-wider text-biq-dark-text-secondary">
             Compliance
           </p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">
             Regulation built in, not bolted on
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-biq-text-primary">
+          <p className="mt-6 text-base leading-relaxed text-biq-dark-text-primary">
             The same governance chain that makes day-to-day operations
             trustworthy also satisfies regulated environments. Every state
             transition carries an attestation. Every decision links to its
@@ -210,7 +210,7 @@ export default function PlatformPage() {
             ].map((badge) => (
               <span
                 key={badge}
-                className="rounded-full border border-biq-border px-4 py-1.5 text-xs font-medium text-biq-text-primary"
+                className="rounded-full border border-biq-dark-border px-4 py-1.5 text-xs font-medium text-biq-dark-text-primary"
               >
                 {badge}
               </span>
@@ -220,12 +220,12 @@ export default function PlatformPage() {
       </PlatformSection>
 
       {/* Section 8: CTA */}
-      <PlatformSection className="border-t border-biq-border bg-biq-surface-1">
+      <PlatformSection className="border-t border-biq-dark-border bg-biq-dark-surface-1">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
             See it in action
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-biq-text-primary">
+          <p className="mt-4 text-base leading-relaxed text-biq-dark-text-primary">
             Explore a live engagement walkthrough, or talk to us about how the
             platform fits your operation.
           </p>

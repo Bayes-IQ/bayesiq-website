@@ -9,9 +9,9 @@ const layers = [
     subtitle: "Immutable evidence",
     description:
       "No summaries, no interpretations. Just the record. Pipeline outputs, test results, call transcripts, emails -- the ground truth your decisions rest on.",
-    color: "border-biq-border",
-    bg: "bg-biq-surface-1",
-    accent: "text-biq-text-secondary",
+    color: "border-biq-dark-border",
+    bg: "bg-biq-dark-surface-1",
+    accent: "text-biq-dark-text-secondary",
     glow: "shadow-[0_0_24px_rgba(59,130,246,0.08)]",
   },
   {
@@ -20,9 +20,9 @@ const layers = [
     subtitle: "Structured output",
     description:
       "AI-generated proposals, extracted tasks, priority assessments, and summaries. Clearly labeled as interpretation, not fact. Never auto-promoted to operational state.",
-    color: "border-biq-text-secondary",
-    bg: "bg-biq-surface-2",
-    accent: "text-biq-text-primary",
+    color: "border-biq-dark-text-secondary",
+    bg: "bg-biq-dark-surface-2",
+    accent: "text-biq-dark-text-primary",
     glow: "shadow-[0_0_24px_rgba(59,130,246,0.12)]",
   },
   {
@@ -32,7 +32,7 @@ const layers = [
     description:
       "The only layer that drives dashboards, deadlines, and work state. Nothing reaches this layer without explicit human acceptance. This is your single source of governed truth.",
     color: "border-accent",
-    bg: "bg-biq-surface-2",
+    bg: "bg-biq-dark-surface-2",
     accent: "text-accent",
     glow: "shadow-[0_0_32px_rgba(96,165,250,0.15)]",
   },
@@ -82,7 +82,7 @@ export default function ThreeTruthLayers() {
           {i > 0 && (
             <motion.div
               variants={shouldReduceMotion ? undefined : flowVariants}
-              className="h-10 w-px origin-top bg-gradient-to-b from-biq-border to-biq-border"
+              className="h-10 w-px origin-top bg-gradient-to-b from-biq-dark-border to-biq-dark-border"
               aria-hidden="true"
             />
           )}
@@ -100,10 +100,10 @@ export default function ThreeTruthLayers() {
             <h3 className="mt-2 font-display text-xl font-bold text-white md:text-2xl">
               {layer.title}
             </h3>
-            <p className="mt-1 text-sm font-medium text-biq-text-primary">
+            <p className="mt-1 text-sm font-medium text-biq-dark-text-primary">
               {layer.subtitle}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-biq-text-secondary">
+            <p className="mt-3 text-sm leading-relaxed text-biq-dark-text-secondary">
               {layer.description}
             </p>
           </motion.div>
@@ -116,7 +116,7 @@ export default function ThreeTruthLayers() {
         className="mt-1 flex flex-col items-center"
         aria-hidden="true"
       >
-        <div className="h-8 w-px bg-gradient-to-b from-biq-border to-transparent" />
+        <div className="h-8 w-px bg-gradient-to-b from-biq-dark-border to-transparent" />
         <div className="mt-1 h-2 w-2 rounded-full bg-accent" />
       </motion.div>
     </motion.div>
