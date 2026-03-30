@@ -1,0 +1,35 @@
+{
+  "project": "bayesiq-website",
+  "server": {
+    "command": "npm run dev -- --port 4100",
+    "url": "http://localhost:4100",
+    "readyTimeout": 30000,
+    "healthCheck": "/",
+    "reuseExisting": false
+  },
+  "pages": [
+    { "name": "home", "path": "/" },
+    { "name": "consulting", "path": "/consulting" },
+    { "name": "consulting-industries", "path": "/consulting/industries" },
+    { "name": "consulting-sample-report", "path": "/consulting/sample-report" },
+    { "name": "consulting-case-studies", "path": "/consulting/case-studies" },
+    { "name": "explore-fintech", "path": "/consulting/explore/fintech-gf" },
+    { "name": "explore-hospital", "path": "/consulting/explore/hospital" },
+    { "name": "explore-saas", "path": "/consulting/explore/saas" },
+    { "name": "platform", "path": "/platform" },
+    { "name": "assessment", "path": "/assessment" },
+    { "name": "contact", "path": "/contact" },
+    { "name": "privacy", "path": "/privacy" },
+    { "name": "terms", "path": "/terms" }
+  ],
+  "viewports": [
+    { "name": "mobile", "width": 375, "height": 812 },
+    { "name": "tablet", "width": 768, "height": 1024 },
+    { "name": "desktop", "width": 1440, "height": 900 }
+  ],
+  "brandBrief": "docs/ai/brand-brief.md",
+  "audience": "executive",
+  "theme": "light",
+  "outputDir": "test-results/visual-qa",
+  "baselineDir": "test-results/visual-qa/baseline"
+}

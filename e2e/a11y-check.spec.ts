@@ -3,13 +3,20 @@ import AxeBuilder from "@axe-core/playwright";
 
 const PAGES = [
   { name: "home", path: "/" },
-  { name: "platform", path: "/platform" },
   { name: "consulting", path: "/consulting" },
-  { name: "contact", path: "/contact" },
+  { name: "consulting-industries", path: "/consulting/industries" },
+  { name: "consulting-sample-report", path: "/consulting/sample-report" },
+  { name: "consulting-case-studies", path: "/consulting/case-studies" },
+  { name: "explore-fintech", path: "/consulting/explore/fintech-gf" },
+  { name: "explore-hospital", path: "/consulting/explore/hospital" },
+  { name: "explore-saas", path: "/consulting/explore/saas" },
+  { name: "explore-retail", path: "/consulting/explore/retail" },
+  { name: "explore-real-estate", path: "/consulting/explore/real-estate" },
+  { name: "platform", path: "/platform" },
   { name: "assessment", path: "/assessment" },
-  { name: "case-studies", path: "/case-studies" },
+  { name: "contact", path: "/contact" },
   { name: "privacy", path: "/privacy" },
-  { name: "changelog", path: "/changelog" },
+  { name: "terms", path: "/terms" },
 ];
 
 test.describe("Accessibility checks", () => {

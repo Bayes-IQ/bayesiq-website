@@ -12,12 +12,11 @@
     "test:install": "playwright install chromium",
     "generate:types": "bash scripts/generate-types.sh",
     "validate:schemas": "node scripts/validate-schemas.mjs",
-    "visual-qa": "npx playwright test e2e/visual-qa.spec.ts --project=chromium --reporter=list",
-    "visual-qa:baseline": "bash scripts/visual-qa-baseline.sh",
+    "visual-qa": "VQA_CONFIG=visual-qa.config.json bash ~/BayesIQCode/bayesiq-workspace/visual-qa/run-visual-qa.sh",
+    "visual-qa:baseline": "VQA_CONFIG=visual-qa.config.json bash ~/BayesIQCode/bayesiq-workspace/visual-qa/baseline.sh",
     "a11y-check": "npx playwright test e2e/a11y-check.spec.ts --project=chromium --reporter=list",
-    "visual-review": "echo 'Run: npm run visual-qa && then review screenshots with the visual-review-prompt.md template'",
-    "pixel-diff": "npx tsx scripts/pixel-diff.ts",
-    "design-debt": "npx tsx scripts/design-debt.ts"
+    "pixel-diff": "VQA_CONFIG=visual-qa.config.json npx tsx ~/BayesIQCode/bayesiq-workspace/visual-qa/pixel-diff.ts",
+    "design-debt": "VQA_CONFIG=visual-qa.config.json npx tsx ~/BayesIQCode/bayesiq-workspace/visual-qa/design-debt.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
