@@ -22,7 +22,7 @@ export default function CTA({
         )}
         <Link
           href={href}
-          className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+          className="mt-8 inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
         >
           {buttonText}
         </Link>

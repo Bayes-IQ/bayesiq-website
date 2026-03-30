@@ -120,7 +120,7 @@ export default function AssessmentPage() {
             {AUDIT_DIMENSIONS.map((dim) => (
               <div key={dim.label} className="flex gap-4">
                 <span
-                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-biq-dark-surface-1"
+                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-biq-primary"
                   aria-hidden="true"
                 />
                 <div>

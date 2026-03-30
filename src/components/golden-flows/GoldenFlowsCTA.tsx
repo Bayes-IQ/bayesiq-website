@@ -30,7 +30,7 @@ export default function GoldenFlowsCTA({
           <Link
             href="/contact"
             onClick={() => trackCtaClick("diagnostic", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+            className="mt-8 inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
           >
             Book a diagnostic
           </Link>
@@ -58,7 +58,7 @@ export default function GoldenFlowsCTA({
       </section>
 
       {/* Section 3 — Book a Session */}
-      <section className="rounded-b-xl border border-biq-border bg-white px-6 py-14 text-center">
+      <section className="rounded-b-xl border border-biq-border bg-biq-surface-0 px-6 py-14 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-biq-text-primary sm:text-3xl">
             Not sure where to start?
@@ -71,7 +71,7 @@ export default function GoldenFlowsCTA({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackCtaClick("book_session", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg border border-biq-dark-surface-1 bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
+            className="mt-8 inline-block rounded-lg border border-biq-border bg-biq-surface-0 px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
           >
             Book a call
           </a>

@@ -35,7 +35,7 @@ export default function QuestionCard({
               className={[
                 "flex min-h-12 cursor-pointer items-start gap-4 rounded-lg border px-4 py-3 text-sm transition-colors",
                 isSelected
-                  ? "border-biq-dark-surface-1 bg-biq-surface-1 text-biq-text-primary"
+                  ? "border-biq-primary bg-biq-surface-1 text-biq-text-primary"
                   : "border-biq-border text-biq-text-secondary hover:border-biq-text-muted hover:bg-biq-surface-1",
               ].join(" ")}
             >
@@ -46,7 +46,7 @@ export default function QuestionCard({
                 value={idx}
                 checked={isSelected}
                 onChange={() => onSelect(idx)}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-biq-dark-surface-1 focus-visible:ring-2 focus-visible:ring-biq-dark-surface-1 focus-visible:ring-offset-2"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-biq-primary focus-visible:ring-2 focus-visible:ring-biq-primary focus-visible:ring-offset-2"
               />
               <span className="leading-relaxed">{choice.text}</span>
             </label>

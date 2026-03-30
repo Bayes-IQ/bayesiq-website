@@ -11,8 +11,9 @@ describe("Design system integration", () => {
     expect(css).toContain("--biq-color-primary");
   });
 
-  it("globals.css contains semantic color tokens in @theme", () => {
-    const css = readFileSync(globalsPath, "utf-8");
+  it("tailwind-v4-theme.css contains semantic color tokens in @theme", () => {
+    const themePath = join(process.cwd(), "src/vendor/biq/tailwind-v4-theme.css");
+    const css = readFileSync(themePath, "utf-8");
     expect(css).toContain("--color-biq-text-primary");
     expect(css).toContain("--color-biq-surface-1");
     expect(css).toContain("--color-biq-border");

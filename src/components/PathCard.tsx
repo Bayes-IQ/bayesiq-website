@@ -28,7 +28,7 @@ export default function PathCard({
   return (
     <div
       data-testid="path-card"
-      className="flex flex-col justify-between rounded-biq-lg border border-biq-border bg-white p-8 transition-shadow hover:shadow-lg md:p-10"
+      className="flex flex-col justify-between rounded-biq-lg border border-biq-border bg-biq-surface-0 p-8 shadow-biq-sm transition-shadow hover:shadow-biq-md md:p-10"
     >
       <div>
         <h3 className="font-display text-2xl font-bold tracking-tight text-biq-text-primary md:text-3xl">
@@ -44,7 +44,7 @@ export default function PathCard({
       <div className="mt-8">
         <Link
           href={href}
-          className="inline-block rounded-lg bg-biq-dark-surface-1 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-dark-surface-2"
+          className="inline-block rounded-lg bg-biq-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-biq-primary-hover"
         >
           {cta}
         </Link>

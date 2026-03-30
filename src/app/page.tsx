@@ -78,7 +78,7 @@ export default function HomePage() {
       {/* ──────────────────────────────────────────────
           Section 3: Proof Strip
           ──────────────────────────────────────────── */}
-      <section className="px-6 py-20 md:py-24">
+      <section className="border-t border-biq-border px-6 py-20 md:py-24">
         <SectionReveal>
           <div className="mx-auto max-w-4xl">
             <ProofStrip />
@@ -89,7 +89,7 @@ export default function HomePage() {
       {/* ──────────────────────────────────────────────
           Section 4: Governance Chain
           ──────────────────────────────────────────── */}
-      <section className="bg-biq-dark-surface-1 px-6 py-20 md:py-24">
+      <section className="border-t border-biq-border bg-biq-dark-surface-1 px-6 py-20 md:py-24">
         <SectionReveal>
           <div className="mx-auto max-w-3xl text-center">
             <GovernanceChain variant="simple" theme="light" />
@@ -105,7 +105,7 @@ export default function HomePage() {
       {/* ──────────────────────────────────────────────
           Section 5: Assessment CTA
           ──────────────────────────────────────────── */}
-      <section className="px-6 py-20 md:py-24">
+      <section className="border-t border-biq-border px-6 py-20 md:py-24">
         <SectionReveal>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight text-biq-text-primary md:text-4xl">
