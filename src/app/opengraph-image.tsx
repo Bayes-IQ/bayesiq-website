@@ -10,7 +10,7 @@ export default function OGImage() {
     (
       <div
         style={{
-          background: "#111827",
+          background: "#0f172a",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -33,7 +33,7 @@ export default function OGImage() {
         <div
           style={{
             fontSize: 36,
-            color: "#9ca3af",
+            color: "#94a3b8",
             lineHeight: 1.4,
             maxWidth: 800,
           }}
@@ -54,8 +54,8 @@ export default function OGImage() {
                 key={label}
                 style={{
                   fontSize: 20,
-                  color: "#6b7280",
-                  border: "1px solid #374151",
+                  color: "#94a3b8",
+                  border: "1px solid #1e293b",
                   borderRadius: 8,
                   padding: "10px 20px",
                 }}

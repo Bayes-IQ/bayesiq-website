@@ -20,7 +20,7 @@ export default function MetricCardsGrid({ metrics, score, interpretation }: Prop
       data-testid="metric-cards-grid"
     >
       {showScoreCard && (
-        <div className="rounded-xl border border-biq-border bg-white px-5 py-4 shadow-sm">
+        <div className="rounded-xl border border-biq-border bg-biq-surface-0 px-5 py-4 shadow-sm">
           <p className="text-xs font-medium uppercase tracking-wide text-biq-text-muted">
             Reliability Score
           </p>

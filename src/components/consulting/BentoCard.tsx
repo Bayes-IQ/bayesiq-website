@@ -17,7 +17,7 @@ export default function BentoCard({
 }: BentoCardProps) {
   return (
     <div
-      className={`rounded-xl border border-biq-border bg-white p-5 ${
+      className={`rounded-xl border border-biq-border bg-biq-surface-0 p-5 ${
         span === 2 ? "sm:col-span-2" : ""
       }`}
     >

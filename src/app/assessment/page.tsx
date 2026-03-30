@@ -177,7 +177,7 @@ export default function AssessmentPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
+            className="mt-8 inline-block rounded-lg bg-biq-surface-0 px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-2"
           >
             Book a free data health check
           </Link>

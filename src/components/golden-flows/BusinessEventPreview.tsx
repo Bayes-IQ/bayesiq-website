@@ -69,7 +69,7 @@ export default function BusinessEventPreview({
 
   return (
     <div
-      className={`rounded-xl border-2 ${borderStyle(item.approval_status)} bg-white shadow-sm`}
+      className={`rounded-xl border-2 ${borderStyle(item.approval_status)} bg-biq-surface-0 shadow-sm`}
       data-testid="business-event-preview"
     >
       {/* Collapsed view — always visible */}

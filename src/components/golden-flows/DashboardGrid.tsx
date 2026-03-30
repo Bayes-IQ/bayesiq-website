@@ -95,7 +95,7 @@ export default function DashboardGrid({
       </div>
 
       {/* Dashboard preview with real screenshot */}
-      <div className="rounded-xl border border-biq-border bg-white shadow-sm overflow-hidden">
+      <div className="rounded-xl border border-biq-border bg-biq-surface-0 shadow-sm overflow-hidden">
         <DashboardScreenshot
           screenshot={screenshotUrl ? { url: screenshotUrl, alt_text: screenshotAlt ?? "Dashboard preview", type: "dashboard" } : null}
         />

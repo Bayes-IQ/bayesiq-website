@@ -47,7 +47,7 @@ html {
 
 body {
   color: var(--color-biq-text-primary);
-  background-color: white;
+  background-color: var(--biq-color-surface-0);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
