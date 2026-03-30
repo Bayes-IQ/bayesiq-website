@@ -120,7 +120,7 @@ export default function AssessmentPage() {
             {AUDIT_DIMENSIONS.map((dim) => (
               <div key={dim.label} className="flex gap-4">
                 <span
-                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-bayesiq-900"
+                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-biq-dark-surface-1"
                   aria-hidden="true"
                 />
                 <div>
@@ -165,12 +165,12 @@ export default function AssessmentPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="border-t border-biq-border bg-bayesiq-900 px-6 py-20 text-center">
+      <section className="border-t border-biq-border bg-biq-dark-surface-1 px-6 py-20 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-white">
             Want a real answer, not a directional one?
           </h2>
-          <p className="mt-4 text-base text-bayesiq-300">
+          <p className="mt-4 text-base text-biq-dark-text-primary">
             A BayesIQ audit examines your actual telemetry, pipelines, and
             metric definitions — and gives you a severity-ranked fix plan in
             under two weeks.

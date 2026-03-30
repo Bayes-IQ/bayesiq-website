@@ -24,22 +24,6 @@
 
 /* Step 4: Site-specific theme additions */
 @theme {
-  /* Gray scale: retained for dark-section contexts (buttons, CTA,
-     platform page, Header, Footer, GovernanceChain dark theme).
-     These are site-specific — not part of the centralized design system.
-     TODO: migrate dark sections to a DS dark-surface token set. */
-  --color-bayesiq-950: #0a0f1a;
-  --color-bayesiq-900: #111827;
-  --color-bayesiq-800: #1f2937;
-  --color-bayesiq-700: #374151;
-  --color-bayesiq-600: #4b5563;
-  --color-bayesiq-500: #6b7280;
-  --color-bayesiq-400: #9ca3af;
-  --color-bayesiq-300: #d1d5db;
-  --color-bayesiq-200: #e5e7eb;
-  --color-bayesiq-100: #f3f4f6;
-  --color-bayesiq-50: #f9fafb;
-
   /* Accent aliases (resolve to DS primary) */
   --color-accent: var(--biq-color-primary);
   --color-accent-dark: var(--biq-color-primary-hover);
@@ -74,12 +58,3 @@ body {
   outline-offset: 2px;
 }
 
-/* Dark mode scoped variables for platform page */
-.dark {
-  --dark-bg: var(--color-bayesiq-950);
-  --dark-bg-subtle: var(--color-bayesiq-900);
-  --dark-text: var(--color-bayesiq-50);
-  --dark-text-muted: var(--color-bayesiq-400);
-  --dark-border: var(--color-bayesiq-700);
-  --dark-accent: #60a5fa;
-}

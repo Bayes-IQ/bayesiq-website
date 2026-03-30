@@ -35,6 +35,12 @@
   --color-biq-status-error-subtle: var(--biq-color-status-error-subtle);
   --color-biq-status-info: var(--biq-color-status-info);
   --color-biq-status-info-subtle: var(--biq-color-status-info-subtle);
+  --color-biq-dark-surface-0: var(--biq-color-dark-surface-0);
+  --color-biq-dark-surface-1: var(--biq-color-dark-surface-1);
+  --color-biq-dark-surface-2: var(--biq-color-dark-surface-2);
+  --color-biq-dark-text-primary: var(--biq-color-dark-text-primary);
+  --color-biq-dark-text-secondary: var(--biq-color-dark-text-secondary);
+  --color-biq-dark-border: var(--biq-color-dark-border);
 
   /* ── Font Families ──
    * Generates: font-biq-sans, font-biq-serif, font-biq-mono

@@ -45,12 +45,12 @@ describe("PlatformSection", () => {
 
   it("applies custom className", () => {
     const { container } = render(
-      <PlatformSection className="bg-bayesiq-900">
+      <PlatformSection className="bg-biq-dark-surface-1">
         <p>Content</p>
       </PlatformSection>
     );
     const section = container.querySelector("section");
-    expect(section?.className).toContain("bg-bayesiq-900");
+    expect(section?.className).toContain("bg-biq-dark-surface-1");
   });
 
   it("applies id when provided", () => {

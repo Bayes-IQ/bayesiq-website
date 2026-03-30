@@ -111,7 +111,7 @@ export default function ScoreTrajectory({ snapshots, size = "compact" }: Props) 
               x={x(i)}
               y={y(snap.score) - 8}
               textAnchor="middle"
-              className="fill-bayesiq-800"
+              className="fill-biq-dark-surface-2"
               fontSize={11}
               fontWeight={600}
             >

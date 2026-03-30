@@ -26,9 +26,9 @@ export default function StepDots({ current, total }: StepDotsProps) {
               className={[
                 "block h-2.5 w-2.5 rounded-full transition-all duration-300",
                 isCompleted
-                  ? "bg-bayesiq-900"
+                  ? "bg-biq-dark-surface-1"
                   : isCurrent
-                    ? "bg-bayesiq-900 animate-pulse"
+                    ? "bg-biq-dark-surface-1 animate-pulse"
                     : "bg-biq-surface-2",
               ].join(" ")}
             />
