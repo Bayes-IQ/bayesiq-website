@@ -268,7 +268,7 @@ export default function GovernanceDetailPanel({
       data-testid="governance-detail-dialog"
     >
       <div
-        className="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-xl overflow-y-auto p-6 transition-transform duration-200 ease-out"
+        className="fixed right-0 top-0 h-full w-full sm:w-96 bg-biq-surface-0 shadow-xl overflow-y-auto p-6 transition-transform duration-200 ease-out"
         data-testid="governance-detail-panel"
       >
         {/* Header */}

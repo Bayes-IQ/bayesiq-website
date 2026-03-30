@@ -60,7 +60,7 @@ export default function FeedbackThread({ item }: FeedbackThreadProps) {
     item.resolution_note;
 
   return (
-    <div className="rounded-xl border border-biq-border bg-white shadow-sm">
+    <div className="rounded-xl border border-biq-border bg-biq-surface-0 shadow-sm">
       {/* Collapsed view — always visible */}
       <button
         type="button"

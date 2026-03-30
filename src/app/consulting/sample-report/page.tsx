@@ -302,7 +302,7 @@ export default function SampleReportPage() {
             {findings.map((f) => (
               <div
                 key={f.id}
-                className="rounded-lg border border-biq-border bg-white p-5"
+                className="rounded-lg border border-biq-border bg-biq-surface-0 p-5"
               >
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-biq-text-muted">

@@ -28,7 +28,7 @@ export default function VerticalLanding({
   const devastating = pickDevastating(questions);
 
   return (
-    <section className="mt-6 rounded-2xl border border-biq-border bg-white p-6 shadow-sm sm:p-8">
+    <section className="mt-6 rounded-2xl border border-biq-border bg-biq-surface-0 p-6 shadow-sm sm:p-8">
       {/* Top row: score + chart */}
       <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
         {/* Current score */}

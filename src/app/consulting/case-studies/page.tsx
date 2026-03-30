@@ -204,7 +204,7 @@ export default function CaseStudiesPage() {
             <article
               key={study.slug}
               id={study.slug}
-              className="rounded-2xl border border-biq-border bg-white p-8 shadow-sm"
+              className="rounded-2xl border border-biq-border bg-biq-surface-0 p-8 shadow-sm"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>

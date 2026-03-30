@@ -42,7 +42,7 @@ export default function AskButtons({
         <button
           type="button"
           onClick={() => handleClick(flagship.question_id)}
-          className={`mt-4 w-full text-left rounded-xl border bg-white p-6 border-l-[3px] transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary ${questionSeverityBorderColor(flagship.severity)} ${
+          className={`mt-4 w-full text-left rounded-xl border bg-biq-surface-0 p-6 border-l-[3px] transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary ${questionSeverityBorderColor(flagship.severity)} ${
             activeQuestionId === flagship.question_id
               ? "ring-2 ring-biq-primary shadow-md"
               : ""
@@ -68,7 +68,7 @@ export default function AskButtons({
               key={q.question_id}
               type="button"
               onClick={() => handleClick(q.question_id)}
-              className={`rounded-lg border border-biq-border bg-white p-4 text-left transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary ${
+              className={`rounded-lg border border-biq-border bg-biq-surface-0 p-4 text-left transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-biq-primary ${
                 activeQuestionId === q.question_id
                   ? "ring-2 ring-biq-primary shadow-md"
                   : ""

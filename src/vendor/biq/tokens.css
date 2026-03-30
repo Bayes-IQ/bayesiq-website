@@ -1,7 +1,7 @@
-/* BayesIQ Design System — Vendored Tokens (light-only)
+/* BayesIQ Design System — Vendored Tokens (light + dark)
  * Source: bayesiq-design-system/dist/tokens.css
  * Synced by: scripts/vendor-sync.sh
- * Dark mode blocks and @font-face removed (site is light-only, uses next/font).
+ * @font-face removed (site uses next/font). Dark theme block retained.
  * Do not edit manually — re-run vendor-sync.sh to update.
  */
 :root {
@@ -92,4 +92,33 @@
   --biq-container-padding-x-lg: 32px;
   --biq-section-padding-y: 48px;
   --biq-section-padding-y-md: 64px;
+}
+
+[data-theme="dark"] {
+  --biq-color-primary: #60a5fa;
+  --biq-color-primary-hover: #3b82f6;
+  --biq-color-primary-subtle: #1e3a5f;
+  --biq-color-surface-0: #0c0a09;
+  --biq-color-surface-1: #1c1917;
+  --biq-color-surface-2: #292524;
+  --biq-color-text-primary: #fafaf9;
+  --biq-color-text-secondary: #a8a29e;
+  --biq-color-text-muted: #78716c;
+  --biq-color-border: #292524;
+  --biq-color-border-subtle: #1c1917;
+  --biq-color-focus-ring: #60a5fa;
+  --biq-color-status-success: #4ade80;
+  --biq-color-status-success-subtle: #14532d;
+  --biq-color-status-warning: #fbbf24;
+  --biq-color-status-warning-subtle: #5c3d10;
+  --biq-color-status-error: #f87171;
+  --biq-color-status-error-subtle: #4a1010;
+  --biq-color-status-info: #60a5fa;
+  --biq-color-status-info-subtle: #1e3a5f;
+  --biq-color-dark-surface-0: #0c0a09;
+  --biq-color-dark-surface-1: #1c1917;
+  --biq-color-dark-surface-2: #292524;
+  --biq-color-dark-text-primary: #fafaf9;
+  --biq-color-dark-text-secondary: #a8a29e;
+  --biq-color-dark-border: #292524;
 }

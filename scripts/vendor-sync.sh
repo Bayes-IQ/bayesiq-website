@@ -3,8 +3,8 @@
 # vendor-sync.sh — Sync design system outputs into src/vendor/biq/
 #
 # Copies tokens.css from bayesiq-design-system/dist/ into the website's
-# vendored directory, stripping dark mode blocks (site is light-only)
-# and @font-face blocks (website uses next/font).
+# vendored directory, stripping @font-face blocks (website uses next/font).
+# Dark theme block is retained for dark mode support.
 #
 # If tailwind-v4-theme.css exists in dist/, it is copied as well.
 # That file is currently manually maintained in this repo and will be
@@ -52,7 +52,7 @@ strip_tokens() {
   awk '
     # Track brace depth for block removal
     /^@font-face[[:space:]]*\{/ { skip=1; depth=0 }
-    /^\[data-theme="dark"\][[:space:]]*\{/ { skip=1; depth=0 }
+
     /^@media[[:space:]]*\(prefers-color-scheme:[[:space:]]*dark\)/ { skip=1; depth=0 }
 
     skip {
@@ -77,10 +77,10 @@ echo "=== tokens.css ==="
 STRIPPED=$(strip_tokens "$DS_DIST/tokens.css")
 
 # Add a vendored header
-HEADER="/* BayesIQ Design System — Vendored Tokens (light-only)
+HEADER="/* BayesIQ Design System — Vendored Tokens (light + dark)
  * Source: bayesiq-design-system/dist/tokens.css
  * Synced by: scripts/vendor-sync.sh
- * Dark mode blocks and @font-face removed (site is light-only, uses next/font).
+ * @font-face removed (site uses next/font). Dark theme block retained.
  * Do not edit manually — re-run vendor-sync.sh to update.
  */"
 # Remove the original file header and collapse multiple blank lines
@@ -141,7 +141,7 @@ if [[ "$DRY_RUN" == true ]]; then
   echo "Dry run complete. No files were modified."
 else
   echo "Vendor sync complete."
-  echo "  tokens.css:            $TOKEN_COUNT tokens (dark mode + @font-face stripped)"
+  echo "  tokens.css:            $TOKEN_COUNT tokens (@font-face stripped, dark theme retained)"
   if [[ -f "$DS_DIST/tailwind-v4-theme.css" ]]; then
     echo "  tailwind-v4-theme.css: copied from design system"
   else

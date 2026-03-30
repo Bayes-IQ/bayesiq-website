@@ -32,7 +32,7 @@ export default function MetricCard({ metric }: Props) {
   const metricName = metric.metric.replace(/_/g, " ");
 
   return (
-    <div className="rounded-xl border border-biq-border bg-white px-5 py-4 shadow-sm">
+    <div className="rounded-xl border border-biq-border bg-biq-surface-0 px-5 py-4 shadow-sm">
       <p className="text-xs font-medium uppercase tracking-wide text-biq-text-muted">
         {metricName}
       </p>

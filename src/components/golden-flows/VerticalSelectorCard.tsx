@@ -88,7 +88,7 @@ export default function VerticalSelectorCard({
           ${
             isSelected
               ? "border border-biq-border bg-biq-surface-1 shadow-sm text-biq-text-primary"
-              : "border border-biq-border bg-white hover:border-biq-border hover:bg-biq-surface-1/50 text-biq-text-secondary hover:text-biq-text-primary"
+              : "border border-biq-border bg-biq-surface-0 hover:border-biq-border hover:bg-biq-surface-1/50 text-biq-text-secondary hover:text-biq-text-primary"
           }
         `}
       >

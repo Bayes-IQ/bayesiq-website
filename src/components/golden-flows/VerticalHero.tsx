@@ -41,7 +41,7 @@ export default function VerticalHero({
   const consequence = boardReport?.top_risks?.[0]?.business_impact ?? null;
 
   return (
-    <section className="mt-6 rounded-2xl border border-biq-border bg-white p-6 shadow-sm sm:p-8">
+    <section className="mt-6 rounded-2xl border border-biq-border bg-biq-surface-0 p-6 shadow-sm sm:p-8">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
         {/* Score + delta */}
         <div className="flex-shrink-0 text-center sm:text-left">

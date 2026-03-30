@@ -85,7 +85,7 @@ export default function WhyThisMatters({ risks }: Props) {
         {displayed.map((risk) => (
           <div
             key={risk.title}
-            className="rounded-xl border border-biq-border bg-white p-5 shadow-sm"
+            className="rounded-xl border border-biq-border bg-biq-surface-0 p-5 shadow-sm"
           >
             <div className="flex items-start gap-3">
               <SeverityIcon severity={risk.severity} />

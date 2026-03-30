@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -13,7 +14,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-biq-border bg-white/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-biq-border bg-biq-surface-0/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-xl font-semibold tracking-tight text-biq-text-primary">
           Bayes<span className="text-biq-primary">IQ</span>
@@ -30,6 +31,7 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          <ThemeToggle />
           <Link
             href="/contact"
             className="rounded-lg bg-biq-dark-surface-1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-biq-dark-surface-2"
@@ -57,6 +59,10 @@ export default function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <nav className="border-t border-biq-border px-6 py-4 md:hidden">
+          <div className="flex items-center justify-between pb-2">
+            <span className="text-xs font-medium text-biq-text-muted">Theme</span>
+            <ThemeToggle />
+          </div>
           {navItems.map((item) => (
             <Link
               key={item.path}

@@ -51,7 +51,7 @@ export default function TrustSummaryBar({ summary }: TrustSummaryBarProps) {
               return (
                 <span
                   key={objectType}
-                  className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-[10px] font-medium text-biq-text-secondary ring-1 ring-inset ring-biq-border"
+                  className="inline-flex items-center rounded-md bg-biq-surface-0 px-2 py-0.5 text-[10px] font-medium text-biq-text-secondary ring-1 ring-inset ring-biq-border"
                 >
                   {objectType}: {approved}/{rollup.total}
                 </span>

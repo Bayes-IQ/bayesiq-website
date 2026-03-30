@@ -246,7 +246,7 @@ export default function ReportPreview({ report, narrative, verticalName }: Props
     report.executive_summary ?? narrative?.with_bayesiq ?? null;
 
   return (
-    <div className="bg-white shadow-md rounded-2xl max-w-3xl mx-auto p-8 relative" data-testid="report-document">
+    <div className="bg-biq-surface-0 shadow-md rounded-2xl max-w-3xl mx-auto p-8 relative" data-testid="report-document">
       <span className="absolute top-4 right-4 text-[10px] font-medium uppercase tracking-wider text-biq-status-warning bg-biq-status-warning-subtle border border-biq-status-warning-subtle px-2 py-0.5 rounded">
         Illustrative Example
       </span>

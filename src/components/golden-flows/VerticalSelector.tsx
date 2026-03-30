@@ -13,7 +13,7 @@ export default function VerticalSelector({
   currentSlug,
 }: Props) {
   return (
-    <div className="sticky top-16 z-10 bg-white/95 backdrop-blur-sm pb-4">
+    <div className="sticky top-16 z-10 bg-biq-surface-0/95 backdrop-blur-sm pb-4">
       <div className="flex flex-wrap gap-2">
         {verticals.map((vertical) => {
           const metrics = hookMetrics.get(vertical.slug);
