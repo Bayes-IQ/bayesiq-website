@@ -130,10 +130,10 @@ export default function TermsPage() {
             <p className="mt-3">
               Questions about these terms? Email us at{" "}
               <a
-                href="mailto:hello@bayesiq.com"
+                href="mailto:hello@bayes-iq.com"
                 className="text-biq-text-primary underline hover:text-accent"
               >
-                hello@bayesiq.com
+                hello@bayes-iq.com
               </a>{" "}
               or use our{" "}
               <Link

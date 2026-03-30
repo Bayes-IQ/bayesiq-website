@@ -57,4 +57,4 @@ These terms are governed by applicable law. Specific jurisdiction will be establ
 
 ## Contact
 
-Questions about these terms? Email us at hello@bayesiq.com or use our contact form at https://bayesiq.com/contact.
+Questions about these terms? Email us at hello@bayes-iq.com or use our contact form at https://bayes-iq.com/contact.
