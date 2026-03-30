@@ -67,7 +67,7 @@ export default function GoldenFlowsCTA({
             Book 20&ndash;30 minutes. We&apos;ll tell you honestly what we see.
           </p>
           <a
-            href="https://calendly.com/bayesiq/30min"
+            href="https://calendly.com/jamey-mcdowell-bayes-iq/30min"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackCtaClick("book_session", vertical || "unknown")}

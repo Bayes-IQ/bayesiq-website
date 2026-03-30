@@ -13,7 +13,8 @@ import { track } from "@vercel/analytics";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 // Update this URL when the Calendly event type link changes.
-const CALENDLY_URL = "https://calendly.com/bayesiq/30min";
+const CALENDLY_URL = "https://calendly.com/jamey-mcdowell-bayes-iq/30min";
+const CALENDLY_EMBED_URL = `${CALENDLY_URL}?hide_gdpr_banner=1&hide_landing_page_details=1`;
 // ──────────────────────────────────────────────────────────────────────────────
 
 function handleBookClick() {
@@ -59,9 +60,10 @@ export default function CalendlyEmbed() {
        * alternative in case the widget script is blocked or fails.
        */}
       <div
-        className="calendly-inline-widget overflow-hidden rounded-xl border border-biq-border-subtle"
-        data-url={CALENDLY_URL}
-        style={{ minHeight: "700px", width: "100%" }}
+        data-theme="light"
+        className="calendly-inline-widget rounded-xl border border-biq-border-subtle bg-white"
+        data-url={CALENDLY_EMBED_URL}
+        style={{ minHeight: "950px", width: "100%" }}
         role="region"
         aria-label="Calendly booking calendar"
       >
