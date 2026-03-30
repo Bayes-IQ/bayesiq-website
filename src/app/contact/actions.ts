@@ -7,7 +7,7 @@ const resend = process.env.RESEND_API_KEY
   : null;
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "jamey.mcdowell@bayes-iq.com";
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "website@bayesiq.com";
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "website@bayes-iq.com";
 
 const MAX_NAME_LENGTH = 200;
 const MAX_EMAIL_LENGTH = 254;

@@ -57,10 +57,10 @@ Contact form submissions are retained for as long as necessary to respond to you
 
 ## Your rights
 
-You have the right to request access to, correction of, or deletion of your personal data. To make a request, contact us at privacy@bayesiq.com.
+You have the right to request access to, correction of, or deletion of your personal data. To make a request, contact us at privacy@bayes-iq.com.
 
 ---
 
 ## Contact
 
-Questions about this privacy policy? Email us at privacy@bayesiq.com.
+Questions about this privacy policy? Email us at privacy@bayes-iq.com.

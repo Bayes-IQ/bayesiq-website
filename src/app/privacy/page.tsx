@@ -113,10 +113,10 @@ export default function PrivacyPage() {
               You have the right to request access to, correction of, or
               deletion of your personal data. To make a request, contact us at{" "}
               <a
-                href="mailto:privacy@bayesiq.com"
+                href="mailto:privacy@bayes-iq.com"
                 className="text-biq-text-primary underline hover:text-accent"
               >
-                privacy@bayesiq.com
+                privacy@bayes-iq.com
               </a>
               .
             </p>
@@ -127,10 +127,10 @@ export default function PrivacyPage() {
             <p className="mt-3">
               Questions about this privacy policy? Email us at{" "}
               <a
-                href="mailto:privacy@bayesiq.com"
+                href="mailto:privacy@bayes-iq.com"
                 className="text-biq-text-primary underline hover:text-accent"
               >
-                privacy@bayesiq.com
+                privacy@bayes-iq.com
               </a>
               .
             </p>
