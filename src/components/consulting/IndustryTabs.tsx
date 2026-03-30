@@ -100,7 +100,7 @@ function IndustryTabsInner() {
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={`shrink-0 border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
               vertical.id === activeId
-                ? "border-bayesiq-900 text-biq-text-primary"
+                ? "border-biq-dark-surface-1 text-biq-text-primary"
                 : "border-transparent text-biq-text-muted hover:text-biq-text-secondary"
             }`}
           >

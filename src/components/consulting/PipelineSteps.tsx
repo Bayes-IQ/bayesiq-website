@@ -68,7 +68,7 @@ export default function PipelineSteps({
           <li key={step.number} className="relative md:pl-14">
             {/* Step number circle */}
             <div className="mb-2 flex items-center gap-3 md:absolute md:left-0 md:top-0 md:mb-0">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bayesiq-900 font-mono text-sm font-medium text-white">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-biq-dark-surface-1 font-mono text-sm font-medium text-white">
                 {step.number}
               </span>
               <h3 className="font-display text-lg font-semibold text-biq-text-primary md:hidden">

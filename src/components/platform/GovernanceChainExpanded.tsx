@@ -108,10 +108,10 @@ export default function GovernanceChainExpanded() {
           >
             <motion.div
               variants={shouldReduceMotion ? undefined : itemVariants}
-              className="flex h-24 w-40 flex-col items-center justify-center rounded-lg border border-bayesiq-600 bg-bayesiq-900 text-center"
+              className="flex h-24 w-40 flex-col items-center justify-center rounded-lg border border-biq-dark-border bg-biq-dark-surface-1 text-center"
             >
               <span className="text-sm font-bold text-white">{step.label}</span>
-              <span className="mt-1 text-xs text-bayesiq-400">{step.sub}</span>
+              <span className="mt-1 text-xs text-biq-dark-text-secondary">{step.sub}</span>
             </motion.div>
             {i < chainSteps.length - 1 && (
               <motion.div
@@ -121,7 +121,7 @@ export default function GovernanceChainExpanded() {
               >
                 {/* Vertical arrow on mobile, horizontal on sm+ */}
                 <svg
-                  className="h-6 w-6 rotate-90 text-bayesiq-500 sm:rotate-0"
+                  className="h-6 w-6 rotate-90 text-biq-dark-text-secondary sm:rotate-0"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -144,7 +144,7 @@ export default function GovernanceChainExpanded() {
           aria-hidden="true"
         >
           <svg
-            className="h-6 w-6 text-[var(--dark-accent)]"
+            className="h-6 w-6 text-accent"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -171,13 +171,13 @@ export default function GovernanceChainExpanded() {
           <motion.div
             key={path.label}
             variants={shouldReduceMotion ? undefined : itemVariants}
-            className="rounded-xl border border-bayesiq-700 bg-bayesiq-900 p-6 text-center"
+            className="rounded-xl border border-biq-dark-border bg-biq-dark-surface-1 p-6 text-center"
           >
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-bayesiq-800 text-[var(--dark-accent)]">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-biq-dark-surface-2 text-accent">
               {path.icon}
             </div>
             <h4 className="mt-4 text-sm font-bold text-white">{path.label}</h4>
-            <p className="mt-2 text-xs leading-relaxed text-bayesiq-400">
+            <p className="mt-2 text-xs leading-relaxed text-biq-dark-text-secondary">
               {path.description}
             </p>
           </motion.div>

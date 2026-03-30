@@ -29,12 +29,12 @@ export default function GovernanceChain({
 
   // Theme-aware colors
   const nodeFill =
-    theme === "light" ? "var(--color-bayesiq-200)" : "var(--color-biq-text-primary)";
+    theme === "light" ? "var(--biq-color-dark-text-secondary)" : "var(--color-biq-text-primary)";
   const nodeText = theme === "light" ? "var(--color-biq-text-primary)" : "white";
   const connectorColor =
-    theme === "light" ? "var(--color-bayesiq-500)" : "var(--color-biq-text-muted)";
+    theme === "light" ? "var(--biq-color-dark-text-secondary)" : "var(--color-biq-text-muted)";
   const labelColor =
-    theme === "light" ? "var(--color-bayesiq-300)" : "var(--color-biq-text-secondary)";
+    theme === "light" ? "var(--biq-color-dark-text-primary)" : "var(--color-biq-text-secondary)";
 
   // Horizontal layout dimensions
   const svgWidth = (nodes.length - 1) * nodeSpacing + nodeRadius * 2 + 40;

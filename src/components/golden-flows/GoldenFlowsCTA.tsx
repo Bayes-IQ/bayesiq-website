@@ -17,12 +17,12 @@ export default function GoldenFlowsCTA({
   return (
     <div className="mt-16 space-y-0">
       {/* Section 1 — Diagnostic Entry Point */}
-      <section className="rounded-t-xl bg-bayesiq-900 px-6 py-14 text-center">
+      <section className="rounded-t-xl bg-biq-dark-surface-1 px-6 py-14 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {diagnosticHeadline}
           </h2>
-          <p className="mt-4 text-lg text-bayesiq-300">
+          <p className="mt-4 text-lg text-biq-dark-text-primary">
             A focused $7,500 engagement. We audit your{" "}
             {vertical ? vertical.toLowerCase() : ""} data, score your metrics,
             and deliver a remediation roadmap in 2 weeks.
@@ -71,7 +71,7 @@ export default function GoldenFlowsCTA({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackCtaClick("book_session", vertical || "unknown")}
-            className="mt-8 inline-block rounded-lg border border-bayesiq-900 bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
+            className="mt-8 inline-block rounded-lg border border-biq-dark-surface-1 bg-white px-6 py-3 text-sm font-medium text-biq-text-primary transition-colors hover:bg-biq-surface-1"
           >
             Book a call
           </a>

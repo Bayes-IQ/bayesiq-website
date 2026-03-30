@@ -14,11 +14,11 @@ export default function CTA({
   href = "/contact",
 }: CTAProps) {
   return (
-    <section className="bg-bayesiq-900 px-6 py-20 text-center">
+    <section className="bg-biq-dark-surface-1 px-6 py-20 text-center">
       <div className="mx-auto max-w-2xl">
         <h2 className="font-display text-3xl font-bold tracking-tight text-white">{headline}</h2>
         {description && (
-          <p className="mt-4 text-lg text-bayesiq-300">{description}</p>
+          <p className="mt-4 text-lg text-biq-dark-text-primary">{description}</p>
         )}
         <Link
           href={href}

@@ -16,13 +16,13 @@ export default function PlatformCTA() {
     >
       <Link
         href="/consulting/explore"
-        className="inline-block rounded-lg bg-white px-8 py-3.5 text-sm font-semibold text-bayesiq-900 transition-colors hover:bg-bayesiq-100"
+        className="inline-block rounded-lg bg-white px-8 py-3.5 text-sm font-semibold text-biq-text-primary transition-colors hover:bg-biq-surface-2"
       >
         See it in action
       </Link>
       <Link
         href="/contact"
-        className="inline-block rounded-lg border border-bayesiq-500 px-8 py-3.5 text-sm font-semibold text-bayesiq-300 transition-colors hover:border-bayesiq-300 hover:text-white"
+        className="inline-block rounded-lg border border-biq-dark-text-secondary px-8 py-3.5 text-sm font-semibold text-biq-dark-text-primary transition-colors hover:border-biq-dark-text-primary hover:text-white"
       >
         Talk to us about the platform
       </Link>

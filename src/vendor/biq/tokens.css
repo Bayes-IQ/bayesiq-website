@@ -26,6 +26,12 @@
   --biq-color-status-error-subtle: #fee2e2;
   --biq-color-status-info: #1a73e8;
   --biq-color-status-info-subtle: #dde8f8;
+  --biq-color-dark-surface-0: #0a0f1a;
+  --biq-color-dark-surface-1: #0f172a;
+  --biq-color-dark-surface-2: #1e293b;
+  --biq-color-dark-text-primary: #f8fafc;
+  --biq-color-dark-text-secondary: #94a3b8;
+  --biq-color-dark-border: #1e293b;
 
   /* ── Typography ── */
   /* ── Spacing ── */
@@ -80,4 +86,10 @@
   --biq-breakpoint-md: 768px;
   --biq-breakpoint-lg: 1024px;
   --biq-breakpoint-xl: 1280px;
+  --biq-container-max-width: 1200px;
+  --biq-container-padding-x: 16px;
+  --biq-container-padding-x-md: 24px;
+  --biq-container-padding-x-lg: 32px;
+  --biq-section-padding-y: 48px;
+  --biq-section-padding-y-md: 64px;
 }
