@@ -6,6 +6,10 @@ schema_version: 1
 repo:
   root: ".."  # relative to this config file → resolves to biq_website/
 
+  # Added 2026-09-10 (postmortem R-1). Required since bayesiq 31f6132.
+  # sensitive: admitted cloud providers may review plans from this repo.
+  transmission_classification: sensitive
+
 commands:
   # Next.js project — no Python test/invariant/conformance scripts.
   test: null
