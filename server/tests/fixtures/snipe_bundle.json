@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-03T23:51:49+00:00",
+  "desk": {
+    "title": "SYNTHETIC Desk",
+    "decisions": [
+      {
+        "title": "SYNTHETIC decision",
+        "status": "recheck",
+        "due": null,
+        "link": null
+      }
+    ],
+    "watchlists": [
+      {
+        "label": "SYNTHETIC hardware",
+        "last_check": "2026-10-01 18:00 UTC",
+        "sweep_tokens": null,
+        "deals": [
+          {
+            "id": "synthetic-hw:synthetic-gpu:local-steal:700.00",
+            "grade": "watching",
+            "why": [
+              "not enough recent sales to judge"
+            ],
+            "watchlist": "synthetic-hw",
+            "item_id": "synthetic-gpu",
+            "item_label": "SYNTHETIC 32 GB GPU",
+            "track": "price",
+            "priority": "want",
+            "listing_key": "local-steal",
+            "source": "SYNTHETIC marketplace",
+            "url": null,
+            "channel": "local",
+            "condition": "used",
+            "price": "700.00",
+            "all_in": "700.00",
+            "baseline_median": "1000.00",
+            "round_trip_miles": "12",
+            "listing_days": 2,
+            "max_price": "1100.00",
+            "sold_30": {
+              "count": 0,
+              "median": null
+            },
+            "swipe": null,
+            "slug": "74841c61b9b45fa9",
+            "listing_slug": "0ce5c9d0e757dc31"
+          }
+        ]
+      }
+    ]
+  },
+  "deck": {
+    "cards": [
+      {
+        "slug": "74841c61b9b45fa9",
+        "listing_slug": "0ce5c9d0e757dc31",
+        "ref": "synthetic-hw:synthetic-gpu:local-steal",
+        "alert_id": "synthetic-hw:synthetic-gpu:local-steal:700.00",
+        "grade": "watching",
+        "watchlist": "SYNTHETIC hardware",
+        "item": "SYNTHETIC 32 GB GPU",
+        "price": 700.0,
+        "all_in": 700.0,
+        "condition": "used",
+        "channel": "local",
+        "source": "SYNTHETIC marketplace",
+        "url": null,
+        "typical": 1000.0,
+        "typical_basis": "current asks",
+        "max": 1100.0,
+        "sold_30": {
+          "count": 0,
+          "median": null
+        },
+        "tone": "fair",
+        "verdict": "$300 under typical (30%)",
+        "trip": "12 mi round trip, worth the drive (nets $286)",
+        "listing_days": 2,
+        "reasons": [
+          "judged against asking prices, not sales"
+        ],
+        "why": [
+          "not enough recent sales to judge"
+        ],
+        "swipe": null,
+        "photo": null,
+        "wanted": true,
+        "comps": []
+      }
+    ]
+  },
+  "prices": {
+    "schema_version": 1,
+    "generated_at": "2026-10-03T23:51:49+00:00",
+    "watchlists": [
+      {
+        "id": "synthetic-hw",
+        "label": "SYNTHETIC hardware",
+        "items": [
+          {
+            "id": "synthetic-gpu",
+            "label": "SYNTHETIC 32 GB GPU",
+            "priority": "want",
+            "track": "price",
+            "alertable": true,
+            "max": 1100.0,
+            "typical": null,
+            "series": [
+              {
+                "check": "synthetic-check-1",
+                "date": "2026-09-01",
+                "low": 980.0,
+                "median": 1005.0,
+                "n": 8,
+                "cheapest": {
+                  "price": 980.0,
+                  "source": "SYNTHETIC marketplace",
+                  "url": null,
+                  "condition": "used",
+                  "channel": "shipped",
+                  "key": "c"
+                }
+              },
+              {
+                "check": "synthetic-check-2",
+                "date": "2026-10-01",
+                "low": 700.0,
+                "median": 1000.0,
+                "n": 9,
+                "cheapest": {
+                  "price": 700.0,
+                  "source": "SYNTHETIC marketplace",
+                  "url": null,
+                  "condition": "used",
+                  "channel": "local",
+                  "key": "local-steal"
+                }
+              }
+            ],
+            "sales": [],
+            "grade": {
+              "grade": "watching",
+              "reasons": [
+                "judged against asking prices, not sales"
+              ],
+              "why": [
+                "not enough recent sales to judge"
+              ],
+              "price": 700.0
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
