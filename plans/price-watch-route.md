@@ -13,203 +13,307 @@ work_unit:
   issue: 95
 ---
 
-# PR: Private Price Watch route (Fixes #95)
+# PR: snipe-sales.bayes-iq.com on the Railway server (Fixes #95)
 
 Last Updated: 2026-10-03
 
-PR Type: Platform (new private route, ingest endpoint, private store). **Repo:** bayesiq-website. Plan Archetype: Platform.
+PR Type: Platform. **Repo:** bayesiq-website. Plan Archetype: Platform.
+
+Spec: the operator's decision comment on #95 (2026-10-03T22:46Z) and its correction (23:10Z): the host is `snipe-sales.bayes-iq.com`, not `bayesiq.com`. bayesiq.com has no DNS. bayes-iq.com is the Cloudflare zone, with www on Vercel. This plan replaces the earlier Vercel Blob design.
 
 ## Roadmap Position
 
-Operator tooling outside the website's marketing roadmap (`docs/ai/ROADMAP.md`). The consumer half of estate-scout PR #22 (`47917e4`). Alert delivery stays in Bayes-IQ/bayesiq#1387.
+This is operator tooling, outside the marketing roadmap in `docs/ai/ROADMAP.md`. It is the site half of estate-scout #25 and #26 (client `site_cli`, `origin/main` `d8cee28`). Alert delivery stays in Bayes-IQ/bayesiq#1387. The machine credential scope is Bayes-IQ/bayesiq-workspace#1481.
+
+## Layers Affected
+
+| Layer | What changes |
+|-------|-------------|
+| `server/` | new `snipe/` package (routes, store, auth, vendored renderers), a two-line hook in `main.py`, one `COPY` line in `Dockerfile`, new `tests/` |
+| `.github/` | `ci.yml` gains a separate `server-tests` job |
+
+**Invariant touched:** credential non-leak (new bearer token, session secret, Resend key).
 
 ## Goal
 
-The operator opens `https://bayes-iq.com/prices` on a phone, signs in, and sees one line chart per watched item, drawn from the estate-scout export (schema 1) unchanged. Tapping or dragging snaps to a check and shows price, listing, condition and date. The data is stored privately, read per request, never bundled, never in `public/`, and never indexed.
+The operator opens `https://snipe-sales.bayes-iq.com/` on a phone and signs in with a magic link. They then see the Deal Desk (`/`), the Deal Deck (`/deck#<slug>`) and Price Watch (`/prices`), rendered from the latest sweep bundle that estate-scout pushed. Swipes are saved on the site and pulled back by the next sweep. The whole host is served by the existing Railway FastAPI service in `server/`. Data lives on a Railway volume. Nothing touches the Next.js site or Vercel, and nothing depends on a Claude or Anthropic service.
 
 ## Decisions
 
-- **D1 Auth: single-operator password, signed cookie, gate in the page.** `bayesiq-auth-services` is a Phase 0 scaffold with no code (Reference R4), and its charter is operator-side credential acquisition over `bayesiq-creds`, not web sessions. The site has no auth, middleware or session code today. `server/` is the unrelated FastAPI audit API, and `contact/actions.ts` only reads `RESEND_*`/`CONTACT_*` env. The scheme:
-  - `/prices/login` posts a password to a server action, which compares SHA-256 digests with `timingSafeEqual` against env `PRICE_WATCH_PASSWORD`.
-  - On a match it sets cookie `pw_session` = `v1.<exp>.<base64url HMAC-SHA256(key=PRICE_WATCH_PASSWORD, "price-watch|"+exp)>`. Attributes: HttpOnly, SameSite=Lax (Lax so an alert link from another app keeps the session), Path=/prices, Max-Age 30 days, and `Secure` when `process.env.VERCEL` is set (`next start` in CI serves http).
-  - `src/app/prices/page.tsx` verifies the cookie before loading any data and calls `redirect("/prices/login")` otherwise.
-  - When `PRICE_WATCH_PASSWORD` is unset, both pages call `notFound()`. Previews get no secret (O2), so they fail closed.
-  - Rotating the password invalidates every session.
-  - No middleware: one gate sits where the data is loaded, there is no Edge runtime, and there is no second code path to keep in sync.
-  - No rate limit: the password is operator-generated and high-entropy (O2).
-  - This is app login code reading `process.env`, the same pattern as `RESEND_API_KEY`. It is not a credential wrapper or resolver (CONTRIBUTING "Credential files").
-- **D2 Storage: one private Vercel Blob object, written through an authenticated ingest endpoint.**
-  - Pathname `price-watch/latest.json`, using `@vercel/blob@^2.8.0` (new dependency). 2.8.0's `put`/`get` take `access: 'private'` and read `BLOB_READ_WRITE_TOKEN` (R3).
-  - `POST /api/prices/ingest` checks `Authorization: Bearer` against env `PRICE_WATCH_INGEST_TOKEN` (digest plus `timingSafeEqual`), caps the body at 4,000,000 bytes (under Vercel's 4.5 MB function body limit), validates it, then calls `put(..., {access:'private', addRandomSuffix:false, allowOverwrite:true, contentType:'application/json'})` with the raw body bytes.
-  - The Blob token stays in Vercel. The producer holds only a write-one-object token, so it never holds read access.
-  - Local and CI: when `PRICE_WATCH_DATA_FILE` is set **and** `VERCEL` is unset, `loadExport()` reads that file instead of Blob. This seam is unreachable on Vercel.
-  - Rejected: committing the JSON or putting it in `public/` (violates #95), Edge Config (size limits, not meant for data), and handing the producer `BLOB_READ_WRITE_TOKEN` (full store access off-platform).
-- **D3 No indexing or caching.**
-  - `src/app/prices/layout.tsx` sets metadata `robots: {index:false, follow:false}`, overriding the root layout's `index: true`.
-  - `next.config.mjs` `headers()` gets one entry, `source: "/prices/:path*"`, with `X-Robots-Tag: noindex, nofollow, noarchive`.
-  - `robots.ts` adds `disallow: "/prices"`.
-  - `sitemap.ts` is unchanged, since the route is not listed.
-  - Both prices pages set `dynamic = "force-dynamic"`. They read `cookies()` and call `get(..., {useCache:false})`, so Next serves them `no-store` and prerenders nothing.
-- **D4 Chart: inline SVG client component.** `package.json` has no chart library. Port the estate-scout `SCRIPT` behavior (R2) to React:
-  - lowest and median lines with point markers, and verified sales as dots (the export's `sales[]` are verified, non-suspect sales only)
-  - a 60-day window and 5th–95th percentile scaling
-  - dashed `typical` and dotted `max` reference lines with labels, plus a "now" ring
-  - pointerdown, and pointermove while pressed, snap to the nearest check. ArrowLeft/Right do the same. `touch-action: pan-y`
-  - the readout shows lowest price, date, median of n, and `source · condition · channel`, with an "open listing" link only for `https://` URLs, otherwise the listing `key`. It adds "Sold within a week"
-  - header chips (Alert $x, can alert/watch only, scarce), a stats row (lowest ask now, typical sold, your max) and the "Not an alert: why" line
-  - filters: All, one per watchlist, and "Alertable only", as `aria-pressed` buttons at least 44px tall
-  - `viewBox 0 0 340 180`, `width:100%`, and cards with `min-w-0`, so nothing scrolls sideways at 360px
-  - colors: `--series-1/2/3` copied from estate-scout, with surfaces and text from the site's `biq-*` tokens
-- **D5 Contract fidelity.** `parsePriceWatch(unknown)` is a hand-written validator with no runtime dependency. It accepts exactly the shipped schema 1 (R1), ignores unknown extra keys, and rejects `schema_version !== 1` or bad types with a field path. Issue #95 describes a per-watchlist `{date, price, listing, condition, channel, verified}` series. The shipped export is one document per desk with the shape in R1, and this PR consumes that unchanged.
+- **D1 One service, host-dispatched.** `server/snipe/` is a separate FastAPI app. A pure ASGI `SnipeHostMiddleware`, added to `main.app`, sends a request to it only when the `Host` header (lowercased, port stripped) equals env `SNIPE_HOST`. Every other request, and every request when `SNIPE_HOST` is unset, goes to the existing app unchanged. So `/health` and `/audit` behave as today on every other host. On the snipe host they 404, and the snipe routes 404 everywhere else. Because the middleware is added last, it is outermost, and snipe responses bypass the audit CORS policy. Rejected: a Next.js route on Vercel, which would need cross-service auth plus a TypeScript port of the Python renderers.
+- **D2 Storage: SQLite plus a photo directory under env `SNIPE_DATA_DIR`** (a Railway volume): `snipe.sqlite3` and `photos/`. Fail closed: if `SNIPE_DATA_DIR` is unset or not an existing directory, or `SNIPE_API_TOKEN`, `SNIPE_SESSION_SECRET` or `SNIPE_OPERATOR_EMAIL` is unset, every snipe route except `/robots.txt` returns 503. The env is read per request. Tables:
+  - `sweeps(generated_at TEXT PRIMARY KEY, generated_utc TEXT NOT NULL, stored_at TEXT NOT NULL, body TEXT NOT NULL)`
+  - `swipes(id INTEGER PRIMARY KEY AUTOINCREMENT, ref, verdict, price, alert_id, at)`
+  - `used_links(nonce TEXT PRIMARY KEY, used_at TEXT)`
+  - **History policy:** `INSERT OR IGNORE` on `generated_at`. A repeat push returns the stored row's `stored_at` and keeps the first body. After each insert, rows beyond the newest 90 by `generated_utc` are deleted. Pages render the newest row only. Charts need no older rows, because the bundle's `prices` export already carries each item's full series (R2).
+  - **Photos are content-addressed:** `photos/<sha256 hex>.png|.jpg`, returned as `{"url": "/photos/<name>"}`.
+- **D3 Machine API (bearer).** It checks `Authorization: Bearer` against `SNIPE_API_TOKEN` with `hmac.compare_digest` over SHA-256 digests. A session cookie never authorizes it. This matches `site_cli` exactly (R1):
+  - `POST /api/sweeps`: 401, 413 over 10,000,000 bytes, 400 if not JSON, 422 `{"error": "<field path>"}`, 200 `{"stored_at"}`. The validator checks only what the pages read:
+    - `schema_version == 1`, and `generated_at` is an ISO 8601 string with an offset
+    - `desk.title` (str), `desk.decisions` (list) and `desk.watchlists[].{label, deals(list)}`
+    - `deck.cards[].{ref, slug}` (str)
+    - `prices.schema_version == 1` and `prices.watchlists` (list)
+
+    Unknown keys are kept.
+  - `PUT /api/photos?ref=`: `ref` must have at least two `:` and at most 512 characters (else 422). The body must start with `\x89PNG` or `\xff\xd8` (else 415) and be at most 5,000,000 bytes (else 413).
+  - `GET /api/swipes`: returns `{"swipes": [{ref, verdict, price, at}]}`, every row, oldest first. `alert_id` is stored but not returned.
+- **D4 Browser side (operator session).**
+  - `/`, `/deck` and `/prices` redirect (303) to `/login` without a session. Before any bundle exists, they show "No sweep uploaded yet."
+  - `GET /photos/<name>` needs a session. The name must match `^[0-9a-f]{64}\.(png|jpg)$`, and the response sets `X-Content-Type-Options: nosniff`.
+  - `POST /api/swipes` takes `{ref, verdict, price, alert_id}`. It needs a session and `Origin == https://$SNIPE_HOST` (else 403; this blocks same-site bayes-iq.com pages). `verdict` must be `pass|maybe|want` and `price` must match `^[0-9]{1,9}(\.[0-9]{1,2})?$` (the estate-scout `amount` rule) (else 422). The server sets `at` (UTC, `Z`) and returns 201 `{"at"}`.
+  - **Swipe overlay:** a stored swipe whose `at` is later than the bundle's `generated_utc` overrides `swipe` on deck cards (by `ref`) and desk deals (by `f"{watchlist}:{item_id}:{listing_key}"`, R3). Older swipes are already reflected in the bundle's grading through `pull-swipes`.
+- **D5 Login: magic link by email via Resend.** A passkey would need WebAuthn registration, a bootstrap path and a JS ceremony, so it is not simpler.
+  - `GET /login` shows an email form. `POST /login` always answers "If that is the operator's address, a link is on its way." It sends only when the address equals `SNIPE_OPERATOR_EMAIL` (case-insensitive), at most 5 emails per rolling hour (in-memory).
+  - The link is `https://$SNIPE_HOST/login/verify?t=<exp>.<nonce>.<sig>`, with `sig = HMAC-SHA256(SNIPE_SESSION_SECRET, "link|exp|nonce")`, 15-minute expiry and a 128-bit nonce. The host comes from env, never from the request.
+  - `GET /login/verify` only shows a "Sign in" button, so mail scanners that prefetch links do not spend the token. `POST /login/verify` checks the signature and expiry and inserts the nonce into `used_links` (a duplicate gives 400). It then sets `__Host-snipe_session=<exp>.<sig>`, with `sig = HMAC(secret, "session|exp")`, 30 days, `HttpOnly; Secure; SameSite=Lax; Path=/` and no `Domain`, and redirects 303 to `/`.
+  - Sending is a `POST https://api.resend.com/emails` with `Authorization: Bearer $RESEND_API_KEY`, a `User-Agent` and JSON `{from, to:[...], subject, text}`, the same request the website's `resend` SDK makes (R6). It uses stdlib `urllib`, so there is no new dependency. `from` is env `SNIPE_FROM_EMAIL`, defaulting to `website@bayes-iq.com` (the contact form's default, `src/app/contact/actions.ts:10`). If `RESEND_API_KEY` is unset, `POST /login` returns 503.
+  - Rotating `SNIPE_SESSION_SECRET` ends every session. There is no logout.
+- **D6 Port, don't redesign.** The renderers are copied into `server/snipe/vendor/` from estate-scout `d8cee28`, which has the same code as `dcb2a80` at these lines. The SHA and source line ranges sit in each file's header. Only these edits are made:
+  - imports trimmed to stdlib, since the copied functions use only `html`, `json` and `decimal`
+  - the two Google Fonts `<link>` lines removed, so pages make no third-party request and fall back to the existing system font stack
+  - the deck's artifact-database calls (R4) replaced with a same-origin `fetch('/api/swipes', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ref: c.ref, verdict, price: c.price.toFixed(2), alert_id: c.alert_id})})`. A non-OK response shows the existing "Could not save that swipe" status. The `claude.use('db')`/`onSnapshot` block is deleted. Verdicts on load come from the overlaid `card.swipe`.
+
+  The adapter in `server/snipe/pages.py` calls the vendored `render_desk(config, sections, as_of)`, `render_deck(config, cards, as_of)` and `render_page(config, watchlists, as_of)` with `document=False`, and wraps each result in its own document head (charset, viewport, `<meta name="robots" content="noindex, nofollow">`). Nav links are `/`, `/deck` and `/prices`. Two adaptations are needed:
+  - Desk deals in the bundle have no `reasons` key, but `card(g)` evaluates `g.get("why", g["reasons"])` eagerly, so a raw bundle deal raises `KeyError('reasons')`. This was reproduced against a bundle generated at `d8cee28`. The adapter sets `reasons = why or []`.
+  - Card and comp `photo` values that are not `/photos/…` or `data:image/…` (the claude.ai `/_blob/` paths, R5) become `null`.
+- **D7 Privacy.** A middleware on the snipe app sets these headers on every snipe response, including 401, 403, 404 and 503:
+  - `X-Robots-Tag: noindex, nofollow, noarchive`
+  - `Cache-Control: private, no-store`
+  - `Referrer-Policy: no-referrer`
+  - `Content-Security-Policy: default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`
+
+  `/robots.txt` returns `User-agent: *\nDisallow: /\n` without auth. There are no analytics. Vercel Analytics is mounted only in the Next app (`src/app/layout.tsx:92`), which this host never serves, and the CSP blocks any third-party script or beacon. The snipe app sets `docs_url`, `redoc_url` and `openapi_url` to `None`. Logs never contain tokens, links, nonces, emails or bundle content.
+
+## Invariants
+
+| Invariant | Preserved? | Notes |
+|-----------|------------|-------|
+| Session boundary / gateway choke point / policy ordering / handler purity (bayesiq platform) | N/A | No bayesiq platform code |
+| Credential non-leak | YES | Secrets come only from env. They are compared in constant time and never logged, returned or rendered |
+| Existing audit API behavior | YES | `main.py` gains only the import and `add_middleware` (P1). Non-snipe hosts reach the unchanged app. Tested in T1 |
+| No runtime dependency on Anthropic or claude.ai APIs, SDKs or URLs in `server/` | YES | D6 removes `claude.use`, `/_blob/` photos and the Fonts links. T9 greps `server/snipe/` |
+| Fail closed | YES | Missing config gives 503 (D2). An unset `SNIPE_HOST` makes the snipe app unreachable |
 
 ## Scope
 
-**Added:**
-- `src/lib/price-watch/parse.ts`: types and `parsePriceWatch`
-- `src/lib/price-watch/session.ts`: `signSession`, `verifySession`, `passwordMatches`, `tokenMatches`, using `node:crypto`
-- `src/lib/price-watch/store.ts`: `loadExport()` (Blob or D2 file) and `saveExport(text)`
-- `src/app/prices/layout.tsx`
-- `src/app/prices/page.tsx`
-- `src/app/prices/login/page.tsx`
-- `src/app/prices/login/actions.ts`
-- `src/app/api/prices/ingest/route.ts`
-- `src/components/price-watch/PriceWatch.tsx`: client component for filters and cards
-- `src/components/price-watch/PriceChart.tsx`: client component for the SVG and readout
-- `e2e/fixtures/price-watch.json`: synthetic data only. Labels are prefixed `SYNTHETIC`, and URLs use `https://example.com`
-- `e2e/price-watch.spec.ts`
-- `src/lib/__tests__/price-watch-{parse,session,ingest}.test.ts`
-- `docs/price-watch.md`: the ingest contract and operator steps
+### Files Added
 
-**Modified:**
-- `package.json` and `package-lock.json`: add `@vercel/blob`
-- `src/app/robots.ts`
-- `next.config.mjs`: one `headers()` entry
-- `playwright.config.ts`: `webServer.env` with a test-only password and `PRICE_WATCH_DATA_FILE=e2e/fixtures/price-watch.json`
+| File | Purpose |
+|------|---------|
+| `server/snipe/__init__.py` | exports `SnipeHostMiddleware` and `snipe_app` |
+| `server/snipe/app.py` | snipe FastAPI app, routes, privacy middleware, config check |
+| `server/snipe/store.py` | SQLite schema, sweeps, swipes, used links, photos |
+| `server/snipe/auth.py` | bearer check, link and session sign/verify, `send_email` |
+| `server/snipe/pages.py` | bundle-to-renderer adapter, swipe overlay, document wrapper, login pages |
+| `server/snipe/vendor/__init__.py` | `SOURCE = "Bayes-IQ/estate-scout@d8cee28bd3e83fec3d85785a2c344e092916a967"` |
+| `server/snipe/vendor/desk.py` | `money`, `STYLE`, `STATUS_TONE`, `card` and `render_desk` from `deals.py` 33–35 and 331–435 |
+| `server/snipe/vendor/deck.py` | `STYLE`, `SCRIPT` and `render_deck` from `deck.py` 115–340 |
+| `server/snipe/vendor/price_page.py` | `STYLE`, `SCRIPT` and `render_page` from `price_page.py` 102–289 and 300–319 |
+| `server/tests/__init__.py`, `server/tests/test_snipe.py` | unittest suite (Test Plan) |
+| `server/tests/fixtures/snipe_bundle.json` | synthetic bundle (P6) |
 
-**Non-goals:**
-- any public page
-- alert delivery (#1387)
-- logout, rate limiting, or multi-user accounts
-- the estate-scout table `<details>` and its localStorage-persisted filters
-- changes to estate-scout or bayesiq-workspace (see Follow-ups)
+### Files Modified
 
-**Forbidden:**
-- `public/` (no data or fixture there)
-- `src/app/sitemap.ts`
-- `src/app/layout.tsx`
-- `server/`
-- the existing `redirects()` entries and existing `headers()` entries
-- `.github/workflows/ci.yml`, `config/project.yaml`, ESLint config and the plans layout. #96 (`plans/rejoin-rotation-repo-hygiene.md`) owns these. This PR neither depends on nor edits them.
+| File | What changes |
+|------|-------------|
+| `server/main.py` | after the CORS block (line 87): `from snipe import SnipeHostMiddleware` and `app.add_middleware(SnipeHostMiddleware)` |
+| `server/Dockerfile` | `COPY snipe ./snipe` after `COPY main.py .` |
+| `.github/workflows/ci.yml` | new `server-tests` job (P7). The `build-and-test` job is unchanged |
+
+### Non-goals
+
+- logout, multiple users, passkeys or account management
+- alert delivery (#1387) and push notifications
+- estate-scout or bayesiq-workspace changes (see Follow-ups)
+- the price page's localStorage filters and table, which are kept as-is from the vendored script and not redesigned
+- data migration from the claude.ai artifact databases
+
+### Forbidden Changes
+
+- `src/`, `public/`, `next.config.mjs`, `package.json`, `package-lock.json`: the Next site is untouched
+- the plans layout, `config/project.yaml` and ESLint config: owned by #96
+- `server/main.py` beyond the two added lines, including `/health`, `/audit`, CORS, `_verify_api_key` and rate limiting
+- `server/railway.toml`, `server/requirements.txt`, `server/build.sh` and `server/run_dev.sh`
+- the existing `build-and-test` job in `ci.yml`
 
 ## Known Non-Existence
 
-- No `middleware.ts`, auth, session or cookie code exists anywhere in `src/`.
-- No chart library is installed, and `@vercel/blob` is not installed.
-- No Blob store is connected to the Vercel project yet (O1).
-- `bayesiq-auth-services` has no SDK, schema or endpoints (R4).
-- The workspace `config/scopes.yaml` has no website scope and no Vercel-env destination kind. Its only hosted kind is `github_actions_secrets`.
+- `server/` has no tests, no persistent storage, no session or cookie code and no host routing. Nothing in `src/` calls it (`git grep` finds no Railway or audit-API URL in `src/`).
+- CI (`ci.yml`) has one job, Node and Playwright only. No Python runs in CI.
+- No `resend` Python package is installed, and none is added (D5).
+- estate-scout's bundle carries no page URLs, and its desk deals carry no `reasons` (D6).
+- The workspace scopes registry has no snipe-sales scope yet (#1481).
 
 ## Plan
 
-1. **[P1] Contract.** Write `parse.ts` with types matching R1, and the synthetic fixture: 2 watchlists, 3 items, one with `max`, `typical` and `grade` all null, one alertable with `grade.grade = "alert"`, 3 or more checks per item, and 2 sales.
-2. **[P2] Session.** Write `session.ts` (D1). Every function returns false when `PRICE_WATCH_PASSWORD` is unset.
-3. **[P3] Store and ingest.** Write `store.ts` and `route.ts` (D2). Ingest responses:
-   - 404: token env unset
-   - 401: bad or missing bearer
-   - 413: body over the cap
-   - 400: not JSON
-   - 422: `{error:"<path>"}`
-   - 502: the `put` call threw
-   - 204: stored
-
-   Only POST is exported.
-4. **[P4] Pages.** Login page and server action: a password field with `autocomplete="current-password"`, a generic "Wrong password" error, and a redirect to `/prices` on success. Prices page flow:
-   - verify the session, otherwise redirect
-   - `loadExport()`, then `parsePriceWatch`
-   - render `<PriceWatch data>`, showing "Updated {generated_at}"
-
-   Empty state: "No price data uploaded yet." Invalid stored data: "Stored export is unreadable" plus the field path. Both return 200 with no data.
-5. **[P5] Chart and cards.** `PriceWatch.tsx` and `PriceChart.tsx` per D4. Chart math (window, ticks, scale, nearest index) is a pure function in `PriceChart.tsx`, exported for tests.
-6. **[P6] Indexing.** Make the D3 edits to `layout.tsx`, `next.config.mjs` and `robots.ts`.
-7. **[P7] Tests and docs.** Write the tests below, `docs/price-watch.md`, and the `playwright.config.ts` env. If #96 has landed first, `npm run lint` also reports 0 errors on the new files.
+1. **[P1] Host dispatch.** Add `SnipeHostMiddleware` and an empty `snipe_app` with the D7 middleware and `/robots.txt`. Wire them into `main.py` and `Dockerfile`.
+2. **[P2] Store.** Write `store.py` per D2: one connection per call (`sqlite3.connect(path)`, `CREATE TABLE IF NOT EXISTS` on open), `put_sweep`, `latest_sweep`, `add_swipe`, `list_swipes`, `use_nonce` and `save_photo`.
+3. **[P3] Auth.** Write `auth.py` per D3 and D5. `send_email(to, subject, text)` is a module function so tests can replace it.
+4. **[P4] Machine API.** Add the three D3 endpoints with their status codes. Handlers are `async def` and read `await request.body()` after checking `Content-Length` against the cap.
+5. **[P5] Pages and login.** Add the vendored renderers (D6), `pages.py`, the D4 routes and the D5 login routes.
+6. **[P6] Fixture.** In an estate-scout `d8cee28` checkout, follow `tests/test_site.py` `setUp`: the synthetic watchlist, wants, a desk config titled `SYNTHETIC Desk`, and `record()` of `synthetic-price-watch-{1,2}.json`. Then run `python3 -m estate_scout.site_cli bundle desk.json --policy examples/synthetic-outing-policy.json --output snipe_bundle.json`. Commit the output (about 2.6 KB: 1 card, 1 deal, prices watchlist `synthetic-hw`), adding one synthetic decision `{"title": "SYNTHETIC decision", "status": "recheck", "due": null, "link": null}` so the desk renders that section. It contains no real personal data.
+7. **[P7] CI.** Add this job to `ci.yml`:
+   ```yaml
+     server-tests:
+       runs-on: ubuntu-latest
+       defaults: { run: { working-directory: server } }
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-python@v5
+           with: { python-version: "3.12" }
+         - run: pip install -r requirements.txt httpx
+         - run: python -m unittest discover -s tests -t . -v
+   ```
+   `httpx` is needed by Starlette's `TestClient` and is CI-only. unittest follows CONTRIBUTING "No manual tests" (Python uses `python -m unittest discover`), so there is no pytest dependency.
 
 ## Acceptance Criteria
 
-- [ ] With no cookie, `/prices` returns 307 to `/prices/login`, and the HTML contains no fixture string.
-- [ ] After login with the right password, every fixture item renders a chart. The watchlist and "Alertable only" filters change which cards are shown.
-- [ ] At a 360×740 touch viewport, `documentElement.scrollWidth <= innerWidth` holds on `/prices` and `/prices/login`.
-- [ ] Tapping the left edge of a chart shows the first check's price, date, listing source and condition from the fixture.
-- [ ] `/prices` and `/prices/login` send `X-Robots-Tag: noindex…` and `<meta name="robots" content="noindex, nofollow">`. `/prices` sends a `Cache-Control` that includes `no-store`.
-- [ ] `/robots.txt` contains `Disallow: /prices`, and `/sitemap.xml` does not contain `/prices`.
-- [ ] After `next build`, no `.next/server/app/prices*.html` exists, and no file under `.next/static` contains `SYNTHETIC`.
-- [ ] Ingest returns the P3 codes, and on 204 it calls `put` with `access:'private'`.
-- [ ] `npm run test:unit`, `npm test` and `npm run build` pass. No files outside Scope change.
+### Functional
+- [ ] `site_cli`'s flow passes against the app: photo PUT, then a bundle POST whose card `photo` is the returned URL, then GET swipes (T5–T7).
+- [ ] An unauthenticated `/`, `/deck` or `/prices` redirects to `/login`. After the magic-link flow, all three return 200 with the fixture's `SYNTHETIC` strings.
+- [ ] A swipe POSTed from the deck appears in `GET /api/swipes` and in the deck's embedded `swipe` on reload.
+- [ ] Every snipe response carries the D7 headers. `/robots.txt` disallows `/`.
+- [ ] `/health` and `/audit` on a non-snipe host behave as before. Snipe paths there return 404.
+
+### Structural
+- [ ] Only Scope files change. `cd server && python -m unittest discover -s tests -t . -v` passes locally and in CI, and `npm test` is unaffected.
 
 ## Test Plan
 
-- **`price-watch-parse.test.ts`** (Vitest, node env):
-  - the fixture parses
-  - `schema_version` 2 or missing is rejected
-  - a series point missing `cheapest.condition` is rejected with that field path
-  - nullable `max`, `typical` and `grade` are accepted, and extra keys are ignored
-- **`price-watch-session.test.ts`:**
-  - a signed cookie round-trips
-  - expired, tampered and wrong-key cookies are rejected
-  - every check returns false when the env is unset
-  - `passwordMatches` handles inputs of different lengths
-- **`price-watch-ingest.test.ts`:** each P3 status, with `vi.mock("@vercel/blob")` asserting the `put` arguments.
-- **`e2e/price-watch.spec.ts`** (Chromium against the `npm run build && npm run start` webServer): one test per acceptance bullet above except ingest. Login goes through the UI, and the tap test uses `hasTouch` and `locator.tap({position})`.
-- **Manual (post-deploy, operator):** sign in on a phone, then check that a 360px view does not scroll sideways and that tap and drag snap.
+### Unit tests
+
+All tests are in `server/tests/test_snipe.py`. Before `import main`, `setUpModule` puts stub modules into `sys.modules` for `audit` and its seven submodules (`main.py:33-39`), each with a `run` stub, so the private audit kit is not needed. Clients are `TestClient(main.app, base_url="https://snipe-sales.test")` with `SNIPE_HOST=snipe-sales.test`, and `https://` so `Secure` cookies are sent. Env and a temp `SNIPE_DATA_DIR` are set per test with `unittest.mock.patch.dict(os.environ)`. `snipe.auth.send_email` is patched to capture the link.
+
+| Test | What it covers |
+|------|---------------|
+| T1 host gating | Default host: `/health` gives `{"status":"ok"}`, and `/prices` and `/api/sweeps` give 404. Snipe host: `/health` gives 404. `SNIPE_HOST` unset: the snipe host reaches the audit app. A snipe response to `Origin: https://bayes-iq.com` has no `access-control-allow-origin` |
+| T2 fail closed | Data dir unset, then missing, then token unset: `/`, `/api/sweeps` and `/login` give 503, and `/robots.txt` gives 200 |
+| T3 privacy | D7 headers on a 200 page, a 401, a 404 and a 503. Page HTML has meta robots |
+| T4 bearer | Missing or wrong token gives 401 on all three machine routes. A valid session cookie alone gives 401 |
+| T5 sweeps | Fixture gives 200 `stored_at`. A repeat returns the same `stored_at` with one row. Prices `schema_version` 2 gives 422 `prices.schema_version`. Non-JSON gives 400, oversize gives 413, and an older `generated_at` pushed later does not become latest. 91 pushes keep 90 rows |
+| T6 photos | PNG and JPEG give `/photos/<64 hex>.png|.jpg`. GET with a session returns the bytes and type. Without a session gives 401. GIF bytes give 415, and `ref=a:b` gives 422 |
+| T7 swipes | A session plus the right Origin gives 201. No session gives 401, a wrong Origin 403, and verdict `like` or price `7.001` 422. `GET /api/swipes` rows have exactly `{ref, verdict, price, at}`. The overlay shows on `/deck` and `/` for a swipe after `generated_at` and not for one before |
+| T8 login | The operator email (any case) sends one email whose link starts `https://snipe-sales.test/login/verify?t=`. Another email sends none and gets the same body. A sixth send in an hour is skipped. Verify GET does not consume. POST sets `__Host-snipe_session` with `HttpOnly`, `Secure`, `SameSite=lax` and `Path=/`, and the response has no `Domain`. Reuse, tamper and expiry (patched `time.time`) give 400. A tampered or expired session cookie redirects |
+| T9 pages | `/`, `/deck` and `/prices` render the fixture. `/deck` HTML contains `fetch('/api/swipes'`. No file under `server/snipe/` contains `claude.use`, `claude.ai`, `anthropic`, `/_blob/` or `fonts.googleapis` |
+
+### Integration / manual tests
+
+None in CI. Operator post-deploy checks are listed under Operator steps (O7).
 
 ## Risks
 
-- **The export grows past 4 MB.** Ingest returns 413 instead of truncating. Follow-up E1 sends compact JSON. `indent=2` is most of the size.
-- **The password leaks.** The operator rotates `PRICE_WATCH_PASSWORD` in Vercel and redeploys, which invalidates every session.
-- **Merge overlap with #96.** Both PRs touch `package.json`, `package-lock.json` and `next.config.mjs`, in separate hunks. Whichever PR lands second rebases and regenerates the lock with `npm install`.
+- **Railway runs more than one replica, or has no volume.** SQLite and the photo dir need one replica with a volume. Without the volume, D2 fails closed with 503.
+- **Railway healthchecks** must still reach the audit app. They do unless their Host equals `SNIPE_HOST`, and the healthcheck host could not be verified from here.
+- **Resend sending domain.** If `bayes-iq.com` is not verified in Resend, the link email fails. The operator checks this at O3. Login cannot work until it is verified.
+- **Merge overlap with #96** in `ci.yml`. #96 adds steps inside `build-and-test`, and this PR adds a separate job, so the hunks are separate.
 
-## Operator steps (no values are generated or seen by agents)
+## Operator steps (no secrets generated or seen by agents)
 
-- **O1. Create a private Blob store.** In Vercel project `bayesiq-website`, go to Storage and create a Blob store with **private** access. Connect it to the **Production** environment only, which injects `BLOB_READ_WRITE_TOKEN`.
-- **O2. Set `PRICE_WATCH_PASSWORD`** (Production only). Generate it yourself with at least 24 random characters and save it in the phone's password manager.
-- **O3. Set `PRICE_WATCH_INGEST_TOKEN`** (Production only). Generate it yourself, then provision the same value on the sweep host through the scope from W1 (`bayesiq-creds`).
-- **O4. Redeploy Production.** Never set `PRICE_WATCH_DATA_FILE` in Vercel.
-- **O5. Approve the W1 scope** before O3's host copy is made.
+- **O1.** In the Railway service for `server/`, attach a volume (for example at `/data`) and set `SNIPE_DATA_DIR` to that path. Keep 1 replica.
+- **O2.** Set `SNIPE_HOST=snipe-sales.bayes-iq.com` and `SNIPE_OPERATOR_EMAIL` (your address). Set `SNIPE_SESSION_SECRET` and `SNIPE_API_TOKEN`, each at least 32 random bytes that you generate yourself.
+- **O3.** Set `RESEND_API_KEY` (and optionally `SNIPE_FROM_EMAIL`). Confirm in Resend that the from-domain is verified.
+- **O4.** In Railway, add the custom domain `snipe-sales.bayes-iq.com` and note the CNAME target, plus any verification TXT record it shows.
+- **O5.** In Cloudflare (zone bayes-iq.com), add CNAME `snipe-sales` pointing to that target, set to **DNS only (grey cloud)**, plus the TXT record if Railway lists one. Proxying through Railway was not verified.
+- **O6.** Redeploy. Put the same `SNIPE_API_TOKEN` value into the #1481 scope, as the client's `SNIPE_SALES_TOKEN`.
+- **O7.** On a phone, sign in, confirm the three pages load, then run `site_cli push` and `pull-swipes` once.
 
 ## Follow-ups (filed by the parent session; not in this PR)
 
-- **W1, bayesiq-workspace.** Declare scope `website-price-watch` in `config/scopes.yaml`:
-  - keys `PRICE_WATCH_PASSWORD` and `PRICE_WATCH_INGEST_TOKEN`
-  - a dotenv destination on the sweep host for the token
-  - the Vercel env copy recorded as attended-paste, the same pattern as `workspace-ci`'s description
-
-  No Vercel destination kind exists, so this PR does not invent one.
-- **E1, estate-scout.** After `sweep_cli finish`, upload `price-watch.json` per the contract:
-  - `POST https://bayes-iq.com/api/prices/ingest`
-  - headers `Authorization: Bearer $PRICE_WATCH_INGEST_TOKEN` and `Content-Type: application/json`
-  - body: the export bytes (compact JSON), at most 4,000,000 bytes
-
-  Responses are those in P3, and the latest upload wins. Run it via `bayesiq-creds run website-price-watch …`, without putting the token on a command line. Add the step to `docs/price-watch-sweep.md`.
-- **E2, estate-scout.** Decide whether `publish.json` keeps publishing `price-watch.html` to `prices_page` once the site route is live, or sets `prices_page` to the site URL.
+- **bayesiq-workspace#1481:** declare the scope that holds `SNIPE_SALES_TOKEN` for the sweep host.
+- **estate-scout:** the base URL is already `snipe-sales.bayes-iq.com` (#26, `cb3e033`). After cutover, set the desk config's `page`, `deck_page` and `prices_page` to the site URLs (#95 comment). Optionally add `reasons` to the bundle's desk deals so the adapter shim in D6 can go.
+- **Retire the interim claude.ai pages** (Price Watch, Deal Desk, Deal Deck artifacts) after cutover. Each delete needs operator confirmation.
 
 ## Reference excerpts
 
-R1. estate-scout `origin/main` (`de8fb18`), `estate_scout/price_page.py` and `docs/deals.md`:
+R1. estate-scout `d8cee28` `estate_scout/site_cli.py` (the client this server must satisfy):
+```python
+req = request.Request(url, data=body, method=method,
+                      headers={"Authorization": f"Bearer {token}", "Content-Type": content_type,
+                               "Accept": "application/json"})
+    with request.urlopen(req, timeout=TIMEOUT) as resp:
+        raw = resp.read(5_000_001)
+    return json.loads(raw) if raw else {}
+# push:
+        kind = "image/png" if data.startswith(b"\x89PNG") else "image/jpeg"
+        answer = call("PUT", endpoint(base, "/api/photos?" + parse.urlencode({"ref": ref})), data, kind)
+        if not isinstance(answer.get("url"), str):
+            fail(f"photo {ref}", "site did not return a photo url")
+    for card in bundle_doc["deck"]["cards"]:
+        if card["ref"] in urls:
+            card["photo"] = urls[card["ref"]]
+    answer = call("POST", endpoint(base, "/api/sweeps"), json.dumps(bundle_doc, ensure_ascii=False).encode())
+    return {"photos": len(urls), "stored_at": answer.get("stored_at")}
+# pull_swipes:
+    answer = call("GET", endpoint(base, "/api/swipes"))
+    rows = answer.get("swipes")
+        if not isinstance(row, dict) or row.get("verdict") not in ("pass", "maybe", "want"):
+        keep.append({k: row.get(k) for k in ("ref", "verdict", "price", "at")})
 ```
-def listing(o):
-    return {"price": float(Decimal(o["price"])), "source": o["source"], "url": o["url"], "condition": o["condition"],
-            "channel": o["channel"], "key": o["listing_key"]}
-series.append({"check": check_id, "date": c["date"], "low": ..., "median": ..., "n": len(asks), "cheapest": listing(asks[0])})
-sales[...] = dict(listing(o), date=o["sold_on"])   # only o["verified"] and not o["suspect"]
-items.append({"id", "label", "priority", "track", "alertable", "max": float|None, "typical": typical(...)|None,
-  "series", "sales", "grade": g and {"grade": g["grade"], "reasons": ..., "why": ..., "price": float}})
-return {"id": watchlist["id"], "label": label, "items": items}
-def export(watchlists, as_of):
-    return {"schema_version": EXPORT_VERSION, "generated_at": as_of, "watchlists": watchlists}
+
+R2. `site_cli.bundle` (same file):
+```python
+    stamp = now().isoformat()
+    keep = ("id", "grade", "why", "watchlist", "item_id", "item_label", "track", "priority", "listing_key", "source",
+            "url", "channel", "condition", "price", "all_in", "baseline_median", "round_trip_miles", "listing_days",
+            "max_price", "sold_30", "swipe", "slug", "listing_slug")
+    desk = {"title": config["title"], "decisions": config["decisions"], "watchlists": [
+        {"label": w["label"], "last_check": last, "sweep_tokens": cost and cost["agent_tokens"],
+         "deals": [{k: g.get(k) for k in keep} for g in entries]} for w, entries, last, cost in sections]}
+    return {"schema_version": BUNDLE_VERSION, "generated_at": stamp, "desk": desk, "deck": {"cards": cards},
+            "prices": export(lists, stamp)}
 ```
-`as_of = now().strftime("%Y-%m-%d %H:%M UTC")`. `why` is a list of strings (`deals.py:175`). `sweep_cli.py:117-119` writes `price-watch.html` and `price-watch.json` and publishes the page to `config["prices_page"]`.
+A generated fixture has `generated_at` `2026-10-03T23:14:54+00:00`. The `price_page.export` body is `{"schema_version": EXPORT_VERSION, "generated_at": as_of, "watchlists": watchlists}`, where each item carries its full `series` and `sales`.
 
-R2. `price_page.py` SCRIPT: `const W = 340, H = 180, L = 52, R = 10, T = 10, B = 26;`, `const WINDOW = 60 * 864e5;`. `svg.addEventListener('pointerdown', e => show(nearest(e)));` and `pointermove` while `e.buttons`, plus ArrowLeft/ArrowRight. The readout reads `` `${c.source} · ${c.condition} · ${c.channel} · ` ``, and the link is shown only when `/^https:\/\//.test(c.url)`.
+R3. `deals.py` (estate-scout `d8cee28`):
+```python
+def listing_ref(watchlist_id, item_id, listing_key):
+    return f"{watchlist_id}:{item_id}:{listing_key}"
+# card(g), line 386:
+    chips += [f'<span class="chip warn">{e(w)}</span>' for w in g.get("why", g["reasons"])[:3]]
+# render_desk(config, sections, as_of) reads config["title"], config["decisions"], config.get("deck_page"),
+# config.get("prices_page"); each section is (w, entries, last, cost) with w["label"], w["chart_page"],
+# w["best_deals_page"], and cost["agent_tokens"] when cost is not None.
+```
 
-R3. `@vercel/blob@2.8.0` `dist/index.d.ts`: `declare function get(urlOrPathname: string, options: GetCommandOptions): Promise<GetBlobResult | null>;`. `access - (Required) Must be 'public' or 'private'. Public blobs are accessible via URL, private blobs require authentication.` and `useCache - (Optional) When false, bypasses the CDN cache and reads the latest content directly from origin storage.` `put` options include `addRandomSuffix?` and `allowOverwrite?`.
+R4. `deck.py` lines replaced by D6 (estate-scout `d8cee28`):
+```js
+async function save(c, verdict) {
+  verdicts[c.listing_slug] = verdict;
+  if (!db) return;
+  try { await db.collection('swipes').doc(c.listing_slug).set({ref: c.ref, verdict, price: c.price.toFixed(2),
+    alert_id: c.alert_id, item: c.item, at: new Date().toISOString()}); }
+  catch (e) { const n = document.getElementById('status'); n.textContent = 'Could not save that swipe; it will show again next time.'; }
+}
+...
+(async () => { try { db = await claude.use('db'); } catch (e) { db = null; }
+  const n = document.getElementById('status');
+  if (!db) { n.textContent = 'Swipes are not saved in this view.'; return; }
+  db.collection('swipes').onSnapshot(snap => { let changed = false;
+    snap.docs.forEach(d => { const v = d.data(); if (v && verdicts[d.id] !== v.verdict) { verdicts[d.id] = v.verdict; changed = true; } });
+    if (changed) render(); }, () => { n.textContent = 'Swipes could not sync; they will show again next time.'; });
+})();
+```
+On load, `DECK.cards.forEach(c => { if (c.swipe) verdicts[c.listing_slug] = c.swipe; });` (line 198) seeds verdicts. `render_deck(config, deck, as_of, document=False)` reads `config.get("page")` and `config.get("prices_page")`. `render_page(config, watchlists, as_of, document=False)` reads `config.get("page")`.
 
-R4. bayesiq-auth-services `origin/main` (`1fbdd1a`, "Phase 0 initial scaffold"). The tree is only docs, `scripts/install.sh` and empty `conformance/`, `openapi/` and `schema/`. Its CAPABILITIES.md says: "Phase 0: no capabilities registered yet."
+R5. `deck.py` `read_photos`, line 31: `if isinstance(p, dict) and isinstance(p.get("url"), str) and p["url"].startswith(("/_blob/", "data:image/"))`. The Fonts links are at `deals.py:408` and `deck.py:326`. `price_page.py` has none.
+
+R6. Website `node_modules/resend` 6.9.3 `dist/index.cjs` (the SDK used by `src/app/contact/actions.ts`): `Authorization: \`Bearer ${this.key}\`, "User-Agent": userAgent, "Content-Type": "application/json"`; `this.resend.post("/emails", parseEmailToApiOptions(payload))`, which maps to `{from, to, subject, text, ...}` against base URL `https://api.resend.com`.
+
+R7. This repo's `server/main.py`, lines 78–87 and 111–113 (the hook goes after line 87):
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "https://bayes-iq.com",
+        "https://www.bayes-iq.com",
+    ],
+    allow_methods=["POST", "GET"],
+    allow_headers=["Content-Type", "Authorization"],
+)
+...
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+```
+`server/Dockerfile`: `COPY main.py .` comes just before `ENV PYTHONUNBUFFERED=1`. `server/requirements.txt` already has `fastapi>=0.110`, `uvicorn[standard]>=0.27` and `python-multipart>=0.0.9` (needed for the login forms).
