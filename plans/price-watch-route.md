@@ -2,14 +2,14 @@
 schema_version: 1
 work_unit:
   id: price-watch-route
-  state: draft
+  state: plan-approved
   branch: feat/price-watch-route
   repo: bayesiq-website
   parent_run_id: null
-  approval_run_id: null
-  approval_decision: null
-  approval_timestamp: null
-  approved_by: null
+  approval_run_id: price-watch-20261003-181844
+  approval_decision: approve-with-notes
+  approval_timestamp: "2026-10-03T23:22:09Z"
+  approved_by: critic
   issue: 95
 ---
 
