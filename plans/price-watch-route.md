@@ -2,7 +2,7 @@
 schema_version: 1
 work_unit:
   id: price-watch-route
-  state: plan-approved
+  state: pr-open
   branch: feat/price-watch-route
   repo: bayesiq-website
   parent_run_id: null
