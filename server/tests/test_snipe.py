@@ -439,6 +439,13 @@ class T8Login(SnipeCase):
         self.assertEqual((other.status_code, other.text), (200, sent_body))
         self.assertIn("If that is the operator's address, a link is on its way.", sent_body)
 
+    def test_login_forms_refuse_oversized_bodies(self):
+        big = "x" * 5000
+        r = self.client.post("/login", data={"email": big})
+        self.assertEqual(r.status_code, 413)
+        self.assertEqual(self.sent, [])
+        self.assertEqual(self.client.post("/login/verify", data={"t": big}).status_code, 413)
+
     def test_link_host_comes_from_env_not_request(self):
         self.client.post("/login", data={"email": OPERATOR}, headers={"Host": "SNIPE-SALES.test:8443"})
         self.assertTrue(self.sent[0][2].split("\n")[2].startswith(f"https://{HOST}/login/verify?t="))

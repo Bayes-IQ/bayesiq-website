@@ -11,6 +11,7 @@ import logging
 import os
 from pathlib import Path
 import re
+from urllib.parse import parse_qs
 
 from fastapi import BackgroundTasks, FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
@@ -100,6 +101,16 @@ async def read_capped(request, cap):
             raise TooLarge
         chunks.append(chunk)
     return b"".join(chunks)
+
+
+MAX_LOGIN_FORM = 4096
+
+
+async def read_form(request):
+    """A small urlencoded form, capped like every other body (login is unauthenticated)."""
+    raw = await read_capped(request, MAX_LOGIN_FORM)
+    fields = parse_qs(raw.decode("utf-8", "replace"), max_num_fields=8)
+    return {k: v[0] for k, v in fields.items()}
 
 
 def error(status, message):
@@ -311,7 +322,10 @@ async def login_request(request: Request, background: BackgroundTasks):
     if not os.environ.get("RESEND_API_KEY"):
         return HTMLResponse(pages.message_page("Unavailable", "Email sign-in is not configured."), status_code=503)
     cfg = request.state.cfg
-    form = await request.form()
+    try:
+        form = await read_form(request)
+    except (TooLarge, ValueError):
+        return HTMLResponse(pages.login_sent_page(), status_code=413)
     email = form.get("email")
     # Same answer either way; the email goes out after the response, so timing says nothing either.
     if isinstance(email, str) and auth.email_matches(email, cfg.operator_email) and auth.take_send_slot():
@@ -329,7 +343,10 @@ def login_verify_form(t: str = ""):
 @snipe_app.post("/login/verify")
 async def login_verify(request: Request):
     cfg = request.state.cfg
-    form = await request.form()
+    try:
+        form = await read_form(request)
+    except (TooLarge, ValueError):
+        return HTMLResponse(pages.bad_link_page(), status_code=413)
     token = form.get("t")
     nonce = auth.check_link_token(cfg.session_secret, token if isinstance(token, str) else "")
     if nonce is None or not store.use_nonce(cfg.data_dir, nonce):
