@@ -27,6 +27,7 @@ RUN if [ -f /app/bayesiq-data-audit-kit/requirements.txt ]; then \
     fi
 
 COPY main.py .
+COPY snipe ./snipe
 
 ENV PYTHONUNBUFFERED=1
 EXPOSE 8000

@@ -85,6 +85,8 @@ app.add_middleware(
     allow_methods=["POST", "GET"],
     allow_headers=["Content-Type", "Authorization"],
 )
+from snipe import SnipeHostMiddleware
+app.add_middleware(SnipeHostMiddleware)
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 AUDIT_TIMEOUT = int(os.environ.get("AUDIT_TIMEOUT", "120"))  # seconds
