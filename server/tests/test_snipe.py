@@ -345,6 +345,8 @@ class T6Photos(SnipeCase):
         self.assertEqual((got.content, got.headers["content-type"]), (JPEG, "image/jpeg"))
         self.assertEqual(self.client.get("/photos/" + "0" * 64 + ".png").status_code, 404)
         self.assertEqual(self.client.get("/photos/x.png").status_code, 404)
+        for name in ("../snipe.sqlite3", "..%2Fsnipe.sqlite3", "a" * 64 + ".png", "0" * 64 + ".gif", "0" * 64 + ".png/x"):
+            self.assertIsNone(store.photo_path(self.data.name, name), name)
 
     def test_rejections(self):
         self.assertEqual(self.machine("PUT", "/api/photos?ref=a:b:c", content=b"GIF89a....").status_code, 415)

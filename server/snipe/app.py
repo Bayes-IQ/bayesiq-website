@@ -24,7 +24,6 @@ MAX_SWEEP = 10_000_000
 MAX_PHOTO = 5_000_000
 MAX_SWIPE = 4_096
 PRICE = re.compile(r"^[0-9]{1,9}(\.[0-9]{1,2})?$")
-PHOTO_NAME = re.compile(r"^[0-9a-f]{64}\.(png|jpg)$")
 VERDICTS = ("pass", "maybe", "want")
 
 PRIVACY_HEADERS = {
@@ -257,10 +256,12 @@ def get_photo(request: Request, name: str):
     if not has_session(request):
         return error(401, "sign in")
     path = store.photo_path(request.state.cfg.data_dir, name)
-    if not PHOTO_NAME.match(name) or not path.is_file():
+    if path is None or not os.path.isfile(path):
         return PlainTextResponse("Not found.", status_code=404)
-    kind = "image/png" if name.endswith(".png") else "image/jpeg"
-    return Response(path.read_bytes(), media_type=kind, headers={"X-Content-Type-Options": "nosniff"})
+    kind = "image/png" if path.endswith(".png") else "image/jpeg"
+    with open(path, "rb") as stream:
+        data = stream.read()
+    return Response(data, media_type=kind, headers={"X-Content-Type-Options": "nosniff"})
 
 
 def _page(request, render):

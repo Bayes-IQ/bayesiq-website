@@ -26,11 +26,10 @@ _sent = []  # wall-clock times of the link emails this process sent in the last 
 
 
 def bearer_ok(header, token):
-    """True when `Authorization: Bearer <token>` matches; compares SHA-256 digests so length leaks nothing."""
+    """True when `Authorization: Bearer <token>` matches, compared in constant time (only the length can leak)."""
     if not token or not header or not header.startswith("Bearer "):
         return False
-    given = header[len("Bearer "):].encode()
-    return hmac.compare_digest(hashlib.sha256(given).digest(), hashlib.sha256(token.encode()).digest())
+    return hmac.compare_digest(header[len("Bearer "):].encode(), token.encode())
 
 
 def _sign(secret, message):

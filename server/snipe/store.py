@@ -9,10 +9,12 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import os
 from pathlib import Path
+import re
 import sqlite3
 import tempfile
 
 KEEP_SWEEPS = 90
+PHOTO_NAME = re.compile(r"[0-9a-f]{64}\.(png|jpg)")
 NONCE_RETENTION = timedelta(hours=24)
 
 SCHEMA = """
@@ -101,4 +103,11 @@ def save_photo(data_dir, data):
 
 
 def photo_path(data_dir, name):
-    return Path(data_dir) / "photos" / name
+    """The stored file for a `<sha256>.png|.jpg` name, or None for any other name or a path outside photos/."""
+    if not PHOTO_NAME.fullmatch(name):
+        return None
+    folder = os.path.realpath(os.path.join(data_dir, "photos"))
+    path = os.path.normpath(os.path.join(folder, name))
+    if not path.startswith(folder + os.sep):
+        return None
+    return path
